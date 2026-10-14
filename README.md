@@ -3,7 +3,7 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/edwarly999plus/Nibbly/refs/heads/main/Nibbly Logo.png?token=GHSAT0AAAAAADVBZJGYSTKPEQDEUEN5HF5A2WPPC4Q" alt="Nibbly Logo" width="160" height="160">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/Nibbly%20Logo.png" alt="Nibbly Logo" width="160" height="160">
 </p>
 
 <h1 align="center">Nibbly</h1>
