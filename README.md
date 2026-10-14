@@ -169,7 +169,7 @@ cordova build android
 
 ---
 
-📱 Uso
+### 📱 Uso
 
 Navega entre las 5 pestañas principales:
 
@@ -184,7 +184,7 @@ Pulsa el engranaje ⚙ para acceder a Ajustes y personalizar colores, sonidos, i
 
 ---
 
-🛠️ Tecnología
+### 🛠️ Tecnología
 
 · HTML5 — estructura semántica
 · CSS3 — Material You 3, color-mix(), variables CSS, animaciones
@@ -198,7 +198,7 @@ Tamaño total: un solo archivo index.html (~200 KB)
 
 ---
 
-🗺️ Roadmap
+### 🗺️ Roadmap
 
 ☑ v1.0.0 — Versión inicial completa
 ☐ v1.0.x — Corrección de bugs (según issues reportados)
@@ -207,7 +207,7 @@ Nota: A partir de ahora el proyecto entra en modo mantenimiento. Solo se aceptar
 
 ---
 
-🤝 Contribuir
+### 🤝 Contribuir
 
 Las contribuciones son bienvenidas, especialmente bugfixes:
 
@@ -226,7 +226,7 @@ Si encuentras un bug, abre un Issue con:
 
 ---
 
-👤 Autor
+### 👤 Autor
 
 EdwarlyGamer999+
 
@@ -235,7 +235,7 @@ EdwarlyGamer999+
 
 ---
 
-📄 Licencia
+## 📄 Licencia
 
 Este proyecto está bajo la licencia Apache-2.0. Consulta el archivo LICENSE para más detalles.
 
