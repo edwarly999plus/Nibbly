@@ -61,11 +61,12 @@ Si la app muestra una pantalla en blanco, actualiza **Android System WebView** d
   <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/4.png" alt="4" width="180">
   <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/5.png" alt="5" width="180">
 </p>
-
 <p align="center">
-  <img src="https://TU-LINK-SCREENSHOT-6.png" alt="Ajustes" width="180">
-  <img src="https://TU-LINK-SCREENSHOT-7.png" alt="Modo oscuro" width="180">
-  <img src="https://TU-LINK-SCREENSHOT-8.png" alt="Acerca De" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/6.png" alt="6" width="180">
+  <img src="https://https://github.com/edwarly999plus/Nibbly/blob/main/img/7.png" alt="7" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/8.png" alt="8" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/9.png" alt="9" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/10.png" alt="10" width="180">
 </p>
 
 ---
