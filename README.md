@@ -55,10 +55,10 @@ Si la app muestra una pantalla en blanco, actualiza **Android System WebView** d
 ## 📸 Capturas de pantalla
 
 <p align="center">
-  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/1.png" alt="Números" width="180">
-  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/2.png" alt="Texto" width="180">
-  <img src="https://TU-LINK-SCREENSHOT-3.png" alt="Bits" width="180">
-  <img src="https://TU-LINK-SCREENSHOT-4.png" alt="Potencia" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/1.png" alt="1" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/2.png" alt="2" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/3.png" alt="3" width="180">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/4.png" alt="4" width="180">
   <img src="https://TU-LINK-SCREENSHOT-5.png" alt="Multimedia" width="180">
 </p>
 
