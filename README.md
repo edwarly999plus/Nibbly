@@ -451,7 +451,7 @@ limitations under the License.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/edwarly999plus/Nibbly?style=social" alt="Stars">
+  <img src="https://img.shields.io/github/stars/edwarly999plus/Nibbly" alt="Stars">
   <img src="https://img.shields.io/github/forks/edwarly999plus/Nibbly?style=social" alt="Forks">
   <img src="https://img.shields.io/github/issues/edwarly999plus/Nibbly" alt="Issues">
 </p>
