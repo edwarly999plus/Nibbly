@@ -201,6 +201,7 @@ Tamaño total: un solo archivo index.html (~200 KB)
 ### 🗺️ Roadmap
 
 ☑ v1.0.0 — Versión inicial completa
+☑ v1.0.1 — Versión enfocada al diseño
 ☐ v1.0.x — Corrección de bugs (según issues reportados)
 
 Nota: A partir de ahora el proyecto entra en modo mantenimiento. Solo se aceptarán pull requests de bugfix. Las nuevas funciones se considerarán caso por caso.
