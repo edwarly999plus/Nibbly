@@ -75,16 +75,7 @@ Si la app muestra una pantalla en blanco, actualiza **Android System WebView** d
 
 **Nibbly** es una aplicación Android construida en **HTML5 + CSS3 + JavaScript** que reúne más de **30 herramientas de conversión**, **una calculadora con personalidad propia** y **3 minijuegos informáticos**, todo en una sola interfaz **Material You 3** con temas personalizables, sonidos, registro de cálculos, música de fondo opcional y soporte bilingüe.
 
-Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Capacitor o Cordova.
-
-**Novedades destacadas de la 1.0.2:**
-- 🎮 **Sección Juegos** con Tetris, Buscaminas y 2048 (activables/desactivables)
-- 🧮 **Calculadora con personalidad** (explota si activas "Please Don't" y cometes un error)
-- 🖥️ **Interfaz de escritorio opcional** con atajos de teclado
-- 🌡️ **Medidor de calor de CPU** con °C/°F y chistes
-- ⏳ **Botones "Convertir"** con delay de 3 s y mensajes rotativos (para no saturar la consola)
-- 🔊 **Descarga de audio Morse en .wav** directamente desde la pestaña Texto
-- 🎚️ **Sliders de volumen** independientes para música y sonidos
+Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, WebToApp, Capacitor o Cordova.
 
 ---
 
@@ -188,7 +179,7 @@ Desde la 1.0.1, la app soporta música de fondo opcional:
 - **Fallback remoto**: si el archivo local no se encuentra en **5 s**, se carga automáticamente la versión alojada en **Archive.org** (`nibbly-ost-archive`)
 - **Caché offline**: tras la primera reproducción remota, la pista se guarda en **Cache Storage** (`nibbly-theme`) para que las siguientes ejecuciones funcionen sin conexión
 - Reproducción en bucle con volumen ajustable desde Ajustes
-- Se pausa automáticamente si cambias de app (respeta los controles del sistema)
+- Se detiene automáticamente si cierras la app (respeta los controles del sistema)
 
 ---
 
@@ -256,16 +247,7 @@ cordova build android
 
 Navega entre las 7 pestañas principales:
 
-Pestaña Descripción
-Números Bases numéricas, BCD, ASCII y generador de códigos
-Texto Codifica/decodifica texto con reproductor Morse y descarga WAV
-Bits Unidades de almacenamiento y combinaciones
-Potencia Watts, medidor de calor de CPU, velocidad de red, CPU, RAM y almacenamiento
-Multimedia Audio, decibelios, vídeo, tiempo, frames y códecs
-Calculadora Operaciones básicas con personalidad explosiva opcional
-Juegos Tetris, Buscaminas y 2048 (activables/desactivables)
-
-Pulsa el engranaje ⚙ para acceder a Ajustes y personalizar colores, sonidos, música, idioma, interfaz, registro de cálculos y el toggle "Please Don't".
+Pulsa el engranaje ⚙ para acceder a Ajustes y personalizar colores, sonidos, música, idioma, interfaz, registro de cálculos, etc.
 
 ---
 
@@ -281,8 +263,7 @@ Pulsa el engranaje ⚙ para acceder a Ajustes y personalizar colores, sonidos, m
 · ResizeObserver — recálculo dinámico de posiciones en 2048
 · requestAnimationFrame — física de la explosión de la calculadora
 · Android System WebView — motor de renderizado
-
-Tamaño total: ~250 KB (index.html + games/* + desktop-ui/*), sin contar mus/ ni img/
+· Juegos hechos por y para programadores — Entretenido a ratos
 
 ---
 
