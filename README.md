@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/versión-1.0.1-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/versión-1.0.2-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
@@ -135,7 +135,7 @@ Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Ca
 ### 📦 Opción 1 — Instalar el APK (recomendado)
 
 1. Ve a la sección **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)**
-2. Descarga el archivo `Nibbly-v1.0.0.apk`
+2. Descarga el archivo `.apk`
 3. Habilita **"Instalar apps de fuentes desconocidas"** en los ajustes de Android
 4. Instala el APK y abre la app
 
@@ -202,6 +202,7 @@ Tamaño total: un solo archivo index.html (~200 KB)
 
 ☑ v1.0.0 — Versión inicial completa
 ☑ v1.0.1 — Versión enfocada al diseño
+☑ v1.0.2 — Versión enfocada a mejorar la calidad de vida y agregar minijuegos
 ☐ v1.0.x — Corrección de bugs (según issues reportados)
 
 Nota: A partir de ahora el proyecto entra en modo mantenimiento. Solo se aceptarán pull requests de bugfix. Las nuevas funciones se considerarán caso por caso.
