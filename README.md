@@ -10,7 +10,7 @@
 
 <p align="center">
   <b>El convertidor todo-en-uno para Android</b><br>
-  Bases · Texto · Morse · Bits · Potencia · Multimedia
+  Bases · Texto · Morse · Bits · Potencia · Multimedia · Calculadora · Juegos
 </p>
 
 <p align="center">
@@ -32,13 +32,13 @@
 
 > **⚡ APK ya compilado disponible en [Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)**
 
-El APK incluye el HTML ya construido y listo para ejecutarse. **No requiere conexión a internet** una vez instalado.
+El APK incluye el HTML ya construido y listo para ejecutarse. **No requiere conexión a internet** una vez instalado (la música de fondo remota se cachea tras la primera reproducción).
 
 ### ⚠️ Requisito importante
 
 La app usa el **Android System WebView** (o Chrome) para renderizar la interfaz.
 
-- **Android 5.0 (Lollipop) o superior** ✅
+- **Android 6.0 (Marshmallow) o superior** ✅
 - **Android System WebView** instalado y actualizado ✅
 - En la mayoría de dispositivos modernos **ya viene preinstalado**
 
@@ -73,9 +73,18 @@ Si la app muestra una pantalla en blanco, actualiza **Android System WebView** d
 
 ## 📖 Descripción
 
-**Nibbly** es una aplicación Android construida en **HTML5 + CSS3 + JavaScript** que reúne más de **25 herramientas de conversión** orientadas al mundo técnico y de ingeniería, en una sola interfaz **Material You 3** con temas personalizables, sonidos, registro de cálculos y soporte bilingüe.
+**Nibbly** es una aplicación Android construida en **HTML5 + CSS3 + JavaScript** que reúne más de **30 herramientas de conversión**, **una calculadora con personalidad propia** y **3 minijuegos informáticos**, todo en una sola interfaz **Material You 3** con temas personalizables, sonidos, registro de cálculos, música de fondo opcional y soporte bilingüe.
 
 Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Capacitor o Cordova.
+
+**Novedades destacadas de la 1.0.2:**
+- 🎮 **Sección Juegos** con Tetris, Buscaminas y 2048 (activables/desactivables)
+- 🧮 **Calculadora con personalidad** (explota si activas "Please Don't" y cometes un error)
+- 🖥️ **Interfaz de escritorio opcional** con atajos de teclado
+- 🌡️ **Medidor de calor de CPU** con °C/°F y chistes
+- ⏳ **Botones "Convertir"** con delay de 3 s y mensajes rotativos (para no saturar la consola)
+- 🔊 **Descarga de audio Morse en .wav** directamente desde la pestaña Texto
+- 🎚️ **Sliders de volumen** independientes para música y sonidos
 
 ---
 
@@ -86,6 +95,7 @@ Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Ca
 - Salidas en **Binario, Octal, Decimal, Hex, Base32, Base36**
 - **Nibble** (bloques de 4 bits) y **BCD** (Binary-Coded Decimal)
 - **ASCII** y soporte para números grandes con `BigInt`
+- **⏳ Botón "Convertir"** con delay de 3 s y **mensajes rotativos** ("Alineando los astros…", "Calculando matemáticamente…", etc.) — la conversión solo se ejecuta al pulsarlo, evitando saturar la consola y respetando el ritmo del usuario
 - **🎲 Generador de códigos alfanuméricos** con:
   - Configuración de **separadores** (0 a N)
   - **Dígitos por bloque** personalizables
@@ -97,6 +107,7 @@ Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Ca
 - Soporte completo de **Unicode** (emojis incluidos)
 - **Teclado Morse integrado** (punto, línea, espacio, `/`) para dispositivos sin esas fuentes
 - **🔊 Reproductor Morse**: escucha las frecuencias en formato beep (750 Hz) directamente desde la app
+- **⬇ Descarga de audio Morse en .wav**: genera un archivo de audio con los tonos del mensaje para guardarlo o compartirlo (con 0.5 s de lead-in para evitar que algunos reproductores recorten el inicio)
 - Auto-división de cadenas continuas al pegar
 
 ### 💾 Bits
@@ -106,6 +117,7 @@ Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Ca
 
 ### ⚡ Potencia
 - **Watts**: mW, W, kW, MW, GW, HP, CV, BTU/h con barra de calidad
+- **🌡️ Medidor de calor de CPU**: introduce °C o °F y obtén el nivel de peligro, el uso estimado del procesador y un chiste cuando el calor llega a niveles extremos ("Tan caliente para freír un huevo", "Hace tanto calor que puedes prender una fogata y despedirte del CPU")
 - **Velocidad de conexión**: bps → Tbps, B/s → GB/s con medidores de descarga y subida
 - **CPU (GHz)**: Hz → THz con 8 barras de rendimiento verticales
 - **🧠 RAM**: DDR, DDR2, DDR3, DDR4, DDR5 con ancho de banda por canal y dual channel
@@ -121,12 +133,62 @@ Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Ca
   - Calidad y eficiencia de compresión
   - Compatibilidad con **Android, iOS, Windows y Web**
 
+### 🧮 Calculadora
+- Funciones clásicas: **suma, resta, multiplicación, división, raíz cuadrada, potencias y cambio de signo**
+- **💥 Explosión física opcional**: activa el interruptor **"Please Don't"** en Ajustes y, al cometer un error de sintaxis o una **división por cero**, los botones salen volando con física de gravedad, rotación y desvanecimiento. La calculadora queda inutilizable hasta que cambies de pestaña y vuelvas a entrar
+- Desactivado por defecto → cálculo normal con `"Error"` en pantalla
+
+### 🎮 Juegos
+Tres minijuegos informáticos completos, cargados como **archivos separados** (`games/games.css` y `games/games.js`) para mantener el `index.html` principal ligero:
+
+- **🎲 2048**: tablero 4×4 con animación de **deslizamiento real** (los tiles se mueven físicamente entre celdas), soporte de swipe en móvil y teclas de flecha en escritorio
+- **🧱 Tetris**: 10×20 con los 7 tetrominós clásicos, wall-kick al rotar, velocidad progresiva por nivel, controles táctiles y de teclado (`← → ↓ ↑ Espacio P`)
+- **💣 Buscaminas**: 9×9 con 10 minas, primer clic siempre seguro, banderas con **botón dedicado 🚩** (para marcar de forma determinista en Android con un solo toque) y long-press como alternativa
+
+**Ajustes:**
+- **Interruptor Juegos ON/OFF** para desactivar la pestaña completa si te distrae
+- Si los archivos `games/*` no existen, aparece el mensaje *"No Hay Juegos Instalados, Descargue Los Archivos Faltantes En GitHub :("*
+
+### 🖥️ Interfaz de escritorio (opcional)
+Diseñada para usarse cómodamente desde un PC con ratón, cargada como **expansión externa** (`desktop-ui/desktop.css` y `desktop-ui/desktop.js`):
+
+- **Sidebar vertical** con iconos por pestaña
+- **Grid responsive** de tarjetas (2–3 columnas según ancho)
+- **Atajos de teclado**: `1`–`7` cambian de pestaña, `Esc` cierra Ajustes
+- **Modal centrado** para Ajustes (en vez de bottom sheet)
+- **Badge de versión** junto al título
+- **Hover states** en botones, tarjetas y tabs
+- **Fallback automático** a layout móvil si la ventana baja de 900 px
+
+**Force UI** en Ajustes → Interfaz:
+- **Automático** — detecta el dispositivo
+- **Forzar Bolsillo** — siempre mobile
+- **Forzar Escritorio** — carga `desktop-ui/*`. Si los archivos no existen, el botón se grisea y al pulsarlo muestra *"Los Archivos De Expansión Están Rotos O No Existen"*
+
 ### ⚙️ Ajustes
 - 🎨 **Color resaltado y fondo personalizables** con presets oscuros
 - 📋 **Registro de cálculos**: Desactivado / Consola / En la app
-- ✨ **Efectos visuales** ON/OFF
+- ✨ **Efectos visuales** ON/OFF (afecta también al **fondo gradiente animado**)
 - 🔊 **Sonidos** ON/OFF (Web Audio API) — afecta también al reproductor Morse
+- 🎚️ **Sliders de volumen independientes** para música y sonidos (0–100%). Si un slider está en **0%**, el interruptor correspondiente se grisea y no se puede activar hasta subirlo a ≥1%
 - 🌐 **Idioma**: Español / Inglés
+
+### 🎨 Fondo gradiente animado
+Desde la 1.0.1, la app incluye un **fondo gradiente radial animado** que respira suavemente con la música de fondo. El color del gradiente usa automáticamente el **color de acento** que hayas elegido, creando una experiencia visual coherente:
+
+- Animación `bgPulse` de 9 s que alterna entre 100% y 32% de opacidad
+- Combina con el ambiente relajante de *"You Are Nibbled"*
+- Respeta el toggle **Efectos visuales** (se desactiva si apagas los efectos)
+- Sin coste de rendimiento: usa `will-change: opacity` y `background-repeat: no-repeat`
+
+### 🎵 Música de fondo
+Desde la 1.0.1, la app soporta música de fondo opcional:
+
+- **Archivo local**: `mus/You Are Nibbled.ogg` (si existe se usa preferentemente)
+- **Fallback remoto**: si el archivo local no se encuentra en **5 s**, se carga automáticamente la versión alojada en **Archive.org** (`nibbly-ost-archive`)
+- **Caché offline**: tras la primera reproducción remota, la pista se guarda en **Cache Storage** (`nibbly-theme`) para que las siguientes ejecuciones funcionen sin conexión
+- Reproducción en bucle con volumen ajustable desde Ajustes
+- Se pausa automáticamente si cambias de app (respeta los controles del sistema)
 
 ---
 
@@ -143,17 +205,38 @@ Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Ca
 
 ### 🛠️ Opción 2 — Compilar desde el código fuente
 
+#### Estructura del proyecto
+```
+
+nibbly/
+├── index.html                 ← app principal
+├── games/
+│   ├── games.css              ← estilos de los minijuegos
+│   └── games.js               ← lógica de Tetris, Buscaminas y 2048
+├── desktop-ui/
+│   ├── desktop.css            ← layout de escritorio
+│   └── desktop.js             ← enhancers + atajos de teclado
+├── mus/
+│   └── You Are Nibbled.ogg    ← música local (opcional)
+└── img/
+└── (capturas para el README)
+
+```
+
+Los archivos en `games/` y `desktop-ui/` son **opcionales**: si no existen, la app funciona igual (pero sin juegos y sin UI de escritorio forzable).
+
 #### Con WebView manual
-1. Copia `index.html` a `app/src/main/assets/`
+1. Copia **toda la carpeta del proyecto** a `app/src/main/assets/`
 2. Carga el archivo con `WebView.loadUrl("file:///android_asset/index.html")`
-3. Habilita JavaScript en tu `WebView`
+3. Habilita **JavaScript** en tu `WebView` (`webSettings.setJavaScriptEnabled(true)`)
+4. Habilita **almacenamiento local** (`webSettings.setDomStorageEnabled(true)`)
 
 #### Con Capacitor
 ```bash
 npm install -g @capacitor/cli
 npx cap init Nibbly com.edwarly999plus.nibbly
 npx cap add android
-# Copia index.html a la carpeta www/
+# Copia index.html + games/ + desktop-ui/ + mus/ a la carpeta www/
 npx cap sync
 ```
 
@@ -162,54 +245,68 @@ Con Cordova
 ```bash
 cordova create nibbly com.edwarly999plus.nibbly Nibbly
 cd nibbly
-# Copia index.html a www/
+# Copia index.html + games/ + desktop-ui/ + mus/ a www/
 cordova platform add android
 cordova build android
 ```
 
 ---
 
-### 📱 Uso
+📱 Uso
 
-Navega entre las 5 pestañas principales:
+Navega entre las 7 pestañas principales:
 
 Pestaña Descripción
-Números Bases numéricas, BCD y generador de códigos
-Texto Codifica/decodifica texto con reproductor Morse
+Números Bases numéricas, BCD, ASCII y generador de códigos
+Texto Codifica/decodifica texto con reproductor Morse y descarga WAV
 Bits Unidades de almacenamiento y combinaciones
-Potencia Watts, velocidad de red, CPU, RAM y almacenamiento
+Potencia Watts, medidor de calor de CPU, velocidad de red, CPU, RAM y almacenamiento
 Multimedia Audio, decibelios, vídeo, tiempo, frames y códecs
+Calculadora Operaciones básicas con personalidad explosiva opcional
+Juegos Tetris, Buscaminas y 2048 (activables/desactivables)
 
-Pulsa el engranaje ⚙ para acceder a Ajustes y personalizar colores, sonidos, idioma y registro de cálculos.
+Pulsa el engranaje ⚙ para acceder a Ajustes y personalizar colores, sonidos, música, idioma, interfaz, registro de cálculos y el toggle "Please Don't".
 
 ---
 
-### 🛠️ Tecnología
+🛠️ Tecnología
 
 · HTML5 — estructura semántica
-· CSS3 — Material You 3, color-mix(), variables CSS, animaciones
+· CSS3 — Material You 3, color-mix(), variables CSS, animaciones, dvh/svh para adaptación al viewport
 · JavaScript vanilla — sin dependencias, sin build step
 · Web Audio API — sonidos de click y beeps Morse sintetizados
 · BigInt — aritmética de precisión arbitraria
 · LocalStorage — persistencia de ajustes
+· Cache Storage API — caché offline de la música remota
+· ResizeObserver — recálculo dinámico de posiciones en 2048
+· requestAnimationFrame — física de la explosión de la calculadora
 · Android System WebView — motor de renderizado
 
-Tamaño total: un solo archivo index.html (~200 KB)
+Tamaño total: ~250 KB (index.html + games/* + desktop-ui/*), sin contar mus/ ni img/
 
 ---
 
-### 🗺️ Roadmap
+🗺️ Roadmap
 
-☑ v1.0.0 — Versión inicial completa
-☑ v1.0.1 — Versión enfocada al diseño
-☑ v1.0.2 — Versión enfocada a mejorar la calidad de vida y agregar minijuegos
-☐ v1.0.x — Corrección de bugs (según issues reportados)
+· ☑ v1.0.0 — Versión inicial completa
+· ☑ v1.0.1 — Versión enfocada al diseño: música de fondo con fallback en Archive.org, fondo gradiente animado que respira con la música
+· ☑ v1.0.2 — Calidad de vida + minijuegos:
+  · Sección Juegos con Tetris, Buscaminas y 2048
+  · Interfaz de escritorio opcional (desktop-ui/)
+  · Calculadora con personalidad ("Please Don't" → explosión física)
+  · Medidor de calor de CPU con chistes
+  · Botones "Convertir" con delay y mensajes rotativos
+  · Descarga de audio Morse en .wav
+  · Sliders de volumen independientes
+  · Force UI (Bolsillo / Escritorio)
+  · Sincronización robusta de toggles tras recargar o cambiar de layout
+· ☐ v1.0.x — Corrección de bugs (según issues reportados)
 
 Nota: A partir de ahora el proyecto entra en modo mantenimiento. Solo se aceptarán pull requests de bugfix. Las nuevas funciones se considerarán caso por caso.
 
 ---
 
-### 🤝 Contribuir
+🤝 Contribuir
 
 Las contribuciones son bienvenidas, especialmente bugfixes:
 
@@ -225,10 +322,11 @@ Si encuentras un bug, abre un Issue con:
 · Pasos para reproducirlo
 · Captura de pantalla (si aplica)
 · Versión de Android y de Android System WebView
+· Pestaña afectada (Números, Texto, Bits, Potencia, Multimedia, Calculadora o Juegos)
 
 ---
 
-### 👤 Autor
+👤 Autor
 
 EdwarlyGamer999+
 
@@ -237,7 +335,7 @@ EdwarlyGamer999+
 
 ---
 
-## 📄 Licencia
+📄 Licencia
 
 Este proyecto está bajo la licencia Apache-2.0. Consulta el archivo LICENSE para más detalles.
 
