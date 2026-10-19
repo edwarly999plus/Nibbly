@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1020">
 <title>Nibbly</title>
+<link rel="stylesheet" href="games/games.css" onerror="window.__gamesCssMissing=true">
 <style>
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{
@@ -38,21 +39,14 @@
     -webkit-font-smoothing:antialiased;transition:background-color .3s var(--ease);
   }
   body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
+    content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
     background:radial-gradient(900px 500px at 50% -140px,
       color-mix(in srgb,var(--accent) var(--bg-grad-intensity, 50%),transparent) 0%,transparent 70%);
     background-repeat:no-repeat;
     animation:bgPulse var(--bg-anim-speed, 9s) ease-in-out infinite;
     will-change:opacity;
   }
-  @keyframes bgPulse{
-    0%,100%{opacity:var(--bg-anim-brightness, 1);}
-    50%{opacity:calc(var(--bg-anim-brightness, 1) * 0.32);}
-  }
+  @keyframes bgPulse{0%,100%{opacity:var(--bg-anim-brightness, 1);}50%{opacity:calc(var(--bg-anim-brightness, 1) * 0.32);}}
   .app{max-width:620px;margin:0 auto;padding:16px 14px 24px;position:relative;z-index:1;}
   body.no-effects,body.no-effects *,
   body.no-effects *::before,body.no-effects *::after,
@@ -77,9 +71,10 @@
   .tab{flex:1 0 auto;min-width:70px;padding:11px 8px;border:0;background:transparent;
     color:var(--on-variant);font-size:12.5px;font-weight:700;border-radius:var(--r-md);
     cursor:pointer;font-family:inherit;white-space:nowrap;
-    transition:background .22s var(--ease),color .22s var(--ease);}
+    transition:background .22s var(--ease),color .22s var(--ease),opacity .2s var(--ease);}
   .tab.active{background:var(--primary);color:var(--on-primary);
     box-shadow:0 4px 14px color-mix(in srgb,var(--primary) 35%,transparent);}
+  .tab[disabled]{opacity:.35;pointer-events:none;cursor:not-allowed;}
   .panel{display:none;}
   .panel.active{display:block;animation:fade .26s var(--ease);}
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -112,9 +107,10 @@
   .btn-primary{padding:14px 20px;border-radius:var(--r-full);border:0;
     background:var(--primary);color:var(--on-primary);font-size:14px;font-weight:800;
     cursor:pointer;font-family:inherit;width:100%;
-    transition:transform .12s var(--ease), filter .2s var(--ease);
+    transition:transform .12s var(--ease), filter .2s var(--ease), opacity .2s var(--ease);
     box-shadow:0 4px 14px color-mix(in srgb,var(--primary) 35%,transparent);}
   .btn-primary:active{transform:scale(.97);filter:brightness(1.08);}
+  .btn-primary[disabled]{opacity:.6;cursor:progress;}
   .seg{display:flex;gap:5px;background:var(--surface-1);border:1px solid var(--outline-v);
     padding:5px;border-radius:var(--r-full);margin-bottom:14px;}
   .seg-btn{flex:1;padding:11px 6px;border:0;background:transparent;color:var(--on-variant);
@@ -148,33 +144,21 @@
   .morse-key:active{background:var(--surface-3);transform:scale(.94);}
   .morse-key.sp{color:var(--on-primary-cont);font-size:12px;font-weight:800;}
   .morse-key.del{color:var(--bad);font-size:15px;font-weight:800;}
-  .speaker-btn{
-    display:inline-flex;align-items:center;gap:6px;
-    padding:8px 14px;border-radius:var(--r-full);
+  .speaker-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--r-full);
     border:1px solid var(--outline);background:var(--secondary-container);
     color:var(--on-primary-cont);font-size:12px;font-weight:800;
     cursor:pointer;font-family:inherit;letter-spacing:.3px;
-    transition:background .2s var(--ease),transform .12s var(--ease),opacity .2s var(--ease);
-  }
+    transition:background .2s var(--ease),transform .12s var(--ease),opacity .2s var(--ease);}
   .speaker-btn:active{transform:scale(.94);background:var(--surface-3);}
-  .speaker-btn[disabled]{
-    opacity:.4;cursor:not-allowed;pointer-events:none;filter:grayscale(.5);
-  }
+  .speaker-btn[disabled]{opacity:.4;cursor:not-allowed;pointer-events:none;filter:grayscale(.5);}
   .speaker-btn .ico{font-size:14px;line-height:1;}
-  .check-row{
-    display:flex;align-items:center;gap:8px;
-    padding:10px 12px;border-radius:var(--r-md);
+  .check-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:var(--r-md);
     background:var(--surface-1);border:1px solid var(--outline-v);
     font-size:13.5px;font-weight:600;color:var(--on-surface);cursor:pointer;
-    transition:background .15s var(--ease);
-  }
+    transition:background .15s var(--ease);}
   .check-row:active{background:var(--surface-2);}
-  .check-row input[type=checkbox]{
-    width:18px;height:18px;accent-color:var(--accent);cursor:pointer;
-  }
-  .check-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;
-  }
+  .check-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
   @media(max-width:360px){.check-grid{grid-template-columns:1fr;}}
   .meter-wrap{margin-top:12px;background:var(--surface-1);border:1px solid var(--outline-v);
     border-radius:var(--r-md);padding:14px 16px;}
@@ -236,8 +220,9 @@
     transform:translate(-50%,20px);background:var(--good);color:#04231a;
     padding:12px 22px;border-radius:var(--r-full);font-weight:800;font-size:13px;
     opacity:0;pointer-events:none;transition:opacity .25s var(--ease),transform .25s var(--ease);
-    z-index:200;box-shadow:0 8px 24px color-mix(in srgb,var(--good) 35%,transparent);}
+    z-index:200;box-shadow:0 8px 24px color-mix(in srgb,var(--good) 35%,transparent);max-width:90vw;text-align:center;}
   .toast.show{opacity:1;transform:translate(-50%,0);}
+  .toast.bad{background:var(--bad);color:#fff;box-shadow:0 8px 24px color-mix(in srgb,var(--bad) 40%,transparent);}
   .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;
     pointer-events:none;z-index:300;transition:opacity .25s var(--ease);
     backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
@@ -258,6 +243,7 @@
   .setting-section h3{font-size:12px;font-weight:800;letter-spacing:1px;
     text-transform:uppercase;color:var(--on-variant);margin:0 0 12px;}
   .setting-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;}
+  .setting-row.disabled{opacity:.45;}
   .setting-row .rl{flex:1;min-width:0;}
   .setting-row .rl .t{font-size:15px;font-weight:600;color:var(--on-surface);}
   .setting-row .rl .d{font-size:12px;color:var(--on-variant);margin-top:3px;line-height:1.4;}
@@ -282,6 +268,8 @@
     pointer-events:none;}
   .switch input:checked ~ .track{background:var(--primary);border-color:var(--primary);}
   .switch input:checked ~ .thumb{left:calc(100% - 26px);width:24px;height:24px;background:#fff;}
+  .switch input:disabled ~ .track{opacity:.4;cursor:not-allowed;}
+  .switch input:disabled ~ .thumb{opacity:.4;}
   .reset-btn{width:100%;padding:14px;border-radius:var(--r-full);border:1px solid var(--outline);
     background:transparent;color:var(--on-surface);font-family:inherit;font-size:14px;font-weight:700;
     cursor:pointer;margin-top:8px;}
@@ -330,6 +318,60 @@
   .log-empty{padding:24px 14px;text-align:center;color:var(--on-variant);font-size:12.5px;font-family:inherit;}
   .color-preview{display:inline-block;width:14px;height:14px;border-radius:50%;
     vertical-align:middle;margin-right:6px;border:1px solid var(--outline);}
+  .loading-msg{display:none;margin-top:12px;padding:10px 14px;border-radius:var(--r-md);
+    background:var(--secondary-container);color:var(--on-primary-cont);
+    font-size:12.5px;font-weight:700;line-height:1.5;text-align:center;
+    animation:loadingPulse 1.2s ease-in-out infinite;}
+  .loading-msg.show{display:block;}
+  @keyframes loadingPulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+  .vol-slider{width:100%;height:6px;border-radius:var(--r-full);background:var(--surface-3);
+    outline:none;-webkit-appearance:none;appearance:none;margin:10px 0 4px;}
+  .vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;
+    border-radius:50%;background:var(--primary);cursor:pointer;border:2px solid var(--on-surface);
+    box-shadow:0 2px 8px color-mix(in srgb,var(--primary) 50%,transparent);}
+  .vol-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--primary);
+    cursor:pointer;border:2px solid var(--on-surface);}
+  .vol-slider:disabled{opacity:.4;cursor:not-allowed;}
+  .vol-slider:disabled::-webkit-slider-thumb{background:var(--on-variant);}
+  .calc-wrapper{position:relative;}
+  .calc{background:var(--surface);border:1px solid var(--outline-v);border-radius:var(--r-xl);padding:16px;}
+  .calc-display{background:var(--surface-1);border:1px solid var(--outline-v);
+    border-radius:var(--r-md);padding:18px 16px;font-size:32px;font-weight:800;
+    font-family:ui-monospace,monospace;text-align:right;min-height:76px;
+    word-break:break-all;margin-bottom:12px;overflow:hidden;color:var(--on-surface);
+    display:flex;align-items:center;justify-content:flex-end;}
+  .calc-expression{font-size:12px;color:var(--on-variant);font-weight:600;
+    margin-bottom:6px;min-height:16px;font-family:ui-monospace,monospace;
+    text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .calc-buttons button{padding:18px 8px;border-radius:var(--r-md);
+    border:1px solid var(--outline-v);background:var(--surface-1);color:var(--on-surface);
+    font-size:18px;font-weight:800;cursor:pointer;font-family:inherit;
+    transition:background .15s var(--ease),transform .1s var(--ease);}
+  .calc-buttons button:active{background:var(--surface-3);transform:scale(.96);}
+  .calc-buttons button.op{background:var(--secondary-container);color:var(--on-primary-cont);}
+  .calc-buttons button.eq{background:var(--primary);color:var(--on-primary);}
+  .calc-buttons button.clr{background:color-mix(in srgb,var(--bad) 20%,var(--surface-1));color:var(--bad);}
+  .calc-clone{position:fixed;pointer-events:none;z-index:9999;
+    border-radius:var(--r-md);border:1px solid var(--outline-v);background:var(--surface-1);
+    color:var(--on-surface);font-size:18px;font-weight:800;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;
+    will-change:transform;box-shadow:0 4px 12px rgba(0,0,0,.3);}
+  #gamesContainer{min-height:180px;}
+  .games-loading{text-align:center;padding:36px 20px;color:var(--on-variant);
+    font-size:13.5px;font-weight:600;line-height:1.6;animation:loadingPulse 1.2s ease-in-out infinite;}
+  .games-error{text-align:center;padding:36px 20px;color:var(--on-variant);
+    font-size:14px;font-weight:700;line-height:1.7;}
+  .games-error .emoji{font-size:40px;display:block;margin-bottom:12px;}
+  .force-btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+  .force-btn{padding:13px 8px;border-radius:var(--r-md);border:1px solid var(--outline);
+    background:var(--surface-1);color:var(--on-surface);font-family:inherit;font-size:12.5px;
+    font-weight:700;cursor:pointer;line-height:1.35;
+    transition:background .2s var(--ease),opacity .2s var(--ease);}
+  .force-btn:active{background:var(--surface-3);}
+  .force-btn.active{background:var(--primary);color:var(--on-primary);border-color:var(--primary);}
+  .force-btn.broken{opacity:.45;color:var(--on-variant);}
+  @media(max-width:340px){.force-btn-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -347,6 +389,8 @@
     <button class="tab" data-tab="uni" data-i18n="tab.uni" type="button">Bits</button>
     <button class="tab" data-tab="pot" data-i18n="tab.pot" type="button">Potencia</button>
     <button class="tab" data-tab="media" data-i18n="tab.media" type="button">Multimedia</button>
+    <button class="tab" data-tab="calc" data-i18n="tab.calc" type="button">Calculadora</button>
+    <button class="tab" data-tab="games" id="tabGames" data-i18n="tab.games" type="button">Juegos</button>
   </nav>
   <section class="panel active" id="panel-num">
     <div class="card">
@@ -358,6 +402,8 @@
         <select id="baseIn" class="select"></select>
         <button id="clearNum" class="btn-ghost" data-i18n="num.clear" type="button">Limpiar</button>
       </div>
+      <button id="numConvert" class="btn-primary" data-i18n="num.convert" type="button" style="margin-top:12px;">Convertir</button>
+      <div class="loading-msg" id="numLoading"></div>
       <div class="error" id="numError"></div>
     </div>
     <div class="card">
@@ -458,10 +504,14 @@
     <div class="card">
       <div class="card-head">
         <span class="card-title" id="txtOutLabel">Salida · Códigos</span>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <button class="speaker-btn" id="morseSpeaker" type="button" data-i18n-title="morse.speak">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="speaker-btn" id="morseSpeaker" type="button" data-i18n-title="morse.speakTitle">
             <span class="ico">🔊</span>
             <span data-i18n="morse.speak">Escuchar</span>
+          </button>
+          <button class="speaker-btn" id="morseDownload" type="button" data-i18n-title="morse.downloadTitle">
+            <span class="ico">⬇</span>
+            <span data-i18n="morse.download">WAV</span>
           </button>
           <button class="copy" data-copy="txtOut" data-i18n="num.copy" type="button">Copiar</button>
         </div>
@@ -546,6 +596,35 @@
         <div class="meter-desc" id="wDesc" data-i18n="pot.intro">Introduce un valor para evaluar.</div>
       </div>
       <div class="error" id="wError"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title" data-i18n="pot.heat">🌡️ Medidor de calor de CPU</span></div>
+      <div class="dual">
+        <div>
+          <label class="lbl" for="heatC" data-i18n="pot.heatC">Celsius (°C)</label>
+          <input id="heatC" class="input mono" type="text" inputmode="decimal"
+                 placeholder="Ej. 65" autocomplete="off" spellcheck="false">
+        </div>
+        <div>
+          <label class="lbl" for="heatF" data-i18n="pot.heatF">Fahrenheit (°F)</label>
+          <input id="heatF" class="input mono" type="text" inputmode="decimal"
+                 placeholder="Ej. 149" autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+      <div class="outline-row" style="margin-top:14px;">
+        <span class="k" data-i18n="pot.heatUsage">Uso estimado</span>
+        <span class="v mono" id="heatUsage">—</span>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter-top">
+          <span class="meter-label" data-i18n="pot.heatDanger">Nivel de peligro</span>
+          <span class="badge neutral" id="heatBadge">—</span>
+        </div>
+        <div class="meter-bar"><div class="meter-fill" id="heatFill"></div></div>
+        <div class="meter-desc" id="heatDesc">—</div>
+      </div>
+      <div class="hint" data-i18n="pot.heatHint">Temperaturas altas pueden dañar el CPU permanentemente. Uso estimado según la temperatura.</div>
+      <div class="error" id="heatError"></div>
     </div>
     <div class="card">
       <div class="card-head"><span class="card-title" data-i18n="pot.speed">📶 Velocidad de conexión</span></div>
@@ -893,6 +972,46 @@
       </div>
     </div>
   </section>
+  <section class="panel" id="panel-calc">
+    <div class="calc-wrapper">
+      <div class="calc" id="calculator">
+        <div class="calc-expression" id="calcExpr">&nbsp;</div>
+        <div class="calc-display" id="calcDisplay">0</div>
+        <div class="calc-buttons" id="calcButtons">
+          <button data-calc="C" class="clr">C</button>
+          <button data-calc="√" class="op">√</button>
+          <button data-calc="±" class="op">±</button>
+          <button data-calc="÷" class="op">÷</button>
+          <button data-calc="7">7</button>
+          <button data-calc="8">8</button>
+          <button data-calc="9">9</button>
+          <button data-calc="×" class="op">×</button>
+          <button data-calc="4">4</button>
+          <button data-calc="5">5</button>
+          <button data-calc="6">6</button>
+          <button data-calc="−" class="op">−</button>
+          <button data-calc="1">1</button>
+          <button data-calc="2">2</button>
+          <button data-calc="3">3</button>
+          <button data-calc="+" class="op">+</button>
+          <button data-calc="^" class="op">x^y</button>
+          <button data-calc="0">0</button>
+          <button data-calc=".">.</button>
+          <button data-calc="=" class="eq">=</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="panel" id="panel-games">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title" data-i18n="tab.games">🎮 Juegos</span>
+      </div>
+      <div id="gamesContainer">
+        <div class="games-loading" data-i18n="games.loading">Cargando juegos...</div>
+      </div>
+    </div>
+  </section>
 </div>
 <div class="toast" id="toast"></div>
 <button class="log-fab" id="logFab" type="button" title="Log">📋</button>
@@ -934,6 +1053,18 @@
     <button class="reset-btn" id="resetColors" data-i18n="settings.reset" type="button">Restablecer colores</button>
   </div>
   <div class="setting-section">
+    <h3 data-i18n="settings.interface">Interfaz</h3>
+    <div class="hint" style="margin:0 0 10px;" data-i18n="settings.interface.hint">
+      Fuerza la interfaz de bolsillo o de escritorio si tu navegador no detecta el dispositivo correctamente.
+    </div>
+    <div class="seg" id="uiModeSeg">
+      <button class="seg-btn active" data-value="auto" type="button" data-i18n="settings.ui.auto">Automático</button>
+      <button class="seg-btn" data-value="pocket" type="button" data-i18n="settings.ui.pocket">Forzar Bolsillo</button>
+      <button class="seg-btn" data-value="desktop" type="button" data-i18n="settings.ui.desktop">Forzar Escritorio</button>
+    </div>
+    <div class="force-btn-row" id="forceBtnRow"></div>
+  </div>
+  <div class="setting-section">
     <h3 data-i18n="settings.log">Registro de cálculos</h3>
     <div class="seg" id="logModeSeg">
       <button class="seg-btn active" data-value="off" data-i18n="settings.log.off" type="button">Desactivado</button>
@@ -958,6 +1089,10 @@
       </div>
       <label class="switch"><input type="checkbox" id="setSounds" checked><span class="track"></span><span class="thumb"></span></label>
     </div>
+    <div style="padding:0 0 8px;">
+      <div class="hint" style="margin:0 0 4px;"><span data-i18n="settings.volume.sound">Volumen de sonidos</span>: <b id="soundVolLabel">100%</b></div>
+      <input type="range" class="vol-slider" id="setSoundVol" min="0" max="100" value="100">
+    </div>
   </div>
   <div class="setting-section">
     <h3 data-i18n="settings.musicSection">Música</h3>
@@ -968,8 +1103,32 @@
       </div>
       <label class="switch"><input type="checkbox" id="setMusic"><span class="track"></span><span class="thumb"></span></label>
     </div>
+    <div style="padding:0 0 8px;">
+      <div class="hint" style="margin:0 0 4px;"><span data-i18n="settings.volume.music">Volumen de música</span>: <b id="musicVolLabel">100%</b></div>
+      <input type="range" class="vol-slider" id="setMusicVol" min="0" max="100" value="100">
+    </div>
     <div class="hint" data-i18n="settings.music.hint" style="margin-top:4px;">
       Carga <b>mus/You Are Nibbled.ogg</b>. Si no se encuentra en 5 s, usa la versión en línea (guardada para uso sin conexión).
+    </div>
+  </div>
+  <div class="setting-section">
+    <h3 data-i18n="settings.gamesSection">Juegos</h3>
+    <div class="setting-row">
+      <div class="rl">
+        <div class="t" data-i18n="settings.games">Juegos ON/OFF</div>
+        <div class="d" data-i18n="settings.games.desc">Activa o desactiva la sección de juegos.</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="setGames" checked><span class="track"></span><span class="thumb"></span></label>
+    </div>
+  </div>
+  <div class="setting-section">
+    <h3 data-i18n="settings.extras">Extras</h3>
+    <div class="setting-row">
+      <div class="rl">
+        <div class="t" data-i18n="settings.pleaseDont">Please Don't</div>
+        <div class="d" data-i18n="settings.pleaseDont.desc">Si se activa, la calculadora explota al fallar.</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="setPleaseDont"><span class="track"></span><span class="thumb"></span></label>
     </div>
   </div>
   <div class="setting-section">
@@ -984,7 +1143,7 @@
     <h3 data-i18n="about.title">Acerca De</h3>
     <div class="about-card">
       <div class="about-row"><span class="k" data-i18n="about.creator">Creador</span><span class="v">EdwarlyGamer999+</span></div>
-      <div class="about-row"><span class="k" data-i18n="about.version">Versión</span><span class="v">1.0.1</span></div>
+      <div class="about-row"><span class="k" data-i18n="about.version">Versión</span><span class="v">1.0.2</span></div>
       <div class="about-row"><span class="k">Copyright ©</span><span class="v">2026</span></div>
       <a class="github-link" href="https://github.com/edwarly999plus/Nibbly" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -1001,21 +1160,30 @@ const I18N = {
   es: {
     'app.title':'Nibbly','app.subtitle':'Bases · Texto · Morse · Bits · Potencia · Multimedia',
     'tab.num':'Números','tab.txt':'Texto','tab.uni':'Bits','tab.pot':'Potencia','tab.media':'Multimedia',
+    'tab.calc':'Calculadora','tab.games':'Juegos',
     'settings.title':'Ajustes','settings.appearance':'Apariencia','settings.accent':'Color resaltado',
     'settings.bg':'Color de fondo','settings.reset':'Restablecer colores',
+    'settings.interface':'Interfaz','settings.ui.auto':'Automático','settings.ui.pocket':'Forzar Bolsillo',
+    'settings.ui.desktop':'Forzar Escritorio',
+    'settings.interface.hint':'Fuerza la interfaz de bolsillo o de escritorio si tu navegador no detecta el dispositivo correctamente.',
     'settings.log':'Registro de cálculos','settings.log.off':'Desactivado','settings.log.console':'Consola',
     'settings.log.visual':'En la app','settings.log.desc':'Muestra el detalle de cada cálculo.',
     'settings.effects':'Efectos visuales','settings.effects.desc':'Transiciones, animaciones y degradados.',
     'settings.sounds':'Sonidos','settings.sounds.desc':'Sonidos al pulsar botones.',
+    'settings.volume.music':'Volumen de música','settings.volume.sound':'Volumen de sonidos',
     'settings.musicSection':'Música','settings.music':'Música de fondo',
     'settings.music.desc':'Reproduce "You Are Nibbled" en bucle.',
     'settings.music.hint':'Carga <b>mus/You Are Nibbled.ogg</b>. Si no se encuentra en 5 s, usa la versión en línea (guardada para uso sin conexión).',
+    'settings.gamesSection':'Juegos','settings.games':'Juegos ON/OFF',
+    'settings.games.desc':'Activa o desactiva la sección de juegos.',
+    'settings.extras':'Extras','settings.pleaseDont':'Please Don\'t',
+    'settings.pleaseDont.desc':'Si se activa, la calculadora explota al fallar.',
     'settings.lang':'Idioma','settings.lang.desc':'Solo español e inglés.',
     'about.title':'Acerca De','about.creator':'Creador','about.version':'Versión','about.copyright':'©',
     'about.github':'Código Fuente en GitHub','about.made':'Hecho Con ♥️ Por',
     'log.title':'Registro','log.clear':'Limpiar','log.empty':'Sin registros aún.',
     'num.title':'Valor de entrada','num.placeholder':'Ej. 2025','num.clear':'Limpiar',
-    'num.output':'Salida','num.copy':'Copiar',
+    'num.output':'Salida','num.copy':'Copiar','num.convert':'Convertir',
     'fmt.2':'Binario','fmt.8':'Octal','fmt.10':'Decimal','fmt.16':'Hexadecimal','fmt.32':'Base 32',
     'fmt.36':'Base 36','fmt.nib':'Nibble','fmt.bcd':'BCD','fmt.asc':'ASCII','fmt.mor':'Morse','fmt.64':'Base64',
     'code.title':'🎲 Generar códigos alfanuméricos','code.separators':'Separadores','code.digits':'Dígitos por bloque',
@@ -1027,6 +1195,7 @@ const I18N = {
     'code.errDigits':'Los dígitos por bloque deben ser al menos 1.',
     'code.errSeps':'El número de separadores no es válido.',
     'morse.speak':'Escuchar','morse.speakTitle':'Reproducir Morse como beeps',
+    'morse.download':'WAV','morse.downloadTitle':'Descargar el audio Morse como archivo .wav',
     'txt.dir.enc':'Texto → Códigos','txt.dir.dec':'Códigos → Texto','txt.clear':'Limpiar',
     'txt.morseHint':'Separa letras con espacio y palabras con /. Ej: .... --- .-.. .- / -- ..- -. -.. ---',
     'uni.title':'Cantidad de entrada','uni.placeholder':'Ej. 1024','uni.from':'Unidad de entrada',
@@ -1036,6 +1205,18 @@ const I18N = {
     'combo.hint':'En N bits caben 2^N combinaciones. Ej: 8 bits = 2^8 = 256 valores (0–255).',
     'pot.watts':'⚡ Potencia (Watts)','pot.value':'Valor','pot.from':'Unidad entrada','pot.to':'Unidad salida',
     'pot.result':'Resultado','pot.quality':'Calidad / Uso','pot.intro':'Introduce un valor para evaluar.',
+    'pot.heat':'🌡️ Medidor de calor de CPU','pot.heatC':'Celsius (°C)','pot.heatF':'Fahrenheit (°F)',
+    'pot.heatUsage':'Uso estimado','pot.heatDanger':'Nivel de peligro',
+    'pot.heatHint':'Temperaturas altas pueden dañar el CPU permanentemente. Uso estimado según la temperatura.',
+    'pot.heat.cold':'Frío','pot.heat.cold.d':'CPU en reposo o recién encendido.',
+    'pot.heat.cool':'Fresco','pot.heat.cool.d':'Temperatura normal en uso ligero.',
+    'pot.heat.warm':'Templado','pot.heat.warm.d':'Uso moderado o gaming ligero.',
+    'pot.heat.hot':'Caliente','pot.heat.hot.d':'Uso intensivo o gaming. Ventilación recomendada.',
+    'pot.heat.vhot':'Muy caliente','pot.heat.vhot.d':'Cerca del límite. Riesgo de throttling.',
+    'pot.heat.danger':'Peligro','pot.heat.danger.d':'Riesgo de daño. Apaga el equipo.',
+    'pot.heat.extreme':'¡Extremo!','pot.heat.extreme.d':'Peligro inminente. Apaga ya.',
+    'pot.heat.joke1':'Tan caliente para freír un huevo',
+    'pot.heat.joke2':'Hace tanto calor que puedes prender una fogata y despedirte del CPU',
     'pot.speed':'📶 Velocidad de conexión','pot.speedValue':'Velocidad','pot.speedUnit':'Unidad',
     'pot.speedTo':'Convertir a','pot.speedEquiv':'Equivalente','pot.download':'Descarga','pot.upload':'Subida',
     'pot.speedHint':'Los medidores evalúan la velocidad en Mbps. Referencia: 1 MB/s ≈ 8 Mbps.',
@@ -1081,11 +1262,24 @@ const I18N = {
     'pot.codecFull':'Nombre completo','pot.codecYear':'Año','pot.codecType2':'Tipo',
     'pot.codecBitrate':'Bitrate típico','pot.codecQuality':'Calidad',
     'pot.codecEfficiency':'Eficiencia de compresión','pot.codecCompat':'Compatibilidad con dispositivos',
+    'calc.exploded':'¡BOOM! La calculadora explotó.',
+    'games.loading':'Cargando juegos...',
+    'games.error':'No Hay Juegos Instalados, Descargue Los Archivos Faltantes En GitHub :(',
+    'games.disabled':'La sección de juegos está desactivada. Actívala en Ajustes > Juegos.',
     'err.invalidValue':'"{0}" no es un valor válido en base {1}.','err.invalidNum':'Introduce un número válido.',
     'err.invalidPos':'Introduce un número válido y positivo.','err.invalidCode':'Código no válido: "{0}"',
     'err.outOfRange':'Fuera de rango Unicode: "{0}"','err.invalidToken':'Token no válido: "{0}"',
+    'err.calcDivZero':'División por cero','err.calcSqrt':'Raíz de negativo',
     'toast.copied':'✓ Copiado','toast.copyFail':'No se pudo copiar','toast.nothing':'Nada que copiar','toast.reset':'✓ Restablecido',
     'toast.gen':'✓ Código generado','toast.morsePlay':'♪ Reproduciendo Morse','toast.morseOff':'Sonidos desactivados',
+    'toast.wav':'⬇ Descargando WAV','toast.uiFail':'Los Archivos De Expansión Están Rotos O No Existen',
+    'toast.uiOk':'✓ Interfaz aplicada',
+    'convert.msg1':'Alineando los astros para la conversión...',
+    'convert.msg2':'Chequeando la entrada...',
+    'convert.msg3':'Convirtiendo, Por favor sea paciente...',
+    'convert.msg4':'Esperar hace que la conversión sea más precisa, por favor espere...',
+    'convert.msg5':'Calculando matemáticamente, por favor espere...',
+    'convert.msg6':'Ya casi llegamos a la salida, por favor espere...',
     'q.introSpeed':'Introduce una velocidad.',
     'w.neg':'Valor negativo','w.neg.d':'La potencia no puede ser negativa.',
     'w.zero':'Sin consumo','w.zero.d':'No hay consumo o potencia.',
@@ -1186,21 +1380,30 @@ const I18N = {
   en: {
     'app.title':'Nibbly','app.subtitle':'Bases · Text · Morse · Bits · Power · Media',
     'tab.num':'Numbers','tab.txt':'Text','tab.uni':'Bits','tab.pot':'Power','tab.media':'Media',
+    'tab.calc':'Calculator','tab.games':'Games',
     'settings.title':'Settings','settings.appearance':'Appearance','settings.accent':'Accent color',
     'settings.bg':'Background color','settings.reset':'Reset colors',
+    'settings.interface':'Interface','settings.ui.auto':'Auto','settings.ui.pocket':'Force Pocket',
+    'settings.ui.desktop':'Force Desktop',
+    'settings.interface.hint':'Force pocket or desktop interface if your browser doesn\'t detect the device correctly.',
     'settings.log':'Calculation log','settings.log.off':'Off','settings.log.console':'Console',
     'settings.log.visual':'In-app','settings.log.desc':'Shows the details of each calculation.',
     'settings.effects':'Visual effects','settings.effects.desc':'Transitions, animations and gradients.',
     'settings.sounds':'Sounds','settings.sounds.desc':'Sounds when tapping buttons.',
+    'settings.volume.music':'Music volume','settings.volume.sound':'Sound volume',
     'settings.musicSection':'Music','settings.music':'Background music',
     'settings.music.desc':'Plays "You Are Nibbled" in a loop.',
     'settings.music.hint':'Loads <b>mus/You Are Nibbled.ogg</b>. If not found within 5 s, the online version is used (cached for offline playback).',
+    'settings.gamesSection':'Games','settings.games':'Games ON/OFF',
+    'settings.games.desc':'Enable or disable the games section.',
+    'settings.extras':'Extras','settings.pleaseDont':'Please Don\'t',
+    'settings.pleaseDont.desc':'When enabled, the calculator explodes on error.',
     'settings.lang':'Language','settings.lang.desc':'Only Spanish and English.',
     'about.title':'About','about.creator':'Creator','about.version':'Version','about.copyright':'©',
     'about.github':'GitHub Source Code','about.made':'Made with ♥️ by',
     'log.title':'Log','log.clear':'Clear','log.empty':'No entries yet.',
     'num.title':'Input value','num.placeholder':'e.g. 2025','num.clear':'Clear',
-    'num.output':'Output','num.copy':'Copy',
+    'num.output':'Output','num.copy':'Copy','num.convert':'Convert',
     'fmt.2':'Binary','fmt.8':'Octal','fmt.10':'Decimal','fmt.16':'Hexadecimal','fmt.32':'Base 32',
     'fmt.36':'Base 36','fmt.nib':'Nibble','fmt.bcd':'BCD','fmt.asc':'ASCII','fmt.mor':'Morse','fmt.64':'Base64',
     'code.title':'🎲 Generate alphanumeric codes','code.separators':'Separators','code.digits':'Digits per block',
@@ -1212,6 +1415,7 @@ const I18N = {
     'code.errDigits':'Digits per block must be at least 1.',
     'code.errSeps':'Invalid number of separators.',
     'morse.speak':'Listen','morse.speakTitle':'Play Morse as beeps',
+    'morse.download':'WAV','morse.downloadTitle':'Download Morse audio as .wav file',
     'txt.dir.enc':'Text → Codes','txt.dir.dec':'Codes → Text','txt.clear':'Clear',
     'txt.morseHint':'Separate letters with a space and words with /. E.g: .... --- .-.. .- / -- ..- -. -.. ---',
     'uni.title':'Input amount','uni.placeholder':'e.g. 1024','uni.from':'Input unit',
@@ -1221,6 +1425,18 @@ const I18N = {
     'combo.hint':'In N bits there are 2^N combinations. E.g: 8 bits = 2^8 = 256 values (0–255).',
     'pot.watts':'⚡ Power (Watts)','pot.value':'Value','pot.from':'Input unit','pot.to':'Output unit',
     'pot.result':'Result','pot.quality':'Quality / Use','pot.intro':'Enter a value to evaluate.',
+    'pot.heat':'🌡️ CPU Heat Meter','pot.heatC':'Celsius (°C)','pot.heatF':'Fahrenheit (°F)',
+    'pot.heatUsage':'Estimated usage','pot.heatDanger':'Danger level',
+    'pot.heatHint':'High temperatures can permanently damage the CPU. Usage estimated by temperature.',
+    'pot.heat.cold':'Cold','pot.heat.cold.d':'CPU idle or just powered on.',
+    'pot.heat.cool':'Cool','pot.heat.cool.d':'Normal temperature under light load.',
+    'pot.heat.warm':'Warm','pot.heat.warm.d':'Moderate use or light gaming.',
+    'pot.heat.hot':'Hot','pot.heat.hot.d':'Heavy use or gaming. Ventilation recommended.',
+    'pot.heat.vhot':'Very hot','pot.heat.vhot.d':'Near limit. Throttling risk.',
+    'pot.heat.danger':'Danger','pot.heat.danger.d':'Damage risk. Shut down the device.',
+    'pot.heat.extreme':'Extreme!','pot.heat.extreme.d':'Imminent danger. Shut down now.',
+    'pot.heat.joke1':'Hot enough to fry an egg',
+    'pot.heat.joke2':'So hot you could light a campfire and say goodbye to the CPU',
     'pot.speed':'📶 Connection speed','pot.speedValue':'Speed','pot.speedUnit':'Unit',
     'pot.speedTo':'Convert to','pot.speedEquiv':'Equivalent','pot.download':'Download','pot.upload':'Upload',
     'pot.speedHint':'Meters evaluate speed in Mbps. Reference: 1 MB/s ≈ 8 Mbps.',
@@ -1266,13 +1482,26 @@ const I18N = {
     'pot.codecFull':'Full name','pot.codecYear':'Year','pot.codecType2':'Type',
     'pot.codecBitrate':'Typical bitrate','pot.codecQuality':'Quality',
     'pot.codecEfficiency':'Compression efficiency','pot.codecCompat':'Device compatibility',
+    'calc.exploded':'BOOM! The calculator exploded.',
+    'games.loading':'Loading games...',
+    'games.error':'No Games Installed, Download The Missing Files On GitHub :(',
+    'games.disabled':'The games section is disabled. Enable it in Settings > Games.',
     'err.invalidValue':'"{0}" is not a valid value in base {1}.','err.invalidNum':'Enter a valid number.',
     'err.invalidPos':'Enter a valid positive number.','err.invalidCode':'Invalid code: "{0}"',
     'err.outOfRange':'Out of Unicode range: "{0}"','err.invalidToken':'Invalid token: "{0}"',
+    'err.calcDivZero':'Division by zero','err.calcSqrt':'Square root of negative',
     'toast.copied':'✓ Copied','toast.copyFail':'Could not copy','toast.nothing':'Nothing to copy','toast.reset':'✓ Reset',
     'toast.gen':'✓ Code generated','toast.morsePlay':'♪ Playing Morse','toast.morseOff':'Sounds disabled',
+    'toast.wav':'⬇ Downloading WAV','toast.uiFail':'The Expansion Files Are Broken Or Missing',
+    'toast.uiOk':'✓ UI applied',
+    'convert.msg1':'Aligning the stars for conversion...',
+    'convert.msg2':'Checking the input...',
+    'convert.msg3':'Converting, please be patient...',
+    'convert.msg4':'Waiting makes the conversion more precise, please wait...',
+    'convert.msg5':'Calculating mathematically, please wait...',
+    'convert.msg6':'Almost at the output, please wait...',
     'q.introSpeed':'Enter a speed.',
-    'w.neg':'Negative','w.neg.d':'Power cannot be negative.',
+    'w.neg':'Negative value','w.neg.d':'Power cannot be negative.',
     'w.zero':'No load','w.zero.d':'No consumption or power.',
     'w.vlow':'Very low','w.vlow.d':'Sensors, LEDs, microcontrollers.',
     'w.low':'Low','w.low.d':'Slow charger, router, small devices.',
@@ -1369,8 +1598,13 @@ const I18N = {
     'fq.insane':'Insane','fq.insane.d':'Beyond human eye and most displays (240+ fps).'
   }
 };
-const STORAGE_KEY = 'nibbly-settings-v1';
-const DEFAULT_SETTINGS = {accent:'#5b8cff',bg:'#0b1020',logMode:'off',effects:true,sounds:true,music:false,lang:'es'};
+const STORAGE_KEY = 'nibbly-settings-v2';
+const DEFAULT_SETTINGS = {
+  accent:'#5b8cff', bg:'#0b1020', logMode:'off', effects:true,
+  sounds:true, music:false, lang:'es',
+  soundVolume:100, musicVolume:100,
+  gamesEnabled:true, pleaseDont:false, uiMode:'auto'
+};
 const ACCENT_PRESETS = ['#5b8cff','#7c5cff','#5b6bff','#4a6fd4','#6b5dd3','#3d8b8b','#8b6fd4','#6a5acd'];
 const BG_PRESETS = ['#0b1020','#000000','#0d1117','#121212','#1a1a2e','#0f0f1a','#1e1e2e','#131313'];
 let settings = Object.assign({}, DEFAULT_SETTINGS);
@@ -1382,12 +1616,43 @@ function loadSettings(){
 }
 function saveSettings(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(settings)); }catch(e){}
+  if (typeof syncSettingsUI === 'function') {
+    try { syncSettingsUI(); } catch (e) {}
+  }
 }
 function t(key, ...args){
   const lang = settings.lang;
   let s = (I18N[lang] && I18N[lang][key]) || (I18N.es[key]) || key;
   args.forEach(function(a, i){ s = s.replace('{' + i + '}', a); });
   return s;
+}
+function syncSettingsUI(){
+  const syncCheck = (id, val) => {
+    const e = document.getElementById(id);
+    if (e) e.checked = !!val;
+  };
+  syncCheck('setEffects', settings.effects);
+  syncCheck('setSounds', settings.sounds);
+  syncCheck('setMusic', settings.music);
+  syncCheck('setGames', settings.gamesEnabled);
+  syncCheck('setPleaseDont', settings.pleaseDont);
+  const soundSlider = document.getElementById('setSoundVol');
+  const musicSlider = document.getElementById('setMusicVol');
+  const soundLabel = document.getElementById('soundVolLabel');
+  const musicLabel = document.getElementById('musicVolLabel');
+  if (soundSlider) soundSlider.value = settings.soundVolume;
+  if (musicSlider) musicSlider.value = settings.musicVolume;
+  if (soundLabel) soundLabel.textContent = settings.soundVolume + '%';
+  if (musicLabel) musicLabel.textContent = settings.musicVolume + '%';
+  document.querySelectorAll('#logModeSeg .seg-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.value === settings.logMode);
+  });
+  document.querySelectorAll('#langSeg .seg-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.value === settings.lang);
+  });
+  document.querySelectorAll('#uiModeSeg .seg-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.value === settings.uiMode);
+  });
 }
 function applyI18n(){
   document.documentElement.lang = settings.lang;
@@ -1409,19 +1674,22 @@ function applyTheme(){
   document.documentElement.style.setProperty('--bg', settings.bg);
   document.querySelector('meta[name="theme-color"]').setAttribute('content', settings.bg);
   document.body.classList.toggle('no-effects', !settings.effects);
-  document.getElementById('accentPreview').style.background = settings.accent;
-  document.getElementById('bgPreview').style.background = settings.bg;
-  document.getElementById('accentLabel').textContent = settings.accent;
-  document.getElementById('bgLabel').textContent = settings.bg;
-  document.getElementById('setAccent').value = settings.accent;
-  document.getElementById('setBg').value = settings.bg;
-  document.getElementById('setEffects').checked = settings.effects;
-  document.getElementById('setSounds').checked = settings.sounds;
-  document.getElementById('setMusic').checked = settings.music;
-  $$('#accentPresets .preset-swatch').forEach(function(b){
+  const ap = document.getElementById('accentPreview');
+  if(ap) ap.style.background = settings.accent;
+  const bp = document.getElementById('bgPreview');
+  if(bp) bp.style.background = settings.bg;
+  const al = document.getElementById('accentLabel');
+  if(al) al.textContent = settings.accent;
+  const bl = document.getElementById('bgLabel');
+  if(bl) bl.textContent = settings.bg;
+  const sa = document.getElementById('setAccent');
+  if(sa) sa.value = settings.accent;
+  const sb = document.getElementById('setBg');
+  if(sb) sb.value = settings.bg;
+  document.querySelectorAll('#accentPresets .preset-swatch').forEach(function(b){
     b.classList.toggle('active', b.dataset.color.toLowerCase() === settings.accent.toLowerCase());
   });
-  $$('#bgPresets .preset-swatch').forEach(function(b){
+  document.querySelectorAll('#bgPresets .preset-swatch').forEach(function(b){
     b.classList.toggle('active', b.dataset.color.toLowerCase() === settings.bg.toLowerCase());
   });
   updateSpeakerState();
@@ -1438,19 +1706,23 @@ function ensureAudio(){
   if(audioCtx.state === 'suspended') audioCtx.resume().catch(function(){});
   return audioCtx;
 }
+function soundsActive(){
+  return settings.sounds && settings.soundVolume >= 1;
+}
 function playClick(){
-  if(!settings.sounds) return;
+  if(!soundsActive()) return;
   const ctx = ensureAudio();
   if(!ctx) return;
   try{
     const now = ctx.currentTime;
+    const vol = settings.soundVolume / 100;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'sine';
     osc.frequency.setValueAtTime(880, now);
     osc.frequency.exponentialRampToValueAtTime(620, now + 0.055);
     gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.075, now + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.075 * vol, now + 0.006);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
     osc.connect(gain); gain.connect(ctx.destination);
     osc.start(now); osc.stop(now + 0.1);
@@ -1476,6 +1748,7 @@ function logDeferred(msg){
 }
 function renderVisualLog(){
   const body = document.getElementById('logBody');
+  if(!body) return;
   if(!visualLogs.length){ body.innerHTML = '<div class="log-empty">' + t('log.empty') + '</div>'; return; }
   body.innerHTML = visualLogs.map(function(e){
     return '<div class="log-entry"><span class="time">' + e.time + '</span>' + escapeHtml(e.msg) + '</div>';
@@ -1486,9 +1759,9 @@ function escapeHtml(s){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
   });
 }
-const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const $  = (s, c) => (c || document).querySelector(s);
 const $$ = (s, c) => Array.prototype.slice.call((c || document).querySelectorAll(s));
+const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 function parseInBase(str, base){
   let s = String(str).trim().toUpperCase().replace(/[\s_,]/g, '');
   if(!s) return null;
@@ -1672,19 +1945,29 @@ async function copyText(txt){
   }catch(e){ return false; }
 }
 let toastTimer = null;
-function toast(msg){
+function toast(msg, isError){
   const el = $('#toast');
   el.textContent = msg;
+  el.classList.toggle('bad', !!isError);
   el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 1600);
+  toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2000);
 }
+let currentTab = 'num';
 $$('.tab').forEach(function(tb){
   tb.addEventListener('click', function(){
+    if(tb.hasAttribute('disabled')) return;
+    currentTab = tb.dataset.tab;
     $$('.tab').forEach(function(x){ x.classList.toggle('active', x === tb); });
     $$('.panel').forEach(function(p){
       p.classList.toggle('active', p.id === 'panel-' + tb.dataset.tab);
     });
+    if(currentTab === 'calc'){
+      maybeRebuildCalc();
+    }
+    if(currentTab === 'games'){
+      handleGamesTab();
+    }
   });
 });
 const BASE_NAMES = {2:'Binario',8:'Octal',10:'Decimal',16:'Hexadecimal'};
@@ -1706,13 +1989,6 @@ function fillBaseSelect(){
   }
 }
 fillBaseSelect();
-$$('#numOutChips .chip').forEach(function(chip){
-  chip.addEventListener('click', function(){
-    numOutFmt = chip.dataset.fmt;
-    $$('#numOutChips .chip').forEach(function(c){ c.classList.toggle('active', c === chip); });
-    renderNum();
-  });
-});
 function renderNum(){
   const raw = numInput.value.trim();
   const base = parseInt(baseIn.value, 10);
@@ -1742,49 +2018,92 @@ function renderNum(){
   logDeferred('num: ' + raw + ' (base ' + base + ') → ' + fmtName + ' = ' +
               (result.length > 60 ? result.slice(0,60) + '…' : result));
 }
-numInput.addEventListener('input', renderNum);
-baseIn.addEventListener('change', renderNum);
-$('#clearNum').addEventListener('click', function(){ numInput.value=''; renderNum(); numInput.focus(); });
+function clearNumOutput(){
+  numOut.textContent = '—';
+  numError.classList.remove('show');
+  numOut.classList.remove('ascii');
+}
+const CONVERT_MESSAGES = ['convert.msg1','convert.msg2','convert.msg3','convert.msg4','convert.msg5','convert.msg6'];
+let convertBusy = false;
+let convertTimer = null;
+let convertMsgTimer = null;
+function cancelConvert(){
+  if(convertTimer){ clearTimeout(convertTimer); convertTimer = null; }
+  if(convertMsgTimer){ clearInterval(convertMsgTimer); convertMsgTimer = null; }
+  convertBusy = false;
+  const btn = $('#numConvert');
+  if(btn) btn.disabled = false;
+  const loading = $('#numLoading');
+  if(loading) loading.classList.remove('show');
+}
+$('#numConvert').addEventListener('click', function(){
+  if(convertBusy) return;
+  convertBusy = true;
+  const btn = this;
+  const loading = $('#numLoading');
+  btn.disabled = true;
+  loading.classList.add('show');
+  let idx = 0;
+  loading.textContent = t(CONVERT_MESSAGES[0]);
+  convertMsgTimer = setInterval(function(){
+    idx = (idx + 1) % CONVERT_MESSAGES.length;
+    loading.textContent = t(CONVERT_MESSAGES[idx]);
+  }, 500);
+  convertTimer = setTimeout(function(){
+    if(convertMsgTimer){ clearInterval(convertMsgTimer); convertMsgTimer = null; }
+    convertTimer = null;
+    loading.classList.remove('show');
+    btn.disabled = false;
+    convertBusy = false;
+    renderNum();
+  }, 3000);
+});
+$$('#numOutChips .chip').forEach(function(chip){
+  chip.addEventListener('click', function(){
+    const newFmt = chip.dataset.fmt;
+    if(numOutFmt === newFmt) return;
+    numOutFmt = newFmt;
+    $$('#numOutChips .chip').forEach(function(c){ c.classList.toggle('active', c === chip); });
+    cancelConvert();
+    clearNumOutput();
+  });
+});
+numInput.addEventListener('input', function(){
+  cancelConvert();
+  clearNumOutput();
+});
+baseIn.addEventListener('change', function(){
+  cancelConvert();
+  clearNumOutput();
+});
+$('#clearNum').addEventListener('click', function(){
+  cancelConvert();
+  numInput.value = '';
+  clearNumOutput();
+  numInput.focus();
+});
 const CODE_CHARS = {
   numbers: '0123456789',
   upper:   'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   lower:   'abcdefghijklmnopqrstuvwxyz',
   symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?/~€£¥'
 };
-const CODE_SEPS = {
-  dash: '-', underscore: '_', slash: '/', space: ' ', dot: '.', none: ''
-};
-const codeSeps    = $('#codeSeps');
-const codeDigits  = $('#codeDigits');
-const codeSepType = $('#codeSepType');
-const codeNumbers = $('#codeNumbers');
-const codeUpper   = $('#codeUpper');
-const codeLower   = $('#codeLower');
-const codeSymbols = $('#codeSymbols');
-const codeGen     = $('#codeGen');
-const codeResult  = $('#codeResult');
-const codeError   = $('#codeError');
+const CODE_SEPS = {dash:'-',underscore:'_',slash:'/',space:' ',dot:'.',none:''};
+const codeSeps = $('#codeSeps'), codeDigits = $('#codeDigits'), codeSepType = $('#codeSepType');
+const codeNumbers = $('#codeNumbers'), codeUpper = $('#codeUpper'), codeLower = $('#codeLower'), codeSymbols = $('#codeSymbols');
+const codeGen = $('#codeGen'), codeResult = $('#codeResult'), codeError = $('#codeError');
 function generateCode(){
   codeError.classList.remove('show');
   const seps = parseInt(codeSeps.value, 10);
   const digits = parseInt(codeDigits.value, 10);
-  if(!isFinite(seps) || seps < 0){
-    codeError.textContent = t('code.errSeps');
-    codeError.classList.add('show'); return;
-  }
-  if(!isFinite(digits) || digits < 1){
-    codeError.textContent = t('code.errDigits');
-    codeError.classList.add('show'); return;
-  }
+  if(!isFinite(seps) || seps < 0){ codeError.textContent = t('code.errSeps'); codeError.classList.add('show'); return; }
+  if(!isFinite(digits) || digits < 1){ codeError.textContent = t('code.errDigits'); codeError.classList.add('show'); return; }
   let charset = '';
   if(codeNumbers.checked) charset += CODE_CHARS.numbers;
   if(codeUpper.checked)   charset += CODE_CHARS.upper;
   if(codeLower.checked)   charset += CODE_CHARS.lower;
   if(codeSymbols.checked) charset += CODE_CHARS.symbols;
-  if(!charset){
-    codeError.textContent = t('code.errNoChar');
-    codeError.classList.add('show'); return;
-  }
+  if(!charset){ codeError.textContent = t('code.errNoChar'); codeError.classList.add('show'); return; }
   const sep = CODE_SEPS[codeSepType.value];
   const blocks = seps + 1;
   const parts = [];
@@ -1805,7 +2124,7 @@ let txtDir='enc', txtFmt='2';
 const txtIn = $('#txtIn'), txtOut = $('#txtOut'), txtError = $('#txtError');
 const txtInLabel = $('#txtInLabel'), txtOutLabel = $('#txtOutLabel');
 const morsePad = $('#morsePad'), morseHint = $('#morseHint');
-const morseSpeaker = $('#morseSpeaker');
+const morseSpeaker = $('#morseSpeaker'), morseDownload = $('#morseDownload');
 const PLACEHOLDERS = {
   '2':'01001000 01101111 01101100 01100001','8':'110 157 154 141','10':'72 111 108 97',
   '16':'48 6F 6C 61','asc':'H(72) o(111) l(108) a(97)','mor':'.... --- .-.. .- / -- ..- -. -.. ---','64':'SG9sYQ=='
@@ -1822,6 +2141,7 @@ function updateTxtLabels(){
   morsePad.classList.toggle('show', showMorse);
   morseHint.style.display = showMorse ? 'block' : 'none';
   morseSpeaker.style.display = showMorse ? 'inline-flex' : 'none';
+  morseDownload.style.display = showMorse ? 'inline-flex' : 'none';
 }
 function renderTxt(){
   const inp = txtIn.value;
@@ -1893,19 +2213,18 @@ $$('.morse-key').forEach(function(k){
 function beepMorse(ctx, start, duration){
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
+  const vol = settings.soundVolume / 100;
   osc.type = 'sine';
   osc.frequency.setValueAtTime(750, start);
   gain.gain.setValueAtTime(0.0001, start);
-  gain.gain.exponentialRampToValueAtTime(0.14, start + 0.005);
-  gain.gain.setValueAtTime(0.14, Math.max(start + 0.006, start + duration - 0.008));
+  gain.gain.exponentialRampToValueAtTime(0.14 * vol, start + 0.005);
+  gain.gain.setValueAtTime(0.14 * vol, Math.max(start + 0.006, start + duration - 0.008));
   gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start(start);
-  osc.stop(start + duration + 0.005);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(start); osc.stop(start + duration + 0.005);
 }
 function playMorseAsBeeps(morse){
-  if(!settings.sounds){ toast(t('toast.morseOff')); return; }
+  if(!soundsActive()){ toast(t('toast.morseOff'), true); return; }
   const ctx = ensureAudio();
   if(!ctx) return;
   const unit = 0.09;
@@ -1913,24 +2232,17 @@ function playMorseAsBeeps(morse){
   const clean = morse.replace(/[·•●]/g, '.').replace(/[–—−_]/g, '-');
   for(let i = 0; i < clean.length; i++){
     const ch = clean[i];
-    if(ch === '.'){
-      beepMorse(ctx, time, unit);
-      time += unit + unit;
-    } else if(ch === '-'){
-      beepMorse(ctx, time, unit * 3);
-      time += unit * 3 + unit;
-    } else if(ch === ' '){
-      time += unit * 2;
-    } else if(ch === '/'){
-      time += unit * 4;
-    }
+    if(ch === '.'){ beepMorse(ctx, time, unit); time += unit * 2; }
+    else if(ch === '-'){ beepMorse(ctx, time, unit * 3); time += unit * 4; }
+    else if(ch === ' ') time += unit * 2;
+    else if(ch === '/') time += unit * 4;
   }
   toast(t('toast.morsePlay'));
   logDeferred('morse-speak: "' + (morse.length > 40 ? morse.slice(0,40) + '…' : morse) + '"');
 }
 function updateSpeakerState(){
   if(!morseSpeaker) return;
-  if(settings.sounds){
+  if(settings.sounds && settings.soundVolume >= 1){
     morseSpeaker.removeAttribute('disabled');
     morseSpeaker.setAttribute('aria-disabled', 'false');
   } else {
@@ -1943,6 +2255,86 @@ morseSpeaker.addEventListener('click', function(){
   const text = txtOut.value.trim();
   if(!text){ toast(t('toast.nothing')); return; }
   playMorseAsBeeps(text);
+});
+function generateMorseWav(morse){
+  const sampleRate = 44100;
+  const unit = 0.09;
+  const freq = 750;
+  const leadSilence = 0.5;
+  const tailSilence = 0.3;
+  const clean = morse.replace(/[·•●]/g, '.').replace(/[–—−_]/g, '-');
+  let bodyTime = 0;
+  for(let i = 0; i < clean.length; i++){
+    const ch = clean[i];
+    if(ch === '.') bodyTime += unit * 2;
+    else if(ch === '-') bodyTime += unit * 4;
+    else if(ch === ' ') bodyTime += unit * 2;
+    else if(ch === '/') bodyTime += unit * 4;
+  }
+  const totalTime = leadSilence + bodyTime + tailSilence;
+  const totalSamples = Math.ceil(totalTime * sampleRate);
+  const samples = new Float32Array(totalSamples);
+  function addTone(startTime, duration){
+    const start = Math.floor(startTime * sampleRate);
+    const end = Math.floor((startTime + duration) * sampleRate);
+    const fade = Math.max(1, Math.floor(0.002 * sampleRate));
+    for(let i = start; i < end && i < samples.length; i++){
+      const tSample = (i - start) / sampleRate;
+      let amp = 0.4;
+      if(i - start < fade) amp *= (i - start) / fade;
+      if(end - i < fade) amp *= (end - i) / fade;
+      samples[i] = Math.sin(2 * Math.PI * freq * tSample) * amp;
+    }
+  }
+  let time = leadSilence;
+  for(let i = 0; i < clean.length; i++){
+    const ch = clean[i];
+    if(ch === '.'){ addTone(time, unit); time += unit * 2; }
+    else if(ch === '-'){ addTone(time, unit * 3); time += unit * 4; }
+    else if(ch === ' ') time += unit * 2;
+    else if(ch === '/') time += unit * 4;
+  }
+  const buffer = new ArrayBuffer(44 + samples.length * 2);
+  const view = new DataView(buffer);
+  function writeString(off, str){ for(let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); }
+  writeString(0, 'RIFF');
+  view.setUint32(4, 36 + samples.length * 2, true);
+  writeString(8, 'WAVE');
+  writeString(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeString(36, 'data');
+  view.setUint32(40, samples.length * 2, true);
+  let offset = 44;
+  for(let i = 0; i < samples.length; i++){
+    const s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+    offset += 2;
+  }
+  return new Blob([buffer], {type:'audio/wav'});
+}
+morseDownload.addEventListener('click', function(){
+  const text = txtOut.value.trim();
+  if(!text){ toast(t('toast.nothing')); return; }
+  try{
+    const blob = generateMorseWav(text);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'nibbly-morse-' + Date.now() + '.wav';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 120000);
+    toast(t('toast.wav'));
+    logDeferred('morse-wav: descargado (' + text.length + ' chars)');
+  }catch(e){
+    toast(t('toast.copyFail'), true);
+  }
 });
 const UNIT_DEFS = [
   {id:'bit',label:'bit (b)',factor:1/8},{id:'byte',label:'byte (B)',factor:1},
@@ -2093,6 +2485,56 @@ function renderWatts(){
 wValue.addEventListener('input', renderWatts);
 wFrom.addEventListener('change', renderWatts);
 wTo.addEventListener('change', renderWatts);
+const heatC=$('#heatC'),heatF=$('#heatF'),heatUsage=$('#heatUsage'),
+      heatBadge=$('#heatBadge'),heatFill=$('#heatFill'),heatDesc=$('#heatDesc'),heatError=$('#heatError');
+let heatSyncing = false;
+function cToF(c){ return c * 9/5 + 32; }
+function fToC(f){ return (f - 32) * 5/9; }
+function heatQuality(c){
+  if(c < 30) return {cls:'good',txt:t('pot.heat.cold'),desc:t('pot.heat.cold.d'),pct:0.1};
+  if(c < 50) return {cls:'good',txt:t('pot.heat.cool'),desc:t('pot.heat.cool.d'),pct:0.3};
+  if(c < 65) return {cls:'good',txt:t('pot.heat.warm'),desc:t('pot.heat.warm.d'),pct:0.5};
+  if(c < 75) return {cls:'mid',txt:t('pot.heat.hot'),desc:t('pot.heat.hot.d'),pct:0.7};
+  if(c < 85) return {cls:'mid',txt:t('pot.heat.vhot'),desc:t('pot.heat.vhot.d'),pct:0.85};
+  if(c < 95) return {cls:'bad',txt:t('pot.heat.danger'),desc:t('pot.heat.danger.d') + ' — ' + t('pot.heat.joke1'),pct:0.95};
+  return {cls:'bad',txt:t('pot.heat.extreme'),desc:t('pot.heat.extreme.d') + ' — ' + t('pot.heat.joke2'),pct:1};
+}
+function renderHeat(source){
+  heatError.classList.remove('show');
+  const rawC = heatC.value.trim();
+  const rawF = heatF.value.trim();
+  if(!rawC && !rawF){
+    heatUsage.textContent='—'; heatBadge.className='badge neutral'; heatBadge.textContent='—';
+    heatFill.style.width='0%'; heatFill.style.background='transparent';
+    heatDesc.textContent='—';
+    return;
+  }
+  let cVal;
+  if(source === 'F'){
+    const f = parseFloat(rawF.replace(',','.').replace(/\s/g,''));
+    if(!isFinite(f)){ heatError.textContent=t('err.invalidNum'); heatError.classList.add('show'); return; }
+    cVal = fToC(f);
+  } else {
+    const c = parseFloat(rawC.replace(',','.').replace(/\s/g,''));
+    if(!isFinite(c)){ heatError.textContent=t('err.invalidNum'); heatError.classList.add('show'); return; }
+    cVal = c;
+  }
+  heatSyncing = true;
+  if(source === 'F') heatC.value = fmtUnitNumber(cVal);
+  else heatF.value = fmtUnitNumber(cToF(cVal));
+  heatSyncing = false;
+  const q = heatQuality(cVal);
+  heatBadge.className='badge '+q.cls; heatBadge.textContent=q.txt;
+  heatDesc.textContent=q.desc;
+  heatUsage.textContent = Math.round(q.pct * 100) + '%';
+  heatFill.style.width = (q.pct * 100) + '%';
+  heatFill.style.background = q.cls==='good'?'linear-gradient(90deg,var(--good),#5b8cff)':
+    q.cls==='mid'?'linear-gradient(90deg,var(--warn),#ff8a3c)':
+    'linear-gradient(90deg,var(--bad),#ff3d6e)';
+  logDeferred('heat: '+fmtUnitNumber(cVal)+'°C ('+fmtUnitNumber(cToF(cVal))+'°F) · '+q.txt);
+}
+heatC.addEventListener('input', function(){ if(!heatSyncing) renderHeat('C'); });
+heatF.addEventListener('input', function(){ if(!heatSyncing) renderHeat('F'); });
 const SP_DEFS = [
   {id:'bps',label:'bps',factor:1},{id:'Kbps',label:'Kbps',factor:1e3},
   {id:'Mbps',label:'Mbps',factor:1e6},{id:'Gbps',label:'Gbps',factor:1e9},
@@ -2293,11 +2735,11 @@ function ramPercent(bandwidthGBs){
 }
 function ramQuality(gb, mt, gen){
   if(gen==='ddr' || gen==='ddr2') return {cls:'bad',txt:t('rm.legacy'),desc:t('rm.legacy.d')};
-  if(gb < 4)                       return {cls:'bad',txt:t('rm.basic'),desc:t('rm.basic.d')};
-  if(gb < 8)                       return {cls:'mid',txt:t('rm.office'),desc:t('rm.office.d')};
-  if(gb < 16)                      return {cls:'good',txt:t('rm.good'),desc:t('rm.good.d')};
-  if(gb < 32)                      return {cls:'good',txt:t('rm.vgood'),desc:t('rm.vgood.d')};
-  if(gb < 64)                      return {cls:'good',txt:t('rm.exc'),desc:t('rm.exc.d')};
+  if(gb < 4)  return {cls:'bad',txt:t('rm.basic'),desc:t('rm.basic.d')};
+  if(gb < 8)  return {cls:'mid',txt:t('rm.office'),desc:t('rm.office.d')};
+  if(gb < 16) return {cls:'good',txt:t('rm.good'),desc:t('rm.good.d')};
+  if(gb < 32) return {cls:'good',txt:t('rm.vgood'),desc:t('rm.vgood.d')};
+  if(gb < 64) return {cls:'good',txt:t('rm.exc'),desc:t('rm.exc.d')};
   return {cls:'good',txt:t('rm.extreme'),desc:t('rm.extreme.d')};
 }
 function renderRam(){
@@ -2763,50 +3205,22 @@ frFrom.addEventListener('change', renderFrames);
 frTo.addEventListener('change', renderFrames);
 const CODECS = {
   audio: [
-    {id:'mp3',name:'MP3',full:'MPEG-1 Audio Layer III',year:1993,type:'lossy',
-      quality:55,efficiency:35,bitrate:'128–320 kbps',
-      compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
-    {id:'aac',name:'AAC',full:'Advanced Audio Coding',year:1997,type:'lossy',
-      quality:75,efficiency:65,bitrate:'128–256 kbps',
-      compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
-    {id:'opus',name:'Opus',full:'Opus (RFC 6716)',year:2012,type:'lossy',
-      quality:92,efficiency:95,bitrate:'64–256 kbps',
-      compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
-    {id:'vorbis',name:'Vorbis',full:'Ogg Vorbis',year:2000,type:'lossy',
-      quality:78,efficiency:72,bitrate:'128–320 kbps',
-      compat:{android:'yes',ios:'no',windows:'partial',web:'yes'}},
-    {id:'ac3',name:'AC-3',full:'Dolby Digital',year:1992,type:'lossy',
-      quality:70,efficiency:50,bitrate:'192–640 kbps',
-      compat:{android:'yes',ios:'no',windows:'yes',web:'no'}},
-    {id:'flac',name:'FLAC',full:'Free Lossless Audio Codec',year:2001,type:'lossless',
-      quality:100,efficiency:40,bitrate:'700–1500 kbps',
-      compat:{android:'yes',ios:'partial',windows:'yes',web:'yes'}},
-    {id:'alac',name:'ALAC',full:'Apple Lossless',year:2004,type:'lossless',
-      quality:100,efficiency:38,bitrate:'700–1500 kbps',
-      compat:{android:'partial',ios:'yes',windows:'partial',web:'partial'}},
-    {id:'wav',name:'WAV',full:'Waveform Audio (PCM)',year:1991,type:'uncompressed',
-      quality:100,efficiency:5,bitrate:'1411 kbps',
-      compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}}
+    {id:'mp3',name:'MP3',full:'MPEG-1 Audio Layer III',year:1993,type:'lossy',quality:55,efficiency:35,bitrate:'128–320 kbps',compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
+    {id:'aac',name:'AAC',full:'Advanced Audio Coding',year:1997,type:'lossy',quality:75,efficiency:65,bitrate:'128–256 kbps',compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
+    {id:'opus',name:'Opus',full:'Opus (RFC 6716)',year:2012,type:'lossy',quality:92,efficiency:95,bitrate:'64–256 kbps',compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
+    {id:'vorbis',name:'Vorbis',full:'Ogg Vorbis',year:2000,type:'lossy',quality:78,efficiency:72,bitrate:'128–320 kbps',compat:{android:'yes',ios:'no',windows:'partial',web:'yes'}},
+    {id:'ac3',name:'AC-3',full:'Dolby Digital',year:1992,type:'lossy',quality:70,efficiency:50,bitrate:'192–640 kbps',compat:{android:'yes',ios:'no',windows:'yes',web:'no'}},
+    {id:'flac',name:'FLAC',full:'Free Lossless Audio Codec',year:2001,type:'lossless',quality:100,efficiency:40,bitrate:'700–1500 kbps',compat:{android:'yes',ios:'partial',windows:'yes',web:'yes'}},
+    {id:'alac',name:'ALAC',full:'Apple Lossless',year:2004,type:'lossless',quality:100,efficiency:38,bitrate:'700–1500 kbps',compat:{android:'partial',ios:'yes',windows:'partial',web:'partial'}},
+    {id:'wav',name:'WAV',full:'Waveform Audio (PCM)',year:1991,type:'uncompressed',quality:100,efficiency:5,bitrate:'1411 kbps',compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}}
   ],
   video: [
-    {id:'h264',name:'H.264',full:'MPEG-4 AVC',year:2003,type:'lossy',
-      quality:80,efficiency:65,bitrate:'1–20 Mbps',
-      compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
-    {id:'h265',name:'H.265',full:'HEVC',year:2013,type:'lossy',
-      quality:90,efficiency:90,bitrate:'0.5–15 Mbps',
-      compat:{android:'yes',ios:'yes',windows:'partial',web:'partial'}},
-    {id:'vp9',name:'VP9',full:'Google VP9',year:2013,type:'lossy',
-      quality:88,efficiency:85,bitrate:'0.5–15 Mbps',
-      compat:{android:'yes',ios:'partial',windows:'partial',web:'yes'}},
-    {id:'av1',name:'AV1',full:'AOMedia Video 1',year:2018,type:'lossy',
-      quality:95,efficiency:95,bitrate:'0.3–12 Mbps',
-      compat:{android:'partial',ios:'partial',windows:'partial',web:'yes'}},
-    {id:'prores',name:'ProRes',full:'Apple ProRes',year:2007,type:'lossyM',
-      quality:98,efficiency:20,bitrate:'50–300 Mbps',
-      compat:{android:'no',ios:'yes',windows:'no',web:'no'}},
-    {id:'dnxhd',name:'DNxHD',full:'Avid DNxHD',year:2007,type:'lossyM',
-      quality:98,efficiency:22,bitrate:'36–220 Mbps',
-      compat:{android:'no',ios:'no',windows:'partial',web:'no'}}
+    {id:'h264',name:'H.264',full:'MPEG-4 AVC',year:2003,type:'lossy',quality:80,efficiency:65,bitrate:'1–20 Mbps',compat:{android:'yes',ios:'yes',windows:'yes',web:'yes'}},
+    {id:'h265',name:'H.265',full:'HEVC',year:2013,type:'lossy',quality:90,efficiency:90,bitrate:'0.5–15 Mbps',compat:{android:'yes',ios:'yes',windows:'partial',web:'partial'}},
+    {id:'vp9',name:'VP9',full:'Google VP9',year:2013,type:'lossy',quality:88,efficiency:85,bitrate:'0.5–15 Mbps',compat:{android:'yes',ios:'partial',windows:'partial',web:'yes'}},
+    {id:'av1',name:'AV1',full:'AOMedia Video 1',year:2018,type:'lossy',quality:95,efficiency:95,bitrate:'0.3–12 Mbps',compat:{android:'partial',ios:'partial',windows:'partial',web:'yes'}},
+    {id:'prores',name:'ProRes',full:'Apple ProRes',year:2007,type:'lossyM',quality:98,efficiency:20,bitrate:'50–300 Mbps',compat:{android:'no',ios:'yes',windows:'no',web:'no'}},
+    {id:'dnxhd',name:'DNxHD',full:'Avid DNxHD',year:2007,type:'lossyM',quality:98,efficiency:22,bitrate:'36–220 Mbps',compat:{android:'no',ios:'no',windows:'partial',web:'no'}}
   ]
 };
 let codecType = 'audio';
@@ -2899,11 +3313,442 @@ function renderCodec(){
     return '<div class="compat-item"><div class="sys">' + s.label + '</div>' +
            '<div class="st ' + st + '">' + sym + '</div></div>';
   }).join('');
-  logDeferred('codec: ' + c.name + ' (' + codecType + ') · quality ' + c.quality +
-              ' · eff ' + c.efficiency);
+  logDeferred('codec: ' + c.name + ' (' + codecType + ') · quality ' + c.quality + ' · eff ' + c.efficiency);
 }
 buildCodecChips();
 renderCodec();
+const calcState = {
+  current: '0',
+  previous: null,
+  operator: null,
+  justEvaluated: false,
+  exploded: false
+};
+const calcDisplay = $('#calcDisplay');
+const calcExpr = $('#calcExpr');
+const calcButtons = $('#calcButtons');
+const calcEl = $('#calculator');
+function updateCalcDisplay(){
+  if(calcState.exploded) return;
+  calcDisplay.textContent = calcState.current;
+  if(calcState.previous !== null && calcState.operator){
+    const op = calcState.operator;
+    calcExpr.textContent = calcState.previous + ' ' + op;
+  } else {
+    calcExpr.innerHTML = '&nbsp;';
+  }
+}
+function resetCalc(){
+  calcState.current = '0';
+  calcState.previous = null;
+  calcState.operator = null;
+  calcState.justEvaluated = false;
+  updateCalcDisplay();
+}
+function calcDigit(d){
+  if(calcState.exploded) return;
+  if(calcState.justEvaluated){
+    calcState.current = '0';
+    calcState.justEvaluated = false;
+  }
+  if(calcState.current === '0' && d !== '.') calcState.current = d;
+  else if(d === '.' && calcState.current.indexOf('.') >= 0) return;
+  else calcState.current += d;
+  updateCalcDisplay();
+}
+function calcEvaluate(){
+  const prev = calcState.previous;
+  const cur = parseFloat(calcState.current);
+  let result;
+  switch(calcState.operator){
+    case '+': result = prev + cur; break;
+    case '−': result = prev - cur; break;
+    case '×': result = prev * cur; break;
+    case '÷':
+      if(cur === 0){ triggerCalcError(t('err.calcDivZero')); return null; }
+      result = prev / cur;
+      break;
+    case '^': result = Math.pow(prev, cur); break;
+    default: result = cur;
+  }
+  if(!isFinite(result)){ triggerCalcError(t('err.calcDivZero')); return null; }
+  return result;
+}
+function calcOperator(op){
+  if(calcState.exploded) return;
+  calcState.justEvaluated = false;
+  if(calcState.operator && calcState.previous !== null){
+    const r = calcEvaluate();
+    if(r === null) return;
+    calcState.previous = r;
+    calcState.current = '0';
+  } else {
+    calcState.previous = parseFloat(calcState.current);
+    calcState.current = '0';
+  }
+  calcState.operator = op;
+  updateCalcDisplay();
+}
+function calcEquals(){
+  if(calcState.exploded) return;
+  if(calcState.operator !== null){
+    const r = calcEvaluate();
+    if(r === null) return;
+    calcState.current = String(Number(r.toPrecision(12)));
+    calcState.previous = null;
+    calcState.operator = null;
+    calcState.justEvaluated = true;
+    updateCalcDisplay();
+  }
+}
+function calcSqrt(){
+  if(calcState.exploded) return;
+  const cur = parseFloat(calcState.current);
+  if(cur < 0){ triggerCalcError(t('err.calcSqrt')); return; }
+  calcState.current = String(Number(Math.sqrt(cur).toPrecision(12)));
+  calcState.justEvaluated = true;
+  updateCalcDisplay();
+}
+function calcSign(){
+  if(calcState.exploded) return;
+  if(calcState.current.startsWith('-')) calcState.current = calcState.current.slice(1);
+  else if(calcState.current !== '0') calcState.current = '-' + calcState.current;
+  updateCalcDisplay();
+}
+function triggerCalcError(msg){
+  if(!settings.pleaseDont){
+    calcState.current = 'Error';
+    calcState.previous = null;
+    calcState.operator = null;
+    calcState.justEvaluated = true;
+    updateCalcDisplay();
+    logDeferred('calc error: ' + msg);
+    return;
+  }
+  explodeCalculator();
+  logDeferred('calc EXPLODED: ' + msg);
+}
+function explodeCalculator(){
+  calcState.exploded = true;
+  const buttons = calcButtons.querySelectorAll('button');
+  const rects = [];
+  buttons.forEach(function(btn){
+    const r = btn.getBoundingClientRect();
+    rects.push({rect:r, text:btn.textContent, cls:btn.className});
+  });
+  calcEl.style.opacity = '0';
+  calcEl.style.pointerEvents = 'none';
+  rects.forEach(function(item){
+    const clone = document.createElement('div');
+    clone.className = 'calc-clone ' + item.cls;
+    clone.textContent = item.text;
+    clone.style.left = item.rect.left + 'px';
+    clone.style.top = item.rect.top + 'px';
+    clone.style.width = item.rect.width + 'px';
+    clone.style.height = item.rect.height + 'px';
+    document.body.appendChild(clone);
+    let vx = (Math.random() - 0.5) * 24;
+    let vy = -Math.random() * 16 - 4;
+    let x = 0, y = 0, rot = 0;
+    let vrot = (Math.random() - 0.5) * 24;
+    let last = performance.now();
+    let life = 0;
+    function step(now){
+      const dt = Math.min(50, now - last) / 16.67;
+      last = now;
+      life += dt;
+      vy += 0.9 * dt;
+      vx *= 0.995;
+      x += vx * dt;
+      y += vy * dt;
+      rot += vrot * dt;
+      clone.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rot + 'deg)';
+      if(life < 180 && y < window.innerHeight + 200){
+        requestAnimationFrame(step);
+      } else {
+        clone.style.transition = 'opacity .5s';
+        clone.style.opacity = '0';
+        setTimeout(function(){ clone.remove(); }, 600);
+      }
+    }
+    requestAnimationFrame(step);
+  });
+  if(soundsActive()){
+    const ctx = ensureAudio();
+    if(ctx){
+      try{
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(40, now + 0.6);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.15 * (settings.soundVolume / 100), now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(now); osc.stop(now + 0.75);
+      }catch(e){}
+    }
+  }
+  toast('💥 BOOM!', true);
+}
+function rebuildCalculator(){
+  calcState.exploded = false;
+  calcState.current = '0';
+  calcState.previous = null;
+  calcState.operator = null;
+  calcState.justEvaluated = false;
+  calcEl.style.opacity = '';
+  calcEl.style.pointerEvents = '';
+  updateCalcDisplay();
+}
+function maybeRebuildCalc(){
+  if(calcState.exploded) rebuildCalculator();
+}
+calcButtons.addEventListener('click', function(ev){
+  const btn = ev.target.closest('button[data-calc]');
+  if(!btn || calcState.exploded) return;
+  const val = btn.dataset.calc;
+  if(val === 'C'){ resetCalc(); return; }
+  if(val === '=' ){ calcEquals(); return; }
+  if(val === '√'){ calcSqrt(); return; }
+  if(val === '±'){ calcSign(); return; }
+  if(val === '+' || val === '−' || val === '×' || val === '÷' || val === '^'){
+    calcOperator(val); return;
+  }
+  calcDigit(val);
+});
+updateCalcDisplay();
+let gamesFilesLoaded = false;
+let gamesInitialized = false;
+let gamesMissing = false;
+let gamesLoadPromise = null;
+const gamesTabEl = $('#tabGames');
+const gamesContainer = $('#gamesContainer');
+const gamesToggle = $('#setGames');
+function setGamesTabDisabled(disabled){
+  if(disabled){ gamesTabEl.setAttribute('disabled', ''); }
+  else { gamesTabEl.removeAttribute('disabled'); }
+}
+function setGamesToggleDisabled(disabled){
+  if(!gamesToggle) return;
+  gamesToggle.disabled = disabled;
+  const row = gamesToggle.closest('.setting-row');
+  if(row) row.classList.toggle('disabled', disabled);
+}
+function markGamesMissing(){
+  if(gamesMissing) return;
+  gamesMissing = true;
+  updateGamesEnabledUI();
+}
+function loadGamesFiles(){
+  if(gamesFilesLoaded) return Promise.resolve(true);
+  if(gamesMissing) return Promise.resolve(false);
+  if(gamesLoadPromise) return gamesLoadPromise;
+  gamesLoadPromise = new Promise(function(resolve){
+    let settled = false;
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'games/games.css';
+    document.head.appendChild(css);
+    const js = document.createElement('script');
+    js.src = 'games/games.js';
+    js.onload = function(){
+      if(settled) return; settled = true;
+      if(window.NibblyGames && typeof window.NibblyGames.init === 'function'){
+        gamesFilesLoaded = true;
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    };
+    js.onerror = function(){
+      if(settled) return; settled = true;
+      resolve(false);
+    };
+    document.head.appendChild(js);
+    setTimeout(function(){
+      if(settled) return; settled = true;
+      if(window.NibblyGames && typeof window.NibblyGames.init === 'function'){
+        gamesFilesLoaded = true;
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    }, 8000);
+  });
+  return gamesLoadPromise;
+}
+async function handleGamesTab(){
+  if(gamesMissing){
+    gamesContainer.innerHTML = '<div class="games-error"><span class="emoji">🎮</span>' + t('games.error') + '</div>';
+    return;
+  }
+  if(!settings.gamesEnabled){
+    gamesContainer.innerHTML = '<div class="games-error"><span class="emoji">🚫</span>' + t('games.disabled') + '</div>';
+    return;
+  }
+  if(gamesInitialized) return;
+  if(!gamesFilesLoaded){
+    gamesContainer.innerHTML = '<div class="games-loading">' + t('games.loading') + '</div>';
+  }
+  const ok = await loadGamesFiles();
+  if(!ok){
+    markGamesMissing();
+    gamesContainer.innerHTML = '<div class="games-error"><span class="emoji">🎮</span>' + t('games.error') + '</div>';
+    return;
+  }
+  try{
+    gamesContainer.innerHTML = '';
+    window.NibblyGames.init(gamesContainer);
+    gamesInitialized = true;
+  }catch(e){
+    console.error('[NibblyGames] init error:', e);
+    markGamesMissing();
+    gamesContainer.innerHTML = '<div class="games-error"><span class="emoji">🎮</span>' + t('games.error') + '</div>';
+  }
+}
+function updateGamesEnabledUI(){
+  if(gamesMissing){
+    setGamesTabDisabled(false);
+    setGamesToggleDisabled(true);
+    return;
+  }
+  if(settings.gamesEnabled){
+    setGamesTabDisabled(false);
+    setGamesToggleDisabled(false);
+    if(gamesToggle) gamesToggle.checked = true;
+  } else {
+    setGamesTabDisabled(true);
+    setGamesToggleDisabled(false);
+    if(gamesToggle) gamesToggle.checked = false;
+    if(currentTab === 'games'){
+      const numTab = document.querySelector('[data-tab="num"]');
+      if(numTab) numTab.click();
+    }
+  }
+}
+let desktopLoaded = false;
+let desktopMissing = false;
+function loadDesktopFiles(){
+  return new Promise(function(resolve){
+    if(desktopLoaded){ resolve(true); return; }
+    if(desktopMissing){ resolve(false); return; }
+    let settled = false;
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'desktop-ui/desktop.css';
+    document.head.appendChild(css);
+    const js = document.createElement('script');
+    js.src = 'desktop-ui/desktop.js';
+    js.onload = function(){
+      if(settled) return; settled = true;
+      if(window.NibblyDesktop && typeof window.NibblyDesktop.init === 'function'){
+        desktopLoaded = true;
+        resolve(true);
+      } else {
+        desktopMissing = true;
+        resolve(false);
+      }
+    };
+    js.onerror = function(){
+      if(settled) return; settled = true;
+      desktopMissing = true;
+      resolve(false);
+    };
+    document.head.appendChild(js);
+    setTimeout(function(){
+      if(settled) return; settled = true;
+      if(window.NibblyDesktop && typeof window.NibblyDesktop.init === 'function'){
+        desktopLoaded = true;
+        resolve(true);
+      } else {
+        desktopMissing = true;
+        resolve(false);
+      }
+    }, 4000);
+  });
+}
+async function applyUIMode(){
+  const body = document.body;
+  body.classList.remove('desktop-ui');
+  if(settings.uiMode === 'desktop'){
+    const ok = await loadDesktopFiles();
+    if(ok){
+      body.classList.add('desktop-ui');
+      try{ window.NibblyDesktop.init(); }catch(e){}
+    } else {
+      toast(t('toast.uiFail'), true);
+      settings.uiMode = 'auto';
+      saveSettings();
+    }
+  } else if(settings.uiMode === 'pocket'){
+  } else {
+    const shouldDesktop = window.innerWidth >= 1024 && window.matchMedia('(pointer: fine)').matches;
+    if(shouldDesktop){
+      const ok = await loadDesktopFiles();
+      if(ok){
+        body.classList.add('desktop-ui');
+        try{ window.NibblyDesktop.init(); }catch(e){}
+      }
+    }
+  }
+  updateUIModeButtons();
+  syncSettingsUI();  
+}
+function updateUIModeButtons(){
+  document.querySelectorAll('#uiModeSeg .seg-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.value === settings.uiMode);
+  });
+  const forceRow = $('#forceBtnRow');
+  if(!forceRow) return;
+  forceRow.innerHTML = '';
+  const pocketBtn = document.createElement('button');
+  pocketBtn.type = 'button';
+  pocketBtn.className = 'force-btn' + (settings.uiMode === 'pocket' ? ' active' : '');
+  pocketBtn.textContent = t('settings.ui.pocket');
+  pocketBtn.addEventListener('click', function(){
+    settings.uiMode = 'pocket';
+    saveSettings();
+    applyUIMode();
+    toast(t('toast.uiOk'));
+  });
+  forceRow.appendChild(pocketBtn);
+  const desktopBtn = document.createElement('button');
+  desktopBtn.type = 'button';
+  desktopBtn.className = 'force-btn' + (settings.uiMode === 'desktop' ? ' active' : '');
+  desktopBtn.textContent = t('settings.ui.desktop');
+  if(desktopMissing){ desktopBtn.classList.add('broken'); }
+  desktopBtn.addEventListener('click', async function(){
+    if(desktopMissing){
+      toast(t('toast.uiFail'), true);
+      return;
+    }
+    settings.uiMode = 'desktop';
+    saveSettings();
+    await applyUIMode();
+    if(!desktopMissing) toast(t('toast.uiOk'));
+  });
+  forceRow.appendChild(desktopBtn);
+}
+$$('#uiModeSeg .seg-btn').forEach(function(b){
+  b.addEventListener('click', function(){
+    settings.uiMode = b.dataset.value;
+    saveSettings();
+    applyUIMode();
+  });
+});
+window.addEventListener('resize', function(){
+  if(settings.uiMode === 'auto'){
+    const shouldDesktop = window.innerWidth >= 1024 && window.matchMedia('(pointer: fine)').matches;
+    if(shouldDesktop && !desktopMissing && !document.body.classList.contains('desktop-ui')){
+      applyUIMode();
+    } else if(!shouldDesktop && document.body.classList.contains('desktop-ui')){
+      document.body.classList.remove('desktop-ui');
+    }
+  }
+});
 document.addEventListener('click', async function(ev){
   const btn = ev.target.closest('[data-copy]');
   if(!btn) return;
@@ -2916,7 +3761,7 @@ document.addEventListener('click', async function(ev){
   text = text || '';
   if(!text || text === '—'){ toast(t('toast.nothing')); return; }
   const ok = await copyText(text);
-  toast(ok ? t('toast.copied') : t('toast.copyFail'));
+  toast(ok ? t('toast.copied') : t('toast.copyFail'), !ok);
 });
 function buildPresets(){
   const aBox = $('#accentPresets'), bBox = $('#bgPresets');
@@ -2942,7 +3787,11 @@ function buildPresets(){
 }
 buildPresets();
 const sheet = $('#sheet'), sheetOverlay = $('#sheetOverlay');
-function openSheet(){ sheet.classList.add('show'); sheetOverlay.classList.add('show'); }
+function openSheet(){
+  syncSettingsUI();  
+  sheet.classList.add('show');
+  sheetOverlay.classList.add('show');
+}
 function closeSheet(){ sheet.classList.remove('show'); sheetOverlay.classList.remove('show'); }
 $('#openSettings').addEventListener('click', openSheet);
 $('#closeSettings').addEventListener('click', closeSheet);
@@ -2971,7 +3820,40 @@ $('#setEffects').addEventListener('change', function(e){
 $('#setSounds').addEventListener('change', function(e){
   settings.sounds = e.target.checked; saveSettings();
   updateSpeakerState();
+  updateVolumeControls();
   if(settings.sounds) playClick();
+});
+$('#setMusic').addEventListener('change', function(e){
+  settings.music = e.target.checked;
+  saveSettings();
+  if(settings.music){ musicUserPaused = false; playBgMusic(); }
+  else { musicUserPaused = true; pauseBgMusic(); }
+});
+$('#setSoundVol').addEventListener('input', function(e){
+  settings.soundVolume = parseInt(e.target.value, 10);
+  saveSettings();
+  updateVolumeControls();
+  updateSpeakerState();
+});
+$('#setMusicVol').addEventListener('input', function(e){
+  settings.musicVolume = parseInt(e.target.value, 10);
+  saveSettings();
+  updateVolumeControls();
+  if(bgMusic) bgMusic.volume = (settings.musicVolume / 100) * MUSIC_VOLUME;
+});
+$('#setGames').addEventListener('change', function(e){
+  if(gamesMissing){
+    e.target.checked = false;
+    toast(t('games.error'), true);
+    return;
+  }
+  settings.gamesEnabled = e.target.checked;
+  saveSettings();
+  updateGamesEnabledUI();
+});
+$('#setPleaseDont').addEventListener('change', function(e){
+  settings.pleaseDont = e.target.checked;
+  saveSettings();
 });
 $$('#langSeg .seg-btn').forEach(function(b){
   b.addEventListener('click', function(){
@@ -2979,12 +3861,39 @@ $$('#langSeg .seg-btn').forEach(function(b){
     settings.lang = b.dataset.value;
     $$('#langSeg .seg-btn').forEach(function(x){ x.classList.toggle('active', x === b); });
     saveSettings(); applyI18n(); fillBaseSelect(); updateTxtLabels();
-    renderNum(); renderTxt(); renderUnits(); renderCombo();
-    renderWatts(); renderSpeed(); renderCpu(); renderRam(); renderStorage();
+    renderTxt(); renderUnits(); renderCombo();
+    renderWatts(); renderHeat('C'); renderSpeed(); renderCpu(); renderRam(); renderStorage();
     renderAudio(); renderDb(); renderVideo(); renderTime(); renderFrames(); renderCodec();
     renderVisualLog();
+    updateUIModeButtons();
+    if(currentTab === 'games') handleGamesTab();
   });
 });
+function updateVolumeControls(){
+  const soundSlider = $('#setSoundVol');
+  const musicSlider = $('#setMusicVol');
+  const soundLabel = $('#soundVolLabel');
+  const musicLabel = $('#musicVolLabel');
+  const soundsToggle = $('#setSounds');
+  const musicToggle = $('#setMusic');
+  if(soundSlider) soundSlider.value = settings.soundVolume;
+  if(musicSlider) musicSlider.value = settings.musicVolume;
+  if(soundLabel) soundLabel.textContent = settings.soundVolume + '%';
+  if(musicLabel) musicLabel.textContent = settings.musicVolume + '%';
+  const soundsDisabled = settings.soundVolume < 1;
+  const musicDisabled = settings.musicVolume < 1;
+  if(soundsToggle){
+    soundsToggle.disabled = soundsDisabled;
+    const row = soundsToggle.closest('.setting-row');
+    if(row) row.classList.toggle('disabled', soundsDisabled);
+  }
+  if(musicToggle){
+    musicToggle.disabled = musicDisabled;
+    const row = musicToggle.closest('.setting-row');
+    if(row) row.classList.toggle('disabled', musicDisabled);
+  }
+  if(bgMusic) bgMusic.volume = (settings.musicVolume / 100) * MUSIC_VOLUME;
+}
 function updateLogVisibility(){
   const fab = $('#logFab'), panel = $('#logPanel');
   if(settings.logMode === 'visual') fab.classList.add('show');
@@ -3002,10 +3911,10 @@ $('#logClear').addEventListener('click', function(){
   visualLogs.length = 0; renderVisualLog();
 });
 const MUSIC_LOCAL  = 'mus/You Are Nibbled.ogg';
-const MUSIC_REMOTE = 'https://ia600102.us.archive.org/6/items/nibbly-ost-archive_202610/You Are Nibbled (In-App).mp3'; 
+const MUSIC_REMOTE = 'https://ia600102.us.archive.org/6/items/nibbly-ost-archive_202610/You Are Nibbled (In-App).mp3';
 const MUSIC_CACHE_NAME = 'nibbly-theme';
 const MUSIC_CACHE_KEY  = '/__nibbly_music_remote__';
-const MUSIC_VOLUME = 1.0;  
+const MUSIC_VOLUME = 1.0;
 let bgMusic = null;
 let musicSourceReady = false;
 let musicLoadPromise = null;
@@ -3015,7 +3924,7 @@ function getBgMusic(){
   if(!bgMusic){
     bgMusic = new Audio();
     bgMusic.loop = true;
-    bgMusic.volume = MUSIC_VOLUME;
+    bgMusic.volume = (settings.musicVolume / 100) * MUSIC_VOLUME;
     bgMusic.preload = 'auto';
     bgMusic.setAttribute('playsinline', '');
     bgMusic.addEventListener('play',  function(){ musicPlaying = true; });
@@ -3042,10 +3951,8 @@ function loadAudioSource(src, timeoutMs){
     audio.addEventListener('canplay', onReady);
     audio.addEventListener('loadeddata', onReady);
     audio.addEventListener('error', onError);
-    try{
-      audio.src = src;
-      audio.load();
-    }catch(e){ onError(); }
+    try{ audio.src = src; audio.load(); }
+    catch(e){ onError(); }
   });
 }
 async function getCachedRemoteMusic(){
@@ -3068,7 +3975,7 @@ async function cacheRemoteMusic(url){
       await cache.put(MUSIC_CACHE_KEY, res.clone());
       logCalc('music: versión en línea guardada en caché');
     }
-  }catch(e){  }
+  }catch(e){}
 }
 async function doLoadMusic(){
   try{
@@ -3123,17 +4030,6 @@ function pauseBgMusic(){
     musicPlaying = false;
   }
 }
-$('#setMusic').addEventListener('change', function(e){
-  settings.music = e.target.checked;
-  saveSettings();
-  if(settings.music){
-    musicUserPaused = false;
-    playBgMusic();
-  } else {
-    musicUserPaused = true;
-    pauseBgMusic();
-  }
-});
 function firstUserInteraction(){
   document.removeEventListener('pointerdown', firstUserInteraction);
   document.removeEventListener('keydown', firstUserInteraction);
@@ -3150,14 +4046,33 @@ $$('#logModeSeg .seg-btn').forEach(function(b){
 $$('#langSeg .seg-btn').forEach(function(b){
   b.classList.toggle('active', b.dataset.value === settings.lang);
 });
+$$('#uiModeSeg .seg-btn').forEach(function(b){
+  b.classList.toggle('active', b.dataset.value === settings.uiMode);
+});
 applyTheme(); applyI18n(); fillBaseSelect(); updateTxtLabels(); updateLogVisibility();
 updateSpeakerState();
-renderNum(); renderTxt(); renderUnits(); renderCombo();
-renderWatts(); renderSpeed(); renderCpu(); renderRam(); renderStorage();
+clearNumOutput();
+renderTxt(); renderUnits(); renderCombo();
+renderWatts(); renderHeat('C'); renderSpeed(); renderCpu(); renderRam(); renderStorage();
 renderAudio(); renderDb(); renderVideo(); renderTime(); renderFrames(); renderCodec();
-if(settings.music){
-  playBgMusic();
+updateVolumeControls();
+syncSettingsUI();  
+updateGamesEnabledUI();
+updateUIModeButtons();
+setTimeout(async function(){
+  if(gamesFilesLoaded || gamesMissing) return;
+  const ok = await loadGamesFiles();
+  if(!ok){
+    markGamesMissing();
+    if(currentTab === 'games' && !gamesInitialized){
+      gamesContainer.innerHTML = '<div class="games-error"><span class="emoji">🎮</span>' + t('games.error') + '</div>';
+    }
+  }
+}, 600);
+if(settings.uiMode === 'desktop' || (settings.uiMode === 'auto' && window.innerWidth >= 1024 && window.matchMedia('(pointer: fine)').matches)){
+  applyUIMode();
 }
+if(settings.music){ playBgMusic(); }
 })();
 </script>
 </body>
