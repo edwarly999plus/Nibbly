@@ -175,6 +175,22 @@ body.desktop-ui #panel-games .card {
 body.desktop-ui #gamesContainer {
   min-height: 400px;
 }
+body.desktop-ui #panel-paint.active {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+body.desktop-ui #panel-paint .card {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+body.desktop-ui #panel-paint .paint-toolbar {
+  grid-template-columns: repeat(4, 1fr);
+}
+body.desktop-ui #paintContainer {
+  min-height: 500px;
+}
 body.desktop-ui #panel-txt.active,
 body.desktop-ui #panel-uni.active {
   display: flex;
@@ -253,6 +269,25 @@ body.desktop-ui .calc-buttons button.op:hover {
 body.desktop-ui .calc-buttons button.eq:hover {
   filter: brightness(1.1);
   box-shadow: 0 6px 18px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+body.desktop-ui .paint-tool:hover {
+  background: var(--surface-2);
+}
+body.desktop-ui .paint-tool.active:hover {
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+}
+body.desktop-ui .paint-clear:hover {
+  background: color-mix(in srgb, var(--bad) 30%, transparent);
+}
+body.desktop-ui .paint-copy:hover {
+  background: var(--surface-3);
+}
+body.desktop-ui .paint-canvas:hover {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+body.desktop-ui #checkFilesBtn:hover:not([disabled]) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
 }
 body.desktop-ui .input:focus {
   background: var(--surface-2);
@@ -358,6 +393,9 @@ body.desktop-ui ::-webkit-scrollbar-thumb:hover {
   body.desktop-ui .tab .tab-icon {
     font-size: 16px;
   }
+  body.desktop-ui #panel-paint .card {
+    max-width: 100%;
+  }
 }
 @media (max-height: 700px) {
   body.desktop-ui .tab {
@@ -412,6 +450,12 @@ body.desktop-ui ::-webkit-scrollbar-thumb:hover {
   body.desktop-ui #panel-uni.active {
     max-width: 100%;
   }
+  body.desktop-ui #panel-paint.active {
+    display: block;
+  }
+  body.desktop-ui #panel-paint .card {
+    max-width: 100%;
+  }
   body.desktop-ui .topbar {
     padding-bottom: 14px;
   }
@@ -422,6 +466,9 @@ body.desktop-ui ::-webkit-scrollbar-thumb:hover {
 @media (min-width: 1500px) {
   body.desktop-ui .panel.active {
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  }
+  body.desktop-ui #panel-paint .card {
+    max-width: 860px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

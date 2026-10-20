@@ -7,9 +7,10 @@
     pot:   '⚡',
     media: '🎵',
     calc:  '🧮',
+    paint: '🎨',
     games: '🎮'
   };
-  const TAB_ORDER = ['num', 'txt', 'uni', 'pot', 'media', 'calc', 'games'];
+  const TAB_ORDER = ['num', 'txt', 'uni', 'pot', 'media', 'calc', 'paint', 'games'];
   let initialized = false;
   let observerActive = false;
   function injectTabIcons() {
@@ -65,7 +66,7 @@
     if (!h1) return;
     const badge = document.createElement('span');
     badge.className = 'version-badge';
-    badge.textContent = 'v1.0.2';
+    badge.textContent = 'v1.0.3';
     h1.appendChild(badge);
   }
   function addKeyboardShortcuts() {
