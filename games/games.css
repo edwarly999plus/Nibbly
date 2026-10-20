@@ -29,7 +29,7 @@
 .ng-tab.active {
   background: var(--primary, #5b8cff);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(91, 140, 255, .35);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--primary, #5b8cff) 35%, transparent);
 }
 .ng-stage {
   display: none;
@@ -87,7 +87,7 @@
   background: var(--primary, #5b8cff);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 4px 14px rgba(91,140,255,.35);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--primary, #5b8cff) 35%, transparent);
 }
 .ng-hint {
   font-size: 11px;
