@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/Nibbly%20Logo.png" alt="Nibbly Logo" width="160" height="160">
+  <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/Nibbly%20Logo.png" alt="Nibbly Logo Rounded Square" width="160" height="160">
 </p>
 
 <h1 align="center">Nibbly</h1>
