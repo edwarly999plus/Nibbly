@@ -92,7 +92,6 @@ Lightweight, fast, and **100% offline**. The APK can be easily generated with We
 - 🔒 **Private Mode** — private calculator + black screen accessible from FABs in the topbar
 - 🧮 **Scientific calculator** with visible accumulated expression, nested parentheses, and `x^y` exponents
 - 👁️ **Panic button** — instant jump to a black screen with the calculator state restored
-- ⌨️ **Android keyboard fix** after exiting fullscreen (automatic IME rescue)
 - 🎵 **Auto pause/resume** of music when opening/closing private mode
 - 🔢 **RAM meter fix** — now reaches 100% with DDR5-8400
 - 🎵 **Audio bitrate meter fix** — now reaches 100% with CD/FLAC
@@ -148,7 +147,7 @@ Lightweight, fast, and **100% offline**. The APK can be easily generated with We
 ### 🧮 Calculator
 - Classic functions: **add, subtract, multiply, divide, square root, powers, and sign change**
 - **💥 Optional physics explosion**: enable the **"Please Don't"** toggle in Settings and, when you make a syntax error or a **division by zero**, the buttons fly off with gravity physics, rotation, and fade. The calculator stays unusable until you switch tabs and come back
-- **🕳️ Black hole alternative**: with "Please Don't" enabled, each error can trigger an explosion **or** a black hole that sucks in the buttons while spinning and vanishes with a thud
+- **🕳️ Black hole alternative**: with "Please Don't" enabled, each error can trigger an explosion **or** a black hole that sucks in the buttons while spinning and vanishes with a thud (Henry Stickmin Reference)
 - Off by default → normal calculation with `"Error"` on screen
 
 ### 🎨 Drawing
