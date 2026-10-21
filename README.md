@@ -5,65 +5,65 @@
 <h1 align="center">Nibbly</h1>
 
 <p align="center">
-  <b>El convertidor todo-en-uno para Android</b><br>
-  Bases · Texto · Morse · Bits · Potencia · Multimedia · Calculadora · Dibujo · Juegos · Modo Privado
+  <b>The all-in-one converter for Android</b><br>
+  Bases · Text · Morse · Bits · Power · Multimedia · Calculator · Drawing · Games · Private Mode
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/versión-1.0.4-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.0.4-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/licencia-Apache%202.0-22d3a6?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/license-Apache%202.0-22d3a6?style=for-the-badge" alt="License">
 </p>
 
 <p align="center">
   <a href="https://github.com/edwarly999plus/Nibbly/releases/latest">
-    <img src="https://img.shields.io/badge/⬇_Descargar_APK-Releases-5b8cff?style=for-the-badge&logo=android&logoColor=white" alt="Download APK">
+    <img src="https://img.shields.io/badge/⬇_Download_APK-Releases-5b8cff?style=for-the-badge&logo=android&logoColor=white" alt="Download APK">
   </a>
   <a href="https://edwarly999plus.github.io/Nibbly/">
-    <img src="https://img.shields.io/badge/▶_Probar_Online-GitHub_Pages-22d3a6?style=for-the-badge&logo=github&logoColor=white" alt="Try Online">
+    <img src="https://img.shields.io/badge/▶_Try_Online-GitHub_Pages-22d3a6?style=for-the-badge&logo=github&logoColor=white" alt="Try Online">
   </a>
-<a href="https://edwarly999plus.github.io/Nibbly/player.html">
-  <img src="https://img.shields.io/badge/🎵_Reproductor_de_Música-5b8cff?style=for-the-badge" alt="Reproductor">
-</a>
+  <a href="https://edwarly999plus.github.io/Nibbly/player.html">
+    <img src="https://img.shields.io/badge/🎵_Music_Player-5b8cff?style=for-the-badge" alt="Music Player">
+  </a>
 </p>
 
 ---
 
-## 📥 Descarga
+## 📥 Download
 
-> **⚡ APK ya compilado disponible en [Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)**
+> **⚡ Pre-built APK available at [Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)**
 
-El APK incluye el HTML ya construido y listo para ejecutarse. **No requiere conexión a internet** una vez instalado.
+The APK includes the HTML already built and ready to run. **No internet connection required** once installed.
 
-**🎵 La música de fondo (`mus/You Are Nibbled.ogg`) ya viene incluida dentro del APK**, así que puedes activarla desde Ajustes **sin necesidad de conexión a internet** desde el primer arranque. En la versión **web/PC**, el archivo `.ogg` **no se incluye** (los PC suelen estar en casa con conexión estable); la música se descarga automáticamente la primera vez que la activas (usualmente en <5 s) y queda en caché para siguientes usos.
+**🎵 The background music (`mus/You Are Nibbled.ogg`) is already bundled inside the APK**, so you can enable it from Settings **without needing an internet connection** from the very first launch. On the **web/PC version**, the `.ogg` file **is not included** (PCs usually have home internet with a stable connection); the music is downloaded automatically the first time you enable it (usually in <5s) and stays cached for future use.
 
-También puedes escucharla aquí directamente sin descargar nada.
+You can also listen to it right here directly without downloading anything.
 
 <a href="https://edwarly999plus.github.io/Nibbly/player.html">
-  <img src="https://img.shields.io/badge/🎵_Escuchar_Ahora-5b8cff?style=for-the-badge" alt="Reproductor">
+  <img src="https://img.shields.io/badge/🎵_Listen_Now-5b8cff?style=for-the-badge" alt="Music Player">
 </a>
 
-### ⚠️ Requisito importante
+### ⚠️ Important requirement
 
-La app usa el **Android System WebView** (o Chrome) para renderizar la interfaz.
+The app uses the **Android System WebView** (or Chrome) to render the interface.
 
-- **Android 6.0 (Marshmallow) o superior** ✅
-- **Android System WebView** instalado y actualizado ✅
-- En la mayoría de dispositivos modernos **ya viene preinstalado**
+- **Android 6.0 (Marshmallow) or higher** ✅
+- **Android System WebView** installed and up to date ✅
+- On most modern devices it **comes preinstalled**
 
-Si la app muestra una pantalla en blanco, actualiza **Android System WebView** desde Play Store o instala **Chrome**.
+If the app shows a blank screen, update **Android System WebView** from the Play Store or install **Chrome**.
 
 <p align="center">
   <a href="https://play.google.com/store/apps/details?id=com.google.android.webview">
-    <img src="https://img.shields.io/badge/Actualizar_WebView-Play_Store-3ddc84?style=for-the-badge&logo=google-play&logoColor=white" alt="Update WebView">
+    <img src="https://img.shields.io/badge/Update_WebView-Play_Store-3ddc84?style=for-the-badge&logo=google-play&logoColor=white" alt="Update WebView">
   </a>
 </p>
 
 ---
 
-## 📸 Capturas de pantalla
+## 📸 Screenshots
 
 <p align="center">
   <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/1.png" alt="1" width="180">
@@ -82,733 +82,733 @@ Si la app muestra una pantalla en blanco, actualiza **Android System WebView** d
 
 ---
 
-## 📖 Descripción
+## 📖 Description
 
-**Nibbly** es una aplicación Android construida en **HTML5 + CSS3 + JavaScript** que reúne más de **30 herramientas de conversión**, **una calculadora con personalidad propia**, **un editor de dibujo**, **3 minijuegos informáticos** y un **modo privado con calculadora científica disfrazada**, todo en una sola interfaz **Material You 3** con temas personalizables, sonidos, registro de cálculos, música de fondo incluida y soporte bilingüe.
+**Nibbly** is an Android app built with **HTML5 + CSS3 + JavaScript** that bundles over **30 conversion tools**, **a calculator with its own personality**, **a drawing editor**, **3 computer-themed minigames**, and a **private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, and bilingual support.
 
-Ligera, rápida y **100% offline**. El APK se genera fácilmente con WebView, Capacitor o Cordova.
+Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova.
 
-**Novedades destacadas de la 1.0.4:**
-- 🔒 **Modo Privado** — calculadora privada + pantalla negra accesibles desde FABs en la topbar
-- 🧮 **Calculadora científica** con expresión acumulada visible, paréntesis anidados y exponentes `x^y`
-- 👁️ **Panic button** — salto instantáneo a pantalla negra con restauración del estado de la calc
-- ⌨️ **Fix del teclado Android** tras salir de fullscreen (IME rescue automático)
-- 🎵 **Pausa/reanudación automática** de la música al abrir/cerrar el modo privado
-- 🔢 **Fix del medidor de RAM** — ahora llega a 100% con DDR5-8400
-- 🎵 **Fix del medidor de bitrate** — ahora llega a 100% con CD/FLAC
-- 🔍 **Fix del comprobador** — los `.ogg` ahora se validan correctamente con `<audio>`
+**v1.0.4 highlights:**
+- 🔒 **Private Mode** — private calculator + black screen accessible from FABs in the topbar
+- 🧮 **Scientific calculator** with visible accumulated expression, nested parentheses, and `x^y` exponents
+- 👁️ **Panic button** — instant jump to a black screen with the calculator state restored
+- ⌨️ **Android keyboard fix** after exiting fullscreen (automatic IME rescue)
+- 🎵 **Auto pause/resume** of music when opening/closing private mode
+- 🔢 **RAM meter fix** — now reaches 100% with DDR5-8400
+- 🎵 **Audio bitrate meter fix** — now reaches 100% with CD/FLAC
+- 🔍 **File checker fix** — `.ogg` files are now properly validated with `<audio>`
 
 ---
 
-## ✨ Características
+## ✨ Features
 
-### 🔢 Números
-- Conversión entre bases **2 – 36**
-- Salidas en **Binario, Octal, Decimal, Hex, Base32, Base36**
-- **Nibble** (bloques de 4 bits) y **BCD** (Binary-Coded Decimal)
-- **ASCII** y soporte para números grandes con `BigInt`
-- **⏳ Botón "Convertir"** con delay de 3 s y **mensajes rotativos** ("Alineando los astros…", "Calculando matemáticamente…", etc.) — la conversión solo se ejecuta al pulsarlo, evitando saturar la consola y respetando el ritmo del usuario
-- **🎲 Generador de códigos alfanuméricos** con:
-  - Configuración de **separadores** (0 a N)
-  - **Dígitos por bloque** personalizables
-  - **6 tipos de separador**: guión, barra baja, barra, espacio, punto, ninguno
-  - **4 tipos de caracteres**: números, mayúsculas, minúsculas, símbolos
+### 🔢 Numbers
+- Conversion between bases **2 – 36**
+- Output in **Binary, Octal, Decimal, Hex, Base32, Base36**
+- **Nibble** (4-bit blocks) and **BCD** (Binary-Coded Decimal)
+- **ASCII** and support for large numbers with `BigInt`
+- **⏳ "Convert" button** with a 3-second delay and **rotating messages** ("Aligning the stars…", "Calculating mathematically…", etc.) — conversion only runs when pressed, avoiding console spam and respecting the user's pace
+- **🎲 Alphanumeric code generator** with:
+  - **Separator** configuration (0 to N)
+  - Customizable **digits per block**
+  - **6 separator types**: dash, underscore, slash, space, dot, none
+  - **4 character types**: numbers, uppercase, lowercase, symbols
 
-### 📝 Texto
-- Texto ↔ Binario, Octal, Decimal, Hex, ASCII, **Morse**, **Base64**
-- Soporte completo de **Unicode** (emojis incluidos)
-- **Teclado Morse integrado** (punto, línea, espacio, `/`) para dispositivos sin esas fuentes
-- **🔊 Reproductor Morse**: escucha las frecuencias en formato beep (750 Hz) directamente desde la app
-- **⬇ Descarga de audio Morse en .wav**: genera un archivo de audio con los tonos del mensaje para guardarlo o compartirlo (con 0.5 s de lead-in para evitar que algunos reproductores recorten el inicio)
-- Auto-división de cadenas continuas al pegar
+### 📝 Text
+- Text ↔ Binary, Octal, Decimal, Hex, ASCII, **Morse**, **Base64**
+- Full **Unicode** support (emojis included)
+- **Built-in Morse keyboard** (dot, dash, space, `/`) for devices without those fonts
+- **🔊 Morse player**: listen to the frequencies as beeps (750 Hz) directly from the app
+- **⬇ Download Morse audio as .wav**: generates an audio file with the message tones to save or share (with a 0.5s lead-in so some players don't cut the start)
+- Auto-split of continuous strings on paste
 
 ### 💾 Bits
 - **bit, byte, KB, MB, GB, TB, PB, EB, ZB, YB** (SI)
 - **KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB** (IEC)
-- **🔢 Calculadora de combinaciones**: cuántos valores caben en X bits/bytes/GB (2^N)
+- **🔢 Combinations calculator**: how many values fit in X bits/bytes/GB (2^N)
 
-### ⚡ Potencia
-- **Watts**: mW, W, kW, MW, GW, HP, CV, BTU/h con barra de calidad
-- **🌡️ Medidor de calor de CPU**: introduce °C o °F y obtén el nivel de peligro, el uso estimado del procesador y un chiste cuando el calor llega a niveles extremos ("Tan caliente para freír un huevo", "Hace tanto calor que puedes prender una fogata y despedirte del CPU")
-- **Velocidad de conexión**: bps → Tbps, B/s → GB/s con medidores de descarga y subida
-- **CPU (GHz)**: Hz → THz con 8 barras de rendimiento verticales
-- **🧠 RAM**: DDR, DDR2, DDR3, DDR4, DDR5 con ancho de banda por canal y dual channel — **medidor corregido en 1.0.4** para llegar a 100% con DDR5-8400
-- **💾 Almacenamiento**: HDD, SSD SATA, NVMe Gen3/4/5, MicroSD, eMMC, USB, Thunderbolt
+### ⚡ Power
+- **Watts**: mW, W, kW, MW, GW, HP, CV, BTU/h with quality bar
+- **🌡️ CPU heat meter**: enter °C or °F and get the danger level, estimated CPU usage, and a joke when the heat reaches extreme levels ("Hot enough to fry an egg", "So hot you could light a campfire and say goodbye to the CPU")
+- **Connection speed**: bps → Tbps, B/s → GB/s with download and upload meters
+- **CPU (GHz)**: Hz → THz with 8 vertical performance bars
+- **🧠 RAM**: DDR, DDR2, DDR3, DDR4, DDR5 with per-channel bandwidth and dual channel — **meter fixed in 1.0.4** to reach 100% with DDR5-8400
+- **💾 Storage**: HDD, SATA SSD, NVMe Gen3/4/5, MicroSD, eMMC, USB, Thunderbolt
 
 ### 🎵 Multimedia
-- **Bitrate de audio**: calidad desde voz hasta sin pérdida — **medidor corregido en 1.0.4** para llegar a 100% con CD 1411 kbps / FLAC
-- **Decibelios**: dB SPL, dBu, dBV, dBFS, dBm con **espectro Grave/Medio/Agudo**
-- **Resolución de vídeo**: px, Kpx, Mpx, MP, Gpx con escala de calidad
-- **Conversor de tiempo**: ns → milenios con escala temporal clasificada
-- **🎞️ Frames por unidad de tiempo**: frames/ns → frames/año con medidor de fluidez
-- **Info de códecs**: MP3, AAC, Opus, FLAC, H.264, H.265, VP9, AV1, ProRes…
-  - Calidad y eficiencia de compresión
-  - Compatibilidad con **Android, iOS, Windows y Web**
+- **Audio bitrate**: quality from voice to lossless — **meter fixed in 1.0.4** to reach 100% with CD 1411 kbps / FLAC
+- **Decibels**: dB SPL, dBu, dBV, dBFS, dBm with **Bass/Mid/Treble spectrum**
+- **Video resolution**: px, Kpx, Mpx, MP, Gpx with quality scale
+- **Time converter**: ns → millennia with classified time scale
+- **🎞️ Frames per time unit**: frames/ns → frames/year with smoothness meter
+- **Codec info**: MP3, AAC, Opus, FLAC, H.264, H.265, VP9, AV1, ProRes…
+  - Quality and compression efficiency
+  - Compatibility with **Android, iOS, Windows, and Web**
 
-### 🧮 Calculadora
-- Funciones clásicas: **suma, resta, multiplicación, división, raíz cuadrada, potencias y cambio de signo**
-- **💥 Explosión física opcional**: activa el interruptor **"Please Don't"** en Ajustes y, al cometer un error de sintaxis o una **división por cero**, los botones salen volando con física de gravedad, rotación y desvanecimiento. La calculadora queda inutilizable hasta que cambies de pestaña y vuelvas a entrar
-- **🕳️ Agujero negro alternativa**: con "Please Don't" activado, cada error puede disparar una explosión **o** un agujero negro que succiona los botones girando y desaparece con un thud
-- Desactivado por defecto → cálculo normal con `"Error"` en pantalla
+### 🧮 Calculator
+- Classic functions: **add, subtract, multiply, divide, square root, powers, and sign change**
+- **💥 Optional physics explosion**: enable the **"Please Don't"** toggle in Settings and, when you make a syntax error or a **division by zero**, the buttons fly off with gravity physics, rotation, and fade. The calculator stays unusable until you switch tabs and come back
+- **🕳️ Black hole alternative**: with "Please Don't" enabled, each error can trigger an explosion **or** a black hole that sucks in the buttons while spinning and vanishes with a thud
+- Off by default → normal calculation with `"Error"` on screen
 
-### 🎨 Dibujo
-Editor simple cargado como **expansión externa** (`paint/paint.css` y `paint/paint.js`) — pensado para diseñadores que trabajan con HTML y necesitan conocer los valores exactos de sus colores:
+### 🎨 Drawing
+Simple editor loaded as an **external expansion** (`paint/paint.css` and `paint/paint.js`) — designed for designers working with HTML who need to know the exact values of their colors:
 
-- **🖌️ Pincel** — trazos suaves con antialiasing, grosor ajustable 1–40 px
-- **✏️ Lápiz** — pixel-perfect (Bresenham, sin antialiasing), respeta el grosor con bloques N×N
-- **🧽 Borrador** — deja el píxel completamente transparente (`alpha = 0`)
-- **💧 Cuentagotas** — toca cualquier píxel y captura su color exacto
-- **🎨 Selector de color** con preview circular
-- **📋 Copia individual** de valores `RGBA` y `HEX` (RGBA y HEX con botón 📋 cada uno) o **ambos a la vez**
-- **Actualización instantánea** de los valores al apoyar el trazo (borrador resetea a `#00000000`)
-- **Canvas adaptativo**: 320×320 px en móvil, 500×400 px en escritorio
-- **Fondo de transparencia** (cuadros de ajedrez) para ver la opacidad real
+- **🖌️ Brush** — smooth antialiased strokes, adjustable thickness 1–40 px
+- **✏️ Pencil** — pixel-perfect (Bresenham, no antialiasing), respects the thickness with N×N blocks
+- **🧽 Eraser** — leaves the pixel completely transparent (`alpha = 0`)
+- **💧 Eyedropper** — tap any pixel and capture its exact color
+- **🎨 Color picker** with circular preview
+- **📋 Individual copy** of `RGBA` and `HEX` values (each with its own 📋 button) or **both at once**
+- **Instant update** of the values when the stroke is applied (eraser resets to `#00000000`)
+- **Adaptive canvas**: 320×320 px on mobile, 500×400 px on desktop
+- **Transparency background** (checkerboard) to see the real opacity
 
-### 🔒 Modo Privado
-Módulo cargado como **expansión externa** (`privacy/privacy.css` y `privacy/privacy.js`). Añade **dos FABs discretos** en la topbar (junto al engranaje ⚙) para uso privado:
+### 🔒 Private Mode
+Module loaded as an **external expansion** (`privacy/privacy.css` and `privacy/privacy.js`). Adds **two discreet FABs** in the topbar (next to the ⚙ settings gear) for private use:
 
-- **🧮 Calculadora privada** — interfaz oscura fullscreen con calculadora científica completa
-- **👁️ Pantalla negra** — fullscreen real con salida por 3 toques
+- **🧮 Private calculator** — fullscreen dark interface with a complete scientific calculator
+- **👁️ Black screen** — true fullscreen with exit via 3 taps
 
-#### Aviso de responsabilidad
-La primera vez aparece un modal con aviso académico y checkbox **"No mostrar de nuevo"** persistente en `localStorage` bajo `nibbly-privacy-v1`. Una vez marcado, no vuelve a aparecer.
+#### Responsibility warning
+The first time it shows a modal with an academic notice and a **"Don't show again"** checkbox persisted in `localStorage` under `nibbly-privacy-v1`. Once checked, it never appears again.
 
-#### Calculadora privada
-- **📝 Expresión acumulada** visible: `(55) + (7) − (78) = -16`
-- **🔢 Display grande** con número actual (clamp 40–80 px)
-- **🧮 Layout simétrico tipo teclado numérico**:
+#### Private calculator
+- **📝 Accumulated expression** visible: `(55) + (7) − (78) = -16`
+- **🔢 Large display** with current number (clamp 40–80 px)
+- **🧮 Symmetric layout like a numeric keypad**:
 ```
 
 C    ⌫    ±    ÷
 7    8    9    ×
 4    5    6    −
 1    2    3    +
-.    0    ,    =      ← 0 centrado entre los dos símbolos
-(    )    √    x^y    ← funciones avanzadas al fondo
+.    0    ,    =      ← 0 centered between the two symbols
+(    )    √    x^y    ← advanced functions at the bottom
 
 ```
-- **Operadores completos**: `+ − × ÷` · `x^y` (potencia `Math.pow`) · `√` (raíz) · `±` (signo) · `⌫` (backspace) · `C` (clear) · `=` · `(` `)` (paréntesis anidados)
-- **Paréntesis con `parenStack`**:
-  - Hasta 32 niveles de anidamiento
-  - Cada `(` guarda el `previous` + `operator` del padre
-  - Cada `)` cierra y aplica el resultado al padre
-  - `=` **autocierra** todos los paréntesis pendientes
-- **Decimales con `,` o `.`** (`1,5` = `1.5`, solo un separador por número)
-- **Panic button 👁️** en el header:
-  - Oculta la calc (`display: none`) **sin destruirla**
-  - Salta a pantalla negra con `mode=returnToCalc`
-  - Al volver → la calc reaparece **con el mismo estado intacto** (mismo número, misma expresión, mismo paréntesis abierto)
-- **Botón `?`** → modal con tips de seguridad:
-  1. Usa una pantalla anti-espía (privacy screen protector)
-  2. Baja el brillo del celular al usar la app
-  3. Evita usarla si la sala está oscura y puede delatarte la retroiluminación
-  4. Sirve también para ocultar la operadora (Android) o apps abiertas (PC)
-  5. Para los convertidores de bases, sal del fullscreen
-- **Botón `✕`** → cierra la calc y vuelve al panel activo
+- **Full operators**: `+ − × ÷` · `x^y` (power `Math.pow`) · `√` (root) · `±` (sign) · `⌫` (backspace) · `C` (clear) · `=` · `(` `)` (nested parentheses)
+- **Parentheses with `parenStack`**:
+  - Up to 32 nesting levels
+  - Each `(` stores the parent `previous` + `operator`
+  - Each `)` closes and applies the result to the parent
+  - `=` **auto-closes** all pending parentheses
+- **Decimals with `,` or `.`** (`1,5` = `1.5`, only one separator per number)
+- **Panic button 👁️** in the header:
+  - Hides the calc (`display: none`) **without destroying it**
+  - Jumps to the black screen with `mode=returnToCalc`
+  - On return → the calc reappears **with the same state intact** (same number, same expression, same open parenthesis)
+- **`?` button** → modal with security tips:
+  1. Use a privacy screen protector
+  2. Lower your phone brightness when using the app
+  3. Avoid using it if the room is dark and backlight could give you away
+  4. Also useful to hide your carrier name (Android) or open apps (PC)
+  5. To use the base converters, exit fullscreen
+- **`✕` button** → closes the calc and returns to the active panel
 
-#### Pantalla negra
-- Fondo `#000` con `touch-action: none` (evita scroll accidental)
-- **Fullscreen real** (oculta barras del sistema)
-- **3 toques** (en ≤ 800 ms) para salir
-- Si venías de la calc → vuelve con el **estado intacto**
-- Si venías de la topbar → vuelve al panel activo
+#### Black screen
+- `#000` background with `touch-action: none` (prevents accidental scroll)
+- **True fullscreen** (hides system bars)
+- **3 taps** (within ≤ 800 ms) to exit
+- If you came from the calc → returns with the **state intact**
+- If you came from the topbar → returns to the active panel
 
-#### Fix del teclado Android tras fullscreen
-Al salir de `requestFullscreen()` (o `onHideCustomView` del compilador WebToApp), el WebView **pierde la conexión con el IME** → los `<input>` dejan de responder hasta reiniciar la actividad. `rescueKeyboardAfterFullscreen()` reconecta el teclado con un `<input>` temporal y 4 intentos escalonados (0/120/350/700 ms).
+#### Android keyboard fix after fullscreen
+After exiting `requestFullscreen()` (or `onHideCustomView` from the WebToApp compiler), the WebView **loses the connection to the IME** → the app's `<input>` fields stop responding until the activity is restarted. `rescueKeyboardAfterFullscreen()` reconnects the keyboard using a temporary `<input>` and 4 staggered attempts (0/120/350/700 ms).
 
-#### Sincronización con la música
-- 🎵 Pausa automática al abrir la calc o la pantalla negra
-- 🎵 Reanudación automática al volver a la app principal
-- 🎵 **No reanuda** si venías de calc → pantalla negra → calc (mantiene la pausa hasta salir del modo privado por completo)
-- Implementado vía `window.__nibblyMusic` (API pública expuesta por `index.html`)
+#### Music synchronization
+- 🎵 Auto pause when opening the calc or the black screen
+- 🎵 Auto resume when returning to the main app
+- 🎵 **Does not resume** if you came from calc → black screen → calc (keeps it paused until you fully exit private mode)
+- Implemented via `window.__nibblyMusic` (public API exposed by `index.html`)
 
-### 🎮 Juegos
-Tres minijuegos informáticos completos, cargados como **archivos separados** (`games/games.css` y `games/games.js`) para mantener el `index.html` principal ligero:
+### 🎮 Games
+Three complete computer-themed minigames, loaded as **separate files** (`games/games.css` and `games/games.js`) to keep the main `index.html` lightweight:
 
-- **🎲 2048**: tablero 4×4 con animación de **deslizamiento real** (los tiles se mueven físicamente entre celdas), soporte de swipe en móvil y teclas de flecha en escritorio
-- **🧱 Tetris**: 10×20 con los 7 tetrominós clásicos, wall-kick al rotar, velocidad progresiva por nivel, controles táctiles y de teclado (`← → ↓ ↑ Espacio P`)
-- **💣 Buscaminas**: 9×9 con 10 minas, primer clic siempre seguro, banderas con **botón dedicado 🚩** (para marcar de forma determinista en Android con un solo toque) y long-press como alternativa
+- **🎲 2048**: 4×4 board with **real slide animation** (tiles physically move between cells), swipe support on mobile, and arrow keys on desktop
+- **🧱 Tetris**: 10×20 with the 7 classic tetrominoes, wall-kick on rotation, progressive speed per level, touch and keyboard controls (`← → ↓ ↑ Space P`)
+- **💣 Minesweeper**: 9×9 with 10 mines, first click always safe, flags with a **dedicated 🚩 button** (for deterministic marking on Android with a single tap) and long-press as an alternative
 
-**Ajustes:**
-- **Interruptor Juegos ON/OFF** para desactivar la pestaña completa si te distrae
-- Si los archivos `games/*` no existen, aparece el mensaje *"No hay juegos instalados, descargue los archivos faltantes en GitHub :("*
+**Settings:**
+- **Games ON/OFF toggle** to disable the whole tab if it distracts you
+- If the `games/*` files don't exist, the message *"No games installed, please download the missing files from GitHub :("* appears
 
-### 🖥️ Interfaz de escritorio (solo para web / PC)
-> **⚠️ Importante — No incluir en la compilación del APK**
+### 🖥️ Desktop UI (web / PC only)
+> **⚠️ Important — Do not include in the APK build**
 >
-> La carpeta `desktop-ui/` es **exclusivamente para uso en navegador web / PC**. **No debe incluirse en el APK de Android** porque forzaría el layout de escritorio dentro de un móvil, rompiendo la interfaz en pantallas pequeñas.
+> The `desktop-ui/` folder is **exclusively for browser/PC use**. **It must not be included in the Android APK** because it would force the desktop layout inside a phone, breaking the interface on small screens.
 >
-> En **tablets Android**, el propio compilador (WebToApp, Capacitor, Cordova…) se encarga de **estirar el layout móvil** de forma natural sin verse raro, así que tampoco es necesaria la UI de escritorio en ese caso.
+> On **Android tablets**, the compiler itself (WebToApp, Capacitor, Cordova…) **stretches the mobile layout** naturally without looking weird, so the desktop UI isn't needed there either.
 >
-> **Inclúyela solo si** vas a distribuir el `index.html` para abrirlo directamente en un navegador de escritorio o empaquetarlo con otra herramienta que respete `desktop-ui/`.
+> **Only include it if** you're going to distribute the `index.html` to open directly in a desktop browser or package it with another tool that respects `desktop-ui/`.
 
-Diseñada para usarse cómodamente desde un PC con ratón, cargada como **expansión externa** (`desktop-ui/desktop.css` y `desktop-ui/desktop.js`):
+Designed to be comfortably used from a PC with a mouse, loaded as an **external expansion** (`desktop-ui/desktop.css` and `desktop-ui/desktop.js`):
 
-- **Sidebar vertical** con iconos por pestaña
-- **Grid responsive** de tarjetas (2–3 columnas según ancho)
-- **Atajos de teclado**: `1`–`8` cambian de pestaña, `Esc` cierra Ajustes
-- **Modal centrado** para Ajustes (en vez de bottom sheet)
-- **Badge de versión** junto al título
-- **Hover states** en botones, tarjetas y tabs
-- **Fallback automático** a layout móvil si la ventana baja de 900 px
+- **Vertical sidebar** with icons per tab
+- **Responsive card grid** (2–3 columns depending on width)
+- **Keyboard shortcuts**: `1`–`8` switch tabs, `Esc` closes Settings
+- **Centered modal** for Settings (instead of bottom sheet)
+- **Version badge** next to the title
+- **Hover states** on buttons, cards, and tabs
+- **Auto fallback** to mobile layout if the window goes below 900 px
 
-**Force UI** en Ajustes → Interfaz:
-- **Automático** — detecta el dispositivo (en Android WebView siempre será Bolsillo)
-- **Forzar Bolsillo** — siempre mobile
-- **Forzar Escritorio** — carga `desktop-ui/*`. Si los archivos no existen, el botón se grisea y al pulsarlo muestra *"Los archivos de expansión están rotos o no existen"*
+**Force UI** in Settings → Interface:
+- **Automatic** — detects the device (on Android WebView it will always be Pocket)
+- **Force Pocket** — always mobile
+- **Force Desktop** — loads `desktop-ui/*`. If the files don't exist, the button is greyed out and shows *"The expansion files are broken or missing"*
 
-### ⚙️ Ajustes
-- 🎨 **Color resaltado y fondo personalizables** con presets oscuros
-- 📋 **Registro de cálculos**: Desactivado / Consola / En la app
-- ✨ **Efectos visuales** ON/OFF (afecta también al **fondo gradiente animado**)
-- 🔊 **Sonidos** ON/OFF (Web Audio API) — afecta también al reproductor Morse y al modo privado
-- 🎚️ **Sliders de volumen independientes** para música y sonidos (0–100%). Si un slider está en **0%**, el interruptor correspondiente se grisea y no se puede activar hasta subirlo a ≥1%
-- 🌐 **Idioma**: Español / Inglés
-- 🔍 **Comprobador de archivos**: detecta qué archivos de expansión (`games/`, `desktop-ui/`, `paint/`, `privacy/`, `images/`, `mus/`) están instalados y cuáles faltan
+### ⚙️ Settings
+- 🎨 **Customizable accent color and background** with dark presets
+- 📋 **Calculation log**: Off / Console / In-app
+- ✨ **Visual effects** ON/OFF (also affects the **animated gradient background**)
+- 🔊 **Sounds** ON/OFF (Web Audio API) — also affects the Morse player and private mode
+- 🎚️ **Independent volume sliders** for music and sounds (0–100%). If a slider is at **0%**, the corresponding toggle is greyed out and can't be enabled until it's raised to ≥1%
+- 🌐 **Language**: Spanish / English
+- 🔍 **File checker**: detects which expansion files (`games/`, `desktop-ui/`, `paint/`, `privacy/`, `images/`, `mus/`) are installed and which are missing
 
-### 🎨 Fondo gradiente animado
-Un **fondo gradiente radial animado** que respira suavemente con la música de fondo. El color del gradiente usa automáticamente el **color de acento** que hayas elegido, creando una experiencia visual coherente:
+### 🎨 Animated gradient background
+An **animated radial gradient background** that breathes softly with the background music. The gradient color automatically uses the **accent color** you chose, creating a coherent visual experience:
 
-- Animación `bgPulse` de 9 s que alterna entre 100% y 32% de opacidad
-- Combina con el ambiente relajante de *"You Are Nibbled"*
-- Respeta el toggle **Efectos visuales** (se desactiva si apagas los efectos)
-- Sin coste de rendimiento: usa `will-change: opacity` y `background-repeat: no-repeat`
+- `bgPulse` animation over 9s alternating between 100% and 32% opacity
+- Combines with the relaxing vibe of *"You Are Nibbled"*
+- Respects the **Visual effects** toggle (disabled if you turn off effects)
+- No performance cost: uses `will-change: opacity` and `background-repeat: no-repeat`
 
-### 🎵 Música de fondo
-Música opcional en bucle. El comportamiento cambia según la plataforma:
+### 🎵 Background music
+Optional looping music. Behavior changes depending on the platform:
 
-#### 📱 En el APK de Android
-- **✅ El archivo `.ogg` ya viene incluido** en el APK (`mus/You Are Nibbled.ogg`).
-- **Funciona offline desde el primer arranque**, sin descargas ni esperas.
-- Puedes activar la música desde Ajustes inmediatamente, incluso sin conexión a internet.
-- **No requiere descargar nada.**
-- **Se pausa automáticamente** al abrir el modo privado (calc / pantalla negra) y se reanuda al volver.
+#### 📱 In the Android APK
+- **✅ The `.ogg` file is already bundled** in the APK (`mus/You Are Nibbled.ogg`).
+- **Works offline from the first launch**, no downloads or waiting.
+- You can enable the music from Settings immediately, even without internet.
+- **No download required.**
+- **Auto pauses** when opening private mode (calc / black screen) and resumes when you return.
 
-#### 💻 En la versión web / PC
-- **El archivo `.ogg` NO se incluye** por defecto (los PC suelen estar en casa o en un sitio con conexión estable, así que no tiene sentido empaquetar el audio).
-- La **primera vez** que actives la música, se descargará automáticamente desde **Archive.org** (`nibbly-ost-archive`). En la práctica tarda **menos de 5 segundos** con conexión normal.
-- Una vez descargada, queda guardada en **Cache Storage** (`nibbly-theme`) y las siguientes veces se reproduce **al instante**, incluso sin conexión.
-- Si quieres que la versión web también funcione offline desde el primer momento, puedes copiar manualmente `mus/You Are Nibbled.ogg` a la carpeta del proyecto.
+#### 💻 In the web / PC version
+- **The `.ogg` file is NOT included** by default (PCs usually have home internet or a place with stable connection, so it doesn't make sense to bundle the audio).
+- The **first time** you enable music, it's downloaded automatically from **Archive.org** (`nibbly-ost-archive`). In practice it takes **less than 5 seconds** with a normal connection.
+- Once downloaded, it's saved in **Cache Storage** (`nibbly-theme`) and plays **instantly** the next time, even offline.
+- If you want the web version to also work offline from the first moment, you can manually copy `mus/You Are Nibbled.ogg` to the project folder.
 
-#### Comportamiento en general
-- Reproducción en bucle con volumen ajustable desde Ajustes.
-- Se pausa automáticamente si cambias de app (respeta los controles del sistema).
-- Se pausa al abrir el modo privado y se reanuda al volver.
-- El fondo gradiente animado respira al ritmo de la música.
+#### General behavior
+- Looping playback with adjustable volume from Settings.
+- Auto pauses if you switch apps (respects system controls).
+- Pauses when opening private mode and resumes when returning.
+- The animated gradient background breathes to the beat of the music.
 
 ---
 
-## 🚀 Instalación
+## 🚀 Installation
 
-### 📦 Opción 1 — Instalar el APK (recomendado)
+### 📦 Option 1 — Install the APK (recommended)
 
-1. Ve a la sección **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)**
-2. Descarga el archivo `.apk`
-3. Habilita **"Instalar apps de fuentes desconocidas"** en los ajustes de Android
-4. Instala el APK y abre la app
+1. Go to the **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)** section
+2. Download the `.apk` file
+3. Enable **"Install apps from unknown sources"** in Android settings
+4. Install the APK and open the app
 
-> **Nota:** El APK contiene el HTML ya construido **y la música de fondo incluida** (funciona offline desde el primer arranque). Solo necesita que **Android System WebView** esté instalado y actualizado (viene preinstalado en la mayoría de dispositivos).
+> **Note:** The APK contains the HTML already built **and the background music bundled** (works offline from the first launch). It only needs **Android System WebView** to be installed and up to date (preinstalled on most devices).
 
-### 🌐 Opción 2 — Probar online sin descargar nada
+### 🌐 Option 2 — Try online without downloading anything
 
-Accede directamente a la versión online alojada en **GitHub Pages**:
+Go directly to the online version hosted on **GitHub Pages**:
 
 🔗 **[https://edwarly999plus.github.io/Nibbly/](https://edwarly999plus.github.io/Nibbly/)**
 
-- ✅ Cero descargas, cero instalaciones
-- ⚠️ Es una versión **online**: la app no guarda nada en servidores (todo es local vía `localStorage` + `Cache Storage`), pero necesitas conexión para cargar la página
-- 💡 En PC puedes disfrutar de la **interfaz de escritorio** con sidebar y atajos de teclado
+- ✅ Zero downloads, zero installations
+- ⚠️ It's an **online** version: the app doesn't save anything to servers (everything is local via `localStorage` + `Cache Storage`), but you need internet to load the page
+- 💡 On PC you can enjoy the **desktop UI** with sidebar and keyboard shortcuts
 
-### 🛠️ Opción 3 — Compilar desde el código fuente
+### 🛠️ Option 3 — Build from source
 
-#### Estructura del proyecto
+#### Project structure
 
 ```
 
 nibbly/
-├── index.html                 ← app principal
-├── games/                     ← ✅ INCLUIR en el APK
-│   ├── games.css              ← estilos de los minijuegos
-│   └── games.js               ← lógica de Tetris, Buscaminas y 2048
-├── paint/                     ← ✅ INCLUIR en el APK
-│   ├── paint.css              ← estilos del editor de dibujo
-│   └── paint.js               ← lógica del canvas, herramientas y copia de colores
-├── privacy/                   ← ✅ INCLUIR en el APK (NUEVO en 1.0.4)
-│   ├── privacy.css            ← estilos del modo privado (FABs, calc, pantalla negra)
-│   └── privacy.js             ← calculadora científica + pantalla negra + IME rescue
-├── images/                    ← ✅ INCLUIR en el APK (opcional)
-│   └── privacy.png            ← icono incógnito del FAB negro (fallback a 👁️ si falta)
-├── mus/                       ← ✅ INCLUIR en el APK · ⚠️ OPCIONAL en web/PC
-│   └── You Are Nibbled.ogg    ← música de fondo (offline en APK)
+├── index.html                 ← main app
+├── games/                     ← ✅ INCLUDE in the APK
+│   ├── games.css              ← minigame styles
+│   └── games.js               ← Tetris, Minesweeper, and 2048 logic
+├── paint/                     ← ✅ INCLUDE in the APK
+│   ├── paint.css              ← drawing editor styles
+│   └── paint.js               ← canvas logic, tools, and color copying
+├── privacy/                   ← ✅ INCLUDE in the APK (NEW in 1.0.4)
+│   ├── privacy.css            ← private mode styles (FABs, calc, black screen)
+│   └── privacy.js             ← scientific calculator + black screen + IME rescue
+├── images/                    ← ✅ INCLUDE in the APK (optional)
+│   └── privacy.png            ← incognito icon for the black FAB (falls back to 👁️ if missing)
+├── mus/                       ← ✅ INCLUDE in the APK · ⚠️ OPTIONAL on web/PC
+│   └── You Are Nibbled.ogg    ← background music (offline in the APK)
 ├── img/
-│   └── (capturas para el README)
-└── desktop-ui/                ← ❌ NO INCLUIR en el APK (solo web / PC)
+│   └── (screenshots for the README)
+└── desktop-ui/                ← ❌ DO NOT INCLUDE in the APK (web / PC only)
 ├── desktop.css
 └── desktop.js
 
 ```
 
-#### ⚠️ Sobre `desktop-ui/` en la compilación Android
+#### ⚠️ About `desktop-ui/` in the Android build
 
-**No copies la carpeta `desktop-ui/` al proyecto Android.** Razones:
+**Do not copy the `desktop-ui/` folder to the Android project.** Reasons:
 
-1. **Rompe la IU en móviles pequeños**: el layout de escritorio (sidebar de 260 px + grid de 2 columnas) no cabe en pantallas de menos de 900 px y aplasta los paneles.
-2. **Es innecesaria en tablets**: cuando compilas para una tablet Android, el compilador **estira el layout móvil** de forma natural sin verse raro. No necesitas la UI de escritorio para eso.
-3. **El `index.html` ya tiene el fallback integrado**: si detecta que no hay `desktop-ui/` disponibles, el botón **"Forzar Escritorio"** se grisea automáticamente y la app sigue funcionando solo con el layout de bolsillo (que es el correcto para Android).
+1. **Breaks the UI on small phones**: the desktop layout (260 px sidebar + 2-column grid) doesn't fit on screens below 900 px and crushes the panels.
+2. **It's unnecessary on tablets**: when you build for an Android tablet, the compiler **stretches the mobile layout** naturally without looking weird. You don't need the desktop UI for that.
+3. **`index.html` already has the fallback built in**: if it detects that `desktop-ui/` isn't available, the **"Force Desktop"** button is greyed out automatically and the app continues working with just the pocket layout (which is the correct one for Android).
 
-Inclúyela **solo** si vas a servir el `index.html` desde un navegador web de escritorio.
+Only include it **if** you're going to serve the `index.html` from a desktop web browser.
 
-#### 🔒 Sobre `privacy/` en la compilación Android
+#### 🔒 About `privacy/` in the Android build
 
-**Sí incluir la carpeta `privacy/` en el APK.** Contiene la calculadora privada y la pantalla negra, que son funcionalidades diseñadas para usarse específicamente en móvil.
+**Yes, include the `privacy/` folder in the APK.** It contains the private calculator and the black screen, which are features designed to be used specifically on mobile.
 
-- `privacy/privacy.css` → estilos de los FABs, la calc fullscreen y la pantalla negra
-- `privacy/privacy.js` → lógica completa (calc científica, paréntesis anidados, rescue del IME, sincronización de música)
-- `images/privacy.png` → **opcional**, si falta se usa `👁️` como fallback
+- `privacy/privacy.css` → styles for the FABs, the fullscreen calc, and the black screen
+- `privacy/privacy.js` → complete logic (scientific calc, nested parentheses, IME rescue, music synchronization)
+- `images/privacy.png` → **optional**, if missing it uses 👁️ as a fallback
 
-#### 🎵 Sobre `mus/` en la compilación Android vs web/PC
+#### 🎵 About `mus/` in the Android build vs web/PC
 
-| Plataforma | ¿Incluir `mus/`? | Comportamiento |
+| Platform | Include `mus/`? | Behavior |
 |---|---|---|
-| **APK Android** | ✅ **Sí** (recomendado) | Música offline desde el primer arranque. Sin descargas. |
-| **APK Android** | ⚠️ Opcional (sin `mus/`) | Se descarga desde Archive.org la primera vez y queda cacheada. |
-| **Web / PC** | ⚠️ Opcional (por defecto **no**) | Se descarga desde Archive.org la primera vez que actives la música (<5 s) y queda cacheada. El PC suele estar en casa con conexión, así que no es necesario empaquetar el audio. |
+| **Android APK** | ✅ **Yes** (recommended) | Offline music from first launch. No downloads. |
+| **Android APK** | ⚠️ Optional (without `mus/`) | Downloaded from Archive.org the first time and cached. |
+| **Web / PC** | ⚠️ Optional (default **off**) | Downloaded from Archive.org the first time you enable music (<5s) and cached. PCs usually have home internet, so no need to bundle the audio. |
 
-Si quieres que la versión web **también** funcione offline desde el primer momento, copia manualmente `mus/You Are Nibbled.ogg` a la carpeta del proyecto web.
+If you want the web version to **also** work offline from the first moment, manually copy `mus/You Are Nibbled.ogg` to the web project folder.
 
-#### Con WebView manual
-1. Copia **`index.html` + `games/` + `paint/` + `privacy/` + `images/` + `mus/`** (sin `desktop-ui/` ni `img/`) a `app/src/main/assets/`
-2. Carga el archivo con `WebView.loadUrl("file:///android_asset/index.html")`
-3. Habilita **JavaScript** en tu `WebView` (`webSettings.setJavaScriptEnabled(true)`)
-4. Habilita **almacenamiento local** (`webSettings.setDomStorageEnabled(true)`)
+#### With manual WebView
+1. Copy **`index.html` + `games/` + `paint/` + `privacy/` + `images/` + `mus/`** (without `desktop-ui/` or `img/`) to `app/src/main/assets/`
+2. Load the file with `WebView.loadUrl("file:///android_asset/index.html")`
+3. Enable **JavaScript** in your `WebView` (`webSettings.setJavaScriptEnabled(true)`)
+4. Enable **local storage** (`webSettings.setDomStorageEnabled(true)`)
 
-#### Con Capacitor
+#### With Capacitor
 ```bash
 npm install -g @capacitor/cli
 npx cap init Nibbly com.edwarly999plus.nibbly
 npx cap add android
-# Copia index.html + games/ + paint/ + privacy/ + images/ + mus/ a la carpeta www/
-# ⚠️ NO copies desktop-ui/ ni img/
+# Copy index.html + games/ + paint/ + privacy/ + images/ + mus/ to the www/ folder
+# ⚠️ DO NOT copy desktop-ui/ or img/
 npx cap sync
 ```
 
-Con Cordova
+With Cordova
 
 ```bash
 cordova create nibbly com.edwarly999plus.nibbly Nibbly
 cd nibbly
-# Copia index.html + games/ + paint/ + privacy/ + images/ + mus/ a www/
-# ⚠️ NO copies desktop-ui/ ni img/
+# Copy index.html + games/ + paint/ + privacy/ + images/ + mus/ to www/
+# ⚠️ DO NOT copy desktop-ui/ or img/
 cordova platform add android
 cordova build android
 ```
 
 ---
 
-📱 Uso
+📱 Usage
 
-Navega entre las 8 pestañas principales + el Modo Privado:
+Navigate between the 8 main tabs + Private Mode:
 
-Pestaña Descripción
-Números Bases numéricas, BCD, ASCII y generador de códigos
-Texto Codifica/decodifica texto con reproductor Morse y descarga WAV
-Bits Unidades de almacenamiento y combinaciones
-Potencia Watts, medidor de calor de CPU, velocidad de red, CPU, RAM y almacenamiento
-Multimedia Audio, decibelios, vídeo, tiempo, frames y códecs
-Calculadora Operaciones básicas con personalidad explosiva opcional
-Dibujo Editor simple con copia de valores RGBA/HEX
-Juegos Tetris, Buscaminas y 2048 (activables/desactivables)
-🔒 Modo Privado Calculadora científica + pantalla negra (FABs en la topbar)
+Tab Description
+Numbers Numeric bases, BCD, ASCII, and code generator
+Text Encode/decode text with Morse player and WAV download
+Bits Storage units and combinations
+Power Watts, CPU heat meter, network speed, CPU, RAM, and storage
+Multimedia Audio, decibels, video, time, frames, and codecs
+Calculator Basic operations with optional explosive personality
+Drawing Simple editor with RGBA/HEX value copy
+Games Tetris, Minesweeper, and 2048 (enable/disable)
+🔒 Private Mode Scientific calculator + black screen (FABs in the topbar)
 
-Pulsa el engranaje ⚙ para acceder a Ajustes y personalizar colores, sonidos, música, idioma, interfaz, registro de cálculos, comprobador de archivos y el toggle "Please Don't".
+Tap the ⚙ gear to access Settings and customize colors, sounds, music, language, interface, calculation log, file checker, and the "Please Don't" toggle.
 
-Los dos FABs nuevos junto al engranaje (🧮 y 👁️) activan el Modo Privado. La primera vez pide confirmar con un aviso de responsabilidad que se puede silenciar marcando "No mostrar de nuevo".
+The two new FABs next to the gear (🧮 and 👁️) activate Private Mode. The first time it asks for confirmation with a responsibility warning that can be silenced by checking "Don't show again".
 
-🎵 Para activar la música: Ajustes → Música → Música de fondo ON.
+🎵 To enable music: Settings → Music → Background music ON.
 
-· En el APK de Android: funciona offline desde el primer momento (el .ogg está incluido).
-· En la versión web/PC: se descarga en <5 s la primera vez (requiere conexión) y queda cacheada para siempre.
-· Se pausa automáticamente al abrir el Modo Privado y se reanuda al volver.
-
----
-
-🔒 Privacidad
-
-Nibbly es una aplicación 100% privada y offline:
-
-· ❌ No recopila datos de ningún tipo
-· ❌ No tiene analytics ni telemetría
-· ❌ No envía información a servidores externos
-· ✅ Todos los ajustes se guardan localmente en el dispositivo (localStorage)
-· ✅ Las conversiones, cálculos y dibujos ocurren exclusivamente en el dispositivo
-· ✅ El Modo Privado es completamente offline — no requiere red ni envía nada
-
-⚠️ Enlaces externos
-
-Al pulsar "Código Fuente en GitHub" (o cualquier otro enlace externo):
-
-· En PC: el enlace se abre en una nueva pestaña del navegador (comportamiento estándar)
-· En Android: el enlace se muestra dentro de la app por limitaciones del compilador WebView. No inicies sesión desde Nibbly — hazlo desde tu navegador para mayor seguridad y comodidad.
-· Nibbly no es responsable de la recolección de datos que esas páginas de terceros puedan realizar. Consulta la política de privacidad de cada sitio externo que visites.
-
-🔒 Sobre el Modo Privado
-
-El Modo Privado está diseñado para situaciones de "offline discreto" (por ejemplo, un examen con permiso de celular sin conexión). No es una herramienta para hacer trampa — el aviso de responsabilidad lo deja claro cada vez que lo abres (a menos que marques "No mostrar de nuevo"). Los datos del Modo Privado se guardan aparte bajo nibbly-privacy-v1 en localStorage, sin afectar tus ajustes principales.
+· In the Android APK: works offline from the first moment (the .ogg is bundled).
+· In the web/PC version: downloaded in <5s the first time (requires connection) and cached forever.
+· Auto pauses when opening Private Mode and resumes when returning.
 
 ---
 
-❓ Preguntas y Respuestas
+🔒 Privacy
 
-¿Cómo hiciste esta App?
+Nibbly is a 100% private and offline app:
 
-En HTML5 — HTML + CSS + JavaScript vanilla. Sin frameworks, sin dependencias externas, sin build step. Todo vive en un único index.html más las carpetas de expansión (games/, paint/, privacy/, desktop-ui/, mus/).
+· ❌ Doesn't collect any kind of data
+· ❌ No analytics or telemetry
+· ❌ Doesn't send information to external servers
+· ✅ All settings are saved locally on the device (localStorage)
+· ✅ Conversions, calculations, and drawings happen exclusively on the device
+· ✅ Private Mode is completely offline — requires no network and sends nothing
 
-¿Por qué no compilas una versión nativa .exe?
+⚠️ External links
 
-Porque no tengo PC. Toda la app fue desarrollada desde un editor de texto simple en Android, sin IDEs ni herramientas de escritorio. Esa también es la razón por la que algunos juegos y funciones son relativamente simples — están pensados para funcionar bien con los recursos disponibles en móvil y sin dependencias pesadas.
+When tapping "Source Code on GitHub" (or any other external link):
 
-¿Cómo puedo probarla en mi PC?
+· On PC: the link opens in a new browser tab (standard behavior)
+· On Android: the link is shown inside the app due to WebView compiler limitations. Don't log in from Nibbly — do it from your browser for better security and convenience.
+· Nibbly is not responsible for the data collection those third-party pages may perform. Check each external site's privacy policy.
 
-Ve a Releases, descarga el archivo Source code.zip, extráelo y abre el index.html con cualquier navegador moderno (Chrome, Firefox, Edge, Safari). La app cargará automáticamente todos los archivos de expansión (games/*, paint/*, privacy/*, mus/*, etc.) desde las carpetas del repo, sin necesidad de compilar ni instalar nada.
+🔒 About Private Mode
 
-💡 En PC puedes disfrutar además de la interfaz de escritorio (desktop-ui/) con sidebar vertical, grid de tarjetas y atajos de teclado 1–8. En el APK de Android esa carpeta no se incluye para no romper el layout móvil.
+Private Mode is designed for "discreet offline" situations (e.g., a test with permission for phones without internet). It's not a tool for cheating — the responsibility warning makes that clear every time you open it (unless you check "Don't show again"). Private Mode data is stored separately under nibbly-privacy-v1 in localStorage, without affecting your main settings.
 
-¿Puedo probarla sin descargar nada?
+---
 
-¡Sí! Puedes acceder directamente a la versión online alojada en GitHub Pages:
+❓ Q&A
+
+How did you make this App?
+
+In HTML5 — HTML + CSS + vanilla JavaScript. No frameworks, no external dependencies, no build step. Everything lives in a single index.html plus the expansion folders (games/, paint/, privacy/, desktop-ui/, mus/).
+
+Why don't you compile a native .exe version?
+
+Because I don't have a PC. The whole app was developed from a simple text editor on Android, without IDEs or desktop tools. That's also why some games and features are relatively simple — they're designed to work well with the resources available on mobile and without heavy dependencies.
+
+How can I try it on my PC?
+
+Go to Releases, download the Source code.zip file, extract it, and open index.html with any modern browser (Chrome, Firefox, Edge, Safari). The app will automatically load all expansion files (games/*, paint/*, privacy/*, mus/*, etc.) from the repo folders, with no need to compile or install anything.
+
+💡 On PC you can also enjoy the desktop UI (desktop-ui/) with vertical sidebar, card grid, and 1–8 keyboard shortcuts. In the Android APK that folder is not included so the mobile layout isn't broken.
+
+Can I try it without downloading anything?
+
+Yes! You can go directly to the online version hosted on GitHub Pages:
 
 🔗 https://edwarly999plus.github.io/Nibbly/
 
-Ventaja: cero descargas, cero instalaciones. Abres el enlace y la app funciona al instante.
+Advantage: zero downloads, zero installations. Open the link and the app works instantly.
 
-Desventaja: es una versión online. La app no guarda archivos ni conversiones en ningún servidor (todo es local en tu navegador vía localStorage y Cache Storage), pero sí necesitas conexión para entrar a la página. Si pierdes conexión antes de cargarla, no podrás acceder. Una vez cargada, la mayoría de funciones siguen funcionando offline (excepto las que dependen de red, como el fallback de música de Archive.org).
+Disadvantage: it's an online version. The app doesn't save files or conversions on any server (everything is local in your browser via localStorage and Cache Storage), but you do need internet to enter the page. If you lose connection before loading it, you won't be able to access. Once loaded, most features keep working offline (except those that depend on the network, like the Archive.org music fallback).
 
-¿Por qué el link de GitHub no se abre en el navegador en Android?
+Why doesn't the GitHub link open in the browser on Android?
 
-Por limitaciones del compilador WebView utilizado (WebToApp): el compilador no respeta la opción de "abrir en navegador externo" cuando compila HTMLs (aunque sí la respeta al compilar sitios web online). En PC el enlace se abre correctamente en una pestaña nueva. En Android se abre dentro de la propia app — recomendamos no iniciar sesión desde Nibbly y hacerlo desde el navegador para mayor seguridad.
+Due to limitations of the WebView compiler used (WebToApp): the compiler doesn't respect the "open in external browser" option when compiling HTMLs (though it does respect it when compiling online websites). On PC the link opens correctly in a new tab. On Android it opens inside the app itself — we recommend not logging in from Nibbly and doing it from your browser for better security.
 
-¿Dónde está la música si activo "Música de fondo"?
+Where is the music if I enable "Background music"?
 
-· APK Android: el archivo mus/You Are Nibbled.ogg ya viene incluido → funciona offline desde el primer arranque, sin descargas.
-· Versión web/PC: el archivo no se incluye (los PC suelen tener conexión estable). La primera vez que actives la música se descarga automáticamente desde Archive.org en menos de 5 segundos y queda guardada en caché para siempre.
+· Android APK: the mus/You Are Nibbled.ogg file is already bundled → works offline from the first launch, no downloads.
+· Web/PC version: the file is not included (PCs usually have a stable connection). The first time you enable music it's downloaded automatically from Archive.org in less than 5 seconds and cached forever.
 
-¿Cómo funciona el Modo Privado?
+How does Private Mode work?
 
-El Modo Privado son dos FABs que aparecen junto al engranaje de Ajustes:
+Private Mode is two FABs that appear next to the Settings gear:
 
-· 🧮 Calculadora privada: abre una calculadora científica fullscreen (oscura) con expresión acumulada, paréntesis anidados y exponentes x^y. Ideal si necesitas calcular algo de forma discreta sin que se vea como una calc "de juguete".
-· 👁️ Pantalla negra: abre una pantalla completamente negra que entra en fullscreen (oculta barras). Se sale con 3 toques (en ≤ 800 ms). Si venías de la calc, vuelve a ella con el mismo estado.
+· 🧮 Private calculator: opens a fullscreen scientific calculator (dark) with accumulated expression, nested parentheses, and x^y exponents. Ideal if you need to calculate something discreetly without it looking like a "toy" calc.
+· 👁️ Black screen: opens a fully black screen that enters fullscreen (hides system bars). Exit with 3 taps (within ≤ 800 ms). If you came from the calc, it returns to it with the same state.
 
-Ambos modos pausan la música automáticamente y la reanudan al salir (si estabas en modo principal).
+Both modes auto pause the music and resume it when exiting (if you were in the main mode).
 
-¿Por qué me pide confirmar el Modo Privado la primera vez?
+Why does it ask me to confirm Private Mode the first time?
 
-Es un aviso de responsabilidad. Nibbly no quiere que el Modo Privado se use para hacer trampa en un examen donde el profesor no permite el celular. El aviso explica que solo debes usarlo si el profesor permite celulares sin conexión. Puedes marcar "No mostrar de nuevo" para no volver a verlo.
+It's a responsibility warning. Nibbly doesn't want Private Mode to be used to cheat in a test where the teacher doesn't allow phones. The warning explains that you should only use it if the teacher allows phones without internet. You can check "Don't show again" to never see it again.
 
-¿La app tiene virus?
+Does the app have a virus?
 
-No. Nibbly es una aplicación de código abierto con el código fuente disponible en este mismo repositorio — puedes revisarlo tú mismo en cualquier momento.
+No. Nibbly is an open-source application with the source code available in this very repository — you can review it yourself at any time.
 
-Es cierto que 1 detección aislada en VirusTotal puede levantar sospechas, pero eso es un falso positivo típico del compilador (WebToApp). Los compiladores de WebView empaquetan el HTML en un contenedor nativo genérico que muchos antivirus marcan por heurística, aunque el contenido sea completamente inofensivo.
+It's true that 1 isolated detection on VirusTotal can raise suspicion, but that's a typical false positive from the compiler (WebToApp). WebView compilers bundle the HTML into a generic native container that many antivirus programs flag by heuristics, even though the content is completely harmless.
 
-🚫 Sin anuncios ni notificaciones
+🚫 No ads or notifications
 
-Nibbly no muestra ningún tipo de anuncio y no envía ninguna notificación. Punto.
+Nibbly shows no kind of ad and sends no notification. Period.
 
-· ❌ Cero anuncios — ni banners, ni intersticiales, ni recompensados, ni pop-ups
-· ❌ Cero notificaciones — ni push, ni locales, ni recordatorios, ni avisos
-· ❌ Cero integración con SDKs publicitarios (AdMob, Unity Ads, AppLovin, Facebook Ads, etc.)
+· ❌ Zero ads — no banners, no interstitials, no rewarded, no pop-ups
+· ❌ Zero notifications — no push, no local, no reminders, no alerts
+· ❌ Zero integration with ad SDKs (AdMob, Unity Ads, AppLovin, Facebook Ads, etc.)
 
-¿Ves anuncios o notificaciones en tu dispositivo? Entonces tienes un adware instalado en el teléfono. Los adware son apps maliciosas que inyectan anuncios sobre OTRAS apps (no solo Nibbly) — aparecen como capas flotantes encima de cualquier aplicación, incluida esta. Nibbly no puede generar anuncios porque:
+Do you see ads or notifications on your device? Then you have adware installed on your phone. Adware are malicious apps that inject ads over OTHER apps (not just Nibbly) — they appear as floating layers on top of any application, including this one. Nibbly can't generate ads because:
 
-1. Su código es HTML+JS puro sin SDK de publicidad
-2. El compilador WebToApp no incluye ningún módulo de ads
-3. El AndroidManifest.xml generado no declara servicios de notificación ni receptores de broadcast
-4. No hay permisos de "Mostrar sobre otras apps" ni "Acceso a notificaciones" solicitados
+1. Its code is pure HTML+JS with no ad SDK
+2. The WebToApp compiler doesn't include any ad module
+3. The generated AndroidManifest.xml doesn't declare notification services or broadcast receivers
+4. No "Display over other apps" or "Notification access" permissions are requested
 
-Si ves anuncios flotantes o notificaciones fantasma, prueba esto:
+If you see floating ads or ghost notifications, try this:
 
-1. Cierra Nibbly por completo (no solo en segundo plano — fuerza parada en Ajustes → Apps → Nibbly → Forzar detención)
-2. Si los anuncios siguen apareciendo con Nibbly cerrada → no es Nibbly, es otra app
-3. Si los anuncios desaparecen con Nibbly cerrada → pulsa el botón "Recientes" mientras aparece un anuncio → mira qué app está asociada
-4. Pasa un análisis con Malwarebytes (especializado en adware) o revisa Ajustes → Apps → Permisos especiales → Mostrar sobre otras apps para ver qué apps tienen este permiso activado
+1. Fully close Nibbly (not just in the background — force stop from Settings → Apps → Nibbly → Force stop)
+2. If the ads keep appearing with Nibbly closed → it's not Nibbly, it's another app
+3. If the ads disappear with Nibbly closed → tap the "Recent" button while the ad appears → see which app it's associated with
+4. Run a scan with Malwarebytes (specialized in adware) or check Settings → Apps → Special permissions → Display over other apps to see which apps have this permission enabled
 
-⏹️ No se ejecuta en segundo plano
+⏹️ It doesn't run in the background
 
-Nibbly no tiene servicio en segundo plano, ni WorkManager, ni JobScheduler, ni ForegroundService. Cuando la app pasa a segundo plano sin música, el proceso muere automáticamente. Punto.
+Nibbly has no background service, no WorkManager, no JobScheduler, no ForegroundService. When the app goes to the background without music, the process dies automatically. Period.
 
-La música de fondo sigue estas reglas exactas:
+Background music follows these exact rules:
 
-Acción Comportamiento de la música Estado de la app
-🕐 Dejar la app abierta (primer plano) ✅ Se loopea indefinidamente 🟢 Activa
-🏠 Botón Inicio (Home) ⏳ Sigue sonando hasta terminar la pista (~2 min) y se detiene 🔴 Se mata sola al terminar la música
-🔙 Botón Back (Atrás) ❌ Se corta al instante 🔴 Cerrada
-📱 Recientes → Deslizar la app ❌ Se corta al instante 🔴 Cerrada
-⚙️ Ajustes → Forzar detención ❌ Se corta al instante 🔴 Cerrada
-🔇 Desactivar música manualmente ❌ Se corta al instante 🔴 Se mata sola (sin música = sin keep-alive)
-📞 Recibir llamada ❌ Se pausa 🟡 En pausa (vuelve al terminar la llamada)
-🔒 Bloquear pantalla 🟢 Sigue activa en loop ⚠️ Recomiendo bajar el volumen o cerrar la app antes de bloquear
+Action Music behavior App state
+🕐 Leave the app open (foreground) ✅ Loops indefinitely 🟢 Active
+🏠 Home button ⏳ Keeps playing until the track ends (~2 min) then stops 🔴 Auto-kills when the music ends
+🔙 Back button ❌ Cuts instantly 🔴 Closed
+📱 Recents → Swipe the app ❌ Cuts instantly 🔴 Closed
+⚙️ Settings → Force stop ❌ Cuts instantly 🔴 Closed
+🔇 Manually disable music ❌ Cuts instantly 🔴 Auto-kills (no music = no keep-alive)
+📞 Receive a call ❌ Pauses 🟡 Paused (returns when the call ends)
+🔒 Lock screen 🟢 Keeps looping ⚠️ I recommend lowering the volume or closing the app before locking
 
-Resumen del ciclo de vida:
+Lifecycle summary:
 
-· App visible (primer plano) → la música se loopea sin parar mientras estés en Nibbly ✅
-· Pulsar Home → la música sigue sonando hasta que termina la pista (~2 min), y entonces la app se mata sola. No queda nada corriendo en segundo plano 🎯
-· Matar la app manualmente (Back / Recents / Forzar detención / Desactivar música) → silencio inmediato + proceso muerto al instante
+· App visible (foreground) → the music loops non-stop while you're in Nibbly ✅
+· Press Home → the music keeps playing until the track ends (~2 min), and then the app auto-kills. Nothing runs in the background 🎯
+· Manually kill the app (Back / Recents / Force stop / Disable music) → instant silence + process killed immediately
 
-💡 Nota técnica: el proceso de la app está vinculado al AudioContext del WebView. Mientras haya audio reproduciéndose, Android mantiene el proceso vivo. Cuando el audio termina (porque el loop está roto en segundo plano), el WebView libera el AudioContext y el compilador WebToApp mata el proceso para no consumir recursos. Es decir: Nibbly literalmente se auto-apaga cuando la música termina en background. Si nunca activaste la música, la app se mata al instante al pulsar Home.
+💡 Technical note: the app process is tied to the WebView's AudioContext. While audio is playing, Android keeps the process alive. When the audio ends (because the loop is broken in the background), the WebView releases the AudioContext and the WebToApp compiler kills the process so it doesn't consume resources. That is: Nibbly literally shuts itself off when the music ends in the background. If you never enabled music, the app kills itself instantly when you press Home.
 
-Sobre la música:
+About the music:
 
-· 🎵 No es molesta: es una melodía relajante ("You Are Nibbled") pensada para acompañar, no para distraer.
-· 🔇 Casi no se nota en dispositivos con poca calidad de audio o audio mono — se percibe como un fondo suave, no como música predominante.
-· 🎚️ Puedes bajarla o silenciarla por completo desde Ajustes → Música → Mover el slider de volumen a 0% o desactivar el interruptor.
-· ⏱️ Duración por pista: ~2 minutos. Con la app abierta se loopea, así que suena indefinidamente hasta que la desactives.
+· 🎵 Not annoying: it's a relaxing melody ("You Are Nibbled") meant to accompany, not distract.
+· 🔇 Barely noticeable on devices with poor audio quality or mono audio — it's perceived as a soft background, not as predominant music.
+· 🎚️ You can lower it or mute it completely from Settings → Music → Move the volume slider to 0% or disable the toggle.
+· ⏱️ Track duration: ~2 minutes. With the app open it loops, so it plays indefinitely until you disable it.
 
-🔋 Consumo de batería
+🔋 Battery usage
 
-Nibbly solo consume batería cuando está en primer plano. No hay servicios en segundo plano, ni wake locks, ni alarmas programadas — nada que consuma batería mientras no la estés viendo. Además, cuando la app se auto-mata al salir, deja de consumir batería por completo.
+Nibbly only uses battery when it's in the foreground. There are no background services, no wake locks, no scheduled alarms — nothing that consumes battery while you're not watching it. Also, when the app auto-kills on exit, it stops consuming battery completely.
 
-Si notas que consume más de lo normal:
+If you notice it consumes more than normal:
 
-1. Es normal que una app con animaciones, música, canvas y efectos consuma algo de batería mientras la usas — es el precio de tener una interfaz fluida con diseño personalizable.
-2. Puedes activar el ahorro de batería optimizado en: Ajustes de Android → Batería → Uso de batería → Nibbly → Optimizar (o "Restringir en segundo plano" en algunas versiones).
-3. La app seguirá funcionando con normalidad — no requiere permisos especiales, ni "sin restricciones", ni "ejecución en segundo plano". Al optimizarla, Android puede matarla más rápido al salir, pero no afecta a su funcionamiento normal mientras la usas.
+1. It's normal for an app with animations, music, canvas, and effects to consume some battery while you use it — it's the price of having a fluid interface with customizable design.
+2. You can enable optimized battery saving from Android Settings → Battery → Battery usage → Nibbly → Optimize (or "Restrict in background" in some versions).
+3. The app will continue working normally — it doesn't require special permissions, "unrestricted", or "background execution". Optimizing it may cause Android to kill it faster when exiting, but doesn't affect normal operation while you use it.
 
-Consumo real esperado:
+Expected real consumption:
 
-· 📱 Uso normal (conversiones, calculadora, texto): consumo mínimo — comparable a cualquier app de utilidades.
-· 🎵 Con música activada: consumo bajo — el AudioContext del WebView es ligero.
-· 🎮 Con juegos activados: consumo moderado — Tetris, 2048 y Buscaminas usan requestAnimationFrame y setInterval, pero solo mientras están en primer plano.
-· 🔒 Con Modo Privado abierto: consumo bajo — solo un canvas y texto, sin animaciones pesadas.
-· ⚙️ Con efectos visuales desactivados: consumo aún menor — se apagan animaciones, degradados y el fondo animado.
+· 📱 Normal use (conversions, calculator, text): minimal consumption — comparable to any utility app.
+· 🎵 With music enabled: low consumption — the WebView AudioContext is lightweight.
+· 🎮 With games enabled: moderate consumption — Tetris, 2048, and Minesweeper use requestAnimationFrame and setInterval, but only while in the foreground.
+· 🔒 With Private Mode open: low consumption — just a canvas and text, no heavy animations.
+· ⚙️ With visual effects disabled: even lower consumption — animations, gradients, and the animated background are turned off.
 
-No consume batería cuando:
+Doesn't consume battery when:
 
-· Está cerrada completamente (Back / Recents / Forzar detención)
-· Está en segundo plano (Home) — la música se detiene al terminar la pista, y la app se mata sola
-· La has cerrado manualmente o el sistema la ha matado
+· It's fully closed (Back / Recents / Force stop)
+· It's in the background (Home) — music stops when the track ends, and the app auto-kills
+· You've manually closed it or the system has killed it
 
-⚡ Rendimiento
+⚡ Performance
 
-Nibbly no va lenta por sí sola. Si experimentas lag, es la capacidad de tu dispositivo, no un problema de la app.
+Nibbly isn't slow by itself. If you experience lag, it's your device's capacity, not an app problem.
 
-Nibbly está pensada para funcionar fluida en la mayoría de teléfonos modernos y viejos — sin frameworks, sin dependencias pesadas, todo en HTML+CSS+JS vanilla. Si tu teléfono es de gama baja, tiene poca RAM o es de hace varios años, puedes notar lag en algunos puntos concretos:
+Nibbly is designed to run fluid on most modern and old phones — no frameworks, no heavy dependencies, everything in HTML+CSS+vanilla JS. If your phone is low-end, has little RAM, or is several years old, you may notice lag in some specific spots:
 
-· El fondo gradiente animado (siempre visible)
-· Las animaciones de transición entre pestañas
-· Los juegos (Tetris a velocidad alta, 2048 con muchos tiles)
-· El canvas del editor de dibujo con trazos largos
+· The animated gradient background (always visible)
+· The transition animations between tabs
+· The games (Tetris at high speed, 2048 with many tiles)
+· The drawing editor's canvas with long strokes
 
-Solución: desactiva los efectos visuales
+Solution: disable visual effects
 
-Ve a Ajustes → Efectos visuales → Desactivar. Esto apaga:
+Go to Settings → Visual effects → Disable. This turns off:
 
-· ❌ Las animaciones de transición entre pestañas
-· ❌ El fondo gradiente animado (bgPulse)
-· ❌ Las transiciones suaves en botones, chips y cards
-· ❌ La animación de pulso del logo
-· ❌ El efecto de glow en botones activos
+· ❌ The transition animations between tabs
+· ❌ The animated gradient background (bgPulse)
+· ❌ The smooth transitions on buttons, chips, and cards
+· ❌ The logo pulse animation
+· ❌ The glow effect on active buttons
 
-Resultado: la app se siente mucho más ligera y responde al instante, sin perder ninguna funcionalidad. Todas las herramientas, juegos, dibujo, modo privado y ajustes siguen funcionando exactamente igual — solo sin adornos visuales.
+Result: the app feels much lighter and responds instantly, without losing any functionality. All tools, games, drawing, private mode, and settings keep working exactly the same — just without visual flourishes.
 
-Además, si tienes problemas de rendimiento:
+Also, if you have performance problems:
 
-· 🎵 Silencia la música desde Ajustes → Música → Volumen 0% o desactivar interruptor
-· 🎮 Desactiva la sección de Juegos si no la usas: Ajustes → Juegos ON/OFF → desactivar
-· 🎨 Evita el editor de dibujo si tu teléfono va lento con canvas grandes
-· 📋 Desactiva el Registro de cálculos: Ajustes → Registro → Desactivado
+· 🎵 Mute the music from Settings → Music → Volume 0% or disable the toggle
+· 🎮 Disable the Games section if you don't use it: Settings → Games ON/OFF → disable
+· 🎨 Avoid the drawing editor if your phone is slow with large canvases
+· 📋 Disable the Calculation log: Settings → Log → Off
 
-Con estos ajustes, Nibbly puede funcionar fluida incluso en dispositivos modestos — no es una app pesada por diseño, es que a veces los efectos visuales añaden carga innecesaria.
+With these settings, Nibbly can run fluid even on modest devices — it's not a heavy app by design, it's just that sometimes visual effects add unnecessary load.
 
-📂 A qué accede realmente la app
+📂 What the app actually accesses
 
-Solo 3 ubicaciones/permisos, todos estándar para cualquier navegador o app común:
+Only 3 locations/permissions, all standard for any browser or common app:
 
-1. 📥 Carpeta de Descargas (pública)
-   · Solo escribe cuando tú pulsas el botón WAV en la pestaña Texto para guardar el audio Morse.
-   · No lee, no escanea, no borra nada de esa carpeta. Solo añade el archivo que tú pides guardar.
-   · Es exactamente lo mismo que hace Chrome, Firefox o cualquier navegador cuando descargas un archivo.
-   · En Android 10+ se usa MediaStore para escribir directo en Descargas sin permisos amplios.
-2. 📁 Datos internos de la app (privados, root de la propia app)
-   · Estado de la app: colores, idioma, música, sonidos, localStorage con todos tus ajustes.
-   · Estado del Modo Privado (nibbly-privacy-v1 en localStorage).
-   · Logs de la calculadora (si activas "Registro de cálculos" en Ajustes).
-   · Caché de la música (si se descarga desde Archive.org en la versión web).
-   · Esta carpeta solo existe dentro de Nibbly — es inaccesible desde otras apps y se borra al desinstalar.
-3. 📳 Vibración (permiso de hardware, no de datos)
-   · Solo vibra en momentos concretos y breves:
-     · Al pulsar botones importantes (detectados automáticamente por el compilador de Android) — pulsos de ~20–30 ms.
-     · Al marcar una bandera en Buscaminas — pulso de 25 ms para confirmar la acción.
-   · Nunca vibra sin parar. No hace bucles de vibración, no reproduce patrones largos, no hay navigator.vibrate(60000) ni similares.
-   · Es exactamente el mismo tipo de feedback háptico que hace Chrome al pulsar un enlace o cualquier app de mensajería al recibir un mensaje.
-   · Si no te gusta, puedes desactivar la vibración en Ajustes → Apps → Nibbly → Notificaciones → Vibrar, o con el modo "No molestar" activado.
+1. 📥 Downloads folder (public)
+   · Only writes when you tap the WAV button in the Text tab to save the Morse audio.
+   · Doesn't read, doesn't scan, doesn't delete anything from that folder. It only adds the file you ask it to save.
+   · It's exactly the same as what Chrome, Firefox, or any browser does when you download a file.
+   · On Android 10+ it uses MediaStore to write directly to Downloads without broad permissions.
+2. 📁 App internal data (private, app's own root)
+   · App state: colors, language, music, sounds, localStorage with all your settings.
+   · Private Mode state (nibbly-privacy-v1 in localStorage).
+   · Calculator logs (if you enable "Calculation log" in Settings).
+   · Music cache (if downloaded from Archive.org in the web version).
+   · This folder only exists inside Nibbly — it's inaccessible from other apps and is deleted on uninstall.
+3. 📳 Vibration (hardware permission, not data)
+   · Only vibrates at specific, brief moments:
+     · When pressing important buttons (automatically detected by the Android compiler) — pulses of ~20–30 ms.
+     · When flagging in Minesweeper — 25 ms pulse to confirm the action.
+   · Never vibrates non-stop. No vibration loops, no long patterns, no navigator.vibrate(60000) or similar.
+   · It's exactly the same type of haptic feedback that Chrome does when you tap a link or any messaging app does when receiving a message.
+   · If you don't like it, you can disable vibration from Settings → Apps → Nibbly → Notifications → Vibrate, or with "Do not disturb" mode enabled.
 
-NINGUNA OTRA CARPETA NI PERMISO. Ni fotos, ni vídeos, ni música, ni documentos, ni contactos, ni nada más.
+NO OTHER FOLDER OR PERMISSION. No photos, videos, music, documents, contacts, or anything else.
 
-🚫 Qué permisos NO solicita (nunca)
+🚫 Permissions it NEVER requests
 
-· ❌ Contactos
-· ❌ SMS / Llamadas
-· ❌ Cámara
-· ❌ Micrófono
-· ❌ Ubicación
-· ❌ Calendario
-· ❌ Sensores corporales
-· ❌ Cuentas del dispositivo
-· ❌ Notificaciones (ni push, ni locales, ni de ningún tipo)
-· ❌ Mostrar sobre otras apps (el permiso que usan los adware para inyectar anuncios)
-· ❌ Acceso a notificaciones (el permiso que usan los adware para espiar notificaciones)
-· ❌ Acceso a fotos / galería
-· ❌ Acceso a música / audio del sistema
-· ❌ Acceso a documentos
-· ❌ Acceso a registros de llamadas
-· ❌ Administrador del dispositivo (root / superusuario)
+· ❌ Contacts
+· ❌ SMS / Calls
+· ❌ Camera
+· ❌ Microphone
+· ❌ Location
+· ❌ Calendar
+· ❌ Body sensors
+· ❌ Device accounts
+· ❌ Notifications (no push, no local, no kind whatsoever)
+· ❌ Display over other apps (the permission adware uses to inject ads)
+· ❌ Notification access (the permission adware uses to spy on notifications)
+· ❌ Photos / gallery access
+· ❌ System music / audio access
+· ❌ Documents access
+· ❌ Call log access
+· ❌ Device administrator (root / superuser)
 
-🌐 Internet — para qué se usa
+🌐 Internet — what it's used for
 
-· Cargar la música de fondo la primera vez desde Archive.org (en APK viene incluida, así que normalmente no se usa)
-· Abrir enlaces externos (como el de GitHub) dentro del WebView
-· Nada más. Sin analytics, sin telemetría, sin llamadas a servidores propios, sin publicidad.
-· El Modo Privado NO usa internet — todo es local (canvas, texto, localStorage).
+· Loading the background music the first time from Archive.org (in the APK it's bundled, so it's not usually used)
+· Opening external links (like the GitHub one) inside the WebView
+· Nothing else. No analytics, no telemetry, no calls to own servers, no advertising.
+· Private Mode does NOT use internet — everything is local (canvas, text, localStorage).
 
-✅ Argumentos para descartar un virus
+✅ Reasons to rule out a virus
 
-· ✅ La app no solicita permisos innecesarios — solo los 3 accesos estándar descritos arriba
-· ✅ Todo el código es visible en este repo: index.html, games/, paint/, privacy/, desktop-ui/ — no hay binarios ofuscados
-· ✅ No incluye analytics, telemetría ni SDKs de terceros
-· ✅ No envía datos a servidores externos (todo es local)
-· ✅ La vibración es puntual y breve — no puede dejar el teléfono vibrando sin parar
-· ✅ Cero anuncios y cero notificaciones — si ves alguno, es adware de otra app
-· ✅ Se auto-mata al pasar a segundo plano — no puede consumir batería ni enviar datos ocultos
+· ✅ The app doesn't request unnecessary permissions — only the 3 standard accesses described above
+· ✅ All the code is visible in this repo: index.html, games/, paint/, privacy/, desktop-ui/ — no obfuscated binaries
+· ✅ Doesn't include analytics, telemetry, or third-party SDKs
+· ✅ Doesn't send data to external servers (everything is local)
+· ✅ Vibration is brief and punctual — it can't leave your phone vibrating non-stop
+· ✅ Zero ads and zero notifications — if you see any, it's adware from another app
+· ✅ Auto-kills when going to background — it can't consume battery or send hidden data
 
-🔍 Si sospechas que entró un virus después de instalar la app
+🔍 If you suspect a virus got in after installing the app
 
-1. Verifica la fuente de descarga — asegúrate de haber descargado el APK directamente desde la sección Releases de este repositorio. Cualquier APK de otro sitio (webs de terceros, grupos de Telegram, mirrors no oficiales…) no es responsabilidad del proyecto y podría haber sido modificado.
-2. Verifica si tu teléfono fue infectado por otra cosa en el mismo momento de la instalación — otras apps recién instaladas, APKs de fuentes desconocidas, links sospechosos, etc.
-3. Pasa un análisis completo con Play Protect (Ajustes → Google → Play Protect → Analizar) o con Malwarebytes / Kaspersky / Bitdefender. Malwarebytes es especialmente bueno detectando adware.
-4. Revisa los permisos concedidos en Ajustes → Apps → Nibbly → Permisos. Solo deberían aparecer:
-   · Almacenamiento (o "Archivos y medios" en Android 13+)
+1. Verify the download source — make sure you downloaded the APK directly from the Releases section of this repository. Any APK from other places (third-party sites, Telegram groups, unofficial mirrors…) is not the project's responsibility and could have been modified.
+2. Check if your phone was infected by something else at the same moment of installation — other newly installed apps, APKs from unknown sources, suspicious links, etc.
+3. Run a full scan with Play Protect (Settings → Google → Play Protect → Scan) or with Malwarebytes / Kaspersky / Bitdefender. Malwarebytes is especially good at detecting adware.
+4. Check granted permissions in Settings → Apps → Nibbly → Permissions. Only these should appear:
+   · Storage (or "Files and media" on Android 13+)
    · Internet
-   · Vibración (o "Control de vibración" en algunas versiones de Android)
-     Si ves cualquier otro permiso activo (cámara, micrófono, ubicación, contactos, notificaciones, mostrar sobre otras apps…), algo va mal — desinstala y reinstala desde Releases oficiales.
-5. Revisa qué apps tienen acceso reciente a tu almacenamiento en Ajustes → Privacidad → Administrador de permisos → Archivos y medios. Ahí ves todas las apps que han tocado archivos, no solo Nibbly.
-6. Comprueba que la vibración es puntual: si instalas la app y notas que el teléfono vibra de forma repetida o sin que tú pulses nada, no es Nibbly — Nibbly solo vibra como respuesta a tus pulsaciones (nunca de forma autónoma ni en bucle).
-7. Revisa apps con "Mostrar sobre otras apps": Ajustes → Apps → Permisos especiales → Mostrar sobre otras apps. Si hay alguna app con este permiso que no reconozcas, esa es la que inyecta anuncios, no Nibbly (Nibbly no pide este permiso).
+   · Vibration (or "Vibration control" on some Android versions)
+     If you see any other active permission (camera, microphone, location, contacts, notifications, display over other apps…), something is wrong — uninstall and reinstall from official Releases.
+5. Check which apps have recent access to your storage in Settings → Privacy → Permission manager → Files and media. There you see all apps that have touched files, not just Nibbly.
+6. Verify that vibration is brief: if you install the app and notice the phone vibrates repeatedly or without you pressing anything, it's not Nibbly — Nibbly only vibrates as a response to your taps (never autonomously or in a loop).
+7. Check apps with "Display over other apps": Settings → Apps → Special permissions → Display over other apps. If there's an app with this permission you don't recognize, that's the one injecting ads, not Nibbly (Nibbly doesn't request this permission).
 
-🐞 Si tras revisar todo lo anterior sigues teniendo dudas
+🐞 If after checking everything above you still have doubts
 
-Abre un Issue con:
+Open an Issue with:
 
-· Descripción clara de lo que viste
-· Captura del reporte de VirusTotal (si lo tienes)
-· Fuente exacta de donde descargaste el APK
-· Versión de Android y de Android System WebView
-· Captura de la pantalla de permisos de la app
-· Cualquier otra app instalada en ese momento
+· Clear description of what you saw
+· Screenshot of the VirusTotal report (if you have it)
+· Exact source where you downloaded the APK
+· Android and Android System WebView versions
+· Screenshot of the app's permissions screen
+· Any other app installed at that moment
 
 ---
 
-🛠️ Tecnología
+🛠️ Technology
 
-· HTML5 — estructura semántica
-· CSS3 — Material You 3, color-mix(), variables CSS, animaciones, dvh/svh para adaptación al viewport
-· JavaScript vanilla — sin dependencias, sin build step
-· Web Audio API — sonidos de click y beeps Morse sintetizados
-· Canvas 2D API — editor de dibujo con Bresenham pixel-perfect
-· BigInt — aritmética de precisión arbitraria
-· LocalStorage — persistencia de ajustes (2 namespaces: nibbly-settings-v2 + nibbly-privacy-v1)
-· Cache Storage API — caché offline de la música remota (solo en web/PC, o en APK si se omite mus/)
-· ResizeObserver — recálculo dinámico de posiciones en 2048
-· requestAnimationFrame — física de la explosión de la calculadora y del agujero negro
-· Fullscreen API — pantalla negra del Modo Privado
-· Android System WebView — motor de renderizado
+· HTML5 — semantic structure
+· CSS3 — Material You 3, color-mix(), CSS variables, animations, dvh/svh for viewport adaptation
+· Vanilla JavaScript — no dependencies, no build step
+· Web Audio API — synthesized click sounds and Morse beeps
+· Canvas 2D API — drawing editor with Bresenham pixel-perfect
+· BigInt — arbitrary precision arithmetic
+· LocalStorage — settings persistence (2 namespaces: nibbly-settings-v2 + nibbly-privacy-v1)
+· Cache Storage API — offline cache for remote music (web/PC only, or APK if mus/ is omitted)
+· ResizeObserver — dynamic position recalculation in 2048
+· requestAnimationFrame — physics for the calculator explosion and the black hole
+· Fullscreen API — Private Mode black screen
+· Android System WebView — rendering engine
 
-Tamaño aproximado:
+Approximate size:
 
-· APK completo (con mus/): ~290 KB de web + ~1–2 MB del archivo .ogg
-· APK mínimo (sin mus/): ~290 KB (la música se descarga la primera vez y queda cacheada)
-· Web / PC (sin mus/, sin desktop-ui/): ~265 KB
-· Web / PC (con desktop-ui/, sin mus/): ~290 KB
-· Web / PC (con todo): ~290 KB + ~1–2 MB del .ogg
+· Full APK (with mus/): ~290 KB of web + ~1–2 MB of the .ogg file
+· Minimal APK (without mus/): ~290 KB (music is downloaded the first time and cached)
+· Web / PC (without mus/, without desktop-ui/): ~265 KB
+· Web / PC (with desktop-ui/, without mus/): ~290 KB
+· Web / PC (with everything): ~290 KB + ~1–2 MB of the .ogg
 
 ---
 
 🗺️ Roadmap
 
-· ☑ v1.0.0 — Versión inicial completa
-· ☑ v1.0.1 — Versión enfocada al diseño: música de fondo con fallback en Archive.org, fondo gradiente animado que respira con la música
-· ☑ v1.0.2 — Calidad de vida + minijuegos:
-  · Sección Juegos con Tetris, Buscaminas y 2048
-  · Interfaz de escritorio opcional (desktop-ui/)
-  · Calculadora con personalidad ("Please Don't" → explosión física)
-  · Medidor de calor de CPU con chistes
-  · Botones "Convertir" con delay y mensajes rotativos
-  · Descarga de audio Morse en .wav
-  · Sliders de volumen independientes
-  · Force UI (Bolsillo / Escritorio)
-  · Sincronización robusta de toggles tras recargar o cambiar de layout
-· ☑ v1.0.3 — Massive Bug Fix + Editor de dibujo:
-  · Editor de dibujo (paint/) con pincel, lápiz pixel-perfect, borrador y cuentagotas
-  · Copia individual de valores RGBA/HEX
-  · Comprobador de archivos de expansión en Ajustes
-  · Sección de privacidad sobre enlaces externos
-  · Fix: glow de botones en Juegos ahora respeta el color de acento
-  · Fix: apertura de GitHub en el navegador externo (con fallback in-app si el compilador lo fuerza)
-  · Fix: toasts visibles sobre Ajustes (ya no se ocultan detrás del sheet)
-  · Fix: textos en sentence case en lugar de Todo En Mayúsculas
-  · Documentación: aclaración de que desktop-ui/ no debe incluirse en el APK
-  · Documentación: aclaración del comportamiento de la música en APK (incluida) vs PC (descarga en <5 s la primera vez)
-  · Documentación: ciclo de vida completo de la app (se auto-mata al salir sin música o al terminar la música en background)
-· ☑ v1.0.4 — Modo Privado + calculadora científica:
-  · Calculadora privada con expresión acumulada, paréntesis anidados y exponentes x^y
-  · Pantalla negra con fullscreen y salida por 3 toques
-  · Panic button en la calc → oculta sin destruir, restaura al volver
-  · Aviso de responsabilidad con "no mostrar de nuevo" persistente
-  · Tips de seguridad dentro de la calculadora
-  · Fix del IME rescue tras salir de fullscreen (teclado Android)
-  · Fix del medidor de RAM (ahora llega a 100% con DDR5-8400)
-  · Fix del medidor de bitrate de audio (ahora llega a 100% con CD/FLAC)
-  · Fix del comprobador de archivos con .ogg (usa <audio> no <img>)
-  · Icono incógnito con images/privacy.png (fallback a 👁️)
-  · Pausa/reanudación automática de música en modo privado
-· ☐ v1.0.x — Corrección de bugs (según issues reportados)
+· ☑ v1.0.0 — Initial complete version
+· ☑ v1.0.1 — Design-focused version: background music with Archive.org fallback, animated gradient background that breathes with the music
+· ☑ v1.0.2 — Quality of life + minigames:
+  · Games section with Tetris, Minesweeper, and 2048
+  · Optional desktop UI (desktop-ui/)
+  · Calculator with personality ("Please Don't" → physics explosion)
+  · CPU heat meter with jokes
+  · "Convert" buttons with delay and rotating messages
+  · Morse audio download as .wav
+  · Independent volume sliders
+  · Force UI (Pocket / Desktop)
+  · Robust toggle synchronization after reloading or changing layout
+· ☑ v1.0.3 — Massive Bug Fix + Drawing editor:
+  · Drawing editor (paint/) with brush, pixel-perfect pencil, eraser, and eyedropper
+  · Individual copy of RGBA/HEX values
+  · Expansion file checker in Settings
+  · Privacy section about external links
+  · Fix: glow on Games buttons now respects the accent color
+  · Fix: GitHub opening in external browser (with in-app fallback if the compiler forces it)
+  · Fix: toasts visible above Settings (no longer hidden behind the sheet)
+  · Fix: sentence case texts instead of Title Case
+  · Documentation: clarification that desktop-ui/ must not be included in the APK
+  · Documentation: clarification of music behavior in APK (bundled) vs PC (download in <5s the first time)
+  · Documentation: complete app lifecycle (auto-kills on exit without music or when music ends in background)
+· ☑ v1.0.4 — Private Mode + scientific calculator:
+  · Private calculator with accumulated expression, nested parentheses, and x^y exponents
+  · Black screen with fullscreen and exit via 3 taps
+  · Panic button in the calc → hides without destroying, restores on return
+  · Responsibility warning with persistent "don't show again"
+  · Security tips inside the calculator
+  · IME rescue fix after exiting fullscreen (Android keyboard)
+  · RAM meter fix (now reaches 100% with DDR5-8400)
+  · Audio bitrate meter fix (now reaches 100% with CD/FLAC)
+  · File checker fix with .ogg (uses <audio> not <img>)
+  · Incognito icon with images/privacy.png (falls back to 👁️)
+  · Auto pause/resume of music in private mode
+· ☐ v1.0.x — Bug fixes (according to reported issues)
 
-Nota: A partir de ahora el proyecto entra en modo mantenimiento. Solo se aceptarán pull requests de bugfix. Las nuevas funciones se considerarán caso por caso.
-
----
-
-🤝 Contribuir
-
-Las contribuciones son bienvenidas, especialmente bugfixes:
-
-1. Haz un fork del proyecto
-2. Crea una rama: git checkout -b fix/nombre-del-bug
-3. Commit: git commit -m "fix: descripción del bug"
-4. Push: git push origin fix/nombre-del-bug
-5. Abre un Pull Request
-
-Si encuentras un bug, abre un Issue con:
-
-· Descripción clara
-· Pasos para reproducirlo
-· Captura de pantalla (si aplica)
-· Versión de Android y de Android System WebView
-· Pestaña afectada (Números, Texto, Bits, Potencia, Multimedia, Calculadora, Dibujo, Juegos o Modo Privado)
+Note: From now on the project enters maintenance mode. Only bugfix pull requests will be accepted. New features will be considered case by case.
 
 ---
 
-👤 Autor
+🤝 Contributing
+
+Contributions are welcome, especially bugfixes:
+
+1. Fork the project
+2. Create a branch: git checkout -b fix/bug-name
+3. Commit: git commit -m "fix: bug description"
+4. Push: git push origin fix/bug-name
+5. Open a Pull Request
+
+If you find a bug, open an Issue with:
+
+· Clear description
+· Steps to reproduce it
+· Screenshot (if applicable)
+· Android and Android System WebView versions
+· Affected tab (Numbers, Text, Bits, Power, Multimedia, Calculator, Drawing, Games, or Private Mode)
+
+---
+
+👤 Author
 
 EdwarlyGamer999+
 
 · 🐙 GitHub: @edwarly999plus
-· 📦 Repositorio: Nibbly
+· 📦 Repository: Nibbly
 
 ---
 
-📄 Licencia
+📄 License
 
-Este proyecto está bajo la licencia Apache-2.0. Consulta el archivo LICENSE para más detalles.
+This project is licensed under Apache-2.0. See the LICENSE file for details.
 
 ```
                               Apache License
@@ -1017,8 +1017,8 @@ limitations under the License.
 ---
 
 <p align="center">
-  <b>Hecho con ♥️ por EdwarlyGamer999+</b><br>
-  <sub>⭐ Si te gustó el proyecto, dale una estrella en GitHub ⭐</sub>
+  <b>Made with ♥️ by EdwarlyGamer999+</b><br>
+  <sub>⭐ If you liked the project, give it a star on GitHub ⭐</sub>
 </p>
 
 <p align="center">
