@@ -1,0 +1,1 @@
+Here are the .js scripts for the app's privacy features
