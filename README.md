@@ -24,6 +24,9 @@
   <a href="https://edwarly999plus.github.io/Nibbly/">
     <img src="https://img.shields.io/badge/▶_Probar_Online-GitHub_Pages-22d3a6?style=for-the-badge&logo=github&logoColor=white" alt="Try Online">
   </a>
+<a href="https://edwarly999plus.github.io/Nibbly/player.html">
+  <img src="https://img.shields.io/badge/🎵_Reproductor_de_Música-5b8cff?style=for-the-badge" alt="Reproductor">
+</a>
 </p>
 
 ---
@@ -35,6 +38,12 @@
 El APK incluye el HTML ya construido y listo para ejecutarse. **No requiere conexión a internet** una vez instalado.
 
 **🎵 La música de fondo (`mus/You Are Nibbled.ogg`) ya viene incluida dentro del APK**, así que puedes activarla desde Ajustes **sin necesidad de conexión a internet** desde el primer arranque. En la versión **web/PC**, el archivo `.ogg` **no se incluye** (los PC suelen estar en casa con conexión estable); la música se descarga automáticamente la primera vez que la activas (usualmente en <5 s) y queda en caché para siguientes usos.
+
+También puedes escucharla aquí directamente sin descargar nada.
+
+<a href="https://edwarly999plus.github.io/Nibbly/player.html">
+  <img src="https://img.shields.io/badge/🎵_Escuchar_Ahora-5b8cff?style=for-the-badge" alt="Reproductor">
+</a>
 
 ### ⚠️ Requisito importante
 
