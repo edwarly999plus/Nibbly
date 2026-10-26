@@ -1,1 +1,0 @@
-The games are not required for the app to function. You can skip these files from the "games/" folder if you don't need them. 
