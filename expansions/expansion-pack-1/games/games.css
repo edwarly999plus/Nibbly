@@ -1,0 +1,534 @@
+.nibbly-games{display:flex;
+flex-direction:column;
+gap:14px;
+font-family:inherit;
+color:var(--on-surface,#fff)}
+
+
+.ng-tabs{display:flex;
+gap:4px;
+background:var(--surface-1,#1a1f30);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+padding:6px;
+border-radius:var(--r-lg,24px)}
+.ng-tab{flex:1;
+padding:11px 8px;
+border:0;
+background:transparent;
+color:var(--on-variant,#aaa);
+font-size:12.5px;
+font-weight:700;
+border-radius:var(--r-md,16px);
+cursor:pointer;
+font-family:inherit;
+transition:background .2s ease,color .2s ease}
+.ng-tab.active{background:var(--primary,#5b8cff);
+color:#fff;
+box-shadow:0 4px 14px color-mix(in srgb,var(--primary,#5b8cff) 35%,transparent)}
+
+
+.ng-stage{display:none}
+.ng-stage.active{display:block}
+
+
+.ng-game-header{display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:12px;
+flex-wrap:wrap}
+.ng-score-box{background:var(--surface-1,#1a1f30);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+border-radius:var(--r-md,16px);
+padding:8px 14px;
+min-width:68px;
+text-align:center}
+.ng-score-label{font-size:10px;
+font-weight:800;
+color:var(--on-variant,#aaa);
+text-transform:uppercase;
+letter-spacing:.6px}
+.ng-score-value{font-size:18px;
+font-weight:800;
+color:var(--on-surface,#fff);
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+line-height:1.2}
+
+
+.ng-btn{padding:10px 16px;
+border-radius:var(--r-full,999px);
+border:1px solid var(--outline,rgba(255,255,255,.22));
+background:transparent;
+color:var(--on-variant,#aaa);
+font-family:inherit;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+transition:background .2s ease,color .2s ease,transform .1s ease}
+.ng-btn:active{background:var(--surface-2,#222838);
+color:var(--on-surface,#fff);
+transform:scale(.97)}
+.ng-btn-primary{background:var(--primary,#5b8cff);
+color:#fff;
+border-color:transparent;
+box-shadow:0 4px 14px color-mix(in srgb,var(--primary,#5b8cff) 35%,transparent)}
+
+
+.ng-hint{font-size:11px;
+color:var(--on-variant,#aaa);
+margin-top:10px;
+line-height:1.5;
+text-align:center}
+
+
+.ng-overlay{position:absolute;
+inset:0;
+background:rgba(0,0,0,.75);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:10;
+border-radius:var(--r-md,16px);
+animation:ngFadeIn .25s ease;
+backdrop-filter:blur(3px);
+-webkit-backdrop-filter:blur(3px)}
+@keyframes ngFadeIn{from{opacity:0}to{opacity:1}}
+
+.ng-overlay-content{background:var(--surface-2,#222838);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+border-radius:var(--r-lg,24px);
+padding:24px 28px;
+text-align:center;
+max-width:85%;
+animation:ngPop .3s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes ngPop{from{transform:scale(.85);opacity:0}
+to{transform:scale(1);opacity:1}}
+
+.ng-overlay-title{font-size:22px;
+font-weight:800;
+margin-bottom:8px;
+color:var(--on-surface,#fff);
+letter-spacing:-.4px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px}
+.ng-overlay-sub{font-size:13px;
+color:var(--on-variant,#aaa);
+margin-bottom:18px;
+line-height:1.5}
+
+
+.ng-overlay-title .nib-vec-icon{display:inline-block;
+vertical-align:middle;
+margin:0;
+width:24px;
+height:24px;
+object-fit:contain}
+
+
+.ng-2048{position:relative}
+
+.ng-board-2048{position:relative;
+aspect-ratio:1;
+width:min(420px,100%,calc(62dvh));
+width:min(420px,100%,calc(62svh));
+max-height:62dvh;
+max-height:62svh;
+margin:0 auto;
+background:var(--surface-2,#222838);
+border-radius:var(--r-md,16px);
+touch-action:none;
+user-select:none;
+-webkit-user-select:none;
+overflow:hidden;
+--ng-2048-pad:8px;
+--ng-2048-gap:8px}
+.ng-2048-bg{position:absolute;
+inset:var(--ng-2048-pad);
+display:grid;
+grid-template-columns:repeat(4,1fr);
+grid-template-rows:repeat(4,1fr);
+gap:var(--ng-2048-gap);
+pointer-events:none}
+.ng-2048-bg-cell{background:color-mix(in srgb,var(--surface-3,#2c3446) 60%,transparent);
+border-radius:10px}
+.ng-2048-tiles{position:absolute;
+inset:0;
+pointer-events:none}
+.ng-2048-tile{position:absolute;
+top:0;
+left:0;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:800;
+font-size:clamp(16px,5vw,28px);
+color:var(--on-surface,#fff);
+line-height:1;
+transform-origin:center;
+will-change:transform,background-color;
+transition:transform 140ms ease-out,background-color 140ms ease-out,color 140ms ease-out,opacity 140ms ease-out}
+.ng-2048-tile[data-value="128"],
+.ng-2048-tile[data-value="256"],
+.ng-2048-tile[data-value="512"],
+.ng-2048-tile[data-value="1024"],
+.ng-2048-tile[data-value="2048"],
+.ng-2048-tile[data-value="4096"]{font-size:clamp(12px,4vw,22px)}
+.ng-2048-tile[data-value="512"],
+.ng-2048-tile[data-value="1024"],
+.ng-2048-tile[data-value="2048"],
+.ng-2048-tile[data-value="4096"]{box-shadow:0 2px 8px rgba(237,194,46,.25)}
+
+
+.ng-tetris{position:relative}
+
+.ng-board-tetris{display:grid;
+grid-template-columns:repeat(10,1fr);
+grid-template-rows:repeat(20,1fr);
+gap:1px;
+background:var(--surface-2,#222838);
+padding:4px;
+border-radius:var(--r-md,16px);
+width:min(320px,100%,calc(58dvh / 2));
+width:min(320px,100%,calc(58svh / 2));
+aspect-ratio:10 / 20;
+max-height:58dvh;
+max-height:58svh;
+margin:0 auto;
+touch-action:manipulation;
+position:relative;
+overflow:visible}
+.ng-tetris-cell{border-radius:2px;
+background:color-mix(in srgb,var(--surface-3,#2c3446) 50%,transparent);
+transition:background .06s linear;
+min-width:0;
+min-height:0}
+.ng-tetris-controls{display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:6px;
+margin-top:12px;
+max-width:320px;
+margin-left:auto;
+margin-right:auto}
+.ng-ctrl-btn{padding:14px 8px;
+border-radius:var(--r-md,16px);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+background:var(--surface-1,#1a1f30);
+color:var(--on-surface,#fff);
+font-size:18px;
+font-weight:800;
+cursor:pointer;
+font-family:inherit;
+transition:background .15s ease,transform .1s ease;
+touch-action:manipulation}
+.ng-ctrl-btn:active{background:var(--surface-3,#2c3446);
+transform:scale(.96)}
+.ng-ctrl-btn.wide{grid-column:span 4}
+
+@media (min-width:500px) and (pointer:fine){.ng-tetris-controls{display:none}}
+
+
+.ng-mines{position:relative}
+
+.ng-board-mines{display:grid;
+gap:2px;
+background:var(--surface-2,#222838);
+padding:6px;
+border-radius:var(--r-md,16px);
+width:100%;
+max-width:420px;
+margin:0 auto;
+touch-action:manipulation;
+user-select:none;
+-webkit-user-select:none}
+
+
+.ng-mine-cell{aspect-ratio:1;
+border-radius:4px;
+border:0;
+background:var(--surface-3,#2c3446);
+color:var(--on-surface,#fff);
+font-size:clamp(12px,3vw,18px);
+font-weight:800;
+cursor:pointer;
+font-family:inherit;
+padding:0;
+transition:background .12s ease;
+user-select:none;
+-webkit-user-select:none;
+display:flex;
+align-items:center;
+justify-content:center;
+line-height:1;
+overflow:hidden}
+.ng-mine-cell:active{background:var(--surface-2,#222838)}
+.ng-mine-cell.revealed{background:var(--surface,#151a2a);
+cursor:default}
+.ng-mine-cell.revealed.n0{background:color-mix(in srgb,var(--surface,#151a2a) 85%,transparent)}
+.ng-mine-cell.flagged{background:color-mix(in srgb,var(--warn,#ffb020) 25%,var(--surface-3,#2c3446))}
+.ng-mine-cell.mine{background:color-mix(in srgb,var(--bad,#ff6b7a) 35%,var(--surface-3,#2c3446))}
+
+
+.ng-mine-cell .nib-vec-icon{display:block;
+margin:0;
+transform:none;
+width:70%;
+height:70%;
+max-width:22px;
+max-height:22px;
+object-fit:contain}
+
+
+.ng-mine-cell.mine .nib-vec-icon{filter:brightness(0.6) !important;
+opacity:1 !important}
+
+
+.ng-mine-cell[data-count="1"]{color:#5b8cff}
+.ng-mine-cell[data-count="2"]{color:#22d3a6}
+.ng-mine-cell[data-count="3"]{color:#ff6b7a}
+.ng-mine-cell[data-count="4"]{color:#a78bfa}
+.ng-mine-cell[data-count="5"]{color:#ffb020}
+.ng-mine-cell[data-count="6"]{color:#4dd0e1}
+.ng-mine-cell[data-count="7"]{color:#e0e0e0}
+.ng-mine-cell[data-count="8"]{color:#b0b0b0}
+
+
+.ng-mines-toolbar{display:flex;
+gap:8px;
+margin-bottom:10px}
+.ng-flag-toggle{flex:1;
+display:flex;
+align-items:center;
+gap:10px;
+padding:10px 14px;
+border-radius:var(--r-md,16px);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+background:var(--surface-1,#1a1f30);
+color:var(--on-surface,#fff);
+font-family:inherit;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+transition:background .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease}
+.ng-flag-toggle:active{background:var(--surface-2,#222838)}
+
+
+.ng-flag-toggle .icon{display:flex;
+align-items:center;
+justify-content:center;
+width:24px;
+height:24px;
+flex-shrink:0}
+
+.ng-flag-toggle .icon .nib-vec-icon{display:block;
+margin:0;
+width:20px;
+height:20px;
+object-fit:contain}
+
+.ng-flag-toggle .label{flex:1;
+text-align:left}
+.ng-flag-toggle .state{font-size:11px;
+font-weight:800;
+letter-spacing:.5px;
+padding:3px 8px;
+border-radius:var(--r-full,999px);
+background:var(--surface-3,#2c3446);
+color:var(--on-variant,#aaa);
+transition:background .2s ease,color .2s ease}
+.ng-flag-toggle.active{background:color-mix(in srgb,var(--warn,#ffb020) 22%,var(--surface-1));
+border-color:var(--warn,#ffb020);
+color:var(--warn,#ffb020);
+box-shadow:0 0 0 2px color-mix(in srgb,var(--warn,#ffb020) 25%,transparent)}
+.ng-flag-toggle.active .state{background:var(--warn,#ffb020);
+color:#1a1a00}
+.ng-flag-toggle.active .icon{animation:ngFlagPulse .8s ease-in-out infinite}
+@keyframes ngFlagPulse{0%,100%{transform:scale(1)}
+50%{transform:scale(1.12)}}
+
+.ng-board-mines.flag-mode .ng-mine-cell:not(.revealed){cursor:crosshair}
+
+
+.ng-pong-menu-btn,
+.ng-pong-pause,
+.ng-pong-surrender{display:inline-flex !important;
+flex-direction:row !important;
+align-items:center !important;
+justify-content:center !important;
+gap:6px !important;
+white-space:nowrap}
+
+.ng-pong-menu-btn .nib-vec-icon,
+.ng-pong-pause .nib-vec-icon,
+.ng-pong-surrender .nib-vec-icon{display:inline-block !important;
+vertical-align:middle !important;
+margin:0 !important;
+padding:0 !important;
+width:14px !important;
+height:14px !important;
+max-width:14px !important;
+max-height:14px !important;
+object-fit:contain;
+flex-shrink:0;
+transform:none !important}
+
+
+@media (max-width:640px),(max-height:800px){.ng-board-tetris{width:min(280px,100%,calc(54dvh / 2));
+width:min(280px,100%,calc(54svh / 2));
+max-height:54dvh;
+max-height:54svh;
+gap:0.5px;
+padding:3px}
+.ng-board-2048{width:min(360px,100%,calc(58dvh));
+width:min(360px,100%,calc(58svh));
+max-height:58dvh;
+max-height:58svh;
+gap:6px;
+padding:6px}
+.ng-game-header{margin-bottom:8px;
+gap:6px}
+.ng-score-box{padding:6px 10px;
+min-width:56px}
+.ng-score-label{font-size:9px;
+letter-spacing:.4px}
+.ng-score-value{font-size:15px}
+.ng-tetris-controls{margin-top:8px;
+gap:4px}
+.ng-ctrl-btn{padding:12px 4px;
+font-size:16px}
+.ng-btn{padding:8px 12px;
+font-size:12px}
+.ng-hint{font-size:10px;
+margin-top:6px;
+line-height:1.35}
+.ng-tabs{padding:4px}
+.ng-tab{padding:9px 6px;
+font-size:12px}
+.ng-flag-toggle{padding:8px 12px;
+font-size:12px}
+.ng-flag-toggle .icon{font-size:18px}
+.ng-flag-toggle .state{font-size:10px;
+padding:2px 6px}}
+
+
+@media (orientation:landscape) and (max-height:500px){.ng-board-tetris{width:min(320px,calc(88dvh / 2));
+width:min(320px,calc(88svh / 2));
+max-height:88dvh;
+max-height:88svh}
+.ng-tetris-controls{grid-template-columns:repeat(5,1fr)}
+.ng-ctrl-btn.wide{grid-column:auto}}
+
+
+.ng-tetris-play-area{display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+width:100%;
+margin:0 auto;
+position:relative}
+.ng-tetris-play-area .ng-board-tetris{flex:0 1 auto;
+width:min(320px,calc(100% - 96px),calc(58svh / 2));
+aspect-ratio:10 / 20;
+max-height:58svh;
+margin:0;
+position:relative;
+overflow:visible}
+.ng-tetris-play-area .ng-tetris-next{flex:0 0 auto;
+align-self:center}
+.ng-tetris-next{display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+padding:10px 12px;
+background:var(--surface-1,#1a1f30);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+border-radius:var(--r-md,16px);
+margin:0}
+.ng-tetris-next-label{font-size:10px;
+font-weight:800;
+letter-spacing:.8px;
+text-transform:uppercase;
+color:var(--on-variant,#aaa)}
+.ng-board-next{display:grid;
+grid-template-columns:repeat(4,1fr);
+grid-template-rows:repeat(4,1fr);
+gap:2px;
+width:88px;
+height:88px;
+padding:3px;
+background:var(--surface-2,#222838);
+border-radius:8px}
+.ng-tetris-next-cell{border-radius:2px;
+background:color-mix(in srgb,var(--surface-3,#2c3446) 50%,transparent);
+transition:background .1s linear;
+min-width:0;
+min-height:0}
+
+
+.ng-tetris-cell.ng-tetris-ghost{background:transparent !important;
+box-shadow:inset 0 0 0 2px rgba(255,255,255,.55) !important;
+border-radius:2px;
+opacity:1 !important}
+
+
+.ng-tetris-cell.ng-tetris-cell-destroy{animation:ngTetrisDestroy 0.12s ease-out forwards}
+@keyframes ngTetrisDestroy{0%{transform:scale(1) rotate(0deg);opacity:1;filter:brightness(1)}
+40%{transform:scale(1.15) rotate(3deg);opacity:1;filter:brightness(1.8)}
+100%{transform:scale(0) rotate(90deg);opacity:0;filter:brightness(2.5)}}
+
+
+@keyframes ngTetrisShake{0%{transform:translate(0,0)}
+15%{transform:translate(-4px,2px)}
+30%{transform:translate(4px,-2px)}
+45%{transform:translate(-3px,1px)}
+60%{transform:translate(3px,-1px)}
+75%{transform:translate(-2px,1px)}
+100%{transform:translate(0,0)}}
+.ng-board-tetris.ng-tetris-shake{animation:ngTetrisShake 0.32s cubic-bezier(.36,.07,.19,.97)}
+
+
+@media (max-width:480px){.ng-tetris-play-area{gap:6px}
+.ng-tetris-play-area .ng-board-tetris{width:min(320px,calc(100% - 76px),calc(54svh / 2));
+max-height:54svh}
+.ng-board-next{width:64px;height:64px;gap:1px;padding:2px}
+.ng-tetris-next{padding:6px 10px}
+.ng-tetris-next-label{font-size:9px}}
+@media (max-width:340px){.ng-tetris-play-area{gap:4px}
+.ng-tetris-play-area .ng-board-tetris{width:min(320px,calc(100% - 62px),calc(50svh / 2));
+max-height:50svh}
+.ng-board-next{width:52px;height:52px}
+.ng-tetris-next{padding:4px 6px}
+.ng-tetris-next-label{font-size:8px}}
+
+
+.ng-paused{pointer-events:none !important;
+opacity:0.55;
+filter:grayscale(0.3);
+transition:opacity .15s ease,filter .15s ease}
+
+
+@media (prefers-reduced-motion:reduce){.ng-overlay,
+.ng-overlay-content{animation:none}
+.ng-tetris-cell,
+.ng-2048-cell,
+.ng-mine-cell{transition:none}
+.ng-flag-toggle.active .icon{animation:none}}
+
+
+body.no-effects .ng-overlay,
+body.no-effects .ng-overlay-content{animation:none}
+body.no-effects .ng-tetris-cell,
+body.no-effects .ng-2048-cell,
+body.no-effects .ng-mine-cell,
+body.no-effects .ng-tab,
+body.no-effects .ng-btn,
+body.no-effects .ng-ctrl-btn,
+body.no-effects .ng-tetris-next-cell,
+body.no-effects .ng-paused{transition:none !important;
+animation:none !important}
+body.no-effects .ng-flag-toggle.active .icon{animation:none}
+body.no-effects .ng-board-tetris.ng-tetris-shake{animation:none !important}
+body.no-effects .ng-tetris-cell.ng-tetris-cell-destroy{animation:none !important;
+opacity:0.6;
+transform:scale(0.85)}
