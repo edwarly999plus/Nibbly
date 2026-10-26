@@ -1,0 +1,45 @@
+.nib-vec-icon{display:inline-block;
+vertical-align:middle;
+object-fit:contain;
+flex-shrink:0;
+opacity:1;
+transition:opacity 0.2s ease,filter 0.2s ease,transform 0.15s ease;
+user-select:none;
+-webkit-user-drag:none}
+
+
+button .nib-vec-icon:not(:only-child),
+.btn-primary .nib-vec-icon:not(:only-child),
+.btn-ghost .nib-vec-icon:not(:only-child){margin-right:6px;
+transform:translateY(-1px)}
+
+.card-title .nib-vec-icon{margin-right:8px;
+transform:translateY(-2px)}
+
+
+button .nib-vec-icon:only-child,
+.ng-mine-cell .nib-vec-icon,
+.paint-copy-mini .nib-vec-icon,
+.paint-tool-icon .nib-vec-icon{display:block;
+margin:0;
+transform:none}
+
+
+.nib-vec-icon.tint-accent{filter:sepia(1) saturate(5) hue-rotate(200deg) brightness(1.2);
+opacity:1}
+
+
+.nib-vec-icon.tint-muted{opacity:0.5}
+
+
+.nib-vec-icon.tint-bad{filter:sepia(1) saturate(5) hue-rotate(310deg) brightness(1.2);
+opacity:1}
+
+
+.nib-vec-icon.tint-good{filter:sepia(1) saturate(5) hue-rotate(100deg) brightness(1.2);
+opacity:1}
+
+
+button:disabled .nib-vec-icon,
+.disabled .nib-vec-icon{opacity:0.3;
+filter:grayscale(1)}
