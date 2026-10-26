@@ -1,0 +1,213 @@
+.nib-range{display:flex;
+flex-direction:column;
+width:100%;
+min-height:1px;
+contain:layout style}
+
+.panel.active>.nib-range{display:flex !important;
+flex-direction:column !important;
+opacity:1 !important;
+visibility:visible !important}
+.panel.active>.nib-range>.card{display:block !important;
+opacity:1 !important;
+visibility:visible !important}
+
+
+.nib-range .card{background:var(--surface,#11162a);
+border:1px solid var(--outline-v,rgba(255,255,255,.08));
+border-radius:24px;
+padding:18px;margin-bottom:14px;
+color:var(--on-surface,#f0f2f8)}
+.nib-range .card-head{display:flex;justify-content:space-between;align-items:center;
+gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.nib-range .card-title{font-size:12px;font-weight:800;letter-spacing:1px;
+text-transform:uppercase;color:var(--on-variant,#a0a8c0);
+display:inline-flex;align-items:center;gap:6px}
+.nib-range .card-title .nib-vec-icon{display:block;margin:0;flex-shrink:0}
+.nib-range .lbl{display:block;font-size:12px;font-weight:700;
+letter-spacing:.7px;text-transform:uppercase;
+color:var(--on-variant,#a0a8c0);margin-bottom:8px}
+
+
+.nib-range .input,
+.nib-range .select{width:100%;padding:13px 16px;border-radius:16px;
+border:1px solid var(--outline,rgba(255,255,255,.15));
+background:var(--surface-1,#151b32);
+color:var(--on-surface,#f0f2f8);
+font-size:15px;outline:none;font-family:inherit;
+transition:border-color .2s,box-shadow .2s,background .2s}
+.nib-range .select{padding-right:38px;cursor:pointer;
+-webkit-appearance:none;appearance:none;
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%23a0a8c0' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+background-repeat:no-repeat;background-position:right 14px center}
+.nib-range .input:focus,
+.nib-range .select:focus{border-color:var(--accent,#5b8cff);
+background:var(--surface-2,#1a2140);
+box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.nib-range .select option{background:var(--bg);color:var(--on-surface)}
+.nib-range .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.nib-range .dual{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:380px){.nib-range .dual{grid-template-columns:1fr}}
+
+
+.nib-range .range-presets{display:flex;flex-wrap:wrap;gap:6px}
+.nib-range .chip{padding:8px 14px;border-radius:999px;
+border:1px solid var(--outline);
+background:transparent;color:var(--on-variant);
+font-size:12px;font-weight:700;cursor:pointer;
+font-family:inherit;
+transition:background .15s,color .15s,border-color .15s;
+display:inline-flex;align-items:center;justify-content:center;gap:6px;
+white-space:nowrap}
+.nib-range .chip:hover{background:var(--secondary-container);
+border-color:var(--accent);
+color:var(--on-primary-cont)}
+.nib-range .chip:active{transform:scale(.96)}
+.nib-range .chip .nib-vec-icon{display:block;margin:0;flex-shrink:0}
+
+
+.nib-range .btn-primary{padding:13px 20px;border-radius:999px;border:0;
+background:var(--accent);color:#fff;
+font-size:14px;font-weight:800;cursor:pointer;
+font-family:inherit;width:100%;
+box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 35%,transparent);
+transition:transform .12s,filter .2s;
+display:inline-flex;align-items:center;justify-content:center;gap:8px;
+white-space:nowrap}
+.nib-range .btn-primary:active{transform:scale(.97);filter:brightness(1.08)}
+.nib-range .btn-primary .nib-vec-icon{display:block;margin:0;flex-shrink:0}
+
+.nib-range .copy{border:1px solid var(--outline);background:transparent;
+color:var(--on-primary-cont);font-size:11px;font-weight:800;
+padding:7px 14px;border-radius:999px;
+cursor:pointer;font-family:inherit;
+letter-spacing:.4px;text-transform:uppercase;
+display:inline-flex;align-items:center;justify-content:center;gap:6px;
+white-space:nowrap}
+.nib-range .copy:active:not([disabled]){transform:scale(.94);background:var(--surface-2)}
+.nib-range .copy[disabled]{opacity:.6;cursor:progress}
+.nib-range .copy .nib-vec-icon{display:block;margin:0;flex-shrink:0}
+
+
+.nib-range .range-count{font-size:11.5px;font-weight:700;
+color:var(--on-variant);font-family:ui-monospace,monospace}
+.nib-range .range-pager{display:flex;align-items:center;gap:8px;
+margin-bottom:10px}
+.nib-range .range-pager button{width:40px;height:40px;border-radius:999px;
+border:1px solid var(--outline);
+background:var(--surface-1);color:var(--on-surface);
+font-family:inherit;font-size:15px;font-weight:800;
+cursor:pointer;transition:background .15s;
+display:inline-flex;align-items:center;justify-content:center}
+.nib-range .range-pager button:active:not([disabled]){background:var(--surface-3);transform:scale(.94)}
+.nib-range .range-pager button[disabled]{opacity:.35;cursor:not-allowed}
+.nib-range .range-page-info{flex:1;text-align:center;
+font-size:12px;font-weight:700;
+color:var(--on-variant)}
+
+
+.nib-range .range-goto{display:flex;align-items:center;gap:8px;
+margin-bottom:12px;
+padding:8px 10px;
+background:var(--surface-1);
+border:1px solid var(--outline-v);
+border-radius:12px}
+.nib-range .range-goto-label{font-size:11.5px;font-weight:700;
+color:var(--on-variant);
+letter-spacing:.3px;
+flex:1}
+.nib-range .range-page-jump{width:90px !important;
+padding:8px 10px !important;
+font-size:13px !important;
+text-align:center;
+border-radius:10px !important}
+.nib-range .range-jump-btn{padding:8px 16px;border-radius:10px;
+border:1px solid var(--accent);
+background:transparent;color:var(--accent);
+font-family:inherit;font-size:12.5px;font-weight:800;
+cursor:pointer;transition:background .15s;
+display:inline-flex;align-items:center;justify-content:center}
+.nib-range .range-jump-btn:hover{background:var(--secondary-container)}
+.nib-range .range-jump-btn:active{transform:scale(.94)}
+
+
+.nib-range .range-table-wrap{max-height:60vh;overflow-y:auto;
+border-radius:14px;
+background:var(--surface-1);
+border:1px solid var(--outline-v);
+padding:8px}
+.nib-range .range-table{display:flex;flex-direction:column;gap:2px;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+font-size:12.5px}
+.nib-range .range-row{display:grid;
+grid-template-columns:44px 1fr 24px 1fr;
+gap:6px;align-items:center;
+padding:6px 8px;border-radius:8px;
+background:color-mix(in srgb,var(--surface-2) 50%,transparent)}
+.nib-range .range-row:nth-child(even){background:color-mix(in srgb,var(--surface-3) 40%,transparent)}
+.nib-range .range-idx{color:var(--on-variant);font-size:10.5px;
+font-weight:700;text-align:right}
+.nib-range .range-input{color:var(--on-surface);font-weight:600;
+word-break:break-all;text-align:right}
+.nib-range .range-arrow{color:var(--accent);font-weight:800;
+text-align:center}
+.nib-range .range-output{color:var(--on-primary-cont);font-weight:700;
+word-break:break-all}
+
+.nib-range .range-empty{padding:24px 16px;text-align:center;
+color:var(--on-variant);font-size:13px;
+font-style:italic}
+
+
+.nib-range .error{display:none;margin-top:12px;
+font-size:12.5px;color:var(--bad);
+font-weight:600;line-height:1.4}
+.nib-range .error.show{display:block}
+
+
+.range-confirm-overlay{position:fixed;inset:0;
+background:rgba(0,0,0,.65);
+z-index:999996;
+display:flex;align-items:center;justify-content:center;
+padding:20px;
+animation:rangeFadeIn .15s ease;
+backdrop-filter:blur(4px);
+-webkit-backdrop-filter:blur(4px)}
+@keyframes rangeFadeIn{from{opacity:0}to{opacity:1}}
+.range-confirm-box{background:var(--surface-1,#151b32);
+border:1px solid var(--outline-v);
+border-radius:24px;
+padding:22px 20px;
+max-width:400px;width:100%;
+box-shadow:0 20px 60px rgba(0,0,0,.6);
+animation:rangePop .2s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes rangePop{from{opacity:0;transform:scale(.9)}
+to{opacity:1;transform:scale(1)}}
+.range-confirm-msg{font-size:14px;line-height:1.55;
+color:var(--on-surface);
+margin-bottom:18px;
+text-align:center}
+.range-confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.range-confirm-cancel,
+.range-confirm-ok{padding:13px 16px;border-radius:999px;
+border:1px solid var(--outline);
+font-family:inherit;font-size:13.5px;font-weight:800;
+cursor:pointer;
+transition:background .15s,transform .1s;
+display:inline-flex;align-items:center;justify-content:center}
+.range-confirm-cancel{background:transparent;color:var(--on-variant)}
+.range-confirm-cancel:active{background:var(--surface-2);transform:scale(.97)}
+.range-confirm-ok{background:var(--accent);color:#fff;
+border-color:transparent}
+.range-confirm-ok:active{transform:scale(.97);filter:brightness(1.08)}
+
+
+body.no-effects .nib-range .input,
+body.no-effects .nib-range .select,
+body.no-effects .nib-range .chip,
+body.no-effects .nib-range .btn-primary,
+body.no-effects .nib-range .copy,
+body.no-effects .nib-range .range-pager button,
+body.no-effects .nib-range .range-jump-btn{transition:none !important}
+body.no-effects .range-confirm-overlay,
+body.no-effects .range-confirm-box{animation:none !important}
