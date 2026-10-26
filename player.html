@@ -38,7 +38,6 @@
     overflow-x: hidden;
   }
 
-  /* 🌊 Fondo gradiente pulsante clásico de Nibbly (9 s suave) */
   body::before {
     content: '';
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -56,9 +55,6 @@
     50%      { opacity: calc(var(--bg-anim-brightness) * 0.32); }
   }
 
-  /* ============================================================
-     PLAYER — Base compacta (móvil)
-     ============================================================ */
   .player {
     position: relative; z-index: 1;
     width: 100%; max-width: 100%;
@@ -71,7 +67,6 @@
     -webkit-backdrop-filter: blur(20px);
   }
 
-  /* 🇪🇸🇺🇸 Botón de idioma (esquina superior derecha) */
   .lang-btn {
     position: absolute;
     top: 8px; right: 8px;
@@ -375,9 +370,6 @@
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-  /* ============================================================
-     📱 Pantallas muy pequeñas (muy corto de alto)
-     ============================================================ */
   @media (max-height: 560px) {
     .cover-wrap { width: 90px; height: 90px; margin-bottom: 8px; }
     .brand { margin-bottom: 8px; }
@@ -390,9 +382,6 @@
     .play-btn svg { width: 20px; height: 20px; }
   }
 
-  /* ============================================================
-     💻 Tablets / PC — UI expandida
-     ============================================================ */
   @media (min-width: 600px) and (min-height: 600px) {
     body {
       padding: 24px 16px calc(32px + env(safe-area-inset-bottom));
@@ -558,6 +547,18 @@
       author: 'EdwarlyGamer999+',
       cover: 'img/Splash.png',
       url: 'https://dn711009.ca.archive.org/0/items/nibbly-ost-archive_202610/You Are Nibbled (HQ).mp3'
+    },
+    {
+      title: 'The Great Nibbly Revelation (HQ)',
+      author: 'EdwarlyGamer999+',
+      cover: 'img/Splash.png',
+      url: 'https://ia600102.us.archive.org/6/items/nibbly-ost-archive_202610/The Great Nibbly Revelation (HQ).mp3'
+    },
+    {
+      title: 'The Great Nibbly Revelation (In-App)',
+      author: 'EdwarlyGamer999+',
+      cover: 'img/Splash.png',
+      url: 'https://ia600102.us.archive.org/6/items/nibbly-ost-archive_202610/The Great Nibbly Revelation (In-App).mp3'
     }
   ];
 
@@ -683,7 +684,6 @@
       if (val) el.title = val;
     });
 
-    // Botón de idioma: muestra el idioma ACTUAL (bandera) y el title sugiere el opuesto
     langFlag.textContent = currentLang === 'es' ? '🇪🇸' : '🇺🇸';
     langBtn.title = currentLang === 'es' ? 'Switch to English' : 'Cambiar a Español';
     langBtn.setAttribute('aria-label', t('btn.lang'));
