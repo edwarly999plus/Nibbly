@@ -78,6 +78,16 @@ If the app shows a blank screen, update **Android System WebView** from the Play
   <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/8.png" alt="8" width="180">
   <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/9.png" alt="9" width="180">
   <img src="https://github.com/edwarly999plus/Nibbly/blob/main/img/10.png" alt="10" width="180">
+<img 
+src="https://github.com/edwarly999plus/Nibbly/blob/main/img/11.png" alt="10" width="180">
+<img 
+src="https://github.com/edwarly999plus/Nibbly/blob/main/img/12.png" alt="10" width="180">
+<img 
+src="https://github.com/edwarly999plus/Nibbly/blob/main/img/13.png" alt="10" width="180">
+<img 
+src="https://github.com/edwarly999plus/Nibbly/blob/main/img/14.png" alt="10" width="180">
+<img 
+src="https://github.com/edwarly999plus/Nibbly/blob/main/img/15.png" alt="10" width="180">
 </p>
 
 ---
