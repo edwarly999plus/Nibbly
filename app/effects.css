@@ -1,0 +1,89 @@
+:root{--bg-anim-speed:9s;
+--bg-anim-brightness:1;
+--music-pulse-size:900px 500px;
+--music-pulse-offset:0px;
+--nib-ease:cubic-bezier(.2,.9,.3,1.1)}
+
+
+body::before{content:'';
+position:fixed;
+inset:0;
+z-index:0;
+pointer-events:none;
+background:radial-gradient(
+900px 500px at 50% -140px,
+color-mix(in srgb,var(--accent) 50%,transparent) 0%,
+transparent 70%
+);
+background-repeat:no-repeat;
+animation:nibBgPulse var(--bg-anim-speed,9s) ease-in-out infinite;
+will-change:opacity,filter;
+contain:layout style;
+opacity:1;
+filter:brightness(var(--bg-anim-brightness,1));
+transition:filter .3s ease}
+
+@keyframes nibBgPulse{0%,100%{opacity:1}
+50%{opacity:0.32}}
+
+
+#nibblyMusicPulse{position:fixed;
+inset:0;
+z-index:0;
+pointer-events:none;
+width:100vw;
+height:100vh;
+
+background:radial-gradient(
+var(--music-pulse-size) at 50% var(--music-pulse-offset),
+color-mix(in srgb,var(--accent) 50%,transparent) 0%,
+transparent 70%
+);
+background-repeat:no-repeat;
+
+opacity:0;
+transition:opacity .5s ease,filter .3s ease;
+will-change:opacity,filter;
+contain:strict;
+filter:brightness(var(--bg-anim-brightness,1))}
+
+
+body.nib-music-playing #nibblyMusicPulse{opacity:1;
+filter:brightness(var(--bg-anim-brightness,1));
+animation:nibBgPulse var(--bg-anim-speed,9s) ease-in-out infinite}
+
+
+body.nib-music-playing #nibblyMusicPulse{filter:brightness(var(--bg-anim-brightness,1)) !important}
+
+
+body.nib-music-playing::before{animation:none !important;
+opacity:0 !important;
+filter:none !important;
+transition:opacity .5s ease}
+
+
+body.no-effects::before{opacity:0 !important;
+animation:none !important;
+filter:none !important}
+
+
+body.no-effects #nibblyMusicPulse{animation:none !important;
+transition:none !important;
+filter:brightness(var(--bg-anim-brightness,1)) !important}
+body.no-effects:not(.nib-music-playing) #nibblyMusicPulse{opacity:0 !important}
+body.no-effects.nib-music-playing #nibblyMusicPulse{opacity:0.45 !important}
+
+
+@media (prefers-reduced-motion:reduce){body::before{animation:none !important;
+opacity:0.5;
+filter:brightness(var(--bg-anim-brightness,1))}
+body.nib-music-playing #nibblyMusicPulse{animation:none;
+opacity:0.4;
+filter:brightness(var(--bg-anim-brightness,1)) !important}}
+
+
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--accent,#5b8cff);
+outline-offset:2px;
+border-radius:6px;
+transition:outline-offset .15s ease}
