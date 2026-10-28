@@ -5,6 +5,7 @@ if(window.NibblyApp&&window.NibblyApp.init)return;
 
 const SETTINGS_KEY='nibbly-settings-v2';
 const EXPANSION_BASE='expansions/expansion-pack-1/';
+const EXPANSION_BASE_2='expansions/expansion-pack-2/';
 
 const DEFAULT_SETTINGS={
 accent:'#5b8cff',bg:'#0b1020',
@@ -54,7 +55,14 @@ requiresLogMode:'console'},
 {id:'markdown',key:'tab.markdown',mod:'markdown',
 js:EXPANSION_BASE+'markdown/markdown.js',
 css:EXPANSION_BASE+'markdown/markdown.css',
-panel:'panel-markdown'}
+panel:'panel-markdown'},
+/* ══════════════ EXPANSION PACK 2 ══════════════ */
+{id:'logic',
+key:'tab.logic',
+mod:'logic-gates',
+js:EXPANSION_BASE_2+'logic-gates/logic-gates.js',
+css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',
+panel:'panel-logic'}
 ];
 
 const EXPANSION_FILES=[
@@ -89,7 +97,11 @@ cat:'checker.cat.console'},
 {js:EXPANSION_BASE+'markdown/markdown.js',
 css:EXPANSION_BASE+'markdown/markdown.css',
 cat:'checker.cat.markdown'},
-{asset:'mus/You Are Nibbled.ogg',assetType:'audio',cat:'checker.cat.music'}
+{asset:'mus/You Are Nibbled.ogg',assetType:'audio',cat:'checker.cat.music'},
+/* ══════════════ EXPANSION PACK 2 ══════════════ */
+{js:EXPANSION_BASE_2+'logic-gates/logic-gates.js',
+css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',
+cat:'checker.cat.logic'}
 ];
 
 
@@ -1259,6 +1271,11 @@ const r=window.NibblyRange||
 if(r&&typeof r.init==='function')return true;
 }
 
+if(filename==='logic-gates'){
+const lg=window.NibblyModules&&window.NibblyModules['logic-gates'];
+return!!(lg&&typeof lg.init==='function');
+}
+
 const m1=window.NibblyModules&&window.NibblyModules[filename];
 if(m1&&typeof m1.init==='function')return true;
 
@@ -1635,11 +1652,11 @@ if(el&&el.parentNode)el.parentNode.removeChild(el);
 
 
 window.NibblyModules=window.NibblyModules||{};
-window.NibblyModules.config={id:'config',version:'2.0.30',init};
+window.NibblyModules.config={id:'config',version:'2.0.31',init};
 window.NibblyApp=window.NibblyApp||{};
 window.NibblyApp.init=init;
 
 if(console&&console.debug){
-console.debug('[Nibbly] config.js loaded → window.NibblyApp.init ready (v2.0.30)');
+console.debug('[Nibbly] config.js loaded → window.NibblyApp.init ready (v2.0.31)');
 }
 })();
