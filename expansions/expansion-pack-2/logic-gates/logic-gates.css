@@ -1,0 +1,339 @@
+.nib-logic-gates{padding:0}
+
+/* ───────── Segmented control ───────── */
+.nib-logic-gates .seg{margin-bottom:14px}
+
+/* ───────── Chips de compuertas ───────── */
+.lg-gate-chips{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:6px;
+margin-bottom:12px;
+}
+.lg-gate-chips .chip{
+padding:12px 6px;
+border-radius:14px;
+font-size:12.5px;
+font-weight:800;
+letter-spacing:.3px;
+border:1px solid var(--outline-v);
+background:var(--surface-1);
+color:var(--on-variant);
+cursor:pointer;
+font-family:inherit;
+transition:all .2s cubic-bezier(.2,.9,.3,1.1);
+text-align:center;
+}
+.lg-gate-chips .chip:hover{
+background:var(--surface-2);
+color:var(--on-surface);
+}
+.lg-gate-chips .chip.active{
+background:var(--accent);
+color:#fff;
+border-color:var(--accent);
+box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 35%,transparent);
+}
+.lg-gate-chips .chip:active{transform:scale(.96)}
+
+.lg-gate-desc{
+margin:0 0 14px;
+font-size:12.5px;
+color:var(--on-variant);
+text-align:center;
+min-height:18px;
+}
+
+/* ───────── Entradas ───────── */
+.lg-input-card{padding:16px}
+
+.lg-input-row{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:10px;
+}
+.lg-input-row:last-child{margin-bottom:0}
+
+.lg-input-label{
+font-size:16px;
+font-weight:900;
+color:var(--on-variant);
+width:24px;
+text-align:center;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+letter-spacing:.5px;
+}
+
+.lg-bit-btn{
+flex:1;
+padding:14px;
+border-radius:14px;
+border:1.5px solid var(--outline-v);
+background:var(--surface-1);
+color:var(--on-variant);
+font-size:20px;
+font-weight:900;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+cursor:pointer;
+transition:all .18s cubic-bezier(.2,.9,.3,1.1);
+-webkit-tap-highlight-color:transparent;
+}
+.lg-bit-btn:hover{background:var(--surface-2)}
+.lg-bit-btn:active{transform:scale(.95)}
+.lg-bit-btn.active{
+background:var(--accent);
+color:#fff;
+border-color:var(--accent);
+box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 35%,transparent);
+}
+.lg-bit-btn[data-val="1"].active{
+background:var(--good);
+border-color:var(--good);
+box-shadow:0 4px 14px color-mix(in srgb,var(--good) 40%,transparent);
+}
+
+/* ───────── Resultado ───────── */
+.lg-result-card{
+padding:20px;
+text-align:center;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+}
+
+.lg-result-label{
+font-size:11px;
+font-weight:800;
+letter-spacing:1.2px;
+text-transform:uppercase;
+color:var(--on-variant);
+}
+
+.lg-result-big{
+font-size:72px;
+font-weight:900;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+line-height:1;
+color:var(--on-variant);
+transition:color .3s,transform .3s,text-shadow .3s;
+}
+.lg-result-big.on{
+color:var(--good);
+text-shadow:0 0 24px color-mix(in srgb,var(--good) 60%,transparent);
+transform:scale(1.05);
+}
+
+.lg-result-expr{
+font-size:13px;
+color:var(--on-variant);
+font-weight:600;
+letter-spacing:.3px;
+padding:8px 14px;
+background:var(--surface-1);
+border-radius:999px;
+border:1px solid var(--outline-v);
+max-width:100%;
+overflow-wrap:anywhere;
+}
+.lg-result-expr:empty{display:none}
+
+/* ───────── Tabla de verdad ───────── */
+.lg-table-card{padding:14px}
+
+.lg-table-host{overflow-x:auto}
+
+.lg-tt{
+width:100%;
+border-collapse:separate;
+border-spacing:0;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+font-size:14px;
+}
+.lg-tt th{
+padding:11px 10px;
+background:var(--surface-2);
+color:var(--on-variant);
+font-size:11px;
+font-weight:800;
+letter-spacing:1px;
+text-transform:uppercase;
+border-bottom:1px solid var(--outline-v);
+}
+.lg-tt th:first-child{border-top-left-radius:12px}
+.lg-tt th:last-child{border-top-right-radius:12px}
+.lg-tt td{
+padding:12px 10px;
+text-align:center;
+border-bottom:1px solid var(--outline-v);
+color:var(--on-surface);
+font-weight:700;
+}
+.lg-tt tr:last-child td{border-bottom:0}
+.lg-tt tr:last-child td:first-child{border-bottom-left-radius:12px}
+.lg-tt tr:last-child td:last-child{border-bottom-right-radius:12px}
+
+.lg-td-bit{width:33%}
+.lg-td-out{
+width:34%;
+font-weight:900;
+font-size:16px;
+color:var(--on-variant);
+}
+
+.lg-td-bit.lg-bit-on{
+background:color-mix(in srgb,var(--accent) 22%,transparent);
+color:var(--accent);
+}
+.lg-td-out.lg-bit-on{
+background:color-mix(in srgb,var(--good) 22%,transparent);
+color:var(--good);
+}
+
+/* ───────── Análisis booleano ───────── */
+.lg-analysis-card{padding:16px}
+
+.lg-analysis-body{
+display:flex;
+flex-direction:column;
+gap:8px;
+margin-top:10px;
+}
+
+.lg-analysis-row{
+display:flex;
+justify-content:space-between;
+align-items:baseline;
+gap:10px;
+padding:10px 14px;
+background:var(--surface-1);
+border:1px solid var(--outline-v);
+border-radius:14px;
+flex-wrap:wrap;
+}
+.lg-analysis-row .k{
+font-size:11px;
+font-weight:800;
+color:var(--on-variant);
+text-transform:uppercase;
+letter-spacing:.6px;
+}
+.lg-analysis-row .v{
+font-size:14px;
+font-weight:800;
+color:var(--on-surface);
+word-break:break-word;
+text-align:right;
+flex:1;
+min-width:0;
+}
+
+/* ───────── Constructor visual ───────── */
+.lg-builder-card{padding:14px}
+
+.lg-canvas{
+background:var(--surface-1);
+border:1px solid var(--outline-v);
+border-radius:16px;
+padding:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+
+touch-action:none;
+overscroll-behavior:contain;
+}
+
+.lg-svg{
+width:100%;
+max-width:420px;
+height:auto;
+
+aspect-ratio:360 / 240;
+display:block;
+touch-action:none;
+-webkit-user-select:none;
+user-select:none;
+-webkit-touch-callout:none;
+}
+
+/* ───────── Nodos arrastrables (A, B, Y) ───────── */
+.lg-node{
+cursor:grab;
+touch-action:none;
+-webkit-tap-highlight-color:transparent;
+}
+.lg-node circle{
+transition:filter .15s ease,stroke-width .15s ease;
+}
+.lg-node:hover circle{
+filter:brightness(1.18);
+}
+.lg-node:active{
+cursor:grabbing;
+}
+.lg-node:active circle{
+stroke:#fff;
+stroke-width:2;
+}
+.lg-node.dragging{
+cursor:grabbing;
+}
+.lg-node.dragging circle{
+filter:brightness(1.25);
+stroke:#fff;
+stroke-width:2.5;
+}
+
+/* ───────── Controles del constructor ───────── */
+.lg-builder-ctrl{padding:16px}
+
+.lg-builder-gate{
+margin-bottom:14px;
+font-weight:800;
+}
+
+.lg-builder-out{
+margin-top:14px;
+padding:14px 16px;
+background:var(--surface-1);
+border:1px solid var(--outline-v);
+border-radius:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.lg-builder-out-label{
+font-size:11px;
+font-weight:800;
+color:var(--on-variant);
+text-transform:uppercase;
+letter-spacing:.8px;
+}
+.lg-builder-out-val{
+font-size:28px;
+font-weight:900;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+color:var(--on-variant);
+transition:color .3s,transform .3s;
+}
+.lg-builder-out-val.on{
+color:var(--good);
+text-shadow:0 0 16px color-mix(in srgb,var(--good) 60%,transparent);
+transform:scale(1.1);
+}
+
+/* ───────── Responsive ───────── */
+@media (max-width:400px){
+.lg-gate-chips{grid-template-columns:repeat(4,1fr);gap:5px}
+.lg-gate-chips .chip{font-size:11px;padding:10px 4px}
+.lg-result-big{font-size:56px}
+.lg-bit-btn{padding:12px;font-size:18px}
+}
+
+/* ───────── Reduced motion ───────── */
+@media (prefers-reduced-motion:reduce){
+.lg-bit-btn,.lg-gate-chips .chip,.lg-result-big,
+.lg-builder-out-val,.lg-node circle{transition:none}
+}
