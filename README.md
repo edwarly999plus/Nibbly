@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.0.0-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-2.0.1-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
@@ -94,9 +94,19 @@ src="https://github.com/edwarly999plus/Nibbly/blob/main/img/15.png" alt="10" wid
 
 ## 📖 Description
 
-**Nibbly** is an Android app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **5 minigames**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
+**Nibbly** is an Android app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **5 minigames**, **a logic gate simulator**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
 
 Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova.
+
+**v2.0.1 highlights:**
+- ⚡ **New expansion pack** — `expansions/expansion-pack-2/` debuts with a fully interactive logic gate module.
+- 🧮 **Logic Gates** — 8 gates (AND, OR, XOR, NAND, NOR, XNOR, NOT, BUF) with three modes:
+  - **Calculator**: live ON/OFF result, boolean expression, gate description.
+  - **Truth table**: auto-generated table + minterms (Σm) + simplified SOP expression.
+  - **Builder**: interactive SVG circuit with **draggable A/B/Y nodes**, Bézier cables, and live output.
+- 🌍 **Bilingual** — English + Spanish, fully translated tab and content.
+- 🔍 **File checker** — detects `logic-gates.js` and `logic-gates.css` from `expansion-pack-2`.
+- 🐛 **Minor fixes** and internal version bump to `2.0.1`.
 
 **v2.0.0 highlights:**
 - 🧩 **Complete re-foundation** — `index.html` is now a bootloader. Every tab is a self-contained module.
@@ -184,6 +194,40 @@ Each one shows the **complete procedure table** so you can reproduce it by hand.
 
 #### ⏳ Reveal sequence
 3 loading messages, then full procedure + copy button with toast feedback.
+
+### 🔌 Logic Gates
+
+> Loaded as an external expansion from `expansions/expansion-pack-2/logic-gates/`.
+
+A complete digital logic playground with **three integrated modes** inside a single tab:
+
+#### 🧮 Calculator mode
+- **8 gates**: AND, OR, XOR, NAND, NOR, XNOR, NOT, BUF
+- **Bit toggles** for A and B (only A for unary gates)
+- **Giant ON/OFF result** with glow animation
+- **Live boolean expression** (e.g. `(1·0) = 0`)
+- **Gate description** translated per language
+
+#### 📊 Truth table mode
+- **Auto-generated** table for the selected gate
+- **Highlighted ON cells** for easy reading
+- **Minterms Σm(...)** computed automatically
+- **Simplified SOP expression** (sum of products)
+- **Count of rows** with Y=1
+
+#### 🔌 Builder mode
+- **Interactive SVG** circuit diagram
+- **Draggable A / B / Y nodes** — move the "cable origins" freely inside the canvas
+  - The **gate square stays fixed**; only the circles move
+  - **Bézier curves** stretch live as you drag
+  - **Touch and mouse support** via Pointer Events
+  - **60 FPS** — only `setAttribute` on 6 nodes per frame, no `innerHTML`
+  - **Auto-clamped** to the visible canvas (aspect-ratio aware, no "invisible wall")
+  - **Positions preserved** across gate changes and bit toggles
+- **Gate selector** and **bit toggles** synced with the other modes
+- **Live output** below the circuit
+
+All three modes share state: switching gates or bits updates everything instantly.
 
 ### 🔐 Ciphers
 
@@ -369,18 +413,21 @@ nibbly/
 │   └── langs/
 │       ├── strings.js
 │       └── es.js
-├── expansions/expansion-pack-1/
-│   ├── icons/
-│   ├── range/
-│   ├── memory/
-│   ├── paint/
-│   ├── games/
-│   ├── games-extras/
-│   ├── formulas/
-│   ├── privacy/
-│   ├── desktop-ui/
-│   ├── console/
-│   └── markdown/
+├── expansions/
+│   ├── expansion-pack-1/
+│   │   ├── icons/
+│   │   ├── range/
+│   │   ├── memory/
+│   │   ├── paint/
+│   │   ├── games/
+│   │   ├── games-extras/
+│   │   ├── formulas/
+│   │   ├── privacy/
+│   │   ├── desktop-ui/
+│   │   ├── console/
+│   │   └── markdown/
+│   └── expansion-pack-2/
+│       └── logic-gates/
 ├── images/
 ├── mus/
 └── img/
@@ -395,6 +442,9 @@ nibbly/
 
 #### 🧮 About `formulas/`
 **Yes, include.**
+
+#### 🔌 About `logic-gates/`
+**Yes, include.** It's ~30 KB of JS+CSS with no external dependencies, works fully offline, and doesn't require the `icons` module (uses inline SVG).
 
 #### 🎵 About `mus/`
 - **Android APK**: ✅ recommended
@@ -433,6 +483,7 @@ Power Watts, CPU heat, network, CPU, RAM, storage
 Multimedia Audio, decibels, video, time, frames, codecs
 Calculator Basic operations with optional explosive personality
 Formulas Live formula editor + step-by-step conversions
+Logic Gates Calculator, truth table & interactive circuit builder
 Ciphers Full cipher suite
 Drawing Simple editor with RGBA/HEX copy
 Range Massive conversions with pagination
@@ -449,7 +500,7 @@ Private Mode Scientific calculator + black screen
 · ❌ No analytics or telemetry
 · ❌ Doesn't send information to external servers
 · ✅ All settings are saved locally
-· ✅ Conversions, calculations, formulas, drawings and .md edits happen exclusively on the device
+· ✅ Conversions, calculations, formulas, drawings, logic gates and .md edits happen exclusively on the device
 
 ---
 
@@ -463,13 +514,14 @@ Private Mode Scientific calculator + black screen
 🛠️ Technology
 
 · HTML5, CSS3, Vanilla JavaScript
-· Web Audio API, Canvas 2D, BigInt
+· Web Audio API, Canvas 2D, SVG, BigInt
+· Pointer Events, requestAnimationFrame, ResizeObserver
 · LocalStorage, Cache Storage API
-· Fullscreen API, ResizeObserver, requestAnimationFrame
+· Fullscreen API
 · Function constructor (sanitized) for formula evaluation
 · Android System WebView
 
-Approximate size: ~350 KB of web + ~1–2 MB of the .ogg files
+Approximate size: ~380 KB of web + ~1–2 MB of the .ogg files
 
 ---
 
@@ -477,6 +529,7 @@ Approximate size: ~350 KB of web + ~1–2 MB of the .ogg files
 
 · ☑ v1.0.5 — Fórmulas tab
 · ☑ v2.0.0 — The Bigger Update (bootloader, 7 core modules, 11 expansions, ciphers, markdown, range, memory, icons, bilingual support, WebView fixes)
+· ☑ v2.0.1 — Logic Gates (new expansion pack 2, interactive circuit builder, truth tables, SOP analysis)
 · ☐ v2.0.x — Bug fixes
 · ☐ v3.0.x — (Soon...)
 
