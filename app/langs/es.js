@@ -53,6 +53,7 @@ const strings={
 'tab.ciphers':'Cifrados',
 'tab.range':'Rangos',
 'tab.memory':'Memoria',
+'tab.logic':'Comp. Lógicas',
 'tab.config':'Ajustes',
 
 
@@ -828,7 +829,7 @@ const strings={
 'checker.cat.memory':'Memoria',
 'checker.cat.langs':'Idiomas',
 'checker.cat.app':'App',
-
+'checker.cat.logic':'Comp. Lógicas',
 
 'err.invalidValue':'"{0}" no es un valor válido en base {1}.',
 'err.invalidNum':'Introduce un número válido.',
@@ -871,6 +872,41 @@ const strings={
 'markdown.download':'Descargar README.md',
 'markdown.copyHtml':'Copiar HTML',
 'markdown.github':'Conectar GitHub',
+
+
+/* ══════════════ LOGIC GATES (Expansion Pack 2) ══════════════ */
+
+'lg.mode.calc':'Calculadora',
+'lg.mode.table':'Tabla de verdad',
+'lg.mode.builder':'Constructor',
+
+'lg.result':'Resultado',
+'lg.analysis':'Análisis booleano',
+'lg.minterms':'Minterms Σm',
+'lg.sop':'Expresión (SOP)',
+'lg.gateFn':'Función',
+'lg.truthRows':'Filas con Y=1: ',
+
+'lg.builder.hint':
+'Toca las entradas para cambiar bits y ver el circuito en tiempo real.',
+'lg.builder.controls':'Constructor de circuito',
+'lg.builder.output':'Salida',
+
+'lg.gate.and.desc':'1 solo si ambas entradas son 1',
+'lg.gate.or.desc':'1 si al menos una entrada es 1',
+'lg.gate.xor.desc':'1 si las entradas son distintas',
+'lg.gate.nand.desc':'Inverso de AND',
+'lg.gate.nor.desc':'Inverso de OR',
+'lg.gate.xnor.desc':'1 si las entradas son iguales',
+'lg.gate.not.desc':'Invierte la entrada',
+'lg.gate.buf.desc':'Copia la entrada',
+
+'lg.state.on':'ON (1)',
+'lg.state.off':'OFF (0)',
+
+'lg.bit.a':'A',
+'lg.bit.b':'B',
+'lg.bit.y':'Y',
 };
 
 window.NibblyEs=strings;

@@ -48,6 +48,7 @@ const strings={
 'tab.range':'Ranges',
 'tab.memory':'Memory',
 'tab.config':'Config',
+'tab.logic':'Logic Gates',
 
 
 'settings.title':'Settings',
@@ -819,6 +820,7 @@ const strings={
 'checker.cat.memory':'Memory',
 'checker.cat.langs':'Languages',
 'checker.cat.app':'App',
+'checker.cat.logic':'Logic Gates',
 
 
 'err.invalidValue':'"{0}" is not a valid value in base {1}.',
@@ -844,6 +846,41 @@ const strings={
 'markdown.download':'Download README.md',
 'markdown.copyHtml':'Copy HTML',
 'markdown.github':'Conect GitHub',
+
+
+/* ══════════════ LOGIC GATES (Expansion Pack 2) ══════════════ */
+
+'lg.mode.calc':'Calculator',
+'lg.mode.table':'Truth table',
+'lg.mode.builder':'Builder',
+
+'lg.result':'Result',
+'lg.analysis':'Boolean analysis',
+'lg.minterms':'Minterms Σm',
+'lg.sop':'Expression (SOP)',
+'lg.gateFn':'Function',
+'lg.truthRows':'Rows with Y=1: ',
+
+'lg.builder.hint':
+'Tap the inputs to toggle bits and see the circuit in real time.',
+'lg.builder.controls':'Circuit builder',
+'lg.builder.output':'Output',
+
+'lg.gate.and.desc':'1 only if both inputs are 1',
+'lg.gate.or.desc':'1 if at least one input is 1',
+'lg.gate.xor.desc':'1 if inputs differ',
+'lg.gate.nand.desc':'Inverse of AND',
+'lg.gate.nor.desc':'Inverse of OR',
+'lg.gate.xnor.desc':'1 if inputs are equal',
+'lg.gate.not.desc':'Inverts the input',
+'lg.gate.buf.desc':'Copies the input',
+
+'lg.state.on':'ON (1)',
+'lg.state.off':'OFF (0)',
+
+'lg.bit.a':'A',
+'lg.bit.b':'B',
+'lg.bit.y':'Y',
 };
 
 window.NibblyStrings=strings;
