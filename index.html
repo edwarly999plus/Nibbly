@@ -248,10 +248,11 @@ globalSyntaxError=`Promesa rechazada: ${msg}`;
 });
 
 
-const APP_VERSION='2.0.0';
+const APP_VERSION='2.0.1';
 window.__NIBBLY_APP_VERSION=APP_VERSION;
 
 const EXPANSION_BASE='expansions/expansion-pack-1/';
+const EXPANSION_BASE_2='expansions/expansion-pack-2/';
 const PER_FILE_TIMEOUT=15000;
 const OPTIONAL_TIMEOUT=8000;
 const VERIFY_DELAY_MS=1000;
@@ -329,7 +330,10 @@ css:EXPANSION_BASE+'console/console.css',optional:true},
 css:EXPANSION_BASE+'markdown/markdown.css',optional:true},
 {js:EXPANSION_BASE+'games/games-extras.js',
 css:EXPANSION_BASE+'games/games-extras.css',optional:true},
-{asset:'mus/You Are Nibbled.ogg',assetType:'audio',optional:true,informational:true}
+{asset:'mus/You Are Nibbled.ogg',assetType:'audio',optional:true,informational:true},
+/* ══════════════ EXPANSION PACK 2 ══════════════ */
+{js:EXPANSION_BASE_2+'logic-gates/logic-gates.js',
+css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',optional:true}
 ]
 }
 ];
