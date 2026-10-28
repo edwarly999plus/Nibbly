@@ -35,6 +35,7 @@ range:'images/range.png',
 memory:'images/memory.png',
 markdown:'images/markdown.png',
 console:'images/console.png',
+logic:'images/logic.png',
 
 
 storage:'images/storage.png',
