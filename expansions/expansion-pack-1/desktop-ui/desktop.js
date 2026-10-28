@@ -15,7 +15,8 @@ formulas:'formulas',
 range:'range',
 memory:'memory',
 markdown:'markdown',
-console:'console'
+console:'console',
+logic:'logic'
 };
 
 
@@ -23,7 +24,7 @@ const FALLBACK_EMOJIS={
 numbers:'🔢',text:'📝',bits:'📊',thunder:'⚡',
 music:'🎵',calc:'🧮',cipher:'🔐',pencil:'🎨',
 games:'🎮',formulas:'🧮',range:'📈',memory:'🧩',
-markdown:'📄',console:'🖥️'
+markdown:'📄',console:'🖥️',logic:'🔌'
 };
 
 let initialized=false;
@@ -51,12 +52,17 @@ const iconEl=document.createElement('span');
 iconEl.className='tab-icon';
 iconEl.setAttribute('aria-hidden','true');
 
-
+/* Intenta icono vectorial; si no existe, usa emoji de fallback */
+let html='';
 if(window.NibblyIcons){
-const html=window.NibblyIcons.get(iconName,{size:18,class:'tab-vec-icon'});
+html=window.NibblyIcons.get(iconName,{size:18,class:'tab-vec-icon'});
+}
+if(html){
 iconEl.innerHTML=html;
 }else{
 iconEl.textContent=FALLBACK_EMOJIS[iconName]||'•';
+iconEl.style.fontSize='18px';
+iconEl.style.lineHeight='1';
 }
 
 const labelEl=document.createElement('span');
