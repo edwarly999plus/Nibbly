@@ -1,0 +1,931 @@
+(function(){
+'use strict';
+if(window.NibblyFlowcharts)return;
+
+const I18N={
+es:{
+title:'Diagramas de flujo',
+hint:'Inicia centrado. Usa Zoom (+ / -) o Ctrl + Rueda. Arrastra nodos fluidamente.',
+addStart:'+ Inicio',
+addEnd:'+ Fin',
+addProcess:'+ Proceso',
+addDecision:'+ Decisión',
+addIO:'+ E/S',
+modeMove:'Mover',
+modeConnect:'Conectar',
+modeDelete:'Borrar',
+clear:'Limpiar todo',
+exportSvg:'SVG',
+exportPng:'PNG',
+empty:'Añade un nodo con los botones de arriba para empezar.',
+rename:'Escribe el Título y hasta 3 subtítulos separados por "|" :\n(Ej: Título | Sub 1 | Sub 2 | Sub 3)',
+connectHint:'Pulsa el nodo origen y luego el destino.',
+deleteHint:'Pulsa un nodo para borrarlo.',
+nodeStart:'Inicio | Comenzar',
+nodeEnd:'Fin | Salida',
+nodeProcess:'Process | Configurar Variable | Activo',
+nodeDecision:'¿Condición? | Revisar',
+nodeIO:'E/S | Leer datos',
+stats:'{0} nodos · {1} conexiones',
+confirmClear:'¿Borrar todo el diagrama?'
+},
+en:{
+title:'Flowcharts',
+hint:'Starts centered. Use Zoom (+ / -) or Ctrl + Scroll. Drag nodes smoothly.',
+addStart:'+ Start',
+addEnd:'+ End',
+addProcess:'+ Process',
+addDecision:'+ Decision',
+addIO:'+ I/O',
+modeMove:'Move',
+modeConnect:'Connect',
+modeDelete:'Delete',
+clear:'Clear all',
+exportSvg:'SVG',
+exportPng:'PNG',
+empty:'Add a node with the buttons above to start.',
+rename:'Enter Title and up to 3 subtitles separated by "|" :\n(Ex: Title | Sub 1 | Sub 2 | Sub 3)',
+connectHint:'Tap source node, then target node.',
+deleteHint:'Tap a node to delete it.',
+nodeStart:'Start | Begin',
+nodeEnd:'End | Finish',
+nodeProcess:'Process | Config Variable | Active',
+nodeDecision:'Condition? | Check',
+nodeIO:'I/O | Read data',
+stats:'{0} nodes · {1} connections',
+confirmClear:'Clear the whole diagram?'
+}
+};
+
+function getLang(){
+try{
+const s=JSON.parse(localStorage.getItem('nibbly-settings-v2')||'{}');
+return s.lang||'es';
+}catch(e){return'es';}
+}
+function t(k){
+const lang=getLang();
+const dict=I18N[lang]||I18N.es;
+let s=dict[k]||I18N.es[k]||k;
+for(let i=1;i<arguments.length;i++)s=s.replace('{'+(i-1)+'}',arguments[i]);
+return s;
+}
+
+function esc(s){
+return String(s).replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+}
+
+function showToast(msg,isErr){
+if(window.__nibblyToast){
+try{window.__nibblyToast(msg,isErr);return;}catch(e){}
+}
+let el=document.getElementById('nibblyFlowToast');
+if(!el){
+el=document.createElement('div');
+el.id='nibblyFlowToast';
+el.style.cssText='position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translate(-50%,20px);padding:12px 22px;border-radius:999px;font-weight:800;font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:400;box-shadow:0 8px 24px rgba(0,0,0,.35);max-width:90vw;text-align:center;font-family:inherit;';
+document.body.appendChild(el);
+}
+el.textContent=msg;
+el.style.background=isErr?'var(--bad,#ff6b7a)':'var(--good,#22d3a6)';
+el.style.color=isErr?'#fff':'#04231a';
+el.style.opacity='1';
+el.style.transform='translate(-50%,0)';
+clearTimeout(el._hideTimer);
+el._hideTimer=setTimeout(()=>{
+el.style.opacity='0';
+el.style.transform='translate(-50%,20px)';
+},2000);
+}
+
+const ICONS={
+svg:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`,
+png:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
+};
+
+const state={
+nodes:[],
+edges:[],
+mode:'move',
+pendingSource:null,
+nextId:1,
+drag:null,
+resize:null,
+canvasW:1600,
+canvasH:1100,
+zoom:1
+};
+
+const ZOOM_LEVELS=[0.1,0.125,0.15,0.175,0.2,0.225,0.25,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.25,1.5,1.75,2.0,2.25,2.5];
+
+const DEFAULT_W=170;
+const DEFAULT_H=80;
+const MIN_W=120;
+const MIN_H=60;
+const GRID=16;
+const CANVAS_MARGIN=48;
+
+function snap(v){return Math.round(v/GRID)*GRID;}
+
+function nodeById(id){return state.nodes.find(n=>n.id===id);}
+
+function nodeCenter(n){
+const w=n.w||DEFAULT_W;
+const h=n.h||DEFAULT_H;
+return{x:n.x+w/2,y:n.y+h/2};
+}
+
+function defaultText(type){
+switch(type){
+case'start':return t('nodeStart');
+case'end':return t('nodeEnd');
+case'decision':return t('nodeDecision');
+case'io':return t('nodeIO');
+default:return t('nodeProcess');
+}
+}
+
+function createNode(type,x,y){
+const n={
+id:state.nextId++,
+type,
+x:snap(x),
+y:snap(y),
+w:DEFAULT_W,
+h:DEFAULT_H,
+text:defaultText(type)
+};
+state.nodes.push(n);
+return n;
+}
+
+let container=null;
+let rafId=null;
+
+function scheduleRender(){
+if(rafId)return;
+rafId=requestAnimationFrame(()=>{
+rafId=null;
+drawEdges();
+});
+}
+
+
+function renderAll(){
+if(!container)return;
+container.innerHTML='';
+const root=document.createElement('div');
+root.className='nibbly-flowcharts';
+root.appendChild(buildToolbar());
+root.appendChild(buildCanvas());
+root.appendChild(buildHint());
+container.appendChild(root);
+attachEvents();
+centerScrollToMiddle();
+drawEdges();
+}
+
+function centerScrollToMiddle(){
+const wrap=container.querySelector('#fCanvasWrap');
+const canvas=container.querySelector('#fCanvas');
+if(!wrap||!canvas)return;
+
+requestAnimationFrame(()=>{
+requestAnimationFrame(()=>{
+const scaledW=canvas.offsetWidth*state.zoom;
+const scaledH=canvas.offsetHeight*state.zoom;
+wrap.scrollLeft=Math.max(0,(scaledW-wrap.clientWidth)/2);
+wrap.scrollTop=Math.max(0,(scaledH-wrap.clientHeight)/2);
+});
+});
+}
+
+function buildToolbar(){
+const bar=document.createElement('div');
+bar.className='f-toolbar';
+
+const addBtns=[
+['start',t('addStart')],
+['end',t('addEnd')],
+['process',t('addProcess')],
+['decision',t('addDecision')],
+['io',t('addIO')]
+];
+addBtns.forEach(([type,label])=>{
+const b=document.createElement('button');
+b.type='button';
+b.className='f-btn f-add-btn';
+b.dataset.add=type;
+b.textContent=label;
+bar.appendChild(b);
+});
+
+const sep=document.createElement('div');
+sep.className='f-sep';
+bar.appendChild(sep);
+
+const modes=[
+['move',t('modeMove')],
+['connect',t('modeConnect')],
+['delete',t('modeDelete')]
+];
+const modeWrap=document.createElement('div');
+modeWrap.className='f-seg f-mode-seg';
+modes.forEach(([m,label])=>{
+const b=document.createElement('button');
+b.type='button';
+b.className='f-seg-btn'+(state.mode===m?' active':'');
+b.dataset.mode=m;
+b.textContent=label;
+modeWrap.appendChild(b);
+});
+bar.appendChild(modeWrap);
+
+const sep2=document.createElement('div');
+sep2.className='f-sep';
+bar.appendChild(sep2);
+
+const sizeWrap=document.createElement('div');
+sizeWrap.className='f-canvas-size-controls';
+sizeWrap.innerHTML=`
+<span>W:</span>
+<input type="number" id="fCanvasWInput" value="${state.canvasW}" min="800" max="5000" step="100" style="width:55px;background:var(--surface-2,#1a2138);border:1px solid var(--outline,rgba(255,255,255,.15));color:var(--on-surface,#f0f2f8);border-radius:6px;padding:3px 5px;font-size:11px;font-family:inherit;">
+<span>H:</span>
+<input type="number" id="fCanvasHInput" value="${state.canvasH}" min="600" max="5000" step="100" style="width:55px;background:var(--surface-2,#1a2138);border:1px solid var(--outline,rgba(255,255,255,.15));color:var(--on-surface,#f0f2f8);border-radius:6px;padding:3px 5px;font-size:11px;font-family:inherit;">
+<button type="button" class="f-btn f-zoom-btn" id="fZoomOut" title="Zoom Out">-</button>
+<span id="fZoomLbl" style="min-width:32px;text-align:center;">${Math.round(state.zoom*100)}%</span>
+<button type="button" class="f-btn f-zoom-btn" id="fZoomIn" title="Zoom In">+</button>
+`;
+bar.appendChild(sizeWrap);
+
+const clear=document.createElement('button');
+clear.type='button';
+clear.className='f-btn f-clear-btn';
+clear.id='fClearAll';
+clear.textContent=t('clear');
+bar.appendChild(clear);
+
+const svg=document.createElement('button');
+svg.type='button';
+svg.className='f-btn';
+svg.id='fExportSvg';
+svg.innerHTML=ICONS.svg+' '+t('exportSvg');
+bar.appendChild(svg);
+
+const png=document.createElement('button');
+png.type='button';
+png.className='f-btn';
+png.id='fExportPng';
+png.innerHTML=ICONS.png+' '+t('exportPng');
+bar.appendChild(png);
+
+return bar;
+}
+
+function buildCanvas(){
+const wrap=document.createElement('div');
+wrap.className='f-canvas-wrap';
+wrap.id='fCanvasWrap';
+
+const canvas=document.createElement('div');
+canvas.className='f-canvas';
+canvas.id='fCanvas';
+canvas.style.width=state.canvasW+'px';
+canvas.style.height=state.canvasH+'px';
+canvas.style.transform=`scale(${state.zoom})`;
+canvas.innerHTML='<svg class="f-edges" id="fEdges"></svg>';
+
+if(!state.nodes.length){
+const empty=document.createElement('div');
+empty.className='f-empty';
+empty.textContent=t('empty');
+canvas.appendChild(empty);
+}
+
+state.nodes.forEach(n=>canvas.appendChild(buildNodeEl(n)));
+
+wrap.appendChild(canvas);
+return wrap;
+}
+
+function buildNodeEl(n){
+const el=document.createElement('div');
+el.className='f-node f-node-'+n.type;
+el.dataset.id=String(n.id);
+const w=n.w||DEFAULT_W;
+const h=n.h||DEFAULT_H;
+el.style.left=n.x+'px';
+el.style.top=n.y+'px';
+el.style.width=w+'px';
+el.style.height=h+'px';
+
+const shape=document.createElement('div');
+shape.className='f-node-shape f-shape-'+n.type;
+el.appendChild(shape);
+
+const content=document.createElement('div');
+content.className='f-node-content';
+
+const parts=n.text.split('|').map(p=>p.trim());
+const titleText=parts[0]||'';
+const subtitles=parts.slice(1,4);
+
+const titleEl=document.createElement('div');
+titleEl.className='f-node-title';
+titleEl.textContent=titleText;
+content.appendChild(titleEl);
+
+subtitles.forEach(sub=>{
+if(sub){
+const subEl=document.createElement('div');
+subEl.className='f-node-subtitle';
+subEl.textContent=sub;
+content.appendChild(subEl);
+}
+});
+
+el.appendChild(content);
+
+const del=document.createElement('button');
+del.type='button';
+del.className='f-node-del';
+del.dataset.del=String(n.id);
+del.textContent='×';
+del.title='Delete';
+el.appendChild(del);
+
+const resizer=document.createElement('div');
+resizer.className='f-node-resize';
+resizer.dataset.resize=String(n.id);
+el.appendChild(resizer);
+
+if(state.mode==='connect'&&state.pendingSource===n.id){
+el.classList.add('f-node-pending');
+}
+
+return el;
+}
+
+function buildHint(){
+const h=document.createElement('div');
+h.className='f-hint';
+h.id='fFlowHint';
+h.textContent=state.mode==='connect'?t('connectHint'):(state.mode==='delete'?t('deleteHint'):t('hint'));
+return h;
+}
+
+function attachEvents(){
+if(!container)return;
+const canvas=container.querySelector('#fCanvas');
+const wrap=container.querySelector('#fCanvasWrap');
+if(!canvas||!wrap)return;
+
+const wInput=container.querySelector('#fCanvasWInput');
+const hInput=container.querySelector('#fCanvasHInput');
+const zoomInBtn=container.querySelector('#fZoomIn');
+const zoomOutBtn=container.querySelector('#fZoomOut');
+const zoomLbl=container.querySelector('#fZoomLbl');
+
+function getClosestZoomIndex(z){
+let closest=0;
+let minDiff=Infinity;
+ZOOM_LEVELS.forEach((lvl,idx)=>{
+const diff=Math.abs(lvl-z);
+if(diff<minDiff){
+minDiff=diff;
+closest=idx;
+}
+});
+return closest;
+}
+
+function updateZoom(dir){
+let idx=getClosestZoomIndex(state.zoom);
+idx+=dir;
+idx=Math.max(0,Math.min(ZOOM_LEVELS.length-1,idx));
+state.zoom=ZOOM_LEVELS[idx];
+canvas.style.transform=`scale(${state.zoom})`;
+if(zoomLbl)zoomLbl.textContent=Math.round(state.zoom*100)+'%';
+resizeEdgesSvg();
+}
+
+if(zoomInBtn)zoomInBtn.addEventListener('click',()=>updateZoom(1));
+if(zoomOutBtn)zoomOutBtn.addEventListener('click',()=>updateZoom(-1));
+
+wrap.addEventListener('wheel',(ev)=>{
+if(ev.ctrlKey){
+ev.preventDefault();
+if(ev.deltaY<0)updateZoom(1);
+else updateZoom(-1);
+}
+},{passive:false});
+
+if(wInput){
+wInput.addEventListener('change',()=>{
+const val=parseInt(wInput.value,10);
+if(!isNaN(val)&&val>=600){
+state.canvasW=val;
+canvas.style.width=val+'px';
+resizeEdgesSvg();
+}
+});
+wInput.addEventListener('input',()=>{
+const val=parseInt(wInput.value,10);
+if(!isNaN(val)&&val>=600){
+state.canvasW=val;
+canvas.style.width=val+'px';
+resizeEdgesSvg();
+}
+});
+}
+
+if(hInput){
+hInput.addEventListener('change',()=>{
+const val=parseInt(hInput.value,10);
+if(!isNaN(val)&&val>=400){
+state.canvasH=val;
+canvas.style.height=val+'px';
+resizeEdgesSvg();
+}
+});
+hInput.addEventListener('input',()=>{
+const val=parseInt(hInput.value,10);
+if(!isNaN(val)&&val>=400){
+state.canvasH=val;
+canvas.style.height=val+'px';
+resizeEdgesSvg();
+}
+});
+}
+
+container.querySelectorAll('[data-add]').forEach(b=>{
+b.addEventListener('click',()=>{
+const type=b.dataset.add;
+const curWrap=container.querySelector('#fCanvasWrap');
+if(!curWrap)return;
+const scrollLeft=curWrap.scrollLeft;
+const scrollTop=curWrap.scrollTop;
+const viewW=curWrap.clientWidth;
+const viewH=curWrap.clientHeight;
+const cx=(scrollLeft+viewW/2)/state.zoom;
+const cy=(scrollTop+viewH/2)/state.zoom;
+const node=createNode(type,cx-DEFAULT_W/2,cy-DEFAULT_H/2);
+renderAll();
+});
+});
+
+container.querySelectorAll('.f-mode-seg [data-mode]').forEach(b=>{
+b.addEventListener('click',()=>{
+state.mode=b.dataset.mode;
+state.pendingSource=null;
+container.querySelectorAll('.f-mode-seg [data-mode]').forEach(x=>{
+x.classList.toggle('active',x===b);
+});
+container.querySelectorAll('.f-node').forEach(n=>n.classList.remove('f-node-pending'));
+const hint=container.querySelector('#fFlowHint');
+if(hint)hint.textContent=
+state.mode==='connect'?t('connectHint'):
+state.mode==='delete'?t('deleteHint'):
+t('hint');
+});
+});
+
+const clr=container.querySelector('#fClearAll');
+if(clr)clr.addEventListener('click',()=>{
+if(!state.nodes.length&&!state.edges.length)return;
+if(!confirm(t('confirmClear')))return;
+state.nodes=[];
+state.edges=[];
+state.pendingSource=null;
+state.nextId=1;
+renderAll();
+});
+
+const svgBtn=container.querySelector('#fExportSvg');
+if(svgBtn)svgBtn.addEventListener('click',()=>{
+try{
+const svgStr=buildExportSVG();
+const blob=new Blob([svgStr],{type:'image/svg+xml;charset=utf-8'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download='nibbly-flowchart.svg';
+document.body.appendChild(a);
+a.click();
+setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},60000);
+showToast('SVG exportado');
+}catch(e){showToast(String(e),true);}
+});
+
+const pngBtn=container.querySelector('#fExportPng');
+if(pngBtn)pngBtn.addEventListener('click',()=>{
+try{
+const svgStr=buildExportSVG();
+const svgBlob=new Blob([svgStr],{type:'image/svg+xml;charset=utf-8'});
+const url=URL.createObjectURL(svgBlob);
+const img=new Image();
+img.onload=()=>{
+const scale=2;
+const canvasPng=document.createElement('canvas');
+canvasPng.width=(img.width||1200)*scale;
+canvasPng.height=(img.height||800)*scale;
+const ctx=canvasPng.getContext('2d');
+ctx.fillStyle='#0b1020';
+ctx.fillRect(0,0,canvasPng.width,canvasPng.height);
+ctx.drawImage(img,0,0,canvasPng.width,canvasPng.height);
+URL.revokeObjectURL(url);
+canvasPng.toBlob(b=>{
+const a=document.createElement('a');
+a.href=URL.createObjectURL(b);
+a.download='nibbly-flowchart.png';
+document.body.appendChild(a);
+a.click();
+setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},60000);
+showToast('PNG exportado');
+},'image/png');
+};
+img.onerror=()=>{URL.revokeObjectURL(url);showToast('PNG error',true);};
+img.src=url;
+}catch(e){showToast(String(e),true);}
+});
+
+canvas.addEventListener('pointerdown',onCanvasPointerDown);
+window.addEventListener('pointermove',onWindowPointerMove);
+window.addEventListener('pointerup',onWindowPointerUp);
+
+canvas.querySelectorAll('[data-del]').forEach(b=>{
+b.addEventListener('click',(ev)=>{
+ev.stopPropagation();
+const id=parseInt(b.dataset.del,10);
+removeNode(id);
+renderAll();
+});
+});
+
+canvas.querySelectorAll('.f-node').forEach(el=>{
+el.addEventListener('dblclick',(ev)=>{
+ev.stopPropagation();
+const id=parseInt(el.dataset.id,10);
+const n=nodeById(id);
+if(!n)return;
+const val=prompt(t('rename'),n.text);
+if(val===null)return;
+n.text=val.trim()||n.text;
+renderAll();
+});
+});
+
+resizeEdgesSvg();
+}
+
+function onCanvasPointerDown(ev){
+const tgt=ev.target;
+const resizerEl=tgt.closest('.f-node-resize');
+const nodeEl=tgt.closest('.f-node');
+const canvas=container.querySelector('#fCanvas');
+if(!canvas)return;
+
+if(resizerEl){
+ev.stopPropagation();
+ev.preventDefault();
+const id=parseInt(resizerEl.dataset.resize,10);
+const n=nodeById(id);
+if(!n)return;
+state.resize={
+id,
+startX:ev.clientX,
+startY:ev.clientY,
+origW:n.w||DEFAULT_W,
+origH:n.h||DEFAULT_H
+};
+return;
+}
+
+if(state.mode==='delete'){
+if(nodeEl){
+ev.preventDefault();
+const id=parseInt(nodeEl.dataset.id,10);
+removeNode(id);
+renderAll();
+return;
+}
+return;
+}
+
+if(state.mode==='connect'){
+if(!nodeEl)return;
+ev.preventDefault();
+const id=parseInt(nodeEl.dataset.id,10);
+if(state.pendingSource===null){
+state.pendingSource=id;
+container.querySelectorAll('.f-node').forEach(n=>n.classList.remove('f-node-pending'));
+nodeEl.classList.add('f-node-pending');
+}else if(state.pendingSource===id){
+state.pendingSource=null;
+nodeEl.classList.remove('f-node-pending');
+}else{
+const src=state.pendingSource;
+const dst=id;
+if(src!==dst&&!state.edges.some(e=>e.from===src&&e.to===dst)){
+state.edges.push({id:state.nextId++,from:src,to:dst});
+}
+state.pendingSource=null;
+container.querySelectorAll('.f-node').forEach(n=>n.classList.remove('f-node-pending'));
+renderAll();
+}
+return;
+}
+
+if(nodeEl){
+ev.preventDefault();
+const id=parseInt(nodeEl.dataset.id,10);
+const n=nodeById(id);
+if(!n)return;
+state.drag={
+id,
+offsetX:(ev.clientX/state.zoom)-n.x,
+offsetY:(ev.clientY/state.zoom)-n.y
+};
+nodeEl.classList.add('f-node-dragging');
+}
+}
+
+function onWindowPointerMove(ev){
+if(state.resize){
+const n=nodeById(state.resize.id);
+if(!n)return;
+const dw=(ev.clientX-state.resize.startX)/state.zoom;
+const dh=(ev.clientY-state.resize.startY)/state.zoom;
+n.w=Math.max(120,state.resize.origW+dw);
+n.h=Math.max(60,state.resize.origH+dh);
+
+const el=container.querySelector('.f-node[data-id="'+n.id+'"]');
+if(el){
+el.style.width=n.w+'px';
+el.style.height=n.h+'px';
+}
+scheduleRender();
+return;
+}
+
+if(!state.drag)return;
+const canvas=container.querySelector('#fCanvas');
+if(!canvas)return;
+const n=nodeById(state.drag.id);
+if(!n)return;
+
+n.x=(ev.clientX/state.zoom)-state.drag.offsetX;
+n.y=(ev.clientY/state.zoom)-state.drag.offsetY;
+
+const el=canvas.querySelector('.f-node[data-id="'+n.id+'"]');
+if(el){
+el.style.left=n.x+'px';
+el.style.top=n.y+'px';
+}
+
+const wrap=container.querySelector('#fCanvasWrap');
+if(wrap){
+const margin=48;
+const nw=n.w||DEFAULT_W;
+const nh=n.h||DEFAULT_H;
+let grew=false;
+if(n.x+nw+margin>canvas.offsetWidth){
+state.canvasW=Math.max(state.canvasW,Math.round(n.x+nw+margin*2));
+canvas.style.width=state.canvasW+'px';
+const wIn=container.querySelector('#fCanvasWInput');
+if(wIn)wIn.value=state.canvasW;
+grew=true;
+}
+if(n.y+nh+margin>canvas.offsetHeight){
+state.canvasH=Math.max(state.canvasH,Math.round(n.y+nh+margin*2));
+canvas.style.height=state.canvasH+'px';
+const hIn=container.querySelector('#fCanvasHInput');
+if(hIn)hIn.value=state.canvasH;
+grew=true;
+}
+if(grew)resizeEdgesSvg();
+}
+
+scheduleRender();
+}
+
+function onWindowPointerUp(){
+if(state.resize){
+state.resize=null;
+expandCanvasToFit();
+drawEdges();
+return;
+}
+if(!state.drag)return;
+const n=nodeById(state.drag.id);
+if(n){
+n.x=snap(n.x);
+n.y=snap(n.y);
+const el=container.querySelector('.f-node[data-id="'+n.id+'"]');
+if(el){
+el.style.left=n.x+'px';
+el.style.top=n.y+'px';
+}
+}
+const elDrag=container.querySelector('.f-node-dragging');
+if(elDrag)elDrag.classList.remove('f-node-dragging');
+state.drag=null;
+expandCanvasToFit();
+renderAll();
+}
+
+function removeNode(id){
+state.nodes=state.nodes.filter(n=>n.id!==id);
+state.edges=state.edges.filter(e=>e.from!==id&&e.to!==id);
+if(state.pendingSource===id)state.pendingSource=null;
+}
+
+function expandCanvasToFit(){
+const canvas=container.querySelector('#fCanvas');
+if(!canvas)return;
+let maxX=0,maxY=0;
+state.nodes.forEach(n=>{
+const nw=n.w||DEFAULT_W;
+const nh=n.h||DEFAULT_H;
+maxX=Math.max(maxX,n.x+nw);
+maxY=Math.max(maxY,n.y+nh);
+});
+if(!maxX||!maxY)return;
+const pad=CANVAS_MARGIN;
+let updated=false;
+if(maxX+pad>state.canvasW){
+state.canvasW=Math.max(state.canvasW,Math.round(maxX+pad*2));
+canvas.style.width=state.canvasW+'px';
+const wIn=container.querySelector('#fCanvasWInput');
+if(wIn)wIn.value=state.canvasW;
+updated=true;
+}
+if(maxY+pad>state.canvasH){
+state.canvasH=Math.max(state.canvasH,Math.round(maxY+pad*2));
+canvas.style.height=state.canvasH+'px';
+const hIn=container.querySelector('#fCanvasHInput');
+if(hIn)hIn.value=state.canvasH;
+updated=true;
+}
+if(updated)resizeEdgesSvg();
+}
+
+function resizeEdgesSvg(){
+const canvas=container.querySelector('#fCanvas');
+const svg=container.querySelector('#fEdges');
+if(!canvas||!svg)return;
+const w=state.canvasW;
+const h=state.canvasH;
+svg.setAttribute('viewBox','0 0 '+w+' '+h);
+svg.setAttribute('width',w);
+svg.setAttribute('height',h);
+}
+
+function edgePoint(n,targetX,targetY){
+const cx=n.x+(n.w||DEFAULT_W)/2;
+const cy=n.y+(n.h||DEFAULT_H)/2;
+const halfW=(n.w||DEFAULT_W)/2;
+const halfH=(n.h||DEFAULT_H)/2;
+
+const dx=targetX-cx;
+const dy=targetY-cy;
+
+if(Math.abs(dx)<1e-6&&Math.abs(dy)<1e-6)return{x:cx,y:cy};
+
+const slope=dy/dx;
+let x=cx,y=cy;
+
+if(Math.abs(dy)<=Math.abs(dx)*(halfH/halfW)){
+x=cx+Math.sign(dx)*halfW;
+y=cy+Math.sign(dx)*halfW*slope;
+}else{
+y=cy+Math.sign(dy)*halfH;
+x=cx+Math.sign(dy)*(halfH/slope);
+}
+return{x,y};
+}
+
+function edgePath(from,to){
+const aCenter=nodeCenter(from);
+const bCenter=nodeCenter(to);
+const p1=edgePoint(from,bCenter.x,bCenter.y);
+const p2=edgePoint(to,aCenter.x,aCenter.y);
+const mx=(p1.x+p2.x)/2;
+
+return{
+d:'M '+p1.x+' '+p1.y+' L '+mx+' '+p1.y+' L '+mx+' '+p2.y+' L '+p2.x+' '+p2.y,
+tip:p2,
+from:p1
+};
+}
+
+function drawEdges(){
+const svg=container.querySelector('#fEdges');
+if(!svg)return;
+resizeEdgesSvg();
+let inner='';
+state.edges.forEach(e=>{
+const a=nodeById(e.from);
+const b=nodeById(e.to);
+if(!a||!b)return;
+const p=edgePath(a,b);
+const color='#9fb0d0';
+const tip=p.tip;
+const angle=Math.atan2(tip.y-p.from.y,tip.x-p.from.x);
+const size=9;
+const x1=tip.x-Math.cos(angle-0.5)*size;
+const y1=tip.y-Math.sin(angle-0.5)*size;
+const x2=tip.x-Math.cos(angle+0.5)*size;
+const y2=tip.y-Math.sin(angle+0.5)*size;
+inner+='<path d="'+p.d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+inner+='<polygon points="'+tip.x+','+tip.y+' '+x1+','+y1+' '+x2+','+y2+'" fill="'+color+'"/>';
+});
+svg.innerHTML=inner;
+}
+
+function buildExportSVG(){
+const C_BG='#0b1020';
+const C_SURF='#141a2e';
+const C_PRIMARY='#7aa2ff';
+const C_WIRE='#9fb0d0';
+const C_TITLE='#ffffff';
+const C_SUB='#a0a8c0';
+
+const w=state.canvasW;
+const h=state.canvasH;
+
+let inner='';
+state.edges.forEach(e=>{
+const a=nodeById(e.from);
+const b=nodeById(e.to);
+if(!a||!b)return;
+const p=edgePath(a,b);
+const tip=p.tip;
+const angle=Math.atan2(tip.y-p.from.y,tip.x-p.from.x);
+const size=9;
+const x1=tip.x-Math.cos(angle-0.5)*size;
+const y1=tip.y-Math.sin(angle-0.5)*size;
+const x2=tip.x-Math.cos(angle+0.5)*size;
+const y2=tip.y-Math.sin(angle+0.5)*size;
+inner+='<path d="'+p.d+'" fill="none" stroke="'+C_WIRE+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+inner+='<polygon points="'+tip.x+','+tip.y+' '+x1+','+y1+' '+x2+','+y2+'" fill="'+C_WIRE+'"/>';
+});
+
+state.nodes.forEach(n=>{
+const x=n.x;
+const y=n.y;
+const nw=n.w||DEFAULT_W;
+const nh=n.h||DEFAULT_H;
+const cx=x+nw/2;
+const cy=y+nh/2;
+
+if(n.type==='start'||n.type==='end'){
+inner+='<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(nw/2)+'" ry="'+(nh/2)+'" fill="'+C_SURF+'" stroke="'+C_PRIMARY+'" stroke-width="2"/>';
+}else if(n.type==='decision'){
+const pts=[cx+','+y,x+nw+','+cy,cx+','+(y+nh),x+','+cy].join(' ');
+inner+='<polygon points="'+pts+'" fill="'+C_SURF+'" stroke="'+C_PRIMARY+'" stroke-width="2" stroke-linejoin="round"/>';
+}else if(n.type==='io'){
+const k=Math.min(24,nw*0.18);
+const pts=[(x+k)+','+y,(x+nw)+','+y,(x+nw-k)+','+(y+nh),x+','+(y+nh)].join(' ');
+inner+='<polygon points="'+pts+'" fill="'+C_SURF+'" stroke="'+C_PRIMARY+'" stroke-width="2" stroke-linejoin="round"/>';
+}else{
+inner+='<rect x="'+x+'" y="'+y+'" width="'+nw+'" height="'+nh+'" rx="10" fill="'+C_SURF+'" stroke="'+C_PRIMARY+'" stroke-width="2"/>';
+}
+
+const parts=n.text.split('|').map(p=>p.trim());
+const titleText=parts[0]||'';
+const subtitles=parts.slice(1,4);
+
+const totalItems=1+subtitles.length;
+const startY=cy-((totalItems-1)*8);
+
+inner+='<text x="'+cx+'" y="'+startY+'" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="900" fill="'+C_TITLE+'">'+esc(titleText)+'</text>';
+
+subtitles.forEach((sub,idx)=>{
+inner+='<text x="'+cx+'" y="'+(startY+((idx+1)*14))+'" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="600" fill="'+C_SUB+'">'+esc(sub)+'</text>';
+});
+});
+
+return'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+w+' '+h+'" width="'+w+'" height="'+h+'">'+
+'<rect x="0" y="0" width="'+w+'" height="'+h+'" fill="'+C_BG+'"/>'+
+inner+
+'</svg>';
+}
+
+const api={
+id:'flowcharts',
+version:'2.2.0',
+init:function(c){
+if(!c)return;
+container=c;
+renderAll();
+console.info('[Nibbly flowcharts] ✅ ready (Robust scroll centering for initial empty state)');
+}
+};
+
+window.NibblyFlowcharts=api;
+window.NibblyModules=window.NibblyModules||{};
+window.NibblyModules.flowcharts=api;
+})();
