@@ -54,23 +54,59 @@ transition:background-color .8s ease,color .8s ease}
 .nibbly-shell{max-width:720px;width:100%;text-align:center;position:relative;
 transition:max-width .3s ease}
 
+.nibbly-title{
+  font-size: 48px; 
+  font-size: clamp(42px, 5.5vw, 68px);
+  font-weight: 800;
+  letter-spacing: -1.2px;
+  margin: 0 0 6px;
+  line-height: 1.05;
+  
+  /* iOS 9+ Fix */
+  color: #5b8cff !important;
+  -webkit-text-fill-color: #5b8cff !important;
+  
+  transition: opacity .8s ease, transform .8s ease;
+}
 
-.nibbly-title{font-size:clamp(42px,5.5vw,68px);
-font-weight:800;letter-spacing:-1.2px;margin:0 0 6px;
-line-height:1.05;
-background:linear-gradient(135deg,
-color-mix(in srgb,var(--accent) 60%,white),
-color-mix(in srgb,var(--accent) 40%,#a78bfa));
--webkit-background-clip:text;background-clip:text;
-color:transparent;-webkit-text-fill-color:transparent;
-transition:opacity .8s ease,transform .8s ease}
-.nibbly-title .dot{display:inline-block;width:16px;height:16px;border-radius:5px;
-background:linear-gradient(135deg,
-color-mix(in srgb,var(--accent) 80%,white),
-color-mix(in srgb,var(--accent) 50%,#a78bfa));
-vertical-align:middle;margin-right:10px;transform:translateY(-4px);
-transition:background .8s ease,box-shadow .8s ease;
-box-shadow:0 3px 10px color-mix(in srgb,var(--accent) 40%,transparent)}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) and (color: color-mix(in srgb, red, blue)) {
+  .nibbly-title {
+    background: linear-gradient(135deg, #9cb8ff, #7c8cff);
+    background: linear-gradient(135deg,
+      color-mix(in srgb,var(--accent) 60%,white),
+      color-mix(in srgb,var(--accent) 40%,#a78bfa)
+    );
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}
+
+.nibbly-title .dot{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  background: #5b8cff;
+  vertical-align: middle;
+  margin-right: 10px;
+  transform: translateY(-4px);
+  transition: background .8s ease, box-shadow .8s ease;
+  box-shadow: 0 3px 10px rgba(91,140,255,.4);
+}
+
+@supports (color: color-mix(in srgb, red, blue)){
+  .nibbly-title .dot{
+    background: linear-gradient(135deg, #9cb8ff, #7c8cff);
+    background: linear-gradient(135deg,
+      color-mix(in srgb,var(--accent) 80%,white),
+      color-mix(in srgb,var(--accent) 50%,#a78bfa));
+    box-shadow: 0 3px 10px color-mix(in srgb,var(--accent) 40%,transparent);
+  }
+}
+
 .nibbly-subtitle{color:var(--on-variant);
 font-size:clamp(13.5px,1.6vw,18px);
 margin:0 0 28px;letter-spacing:.3px;
@@ -126,8 +162,6 @@ width:22px;
 height:22px;
 object-fit:contain}
 
-.boom-btn.icon-ready .nib-vec-icon{filter:none;
-opacity:.55}
 
 .nibbly-error{display:none;margin-top:22px;padding:20px;border-radius:14px;
 border:1px solid color-mix(in srgb,var(--bad) 45%,transparent);
@@ -191,6 +225,12 @@ to{opacity:1;transform:none}}
 .nibbly-shell.app-ready .nibbly-loading,
 .nibbly-shell.app-ready .boom-btn{display:none}
 
+html, body {
+  background-color: #0b1020 !important;
+  min-height: 100vh;
+  min-height: 100dvh; /* iOS */
+}
+
 
 @media (min-width:900px){body{padding:48px}
 .nibbly-shell{max-width:960px}
@@ -248,7 +288,7 @@ globalSyntaxError=`Promesa rechazada: ${msg}`;
 });
 
 
-const APP_VERSION='2.0.1';
+const APP_VERSION='2.0.2';
 window.__NIBBLY_APP_VERSION=APP_VERSION;
 
 const EXPANSION_BASE='expansions/expansion-pack-1/';
@@ -325,15 +365,16 @@ css:EXPANSION_BASE+'privacy/privacy.css',optional:true},
 css:EXPANSION_BASE+'desktop-ui/desktop.css',optional:true},
 {js:EXPANSION_BASE+'console/console.js',
 css:EXPANSION_BASE+'console/console.css',optional:true},
-{asset:'images/privacy.png',assetType:'image',optional:true,informational:true},
 {js:EXPANSION_BASE+'markdown/markdown.js',
 css:EXPANSION_BASE+'markdown/markdown.css',optional:true},
 {js:EXPANSION_BASE+'games/games-extras.js',
 css:EXPANSION_BASE+'games/games-extras.css',optional:true},
 {asset:'mus/You Are Nibbled.ogg',assetType:'audio',optional:true,informational:true},
-/* ══════════════ EXPANSION PACK 2 ══════════════ */
+
 {js:EXPANSION_BASE_2+'logic-gates/logic-gates.js',
-css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',optional:true}
+css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',optional:true},
+{js:EXPANSION_BASE_2+'flowcharts/flowcharts.js',
+css:EXPANSION_BASE_2+'flowcharts/flowcharts.css',optional:true},
 ]
 }
 ];
