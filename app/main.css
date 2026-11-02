@@ -433,3 +433,6 @@ body.no-effects .calc-black-hole,
 body.no-effects .calc-black-hole-victim{animation:none !important;
 transition:none !important}
 body.no-effects .calc-black-hole{display:none !important}
+
+.card-title .nib-vec-svg{margin-right:6px;
+vertical-align:text-bottom}

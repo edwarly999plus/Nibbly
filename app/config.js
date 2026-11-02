@@ -56,13 +56,19 @@ requiresLogMode:'console'},
 js:EXPANSION_BASE+'markdown/markdown.js',
 css:EXPANSION_BASE+'markdown/markdown.css',
 panel:'panel-markdown'},
-/* ══════════════ EXPANSION PACK 2 ══════════════ */
+
 {id:'logic',
 key:'tab.logic',
 mod:'logic-gates',
 js:EXPANSION_BASE_2+'logic-gates/logic-gates.js',
 css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',
-panel:'panel-logic'}
+panel:'panel-logic'},
+{id:'flowcharts',
+key:'tab.flowcharts',
+mod:'flowcharts',
+js:EXPANSION_BASE_2+'flowcharts/flowcharts.js',
+css:EXPANSION_BASE_2+'flowcharts/flowcharts.css',
+panel:'panel-flowcharts'}
 ];
 
 const EXPANSION_FILES=[
@@ -98,10 +104,13 @@ cat:'checker.cat.console'},
 css:EXPANSION_BASE+'markdown/markdown.css',
 cat:'checker.cat.markdown'},
 {asset:'mus/You Are Nibbled.ogg',assetType:'audio',cat:'checker.cat.music'},
-/* ══════════════ EXPANSION PACK 2 ══════════════ */
+
 {js:EXPANSION_BASE_2+'logic-gates/logic-gates.js',
 css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',
-cat:'checker.cat.logic'}
+cat:'checker.cat.logic'},
+{js:EXPANSION_BASE_2+'flowcharts/flowcharts.js',
+css:EXPANSION_BASE_2+'flowcharts/flowcharts.css',
+cat:'checker.cat.flowcharts'}
 ];
 
 
@@ -140,7 +149,7 @@ return fallback||key;
 }
 function applyI18n(){
 document.querySelectorAll('[data-i18n]').forEach(el=>{
-if(el.querySelector('.nib-vec-icon'))return;
+if(el.querySelector('.nib-vec-svg'))return;
 const v=t(el.dataset.i18n,el.textContent);
 if(v)el.textContent=v;
 });
@@ -332,23 +341,61 @@ html:window.NibblyIcons?window.NibblyIcons.get('config',{size:24}):''
 ]);
 rootApp.appendChild(topbar);
 
-const nav=h('nav',{class:'nav-bar'});
-CORE_TABS.forEach(tab=>{
-nav.appendChild(h('button',{
-class:'tab'+(tab.id===currentTab?' active':''),
+
+const TAB_ICONS={
+num:'numbers',
+txt:'text',
+uni:'bits',
+pot:'thunder',
+media:'film',
+calc:'calc',
+ciphers:'cipher',
+range:'range',
+memory:'memory',
+paint:'brush',
+games:'games',
+formulas:'formulas',
+console:'console',
+markdown:'markdown',
+logic:'logic',
+flowcharts:'flowchart'
+};
+
+function tabIcon(name){
+if(!window.NibblyIcons)return'';
+const iconName=TAB_ICONS[name]||name;
+const html=window.NibblyIcons.get(iconName,{size:16,class:'tab-icon'});
+return html||'';
+}
+
+function makeTab(tab,isActive){
+const btn=h('button',{
+class:'tab'+(isActive?' active':''),
 type:'button',
 dataset:{tab:tab.id},
 'data-i18n':tab.key,
-text:t(tab.key,tab.id)
-}));
+});
+const iconHTML=tabIcon(tab.id);
+if(iconHTML){
+const iconWrap=document.createElement('span');
+iconWrap.className='tab-icon-wrap';
+iconWrap.innerHTML=iconHTML;
+btn.appendChild(iconWrap);
+}
+const label=document.createElement('span');
+label.className='tab-label';
+label.setAttribute('data-i18n',tab.key);
+label.textContent=t(tab.key,tab.id);
+btn.appendChild(label);
+return btn;
+}
+
+const nav=h('nav',{class:'nav-bar'});
+CORE_TABS.forEach(tab=>{
+nav.appendChild(makeTab(tab,tab.id===currentTab));
 });
 OPTIONAL_TABS.forEach(tab=>{
-nav.appendChild(h('button',{
-class:'tab',type:'button',
-dataset:{tab:tab.id},
-'data-i18n':tab.key,
-text:t(tab.key,tab.id)
-}));
+nav.appendChild(makeTab(tab,false));
 });
 rootApp.appendChild(nav);
 
@@ -576,7 +623,7 @@ return;
 
 const reloadBtn=document.getElementById('nibReloadExpansion');
 if(reloadBtn){
-if(reloadBtn.querySelector('img'))return;
+if(reloadBtn.querySelector('svg'))return;
 const text=reloadBtn.textContent.replace('🔄','').trim();
 reloadBtn.innerHTML=window.NibblyIcons.get('reload',{size:18})+
 ' '+(text||t('settings.reloadExpansion','Reload Expansion Files'));
@@ -584,7 +631,7 @@ reloadBtn.innerHTML=window.NibblyIcons.get('reload',{size:18})+
 
 const clearBtn=document.getElementById('nibClearCache');
 if(clearBtn){
-if(clearBtn.querySelector('img'))return;
+if(clearBtn.querySelector('svg'))return;
 const text=clearBtn.textContent.replace('🗑️','').trim();
 clearBtn.innerHTML=window.NibblyIcons.get('trash',{size:18,class:'tint-bad'})+
 ' '+(text||t('settings.clearCache','Clear Cache & Reload'));
@@ -1274,6 +1321,13 @@ if(r&&typeof r.init==='function')return true;
 if(filename==='logic-gates'){
 const lg=window.NibblyModules&&window.NibblyModules['logic-gates'];
 return!!(lg&&typeof lg.init==='function');
+}
+
+if(filename==='flowcharts'){
+const fc=window.NibblyModules&&window.NibblyModules.flowcharts;
+if(fc&&typeof fc.init==='function')return true;
+const fc2=window.NibblyFlowcharts;
+return!!(fc2&&typeof fc2.init==='function');
 }
 
 const m1=window.NibblyModules&&window.NibblyModules[filename];

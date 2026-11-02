@@ -200,35 +200,35 @@ autocapitalize:'characters',spellcheck:'false'});
 card1.appendChild(numInput);
 
 
-const BASE_LABELS = {
-  2:  'Binary',
-  8:  'Octal',
-  10: 'Decimal',
-  16: 'Hexadecimal'
+const BASE_LABELS={
+2:'Binary',
+8:'Octal',
+10:'Decimal',
+16:'Hexadecimal'
 };
-const BASE_LABELS_ES = {
-  2:  'Binario',
-  8:  'Octal',
-  10: 'Decimal',
-  16: 'Hexadecimal'
+const BASE_LABELS_ES={
+2:'Binario',
+8:'Octal',
+10:'Decimal',
+16:'Hexadecimal'
 };
 
-const baseIn = el('select', { id: 'baseIn', class: 'select' });
-const isSpanish = (() => {
-  try {
-    const s = JSON.parse(localStorage.getItem('nibbly-settings-v2') || '{}');
-    return s.lang === 'es';
-  } catch (_) { return false; }
+const baseIn=el('select',{id:'baseIn',class:'select'});
+const isSpanish=(()=>{
+try{
+const s=JSON.parse(localStorage.getItem('nibbly-settings-v2')||'{}');
+return s.lang==='es';
+}catch(_){return false;}
 })();
-const baseLabels = isSpanish ? BASE_LABELS_ES : BASE_LABELS;
+const baseLabels=isSpanish?BASE_LABELS_ES:BASE_LABELS;
 
-for (let b = 2; b <= 36; b++) {
-  const label = baseLabels[b]
-    ? 'Base ' + b + ' (' + baseLabels[b] + ')'
-    : 'Base ' + b;
-  const o = el('option', { value: String(b), text: label });
-  if (b === 10) o.selected = true;
-  baseIn.appendChild(o);
+for(let b=2;b<=36;b++){
+const label=baseLabels[b]
+?'Base '+b+' ('+baseLabels[b]+')'
+:'Base '+b;
+const o=el('option',{value:String(b),text:label});
+if(b===10)o.selected=true;
+baseIn.appendChild(o);
 }
 
 const clearNumBtn=el('button',{id:'clearNum',class:'btn-ghost',
@@ -796,13 +796,13 @@ const placeholder={
 'mor':'.... --- .-.. .- / -- ..- -. -.. ---',
 '64':'SG9sYQ=='
 }[fmt]||'';
-const hello = (() => {
-  try {
-    const s = JSON.parse(localStorage.getItem('nibbly-settings-v2') || '{}');
-    return s.lang === 'es' ? 'Hola mundo 🙂' : 'Hello world 🙂';
-  } catch (_) {
-    return 'Hello world 🙂';
-  }
+const hello=(()=>{
+try{
+const s=JSON.parse(localStorage.getItem('nibbly-settings-v2')||'{}');
+return s.lang==='es'?'Hola mundo 🙂':'Hello world 🙂';
+}catch(_){
+return'Hello world 🙂';
+}
 })();
 txtIn.placeholder=isEnc?hello:placeholder;
 txtOut.placeholder=isEnc?placeholder:hello;
