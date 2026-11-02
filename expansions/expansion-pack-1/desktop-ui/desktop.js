@@ -102,7 +102,7 @@ if(!brand||brand.querySelector('.version-badge'))return;
 const h1=brand.querySelector('h1');
 if(!h1)return;
 
-const version=window.__NIBBLY_APP_VERSION||'2.0.2';
+const version=window.__NIBBLY_APP_VERSION||'2.0.3';
 const badge=document.createElement('span');
 badge.className='version-badge';
 badge.textContent='v'+version;
