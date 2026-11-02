@@ -16,15 +16,15 @@ range:'range',
 memory:'memory',
 markdown:'markdown',
 console:'console',
-logic:'logic'
+logic:'logic',
+flowcharts:'flowchart'
 };
-
 
 const FALLBACK_EMOJIS={
 numbers:'🔢',text:'📝',bits:'📊',thunder:'⚡',
 music:'🎵',calc:'🧮',cipher:'🔐',pencil:'🎨',
 games:'🎮',formulas:'🧮',range:'📈',memory:'🧩',
-markdown:'📄',console:'🖥️',logic:'🔌'
+markdown:'📄',console:'🖥️',logic:'🔌',flowchart:'📊'
 };
 
 let initialized=false;
@@ -52,7 +52,7 @@ const iconEl=document.createElement('span');
 iconEl.className='tab-icon';
 iconEl.setAttribute('aria-hidden','true');
 
-/* Intenta icono vectorial; si no existe, usa emoji de fallback */
+
 let html='';
 if(window.NibblyIcons){
 html=window.NibblyIcons.get(iconName,{size:18,class:'tab-vec-icon'});
@@ -102,7 +102,7 @@ if(!brand||brand.querySelector('.version-badge'))return;
 const h1=brand.querySelector('h1');
 if(!h1)return;
 
-const version=window.__NIBBLY_APP_VERSION||'2.0.1';
+const version=window.__NIBBLY_APP_VERSION||'2.0.2';
 const badge=document.createElement('span');
 badge.className='version-badge';
 badge.textContent='v'+version;
