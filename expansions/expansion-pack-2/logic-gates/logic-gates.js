@@ -39,27 +39,27 @@ n.setAttribute(k,attrs[k]);
 return n;
 }
 
-/* ══════════════ LÓGICA PURA ══════════════ */
+
 const GATES={
-AND:  {fn:(a,b)=>a&b,        arity:2, expr:(a,b)=>`(${a}·${b})`},
-OR:   {fn:(a,b)=>a|b,        arity:2, expr:(a,b)=>`(${a}+${b})`},
-XOR:  {fn:(a,b)=>a^b,        arity:2, expr:(a,b)=>`(${a}⊕${b})`},
-NAND: {fn:(a,b)=>((a&b)?0:1),arity:2, expr:(a,b)=>`¬(${a}·${b})`},
-NOR:  {fn:(a,b)=>((a|b)?0:1),arity:2, expr:(a,b)=>`¬(${a}+${b})`},
-XNOR: {fn:(a,b)=>((a^b)?0:1),arity:2, expr:(a,b)=>`¬(${a}⊕${b})`},
-NOT:  {fn:(a)=>a?0:1,        arity:1, expr:(a)=>`¬${a}`},
-BUF:  {fn:(a)=>a,            arity:1, expr:(a)=>`${a}`}
+AND:{fn:(a,b)=>a&b,arity:2,expr:(a,b)=>`(${a}·${b})`},
+OR:{fn:(a,b)=>a|b,arity:2,expr:(a,b)=>`(${a}+${b})`},
+XOR:{fn:(a,b)=>a^b,arity:2,expr:(a,b)=>`(${a}⊕${b})`},
+NAND:{fn:(a,b)=>((a&b)?0:1),arity:2,expr:(a,b)=>`¬(${a}·${b})`},
+NOR:{fn:(a,b)=>((a|b)?0:1),arity:2,expr:(a,b)=>`¬(${a}+${b})`},
+XNOR:{fn:(a,b)=>((a^b)?0:1),arity:2,expr:(a,b)=>`¬(${a}⊕${b})`},
+NOT:{fn:(a)=>a?0:1,arity:1,expr:(a)=>`¬${a}`},
+BUF:{fn:(a)=>a,arity:1,expr:(a)=>`${a}`}
 };
 
 const GATE_LIST=[
-{id:'AND', name:'AND',  descKey:'lg.gate.and.desc'},
-{id:'OR',  name:'OR',   descKey:'lg.gate.or.desc'},
-{id:'XOR', name:'XOR',  descKey:'lg.gate.xor.desc'},
-{id:'NAND',name:'NAND', descKey:'lg.gate.nand.desc'},
-{id:'NOR', name:'NOR',  descKey:'lg.gate.nor.desc'},
-{id:'XNOR',name:'XNOR', descKey:'lg.gate.xnor.desc'},
-{id:'NOT', name:'NOT',  descKey:'lg.gate.not.desc'},
-{id:'BUF', name:'BUFFER',descKey:'lg.gate.buf.desc'}
+{id:'AND',name:'AND',descKey:'lg.gate.and.desc'},
+{id:'OR',name:'OR',descKey:'lg.gate.or.desc'},
+{id:'XOR',name:'XOR',descKey:'lg.gate.xor.desc'},
+{id:'NAND',name:'NAND',descKey:'lg.gate.nand.desc'},
+{id:'NOR',name:'NOR',descKey:'lg.gate.nor.desc'},
+{id:'XNOR',name:'XNOR',descKey:'lg.gate.xnor.desc'},
+{id:'NOT',name:'NOT',descKey:'lg.gate.not.desc'},
+{id:'BUF',name:'BUFFER',descKey:'lg.gate.buf.desc'}
 ];
 
 function evalGate(gate,a,b){
@@ -71,9 +71,9 @@ return g.arity===1?g.fn(a):g.fn(a,b);
 function truthTable(gate){
 const g=GATES[gate];
 if(g.arity===1){
-return [0,1].map(a=>({inputs:[a],out:g.fn(a)}));
+return[0,1].map(a=>({inputs:[a],out:g.fn(a)}));
 }
-return [[0,0],[0,1],[1,0],[1,1]].map(([a,b])=>({
+return[[0,0],[0,1],[1,0],[1,1]].map(([a,b])=>({
 inputs:[a,b],out:g.fn(a,b)
 }));
 }
@@ -87,36 +87,36 @@ return mts;
 
 function simplifySOP(gate){
 const mt=minterms(gate);
-if(mt.length===0)return '0';
+if(mt.length===0)return'0';
 const g=GATES[gate];
 if(g.arity===1){
 return mt[0]===1?'A':'¬A';
 }
-if(mt.length===4)return '1';
+if(mt.length===4)return'1';
 const all=[0,1,2,3];
 const terms=[];
 if(mt.length===1){
 const idx=mt[0];
-const a=(idx>>1)&1, b=idx&1;
+const a=(idx>>1)&1,b=idx&1;
 terms.push((a?'A':'¬A')+(b?'B':'¬B'));
 return terms[0];
 }
 if(mt.length===3){
 const missing=all.find(x=>!mt.includes(x));
-const a=(missing>>1)&1, b=missing&1;
-return '¬'+(a?'A':'¬A')+(b?'B':'¬B');
+const a=(missing>>1)&1,b=missing&1;
+return'¬'+(a?'A':'¬A')+(b?'B':'¬B');
 }
 const pairs=[[0,1],[0,2],[1,3],[2,3]];
 const used=new Set();
 const termsOut=[];
 mt.forEach(m=>{
-for(const [x,y] of pairs){
+for(const[x,y]of pairs){
 if((x===m&&mt.includes(y))||(y===m&&mt.includes(x))){
 const key=Math.min(x,y)+'-'+Math.max(x,y);
 if(used.has(key))return;
 used.add(key);
-const xa=(x>>1)&1, xb=x&1;
-const ya=(y>>1)&1, yb=y&1;
+const xa=(x>>1)&1,xb=x&1;
+const ya=(y>>1)&1,yb=y&1;
 let term='';
 if(xa===ya)term+=(xa?'A':'¬A');
 if(xb===yb)term+=(xb?'B':'¬B');
@@ -128,7 +128,7 @@ return;
 return termsOut.length?termsOut.join(' + '):'0';
 }
 
-/* ══════════════ INIT ══════════════ */
+
 function initLogicGates(container,ctx){
 const root=el('section',{class:'nib-main nib-logic-gates'});
 container.appendChild(root);
@@ -137,7 +137,7 @@ let currentGate='AND';
 let inputA=0,inputB=0;
 let mode='calc';
 
-/* ───────── Barra de modo ───────── */
+
 const modeSeg=el('div',{class:'seg'},[
 el('button',{class:'seg-btn active',type:'button',
 dataset:{mode:'calc'},
@@ -151,7 +151,7 @@ text:getStr(ctx,'lg.mode.builder','Constructor')})
 ]);
 root.appendChild(modeSeg);
 
-/* ══════════════ MODO CALCULADORA ══════════════ */
+
 const panelCalc=el('div',{class:'lg-panel lg-panel-calc'});
 
 const gateChips=el('div',{class:'chips lg-gate-chips'});
@@ -204,7 +204,7 @@ resultCard.appendChild(resultBadge);
 panelCalc.appendChild(resultCard);
 root.appendChild(panelCalc);
 
-/* ══════════════ MODO TABLA ══════════════ */
+
 const panelTable=el('div',{class:'lg-panel lg-panel-table',
 style:'display:none;'});
 const tableGateChips=el('div',{class:'chips lg-gate-chips-table'});
@@ -231,7 +231,7 @@ analysisCard.appendChild(analysisBody);
 panelTable.appendChild(analysisCard);
 root.appendChild(panelTable);
 
-/* ══════════════ MODO CONSTRUCTOR ══════════════ */
+
 const panelBuilder=el('div',{class:'lg-panel lg-panel-builder',
 style:'display:none;'});
 
@@ -288,13 +288,13 @@ builderCtrl.appendChild(builderOut);
 panelBuilder.appendChild(builderCtrl);
 root.appendChild(panelBuilder);
 
-/* ══════════════ GEOMETRÍA DEL SVG ══════════════ */
+
 const SVG_W=360;
 const SVG_H=240;
 const NODE_R=18;
 const NODE_PAD=NODE_R+4;
 
-const GATE_X=160, GATE_Y=135, GATE_W=70, GATE_H=70;
+const GATE_X=160,GATE_Y=135,GATE_W=70,GATE_H=70;
 const GATE_CY=GATE_Y+GATE_H/2;
 
 const defaults={
@@ -307,9 +307,7 @@ let svgRoot=null;
 let refs=null;
 let dragState=null;
 
-/* ══════════════ LÍMITES REALES DEL ÁREA DIBUJADA ══════════════ */
-/* Calcula el rectángulo donde el viewBox se dibuja realmente dentro
-   del <svg> renderizado, respetando preserveAspectRatio="xMidYMid meet". */
+
 function getSvgBounds(){
 const fallback={
 xMin:NODE_PAD,yMin:NODE_PAD,
@@ -325,13 +323,13 @@ const rectRatio=rect.width/rect.height;
 
 let drawW,drawH,offsetX,offsetY;
 if(rectRatio>vbRatio){
-/* SVG más ancho que el viewBox → bandas a los lados (pillarbox) */
+
 drawH=rect.height;
 drawW=drawH*vbRatio;
 offsetX=(rect.width-drawW)/2;
 offsetY=0;
 }else{
-/* SVG más alto que el viewBox → bandas arriba/abajo (letterbox) */
+
 drawW=rect.width;
 drawH=drawW/vbRatio;
 offsetX=0;
@@ -377,7 +375,7 @@ B:clampNode({x:defaults.B.x,y:defaults.B.y}),
 Y:clampNode({x:defaults.Y.x,y:defaults.Y.y})
 };
 
-/* ══════════════ RENDER CALC ══════════════ */
+
 function updateBitButtons(){
 const g=GATES[currentGate];
 btnA0.classList.toggle('active',inputA===0);
@@ -408,7 +406,7 @@ updateBitButtons();
 logTo('logic ['+currentGate+'] '+inputA+(g.arity===2?','+inputB:'')+' → '+out);
 }
 
-/* ══════════════ RENDER TABLE ══════════════ */
+
 function renderTable(){
 const g=GATES[currentGate];
 const tt=truthTable(currentGate);
@@ -464,7 +462,7 @@ c.classList.toggle('active',c.dataset.gate===currentGate);
 builderGateSel.value=currentGate;
 }
 
-/* ══════════════ CONSTRUCTOR SVG ══════════════ */
+
 function pinPoints(arity){
 const pinAX=GATE_X;
 const pinAY=arity===1?GATE_CY:GATE_Y+22;
@@ -558,7 +556,7 @@ cx:pinOutX+10,cy:pinOutY,r:6,fill:'#fff',stroke:'#fff','stroke-width':1
 svg.appendChild(bubble);
 }
 
-/* Nodo A */
+
 const gA=svgEl('g',{class:'lg-node lg-node-a','data-node':'A'});
 const circleA=svgEl('circle',{cx:posA.x,cy:posA.y,r:NODE_R,fill:aColor,opacity:0.9});
 const textAVal=svgEl('text',{
@@ -576,7 +574,7 @@ textALabel.textContent=getStr(ctx,'lg.bit.a','A');
 gA.appendChild(circleA);gA.appendChild(textAVal);gA.appendChild(textALabel);
 svg.appendChild(gA);
 
-/* Nodo B */
+
 let gB=null,circleB=null,textBVal=null,textBLabel=null;
 if(arity===2){
 gB=svgEl('g',{class:'lg-node lg-node-b','data-node':'B'});
@@ -597,7 +595,7 @@ gB.appendChild(circleB);gB.appendChild(textBVal);gB.appendChild(textBLabel);
 svg.appendChild(gB);
 }
 
-/* Nodo Y */
+
 const gY=svgEl('g',{class:'lg-node lg-node-y','data-node':'Y'});
 const circleY=svgEl('circle',{cx:posY.x,cy:posY.y,r:NODE_R,fill:outColor,opacity:0.9});
 const textYVal=svgEl('text',{
@@ -670,7 +668,7 @@ refs=built.refs;
 canvas.innerHTML='';
 canvas.appendChild(svgRoot);
 
-/* Saneo tras insertar en DOM: ahora getSvgBounds es preciso */
+
 nodePos.A=clampNode(nodePos.A);
 nodePos.B=clampNode(nodePos.B);
 nodePos.Y=clampNode(nodePos.Y);
@@ -689,7 +687,7 @@ renderTable();
 renderBuilder();
 }
 
-/* ══════════════ DRAG ══════════════ */
+
 function clientToSvg(clientX,clientY){
 if(!svgRoot)return{x:0,y:0};
 const pt=svgRoot.createSVGPoint();
@@ -770,7 +768,7 @@ document.addEventListener('pointermove',onPointerMove,{passive:false});
 document.addEventListener('pointerup',onPointerUp);
 document.addEventListener('pointercancel',onPointerUp);
 
-/* ══════════════ RESIZE → RE-CLAMP ══════════════ */
+
 let resizeRaf=null;
 function onResize(){
 if(resizeRaf)return;
@@ -785,7 +783,7 @@ updatePositionsOnly();
 }
 window.addEventListener('resize',onResize);
 
-/* ══════════════ EVENTOS UI ══════════════ */
+
 modeSeg.addEventListener('click',e=>{
 const btn=e.target.closest('.seg-btn');
 if(!btn||btn.dataset.mode===mode)return;
@@ -865,7 +863,7 @@ c.classList.toggle('active',c.dataset.gate===currentGate);
 renderAll();
 });
 
-/* ══════════════ INICIALIZACIÓN ══════════════ */
+
 renderAll();
 
 return{
@@ -886,7 +884,7 @@ root.remove();
 };
 }
 
-/* ══════════════ REGISTRO ══════════════ */
+
 window.NibblyModules=window.NibblyModules||{};
 window.NibblyModules['logic-gates']={
 id:'logic-gates',version:'1.4.0',init:initLogicGates
