@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.0.2-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-2.0.3-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/iOS-9.0%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
@@ -120,15 +120,25 @@ We know that downloading configuration profiles (`.mobileconfig`) can raise conc
 
 Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova, and the iOS version works via a `.mobileconfig` Web Clip.
 
+**v2.0.3 highlights (Bug fixes & Flowchart QoL):**
+- 🐛 **Fixed: "Process" untranslated in Flowcharts (ES)** — the default node label now shows "Proceso".
+- 🎨 **Fixed: Formula buttons icons stacked above text** — icon alignment on `.f-copy`, `.f-btn`, `.formulas-reveal-btn`, `.f-seg-btn` etc. no longer depends on `:has()`, so it works on old WebViews (iOS 9+, older Android System WebView).
+- 🔴 **Fixed: Loading screen didn't turn red on error** — removed a `background-color:#0b1020 !important` override; now `--bg` can transition to `--bg-error`. Accent tint (spinner, rescan button) already follows `--accent-error`.
+- 🎯 **Fixed: Flowchart arrows not sticking to diamonds / ellipses / parallelograms** — `edgePoint()` is now shape-aware (exact intersections per node type).
+- 📐 **Fixed: Text without wrapping in exported SVG/PNG** — the exporter now wraps title + subtitles per node using `wrapTextToLines()`.
+- 🧭 **Flowcharts: camera no longer recenters on interaction** — scroll position is preserved on add/connect/delete/move, especially useful on Android.
+- ✏️ **Flowcharts: new "Edit" mode** — one tap on a node opens the editor. Adds alongside Move / Connect / Delete.
+- 🪟 **Flowcharts: Nibbly-style modals** — the editor and the "Clear all" confirmation are now native Nibbly dialogs (no `prompt()` / `confirm()`), fully themed and mobile-friendly. Required on iOS where native dialogs are heavily restricted.
+
 **v2.0.2 highlights:**
 - 📈 **More Step-by-Step Formulas** — Added Base → Decimal, Octal → Binary/Hex, Hex → Dec/Bin/Octal conversions.
 - 🔍 **Remainder Finder** — Find division residues easily, even with step-by-step procedures for complex divisions.
 - 🧠 **Boolean Logic Calculator & Diagrammer** — Similar to logic gates, but with detailed Boolean rules and downloadable diagrams.
-- 📐 **New Flowcharts Tab** — A full diagram builder with live preview, 60 FPS rendering, and SVG/PNG export.
+- 📐 **Flowcharts Tab** — A full diagram builder with live preview, 60 FPS rendering, and SVG/PNG export.
 - 🎨 **Vector Icons Optimization** — No PNGs required for offline vector rendering. Tab icons now work perfectly on Android (previously PC-only), with the new inline SVG system that prevents color inversion issues.
 - 🍏 **iOS Support (9+)** — Now installable on iPhone/iPad via Safari using a `.mobileconfig` Web Clip. No jailbreak required.
 
-**Previous v2.0.0 highlights:**
+**v2.0.0 highlights:**
 - 🧩 **Complete re-foundation** — `index.html` is now a bootloader. Every tab is a self-contained module.
 - 🔐 **Cipher suite** — Caesar, ROT13/47, Atbash, Vigenère, Affine, Substitution, URL, Unicode, XOR, AES, DES, 3DES, RC4.
 - 📄 **Markdown editor** — live preview, GitHub integration, focus mode, bilingual sample.
@@ -211,12 +221,12 @@ Loaded as an **external expansion** (`formulas/formulas.css` and `formulas/formu
 
 Each one shows the **complete procedure table** so you can reproduce it by hand.
 
-#### 🔍 Remainder Finder (NEW)
+#### 🔍 Remainder Finder
 - Enter a **dividend** and a **divisor**.
 - Instantly get the **quotient and remainder**.
 - See the **full step-by-step long division procedure** for complicated numbers.
 
-#### 🧠 Boolean Logic Calculator & Diagrammer (NEW)
+#### 🧠 Boolean Logic Calculator & Diagrammer
 - Similar to logic gates, but with **detailed Boolean algebra rules** (`AND`, `OR`, `NOT`, `XOR`, `NAND`, `NOR`).
 - Evaluate truth tables and boolean expressions.
 - Generate and **download logic diagrams** for your assignments.
@@ -239,13 +249,17 @@ Full algorithm suite loaded as part of `app/main.js` → `initCiphers`. Pick the
 - **Debounced live rendering** with stale-token cancellation.
 - **Full encryption/decryption** with localized errors.
 
-### 📐 Flowcharts (NEW Tab)
+### 📐 Flowcharts
 Loaded as part of `expansions/expansion-pack-2/`:
 - **Node builder**: Start, End, Process, Decision, and I/O nodes.
-- **Modes**: Move, Connect, and Delete.
+- **Modes**: **Move, Connect, Delete, Edit**.
 - **Live canvas**: Smooth dragging, snapping grid, and zoom controls.
+- **Scroll preservation**: the camera keeps your position while you add, connect, delete, move or edit nodes — no jarring recentering, especially useful on Android.
+- **Edit mode**: one tap on any node opens the Nibbly editor dialog (Title + 3 subtitles).
+- **Nibbly modals**: the node editor and the "Clear all" confirmation use the app's own themed dialogs — no `prompt()` or `confirm()` (both heavily restricted on iOS).
 - **High performance**: Runs smoothly at 60 FPS.
-- **Export**: Download your diagrams as **SVG** or **PNG**.
+- **Export**: Download your diagrams as **SVG** or **PNG** with automatic text wrapping.
+- **Shape-aware arrows**: cables stick exactly to the border of diamonds, ellipses, and parallelograms.
 - **Auto-expand**: The canvas grows automatically as you add or move nodes.
 
 ### 📊 Range — Massive conversions
@@ -387,10 +401,11 @@ Optional looping music. Behavior changes depending on the platform:
 ### 🎨 Vector icons (Optimized)
 - **60+ icons** under `expansions/expansion-pack-1/icons/`
 - **100% Inline SVG** — No PNGs required to render offline vectors.
-- **`NibblyIcons.get(name, opts)`** now returns a pure `<svg>` element (not an `<img>`).
-- **Tab icons on Android**: Now visible on the Android app! The new SVG system inherits `currentColor` natively, preventing Android WebView from applying its forced dark-mode inversion.
+- **`NibblyIcons.get(name, opts)`** returns a pure `<svg>` element (not an `<img>`).
+- **Tab icons on Android**: visible on the Android app. The new SVG system inherits `currentColor` natively, preventing Android WebView from applying its forced dark-mode inversion.
 - **CSS tinting** via `.tint-accent`, `.tint-muted`, `.tint-bad`, `.tint-good`
 - **Emoji fallback** on every call site
+- **Inline-flex buttons (v2.0.3)**: icon + label are guaranteed to stay in the same row across browsers and WebViews — no more icons stacked above text.
 
 ---
 
@@ -444,7 +459,7 @@ nibbly/
 │   ├── desktop-ui/
 │   ├── console/
 │   └── markdown/
-├── expansions/expansion-pack-2/   ← NEW
+├── expansions/expansion-pack-2/
 │   ├── logic-gates/
 │   └── flowcharts/
 ├── images/
@@ -460,7 +475,7 @@ nibbly/
 **Yes, include.**
 
 #### 🧮 About `formulas/` & `expansion-pack-2/`
-**Yes, include.**
+**Yes, include.** (`flowcharts/` and `logic-gates/` have no external dependencies; they work fully offline.)
 
 #### 🎵 About `mus/`
 - **Android APK / iOS**: ✅ recommended
@@ -484,30 +499,6 @@ cordova create nibbly com.edwarly999plus.nibbly Nibbly
 # Copy everything except desktop-ui/ and img/ to www/
 cordova build android
 ```
-
----
-
-### 📱 Usage
-
-Navigate between the main tabs + Private Mode:
-
-Tab Description
-Numbers Bases, BCD, ASCII, code generator
-Text Encodings, Morse player, WAV download
-Bits Storage units and combinations
-Power Watts, CPU heat, network, CPU, RAM, storage
-Multimedia Audio, decibels, video, time, frames, codecs
-Calculator Basic operations with optional explosive personality
-Formulas Live formula editor, step-by-step conversions, remainder finder, boolean logic
-Ciphers Full cipher suite
-Logic Boolean logic gates simulator
-Flowcharts Diagram builder with SVG/PNG export
-Drawing Simple editor with RGBA/HEX copy
-Range Massive conversions with pagination
-Memory 4 KB simulator
-Markdown Editor + preview + GitHub integration
-Games 2048, Tetris, Minesweeper, Pong, Pop It!
-Private Mode Scientific calculator + black screen
 
 ---
 
@@ -536,6 +527,7 @@ Private Mode Scientific calculator + black screen
 · Fullscreen API, ResizeObserver, requestAnimationFrame
 · Function constructor (sanitized) for formula evaluation
 · Android System WebView & iOS Safari WebKit
+· Inline-flex icon buttons (no :has() dependency) for old-WebView safety
 
 Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 
@@ -545,8 +537,10 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 
 · ☑ v1.0.5 — Fórmulas tab
 · ☑ v2.0.0 — The Bigger Update (bootloader, 7 core modules, 11 expansions, ciphers, markdown, range, memory, icons, bilingual support, WebView fixes)
+· ☑ v2.0.1 — Logic Gates (first expansion-pack-2 module)
 · ☑ v2.0.2 — Diagrams, iOS Support & Fixes (Flowcharts tab, Remainder Finder, Boolean Logic, new base conversions, Inline SVG optimization, iOS Web Clip installation)
-· ☐ v2.0.x — Bug fixes
+· ☑ v2.0.3 — Bug fixes & Flowchart QoL (ES "Proceso", icon alignment, red error background, shape-aware arrows, SVG text wrap, scroll preservation, Edit mode, Nibbly-style modals)
+· ☐ v2.0.x — More bug fixes
 · ☐ v3.0.x — (Soon...)
 
 ---
