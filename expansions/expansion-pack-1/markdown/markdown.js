@@ -203,8 +203,10 @@ document.head.appendChild(l);
 setTimeout(()=>resolve(true),10000);
 });
 }
+
 async function loadLibs(){
-const okMarked=await loadScriptOnce('https://cdn.jsdelivr.net/npm/marked/marked.min.js',()=>!!window.marked);
+// Usar una versión antigua y compatible con iOS 9+
+const okMarked=await loadScriptOnce('https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js',()=>!!window.marked);
 const okHljs=await loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js',()=>!!window.hljs);
 await Promise.all([
 loadCSSOnce('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css','(prefers-color-scheme: light)'),
@@ -530,9 +532,9 @@ try{window.hljs.highlightElement(block);}catch(e){}
 
 preview.querySelectorAll('img').forEach((img)=>{
 img.setAttribute('loading','lazy');
-img.addEventListener('error',()=>{
-img.setAttribute('data-broken','true');
-img.setAttribute('title','No se pudo cargar: '+(img.alt||img.src));
+img.addEventListener('error',function(){
+this.setAttribute('data-broken','true');
+this.setAttribute('title','failed to load: '+(this.alt||this.src));
 },{once:true});
 });
 
