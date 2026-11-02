@@ -5,13 +5,14 @@
 <h1 align="center">Nibbly</h1>
 
 <p align="center">
-  <b>The all-in-one converter for Android</b><br>
+  <b>The all-in-one converter for Android & iOS</b><br>
   Bases · Text · Morse · Bits · Power · Multimedia · Calculator · Formulas · Logic · Flowcharts · Drawing · Games · Private Mode
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-2.0.2-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
+  <img src="https://img.shields.io/badge/iOS-9.0%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
   <img src="https://img.shields.io/badge/license-Apache%202.0-22d3a6?style=for-the-badge" alt="License">
@@ -37,7 +38,7 @@
 
 The APK includes the HTML already built and ready to run. **No internet connection required** once installed.
 
-**🎵 The background music (`mus/You Are Nibbled.ogg`) is already bundled inside the APK**, so you can enable it from Settings **without needing an internet connection** from the very first launch. On the **web/PC version**, the `.ogg` file **is not included** (PCs usually have home internet with a stable connection); the music is downloaded automatically the first time you enable it (usually in <5s) and stays cached for future use.
+**🎵 The background music (`mus/You Are Nibbled.ogg`) is already bundled inside the APK**, so you can enable it from Settings **without needing an internet connection** from the very first launch. On the **web/PC version**, the `.ogg` file **is not included**; the music is downloaded automatically the first time you enable it (usually in <5s) and stays cached for future use.
 
 You can also listen to it right here directly without downloading anything.
 
@@ -45,7 +46,7 @@ You can also listen to it right here directly without downloading anything.
   <img src="https://img.shields.io/badge/🎵_Listen_Now-5b8cff?style=for-the-badge" alt="Music Player">
 </a>
 
-### ⚠️ Important requirement
+### ⚠️ Important requirement (Android)
 
 The app uses the **Android System WebView** (or Chrome) to render the interface.
 
@@ -60,6 +61,32 @@ If the app shows a blank screen, update **Android System WebView** from the Play
     <img src="https://img.shields.io/badge/Update_WebView-Play_Store-3ddc84?style=for-the-badge&logo=google-play&logoColor=white" alt="Update WebView">
   </a>
 </p>
+
+---
+
+## 🍏 Install on iOS (via Safari) — Compatible with iOS 9+
+
+Since Nibbly is a web app built with HTML/JS, you can install it on your iPhone or iPad as a **Web Clip** (an app-like icon on your home screen that opens in full screen). This works on **iOS 9 or higher**.
+
+> **Note:** Some features like background music autoplay are limited by Safari's strict policies. You may need to tap the screen to start the audio.
+
+**How to install:**
+
+1. Download the `.mobileconfig` file from the **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)** section using Safari.
+2. Open the **Files app** (Archivos) on your iPhone. If the file didn't save directly to **iCloud Drive**, move it there manually.
+3. Tap the `.mobileconfig` file to open it. 
+4. A prompt will appear saying the profile has been downloaded. **Click "Close" (Cerrar)** when it tells you to go to Settings.
+5. Go to **Settings > General > VPN & Device Management** (Ajustes > General > VPN y Gestión de dispositivos).
+6. Tap the downloaded Nibbly profile and select **Install** (Instalar).
+7. The Nibbly icon will now appear on your home screen.
+
+### 🛡️ Security & Privacy on iOS
+
+We know that downloading configuration profiles (`.mobileconfig`) can raise concerns, so here is how it works and why we chose this method:
+
+- **The `.mobileconfig` is not certified by Apple.** It doesn't need to be. This file is not a full app, it is just a configuration profile that tells iOS to create a shortcut on your home screen (a "Web Clip") pointing to the Nibbly web app. It works exactly like adding a shortcut to your home screen from Safari manually. It does **not** have access to your personal data, photos, or system.
+- **No `.ipa` files are provided.** An `.ipa` is a native iOS app package. To install an `.ipa` outside the official App Store, you need to use enterprise certificates or sign the app yourself, which often requires **jailbreaking** your device. Jailbreaking breaks Apple's security sandbox and exposes your iPhone to malware. We chose the Web Clip method to **avoid forcing users to jailbreak and risk losing their device's security**.
+- **Compatible with iOS 9+.** We've patched the app's CSS and JavaScript to ensure it doesn't crash on older WebKit engines (like the one in the iPhone 6s), so even very old devices can run it smoothly.
 
 ---
 
@@ -89,9 +116,9 @@ If the app shows a blank screen, update **Android System WebView** from the Play
 
 ## 📖 Description
 
-**Nibbly** is an Android app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a boolean logic calculator & diagram builder**, **a flowchart editor**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **5 minigames**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
+**Nibbly** is a cross-platform app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a boolean logic calculator & diagram builder**, **a flowchart editor**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **5 minigames**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
 
-Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova.
+Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova, and the iOS version works via a `.mobileconfig` Web Clip.
 
 **v2.0.2 highlights:**
 - 📈 **More Step-by-Step Formulas** — Added Base → Decimal, Octal → Binary/Hex, Hex → Dec/Bin/Octal conversions.
@@ -99,6 +126,7 @@ Lightweight, fast, and **100% offline**. The APK can be easily generated with We
 - 🧠 **Boolean Logic Calculator & Diagrammer** — Similar to logic gates, but with detailed Boolean rules and downloadable diagrams.
 - 📐 **New Flowcharts Tab** — A full diagram builder with live preview, 60 FPS rendering, and SVG/PNG export.
 - 🎨 **Vector Icons Optimization** — No PNGs required for offline vector rendering. Tab icons now work perfectly on Android (previously PC-only), with the new inline SVG system that prevents color inversion issues.
+- 🍏 **iOS Support (9+)** — Now installable on iPhone/iPad via Safari using a `.mobileconfig` Web Clip. No jailbreak required.
 
 **Previous v2.0.0 highlights:**
 - 🧩 **Complete re-foundation** — `index.html` is now a bootloader. Every tab is a self-contained module.
@@ -309,7 +337,7 @@ Loaded as an **external expansion** (`markdown/markdown.css`, `markdown/markdown
 - **Offline-safe**: if `marked` / `highlight.js` fail, shows friendly error
 
 ### 🖥️ Desktop UI (web / PC only)
-> **⚠️ Important — Do not include in the APK build**
+> **⚠️ Important — Do not include in the APK or iOS builds**
 >
 > The `desktop-ui/` folder is **exclusively for browser/PC use**.
 
@@ -347,6 +375,10 @@ Optional looping music. Behavior changes depending on the platform:
 - **Works offline** from the first launch
 - **Auto pauses** on private mode
 
+#### 🍏 In the iOS Web Clip
+- **✅ Bundled** if hosted on GitHub Pages
+- **Autoplay is restricted** by Safari: you may need to tap the screen to start the music on the loading screen or use the settings toggle.
+
 #### 💻 In the web / PC version
 - **Not included** by default
 - Downloads from **Archive.org** on first enable (<5s)
@@ -364,7 +396,7 @@ Optional looping music. Behavior changes depending on the platform:
 
 ## 🚀 Installation
 
-### 📦 Option 1 — Install the APK
+### 📦 Option 1 — Install the APK (Android)
 
 1. Go to the **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)** section
 2. Download the `.apk` file
@@ -373,11 +405,20 @@ Optional looping music. Behavior changes depending on the platform:
 
 > **Note:** The APK contains the HTML already built **and the background music bundled**.
 
-### 🌐 Option 2 — Try online
+### 🍏 Option 2 — Install on iOS (Safari)
+
+1. Download the `.mobileconfig` file from Releases using Safari.
+2. Open the **Files app**. If the file didn't save directly to **iCloud Drive**, move it there.
+3. Tap the `.mobileconfig` file.
+4. Click **"Close" (Cerrar)** when it tells you to go to Settings.
+5. Go to **Settings > General > VPN & Device Management** and tap the profile to install it.
+6. The Nibbly app icon will appear on your home screen.
+
+### 🌐 Option 3 — Try online
 
 🔗 **[https://edwarly999plus.github.io/Nibbly/](https://edwarly999plus.github.io/Nibbly/)**
 
-### 🛠️ Option 3 — Build from source
+### 🛠️ Option 4 — Build from source
 
 ```
 
@@ -412,8 +453,8 @@ nibbly/
 
 ```
 
-#### ⚠️ About `desktop-ui/` in the Android build
-**Do not copy the `desktop-ui/` folder to the Android project.**
+#### ⚠️ About `desktop-ui/` in the Android/iOS builds
+**Do not copy the `desktop-ui/` folder to the mobile projects.**
 
 #### 🔒 About `privacy/`
 **Yes, include.**
@@ -422,7 +463,7 @@ nibbly/
 **Yes, include.**
 
 #### 🎵 About `mus/`
-- **Android APK**: ✅ recommended
+- **Android APK / iOS**: ✅ recommended
 - **Web/PC**: ⚠️ optional (default off)
 
 #### With manual WebView
@@ -470,7 +511,7 @@ Private Mode Scientific calculator + black screen
 
 ---
 
-### 🔒 Privacy
+🔒 Privacy
 
 · ❌ Doesn't collect any data
 · ❌ No analytics or telemetry
@@ -480,37 +521,37 @@ Private Mode Scientific calculator + black screen
 
 ---
 
-### 🎮 Easter eggs
+🎮 Easter eggs
 
 · Pong 7–0: reach a score of 7–0 in Pong and something special happens.
 · Please Don't (Settings): enables physics explosion / black hole in the calculator.
 
 ---
 
-### 🛠️ Technology
+🛠️ Technology
 
 · HTML5, CSS3, Vanilla JavaScript
 · Web Audio API, Canvas 2D, SVG DOM, BigInt
 · LocalStorage, Cache Storage API
 · Fullscreen API, ResizeObserver, requestAnimationFrame
 · Function constructor (sanitized) for formula evaluation
-· Android System WebView
+· Android System WebView & iOS Safari WebKit
 
 Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 
 ---
 
-### 🗺️ Roadmap
+🗺️ Roadmap
 
 · ☑ v1.0.5 — Fórmulas tab
 · ☑ v2.0.0 — The Bigger Update (bootloader, 7 core modules, 11 expansions, ciphers, markdown, range, memory, icons, bilingual support, WebView fixes)
-· ☑ v2.0.2 — Diagrams & Fixes (Flowcharts tab, Remainder Finder, Boolean Logic, new base conversions, Inline SVG optimization)
+· ☑ v2.0.2 — Diagrams, iOS Support & Fixes (Flowcharts tab, Remainder Finder, Boolean Logic, new base conversions, Inline SVG optimization, iOS Web Clip installation)
 · ☐ v2.0.x — Bug fixes
 · ☐ v3.0.x — (Soon...)
 
 ---
 
-### 🤝 Contributing
+🤝 Contributing
 
 1. Fork the project
 2. Create a branch: git checkout -b fix/bug-name
@@ -520,7 +561,7 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 
 ---
 
-### 👤 Author
+👤 Author
 
 EdwarlyGamer999+
 
@@ -529,7 +570,7 @@ EdwarlyGamer999+
 
 ---
 
-### 📄 License
+📄 License
 
 Apache-2.0. See the LICENSE file for details.
 
