@@ -1,3 +1,16 @@
+.nib-vec-svg{display:inline-block;
+vertical-align:middle;
+flex-shrink:0;
+opacity:1;
+transition:opacity 0.2s ease,filter 0.2s ease,transform 0.15s ease;
+user-select:none;
+-webkit-user-drag:none;
+
+color:inherit;
+
+-webkit-touch-callout:none}
+
+
 .nib-vec-icon{display:inline-block;
 vertical-align:middle;
 object-fit:contain;
@@ -8,37 +21,50 @@ user-select:none;
 -webkit-user-drag:none}
 
 
-button .nib-vec-icon:not(:only-child),
-.btn-primary .nib-vec-icon:not(:only-child),
-.btn-ghost .nib-vec-icon:not(:only-child){margin-right:6px;
+button .nib-vec-svg:not(:only-child),
+.btn-primary .nib-vec-svg:not(:only-child),
+.btn-ghost .nib-vec-svg:not(:only-child){margin-right:6px;
 transform:translateY(-1px)}
 
-.card-title .nib-vec-icon{margin-right:8px;
+.card-title .nib-vec-svg{margin-right:8px;
 transform:translateY(-2px)}
 
 
-button .nib-vec-icon:only-child,
-.ng-mine-cell .nib-vec-icon,
-.paint-copy-mini .nib-vec-icon,
-.paint-tool-icon .nib-vec-icon{display:block;
+button .nib-vec-svg:only-child,
+.ng-mine-cell .nib-vec-svg,
+.paint-copy-mini .nib-vec-svg,
+.paint-tool-icon .nib-vec-svg{display:block;
 margin:0;
 transform:none}
+
+
+.nib-vec-svg.tint-accent{color:var(--accent,#5b8cff);
+opacity:1}
+
+.nib-vec-svg.tint-muted{opacity:0.5}
+
+.nib-vec-svg.tint-bad{color:var(--bad,#ff6b7a);
+opacity:1}
+
+.nib-vec-svg.tint-good{color:var(--good,#22d3a6);
+opacity:1}
+
+
+button:disabled .nib-vec-svg,
+.disabled .nib-vec-svg{opacity:0.3;
+filter:grayscale(1)}
 
 
 .nib-vec-icon.tint-accent{filter:sepia(1) saturate(5) hue-rotate(200deg) brightness(1.2);
 opacity:1}
 
-
 .nib-vec-icon.tint-muted{opacity:0.5}
-
 
 .nib-vec-icon.tint-bad{filter:sepia(1) saturate(5) hue-rotate(310deg) brightness(1.2);
 opacity:1}
 
-
 .nib-vec-icon.tint-good{filter:sepia(1) saturate(5) hue-rotate(100deg) brightness(1.2);
 opacity:1}
-
 
 button:disabled .nib-vec-icon,
 .disabled .nib-vec-icon{opacity:0.3;
