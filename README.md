@@ -487,7 +487,7 @@ cordova build android
 
 ---
 
-📱 Usage
+### 📱 Usage
 
 Navigate between the main tabs + Private Mode:
 
@@ -511,7 +511,7 @@ Private Mode Scientific calculator + black screen
 
 ---
 
-🔒 Privacy
+### 🔒 Privacy
 
 · ❌ Doesn't collect any data
 · ❌ No analytics or telemetry
@@ -521,14 +521,14 @@ Private Mode Scientific calculator + black screen
 
 ---
 
-🎮 Easter eggs
+### 🎮 Easter eggs
 
 · Pong 7–0: reach a score of 7–0 in Pong and something special happens.
 · Please Don't (Settings): enables physics explosion / black hole in the calculator.
 
 ---
 
-🛠️ Technology
+### 🛠️ Technology
 
 · HTML5, CSS3, Vanilla JavaScript
 · Web Audio API, Canvas 2D, SVG DOM, BigInt
@@ -541,7 +541,7 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 
 ---
 
-🗺️ Roadmap
+### 🗺️ Roadmap
 
 · ☑ v1.0.5 — Fórmulas tab
 · ☑ v2.0.0 — The Bigger Update (bootloader, 7 core modules, 11 expansions, ciphers, markdown, range, memory, icons, bilingual support, WebView fixes)
@@ -551,7 +551,7 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 
 ---
 
-🤝 Contributing
+### 🤝 Contributing
 
 1. Fork the project
 2. Create a branch: git checkout -b fix/bug-name
@@ -561,7 +561,7 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 
 ---
 
-👤 Author
+### 👤 Author
 
 EdwarlyGamer999+
 
@@ -570,7 +570,7 @@ EdwarlyGamer999+
 
 ---
 
-📄 License
+### 📄 License
 
 Apache-2.0. See the LICENSE file for details.
 
