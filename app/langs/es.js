@@ -170,12 +170,12 @@ const strings={
 'bcd.err.nibble':'BCD inválido: {0} (máximo permitido: 1001 = 9).',
 'bcd.ok':'BCD válido: {0} dígitos → {1}',
 
-'range.goto': 'Ir a página',
-'range.jump': 'Ir',
-'range.sequential': 'Visualización secuencial',
-'range.resultCount': '{0} entradas',
-'range.page': 'Página {0}/{1}',
-'range.empty': 'Configura el rango y pulsa Generar.',
+'range.goto':'Ir a página',
+'range.jump':'Ir',
+'range.sequential':'Visualización secuencial',
+'range.resultCount':'{0} entradas',
+'range.page':'Página {0}/{1}',
+'range.empty':'Configura el rango y pulsa Generar.',
 
 'code.title':'Generar códigos alfanuméricos',
 'code.separators':'Separadores',
@@ -623,7 +623,7 @@ const strings={
 
 'games.loading':'Cargando juegos…',
 'games.error':
-'No hay juegos instalados, descargue los archivos faltantes en GitHub :(',
+'No hay archivos instalados, descargue los archivos faltantes en GitHub :(',
 'games.disabled':
 'La sección de juegos está desactivada. Actívala en Ajustes > Juegos.',
 
@@ -874,8 +874,6 @@ const strings={
 'markdown.github':'Conectar GitHub',
 
 
-/* ══════════════ LOGIC GATES (Expansion Pack 2) ══════════════ */
-
 'lg.mode.calc':'Calculadora',
 'lg.mode.table':'Tabla de verdad',
 'lg.mode.builder':'Constructor',
@@ -907,6 +905,10 @@ const strings={
 'lg.bit.a':'A',
 'lg.bit.b':'B',
 'lg.bit.y':'Y',
+
+'tab.flowcharts':'Diag. de flujo',
+'checker.cat.flowcharts':'Diag. de flujo',
+
 };
 
 window.NibblyEs=strings;

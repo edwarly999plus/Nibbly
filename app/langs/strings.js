@@ -110,12 +110,12 @@ const strings={
 'The app will run slow on first start. Clear cache if a tab does not '+
 'load correctly.',
 
-'range.goto': 'Go to page',
-'range.jump': 'Go',
-'range.sequential': 'Sequential display',
-'range.resultCount': '{0} entries',
-'range.page': 'Page {0}/{1}',
-'range.empty': 'Set range',
+'range.goto':'Go to page',
+'range.jump':'Go',
+'range.sequential':'Sequential display',
+'range.resultCount':'{0} entries',
+'range.page':'Page {0}/{1}',
+'range.empty':'Set range',
 
 'log.title':'Log',
 'log.clear':'Clear',
@@ -615,7 +615,7 @@ const strings={
 
 'games.loading':'Loading games…',
 'games.error':
-'No games installed, download the missing files on GitHub :(',
+'No files installed, download the missing files on GitHub :(',
 'games.disabled':
 'The games section is disabled. Enable it in Settings > Games.',
 
@@ -848,8 +848,6 @@ const strings={
 'markdown.github':'Conect GitHub',
 
 
-/* ══════════════ LOGIC GATES (Expansion Pack 2) ══════════════ */
-
 'lg.mode.calc':'Calculator',
 'lg.mode.table':'Truth table',
 'lg.mode.builder':'Builder',
@@ -881,6 +879,9 @@ const strings={
 'lg.bit.a':'A',
 'lg.bit.b':'B',
 'lg.bit.y':'Y',
+
+'tab.flowcharts':'Flowcharts',
+'checker.cat.flowcharts':'Flowcharts',
 };
 
 window.NibblyStrings=strings;
