@@ -14,20 +14,41 @@ addIO:'+ E/S',
 modeMove:'Mover',
 modeConnect:'Conectar',
 modeDelete:'Borrar',
+modeEdit:'Editar',
 clear:'Limpiar todo',
 exportSvg:'SVG',
 exportPng:'PNG',
 empty:'Añade un nodo con los botones de arriba para empezar.',
-rename:'Escribe el Título y hasta 3 subtítulos separados por "|" :\n(Ej: Título | Sub 1 | Sub 2 | Sub 3)',
+editHint:'Pulsa un nodo para editar su contenido.',
 connectHint:'Pulsa el nodo origen y luego el destino.',
 deleteHint:'Pulsa un nodo para borrarlo.',
 nodeStart:'Inicio | Comenzar',
 nodeEnd:'Fin | Salida',
-nodeProcess:'Process | Configurar Variable | Activo',
+nodeProcess:'Proceso | Configurar Variable | Activo',
 nodeDecision:'¿Condición? | Revisar',
 nodeIO:'E/S | Leer datos',
 stats:'{0} nodos · {1} conexiones',
-confirmClear:'¿Borrar todo el diagrama?'
+
+
+editTitle:'Editar nodo',
+editSubtitle:'Contenido del nodo',
+editTitleLbl:'Título',
+editTitlePh:'Ej: Proceso principal',
+editSub1Lbl:'Subtítulo 1 (opcional)',
+editSub1Ph:'Ej: Configurar Variable',
+editSub2Lbl:'Subtítulo 2 (opcional)',
+editSub2Ph:'Ej: Activo',
+editSub3Lbl:'Subtítulo 3 (opcional)',
+editSub3Ph:'Ej: …',
+editCancel:'Cancelar',
+editSave:'Guardar',
+editEmpty:'El título no puede estar vacío.',
+
+
+clearTitle:'¿Borrar todo el diagrama?',
+clearDesc:'Se eliminarán todos los nodos y conexiones. Esta acción no se puede deshacer.',
+clearCancel:'Cancelar',
+clearConfirm:'Borrar todo'
 },
 en:{
 title:'Flowcharts',
@@ -40,11 +61,12 @@ addIO:'+ I/O',
 modeMove:'Move',
 modeConnect:'Connect',
 modeDelete:'Delete',
+modeEdit:'Edit',
 clear:'Clear all',
 exportSvg:'SVG',
 exportPng:'PNG',
 empty:'Add a node with the buttons above to start.',
-rename:'Enter Title and up to 3 subtitles separated by "|" :\n(Ex: Title | Sub 1 | Sub 2 | Sub 3)',
+editHint:'Tap a node to edit its content.',
 connectHint:'Tap source node, then target node.',
 deleteHint:'Tap a node to delete it.',
 nodeStart:'Start | Begin',
@@ -53,7 +75,25 @@ nodeProcess:'Process | Config Variable | Active',
 nodeDecision:'Condition? | Check',
 nodeIO:'I/O | Read data',
 stats:'{0} nodes · {1} connections',
-confirmClear:'Clear the whole diagram?'
+
+editTitle:'Edit node',
+editSubtitle:'Node content',
+editTitleLbl:'Title',
+editTitlePh:'e.g. Main process',
+editSub1Lbl:'Subtitle 1 (optional)',
+editSub1Ph:'e.g. Configure variable',
+editSub2Lbl:'Subtitle 2 (optional)',
+editSub2Ph:'e.g. Active',
+editSub3Lbl:'Subtitle 3 (optional)',
+editSub3Ph:'e.g. …',
+editCancel:'Cancel',
+editSave:'Save',
+editEmpty:'Title cannot be empty.',
+
+clearTitle:'Clear the whole diagram?',
+clearDesc:'All nodes and connections will be removed. This cannot be undone.',
+clearCancel:'Cancel',
+clearConfirm:'Delete all'
 }
 };
 
@@ -163,6 +203,8 @@ return n;
 
 let container=null;
 let rafId=null;
+let globalListenersBound=false;
+let firstRenderDone=false;
 
 function scheduleRender(){
 if(rafId)return;
@@ -173,8 +215,16 @@ drawEdges();
 }
 
 
-function renderAll(){
+function renderAll(preserveScroll){
 if(!container)return;
+
+const wrap=container.querySelector('#fCanvasWrap');
+let savedScrollLeft=0,savedScrollTop=0;
+if(preserveScroll&&wrap){
+savedScrollLeft=wrap.scrollLeft;
+savedScrollTop=wrap.scrollTop;
+}
+
 container.innerHTML='';
 const root=document.createElement('div');
 root.className='nibbly-flowcharts';
@@ -183,7 +233,16 @@ root.appendChild(buildCanvas());
 root.appendChild(buildHint());
 container.appendChild(root);
 attachEvents();
+
+if(preserveScroll&&wrap){
+const newWrap=container.querySelector('#fCanvasWrap');
+if(newWrap){
+newWrap.scrollLeft=savedScrollLeft;
+newWrap.scrollTop=savedScrollTop;
+}
+}else{
 centerScrollToMiddle();
+}
 drawEdges();
 }
 
@@ -229,7 +288,8 @@ bar.appendChild(sep);
 const modes=[
 ['move',t('modeMove')],
 ['connect',t('modeConnect')],
-['delete',t('modeDelete')]
+['delete',t('modeDelete')],
+['edit',t('modeEdit')]
 ];
 const modeWrap=document.createElement('div');
 modeWrap.className='f-seg f-mode-seg';
@@ -372,7 +432,11 @@ function buildHint(){
 const h=document.createElement('div');
 h.className='f-hint';
 h.id='fFlowHint';
-h.textContent=state.mode==='connect'?t('connectHint'):(state.mode==='delete'?t('deleteHint'):t('hint'));
+h.textContent=
+state.mode==='connect'?t('connectHint'):
+state.mode==='delete'?t('deleteHint'):
+state.mode==='edit'?t('editHint'):
+t('hint');
 return h;
 }
 
@@ -472,7 +536,7 @@ const viewH=curWrap.clientHeight;
 const cx=(scrollLeft+viewW/2)/state.zoom;
 const cy=(scrollTop+viewH/2)/state.zoom;
 const node=createNode(type,cx-DEFAULT_W/2,cy-DEFAULT_H/2);
-renderAll();
+renderAll(true);
 });
 });
 
@@ -488,6 +552,7 @@ const hint=container.querySelector('#fFlowHint');
 if(hint)hint.textContent=
 state.mode==='connect'?t('connectHint'):
 state.mode==='delete'?t('deleteHint'):
+state.mode==='edit'?t('editHint'):
 t('hint');
 });
 });
@@ -495,12 +560,7 @@ t('hint');
 const clr=container.querySelector('#fClearAll');
 if(clr)clr.addEventListener('click',()=>{
 if(!state.nodes.length&&!state.edges.length)return;
-if(!confirm(t('confirmClear')))return;
-state.nodes=[];
-state.edges=[];
-state.pendingSource=null;
-state.nextId=1;
-renderAll();
+openClearModal();
 });
 
 const svgBtn=container.querySelector('#fExportSvg');
@@ -551,29 +611,31 @@ img.src=url;
 }catch(e){showToast(String(e),true);}
 });
 
+
 canvas.addEventListener('pointerdown',onCanvasPointerDown);
+
+
+if(!globalListenersBound){
 window.addEventListener('pointermove',onWindowPointerMove);
 window.addEventListener('pointerup',onWindowPointerUp);
+globalListenersBound=true;
+}
 
 canvas.querySelectorAll('[data-del]').forEach(b=>{
 b.addEventListener('click',(ev)=>{
 ev.stopPropagation();
 const id=parseInt(b.dataset.del,10);
 removeNode(id);
-renderAll();
+renderAll(true);
 });
 });
+
 
 canvas.querySelectorAll('.f-node').forEach(el=>{
 el.addEventListener('dblclick',(ev)=>{
 ev.stopPropagation();
 const id=parseInt(el.dataset.id,10);
-const n=nodeById(id);
-if(!n)return;
-const val=prompt(t('rename'),n.text);
-if(val===null)return;
-n.text=val.trim()||n.text;
-renderAll();
+openEditModal(id);
 });
 });
 
@@ -608,7 +670,17 @@ if(nodeEl){
 ev.preventDefault();
 const id=parseInt(nodeEl.dataset.id,10);
 removeNode(id);
-renderAll();
+renderAll(true);
+return;
+}
+return;
+}
+
+if(state.mode==='edit'){
+if(nodeEl){
+ev.preventDefault();
+const id=parseInt(nodeEl.dataset.id,10);
+openEditModal(id);
 return;
 }
 return;
@@ -633,7 +705,7 @@ state.edges.push({id:state.nextId++,from:src,to:dst});
 }
 state.pendingSource=null;
 container.querySelectorAll('.f-node').forEach(n=>n.classList.remove('f-node-pending'));
-renderAll();
+renderAll(true);
 }
 return;
 }
@@ -733,7 +805,7 @@ const elDrag=container.querySelector('.f-node-dragging');
 if(elDrag)elDrag.classList.remove('f-node-dragging');
 state.drag=null;
 expandCanvasToFit();
-renderAll();
+renderAll(true);
 }
 
 function removeNode(id){
@@ -783,28 +855,57 @@ svg.setAttribute('width',w);
 svg.setAttribute('height',h);
 }
 
-function edgePoint(n,targetX,targetY){
-const cx=n.x+(n.w||DEFAULT_W)/2;
-const cy=n.y+(n.h||DEFAULT_H)/2;
-const halfW=(n.w||DEFAULT_W)/2;
-const halfH=(n.h||DEFAULT_H)/2;
 
+function edgePoint(n,targetX,targetY){
+const w=n.w||DEFAULT_W;
+const h=n.h||DEFAULT_H;
+const cx=n.x+w/2;
+const cy=n.y+h/2;
+const halfW=w/2;
+const halfH=h/2;
 const dx=targetX-cx;
 const dy=targetY-cy;
 
 if(Math.abs(dx)<1e-6&&Math.abs(dy)<1e-6)return{x:cx,y:cy};
 
-const slope=dy/dx;
-let x=cx,y=cy;
-
-if(Math.abs(dy)<=Math.abs(dx)*(halfH/halfW)){
-x=cx+Math.sign(dx)*halfW;
-y=cy+Math.sign(dx)*halfW*slope;
-}else{
-y=cy+Math.sign(dy)*halfH;
-x=cx+Math.sign(dy)*(halfH/slope);
+if(n.type==='decision'){
+const adx=Math.abs(dx),ady=Math.abs(dy);
+const denom=(adx/halfW)+(ady/halfH);
+if(denom<1e-9)return{x:cx,y:cy};
+const s=1/denom;
+return{x:cx+dx*s,y:cy+dy*s};
 }
-return{x,y};
+
+if(n.type==='start'||n.type==='end'){
+const a=dx/halfW,b=dy/halfH;
+const denom=Math.sqrt(a*a+b*b);
+if(denom<1e-9)return{x:cx,y:cy};
+const s=1/denom;
+return{x:cx+dx*s,y:cy+dy*s};
+}
+
+if(n.type==='io'){
+const k=Math.min(24,w*0.18);
+const slope=dy/dx;
+let rx,ry;
+if(Math.abs(dy)<=Math.abs(dx)*(halfH/halfW)){
+rx=cx+Math.sign(dx)*halfW;
+ry=cy+Math.sign(dx)*halfW*slope;
+const normY=(ry-cy)/halfH;
+if(rx>cx){rx=n.x+w-k*((normY+1)/2);}
+else{rx=n.x+k*((1-normY)/2);}
+}else{
+ry=cy+Math.sign(dy)*halfH;
+rx=cx+Math.sign(dy)*(halfH/slope);
+}
+return{x:rx,y:ry};
+}
+
+const slope=dy/dx;
+if(Math.abs(dy)<=Math.abs(dx)*(halfH/halfW)){
+return{x:cx+Math.sign(dx)*halfW,y:cy+Math.sign(dx)*halfW*slope};
+}
+return{y:cy+Math.sign(dy)*halfH,x:cx+Math.sign(dy)*(halfH/slope)};
 }
 
 function edgePath(from,to){
@@ -843,6 +944,23 @@ inner+='<path d="'+p.d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke
 inner+='<polygon points="'+tip.x+','+tip.y+' '+x1+','+y1+' '+x2+','+y2+'" fill="'+color+'"/>';
 });
 svg.innerHTML=inner;
+}
+
+
+function wrapTextToLines(text,maxWidth,fontSize,isBold){
+const charW=fontSize*(isBold?0.62:0.6);
+const maxChars=Math.max(1,Math.floor(maxWidth/charW));
+const words=String(text).split(/\s+/).filter(Boolean);
+if(!words.length)return[''];
+const lines=[];
+let cur='';
+words.forEach(w=>{
+if(!cur){cur=w;return;}
+if((cur+' '+w).length<=maxChars){cur+=' '+w;}
+else{lines.push(cur);cur=w;}
+});
+if(cur)lines.push(cur);
+return lines.length?lines:[''];
 }
 
 function buildExportSVG(){
@@ -896,15 +1014,35 @@ inner+='<rect x="'+x+'" y="'+y+'" width="'+nw+'" height="'+nh+'" rx="10" fill="'
 
 const parts=n.text.split('|').map(p=>p.trim());
 const titleText=parts[0]||'';
-const subtitles=parts.slice(1,4);
+const subtitles=parts.slice(1,4).filter(Boolean);
 
-const totalItems=1+subtitles.length;
-const startY=cy-((totalItems-1)*8);
+let maxTextW=nw-20;
+if(n.type==='decision')maxTextW=nw*0.55;
+else if(n.type==='start'||n.type==='end')maxTextW=nw*0.72;
+else if(n.type==='io')maxTextW=nw*0.78;
+maxTextW=Math.max(40,maxTextW);
 
-inner+='<text x="'+cx+'" y="'+startY+'" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" font-weight="900" fill="'+C_TITLE+'">'+esc(titleText)+'</text>';
+const titleFontSize=12;
+const subFontSize=10;
+const titleLineH=titleFontSize*1.25;
+const subLineH=subFontSize*1.3;
 
-subtitles.forEach((sub,idx)=>{
-inner+='<text x="'+cx+'" y="'+(startY+((idx+1)*14))+'" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="600" fill="'+C_SUB+'">'+esc(sub)+'</text>';
+const titleLines=wrapTextToLines(titleText,maxTextW,titleFontSize,true);
+const subLinesArr=[];
+subtitles.forEach(sub=>{
+subLinesArr.push(...wrapTextToLines(sub,maxTextW,subFontSize,false));
+});
+
+const totalH=titleLines.length*titleLineH+subLinesArr.length*subLineH;
+let curY=cy-totalH/2+titleFontSize*0.85;
+
+titleLines.forEach(line=>{
+inner+='<text x="'+cx+'" y="'+curY+'" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="'+titleFontSize+'" font-weight="900" fill="'+C_TITLE+'">'+esc(line)+'</text>';
+curY+=titleLineH;
+});
+subLinesArr.forEach(line=>{
+inner+='<text x="'+cx+'" y="'+curY+'" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="'+subFontSize+'" font-weight="600" fill="'+C_SUB+'">'+esc(line)+'</text>';
+curY+=subLineH;
 });
 });
 
@@ -914,14 +1052,181 @@ inner+
 '</svg>';
 }
 
+
+let activeModal=null;
+
+function closeModal(){
+if(!activeModal)return;
+try{activeModal.remove();}catch(_){}
+activeModal=null;
+}
+
+function openEditModal(nodeId){
+const n=nodeById(nodeId);
+if(!n)return;
+
+const parts=n.text.split('|').map(p=>p.trim());
+const titleVal=parts[0]||'';
+const sub1=parts[1]||'';
+const sub2=parts[2]||'';
+const sub3=parts[3]||'';
+
+const overlay=document.createElement('div');
+overlay.className='f-modal-overlay';
+overlay.setAttribute('role','dialog');
+overlay.setAttribute('aria-modal','true');
+
+const panel=document.createElement('div');
+panel.className='f-modal-panel';
+
+panel.innerHTML=`
+<div class="f-modal-header">
+  <div class="f-modal-title">${esc(t('editTitle'))}</div>
+  <button type="button" class="f-modal-close" id="fModalClose" aria-label="Cerrar">×</button>
+</div>
+<div class="f-modal-body">
+  <div class="f-modal-sub">${esc(t('editSubtitle'))}</div>
+  <div class="f-field" style="margin-top:10px;">
+    <label class="f-lbl" for="fEditTitle">${esc(t('editTitleLbl'))}</label>
+    <input class="f-var-input" id="fEditTitle" type="text" maxlength="80"
+      value="${esc(titleVal)}" placeholder="${esc(t('editTitlePh'))}"
+      autocomplete="off" spellcheck="false">
+    <div class="f-error" id="fEditTitleErr" style="display:none;"></div>
+  </div>
+  <div class="f-field">
+    <label class="f-lbl" for="fEditSub1">${esc(t('editSub1Lbl'))}</label>
+    <input class="f-var-input" id="fEditSub1" type="text" maxlength="80"
+      value="${esc(sub1)}" placeholder="${esc(t('editSub1Ph'))}"
+      autocomplete="off" spellcheck="false">
+  </div>
+  <div class="f-field">
+    <label class="f-lbl" for="fEditSub2">${esc(t('editSub2Lbl'))}</label>
+    <input class="f-var-input" id="fEditSub2" type="text" maxlength="80"
+      value="${esc(sub2)}" placeholder="${esc(t('editSub2Ph'))}"
+      autocomplete="off" spellcheck="false">
+  </div>
+  <div class="f-field">
+    <label class="f-lbl" for="fEditSub3">${esc(t('editSub3Lbl'))}</label>
+    <input class="f-var-input" id="fEditSub3" type="text" maxlength="80"
+      value="${esc(sub3)}" placeholder="${esc(t('editSub3Ph'))}"
+      autocomplete="off" spellcheck="false">
+  </div>
+</div>
+<div class="f-modal-actions">
+  <button type="button" class="f-btn" id="fModalCancel">${esc(t('editCancel'))}</button>
+  <button type="button" class="f-btn f-btn-primary" id="fModalSave">${esc(t('editSave'))}</button>
+</div>
+`;
+
+overlay.appendChild(panel);
+document.body.appendChild(overlay);
+activeModal=overlay;
+
+const titleInp=overlay.querySelector('#fEditTitle');
+const sub1Inp=overlay.querySelector('#fEditSub1');
+const sub2Inp=overlay.querySelector('#fEditSub2');
+const sub3Inp=overlay.querySelector('#fEditSub3');
+const errBox=overlay.querySelector('#fEditTitleErr');
+
+function save(){
+const title=titleInp.value.trim();
+if(!title){
+errBox.textContent=t('editEmpty');
+errBox.style.display='block';
+titleInp.focus();
+return;
+}
+errBox.style.display='none';
+const s1=sub1Inp.value.trim();
+const s2=sub2Inp.value.trim();
+const s3=sub3Inp.value.trim();
+let newText=title;
+[s1,s2,s3].forEach(s=>{if(s)newText+=' | '+s;});
+n.text=newText;
+closeModal();
+renderAll(true);
+}
+
+overlay.querySelector('#fModalClose').addEventListener('click',closeModal);
+overlay.querySelector('#fModalCancel').addEventListener('click',closeModal);
+overlay.querySelector('#fModalSave').addEventListener('click',save);
+
+overlay.addEventListener('pointerdown',(ev)=>{
+if(ev.target===overlay)closeModal();
+});
+
+overlay.addEventListener('keydown',(ev)=>{
+if(ev.key==='Escape'){ev.preventDefault();closeModal();}
+else if(ev.key==='Enter'&&(ev.target.tagName==='INPUT'||ev.target.tagName==='TEXTAREA')){
+ev.preventDefault();save();
+}
+});
+
+setTimeout(()=>{titleInp.focus();titleInp.select();},50);
+}
+
+function openClearModal(){
+const overlay=document.createElement('div');
+overlay.className='f-modal-overlay';
+overlay.setAttribute('role','dialog');
+overlay.setAttribute('aria-modal','true');
+
+const panel=document.createElement('div');
+panel.className='f-modal-panel';
+
+panel.innerHTML=`
+<div class="f-modal-header">
+  <div class="f-modal-title">${esc(t('clearTitle'))}</div>
+  <button type="button" class="f-modal-close" id="fClearClose" aria-label="Cerrar">×</button>
+</div>
+<div class="f-modal-body">
+  <div class="f-modal-sub">${esc(t('clearDesc'))}</div>
+</div>
+<div class="f-modal-actions">
+  <button type="button" class="f-btn" id="fClearCancel">${esc(t('clearCancel'))}</button>
+  <button type="button" class="f-btn f-modal-danger" id="fClearConfirm">${esc(t('clearConfirm'))}</button>
+</div>
+`;
+
+overlay.appendChild(panel);
+document.body.appendChild(overlay);
+activeModal=overlay;
+
+function doClear(){
+state.nodes=[];
+state.edges=[];
+state.pendingSource=null;
+state.nextId=1;
+closeModal();
+renderAll(false);
+}
+
+overlay.querySelector('#fClearClose').addEventListener('click',closeModal);
+overlay.querySelector('#fClearCancel').addEventListener('click',closeModal);
+overlay.querySelector('#fClearConfirm').addEventListener('click',doClear);
+
+overlay.addEventListener('pointerdown',(ev)=>{
+if(ev.target===overlay)closeModal();
+});
+overlay.addEventListener('keydown',(ev)=>{
+if(ev.key==='Escape'){ev.preventDefault();closeModal();}
+else if(ev.key==='Enter'){ev.preventDefault();doClear();}
+});
+
+setTimeout(()=>{
+const c=overlay.querySelector('#fClearCancel');
+if(c)c.focus();
+},50);
+}
+
 const api={
 id:'flowcharts',
-version:'2.2.0',
+version:'2.3.0',
 init:function(c){
 if(!c)return;
 container=c;
-renderAll();
-console.info('[Nibbly flowcharts] ✅ ready (Robust scroll centering for initial empty state)');
+renderAll(false);
+console.info('[Nibbly flowcharts] ✅ ready (v2.3.0 — scroll preservado + modales Nibbly + modo editar)');
 }
 };
 
