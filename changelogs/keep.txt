@@ -1,1 +1,0 @@
-This folder will contain all the changelogs according to their language (this will not affect the main changelog).
