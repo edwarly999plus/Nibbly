@@ -157,7 +157,9 @@ flex-wrap:wrap}
 .nibbly-formulas .f-btn,
 .nibbly-formulas .formulas-btn,
 .nibbly-formulas .formulas-add-btn,
-.nibbly-formulas .formulas-reveal-btn{padding:13px 18px;
+.nibbly-formulas .formulas-clear-btn,
+.nibbly-formulas .formulas-reveal-btn,
+.nibbly-formulas .f-btn-primary{padding:13px 18px;
 border-radius:var(--r-full);
 border:1px solid var(--outline);
 background:transparent;
@@ -621,19 +623,52 @@ padding:8px 3px}
 .nibbly-formulas .f-seg-sub-4 .f-seg-btn{flex:1 1 calc(50% - 3px)}}
 
 
-.nibbly-formulas .f-copy:has(.nib-vec-icon),
-.nibbly-formulas .formulas-reveal-btn:has(.nib-vec-icon),
-.nibbly-formulas .f-btn:has(.nib-vec-icon){display:inline-flex !important;
+.nibbly-formulas .f-copy,
+.nibbly-formulas .formulas-btn,
+.nibbly-formulas .formulas-add-btn,
+.nibbly-formulas .formulas-reveal-btn,
+.nibbly-formulas .formulas-clear-btn,
+.nibbly-formulas .f-btn,
+.nibbly-formulas .f-btn-primary{display:inline-flex !important;
 flex-direction:row !important;
 align-items:center !important;
 justify-content:center !important;
 gap:6px !important;
-white-space:nowrap}
+white-space:nowrap;
+line-height:1.2}
+
+
+.nibbly-formulas .f-copy>span,
+.nibbly-formulas .formulas-btn>span,
+.nibbly-formulas .formulas-add-btn>span,
+.nibbly-formulas .formulas-reveal-btn>span,
+.nibbly-formulas .formulas-clear-btn>span,
+.nibbly-formulas .f-btn>span,
+.nibbly-formulas .f-btn-primary>span{display:inline-flex !important;
+align-items:center;
+justify-content:center;
+line-height:0;
+flex-shrink:0}
 
 
 .nibbly-formulas .f-copy .nib-vec-icon,
+.nibbly-formulas .formulas-btn .nib-vec-icon,
+.nibbly-formulas .formulas-add-btn .nib-vec-icon,
 .nibbly-formulas .formulas-reveal-btn .nib-vec-icon,
-.nibbly-formulas .f-btn .nib-vec-icon{display:inline-block !important;
+.nibbly-formulas .formulas-clear-btn .nib-vec-icon,
+.nibbly-formulas .f-btn .nib-vec-icon,
+.nibbly-formulas .f-btn-primary .nib-vec-icon,
+.nibbly-formulas .f-copy>svg,
+.nibbly-formulas .formulas-btn>svg,
+.nibbly-formulas .formulas-add-btn>svg,
+.nibbly-formulas .formulas-reveal-btn>svg,
+.nibbly-formulas .formulas-clear-btn>svg,
+.nibbly-formulas .f-btn>svg,
+.nibbly-formulas .f-btn-primary>svg,
+.nibbly-formulas .f-copy>span>svg,
+.nibbly-formulas .formulas-reveal-btn>span>svg,
+.nibbly-formulas .f-btn>span>svg,
+.nibbly-formulas .f-btn-primary>span>svg{display:inline-block !important;
 vertical-align:middle !important;
 margin:0 !important;
 padding:0 !important;
@@ -644,7 +679,9 @@ flex-shrink:0;
 transform:none !important}
 
 
-.nibbly-formulas .f-seg-btn .nib-vec-icon{display:inline-block !important;
+.nibbly-formulas .f-seg-btn .nib-vec-icon,
+.nibbly-formulas .f-seg-btn>svg,
+.nibbly-formulas .f-seg-btn>span>svg{display:inline-block !important;
 vertical-align:middle !important;
 margin:0 6px 0 0 !important;
 padding:0 !important;
