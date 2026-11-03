@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>Descargar Nibbly</title>
+
+<style>
+:root{
+  --bg:#0b1020;
+  --surface-1:#141a2e;
+  --surface-2:#1a2138;
+  --primary:#5b8cff;
+  --primary-soft:#9cb8ff;
+  --on-surface:#f0f2f8;
+  --on-variant:#a0a8c0;
+  --outline:rgba(255,255,255,.15);
+  --outline-v:rgba(255,255,255,.12);
+  --good:#2ee6b0;
+  --good-bright:#34f2b8;
+  --bad:#ff6b7a;
+  --warn:#ffb020;
+  --warn-bright:#ffc850;
+  --r-full:999px;
+  --r-md:14px;
+  --r-lg:20px;
+  --ease:cubic-bezier(.2,.9,.3,1.1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100vh}
+html{background:var(--bg)}
+body{
+  background:var(--bg);
+  color:var(--on-surface);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  justify-content:center;
+  padding:28px 18px 60px;
+  line-height:1.55;
+}
+
+body.modal-open{
+  overflow:hidden;
+  position:fixed;
+  width:100%;
+  top:var(--scroll-lock-y, 0);
+  left:0;
+  right:0;
+}
+
+.wrap{max-width:720px;width:100%;position:relative}
+
+.top-actions{position:absolute;top:0;right:0;display:flex;gap:8px;z-index:10}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--outline);background:var(--surface-2);
+  color:var(--on-surface);font-size:18px;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  padding:0;transition:background .2s,border-color .2s,transform .12s,box-shadow .2s,color .2s;
+  user-select:none;position:relative;
+}
+.icon-btn:hover{
+  background:var(--surface-1);
+  border-color:color-mix(in srgb,var(--primary) 55%,transparent);
+  box-shadow:0 0 12px color-mix(in srgb,var(--primary) 30%,transparent);
+}
+.icon-btn:active{transform:scale(.9)}
+.icon-btn .flag{font-size:18px;line-height:1}
+.icon-btn .bell{font-size:17px;line-height:1;transition:filter .2s}
+.icon-btn.notify-on{
+  border-color:color-mix(in srgb,var(--good) 60%,transparent);
+  background:color-mix(in srgb,var(--good) 14%,var(--surface-2));
+}
+.icon-btn.notify-on::after{
+  content:'';position:absolute;top:2px;right:2px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--good-bright);box-shadow:0 0 6px var(--good-bright);
+  animation:pulse 2s ease-in-out infinite;
+}
+.icon-btn.notify-denied{opacity:.55}
+.icon-btn.notify-denied .bell{filter:grayscale(1)}
+.icon-btn.notify-unsupported{opacity:.35;cursor:not-allowed}
+.icon-btn.notify-unsupported:hover{box-shadow:none;border-color:var(--outline)}
+
+.new-version-flag{
+  display:none;
+  margin-left:8px;
+  padding:3px 10px 3px 8px;
+  border-radius:var(--r-full);
+  background:color-mix(in srgb,var(--warn) 22%,transparent);
+  border:1px solid color-mix(in srgb,var(--warn) 65%,transparent);
+  color:var(--warn-bright);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.9px;
+  line-height:1;
+  align-items:center;
+  gap:5px;
+  animation:flagIn .35s cubic-bezier(.2,.9,.3,1.3) both, flagPulse 2.4s ease-in-out infinite 0.4s;
+  vertical-align:middle;
+}
+.new-version-flag.show{display:inline-flex}
+.new-version-flag svg{
+  display:block;
+  width:12px;
+  height:12px;
+  flex-shrink:0;
+  filter:drop-shadow(0 0 4px color-mix(in srgb,var(--warn-bright) 60%,transparent));
+}
+.new-version-flag .nf-txt{
+  position:relative;
+  top:.5px;
+}
+@keyframes flagIn{
+  from{opacity:0;transform:scale(.7) translateY(-2px)}
+  to{opacity:1;transform:none}
+}
+@keyframes flagPulse{
+  0%,100%{
+    box-shadow:0 0 0 0 color-mix(in srgb,var(--warn-bright) 40%,transparent);
+  }
+  50%{
+    box-shadow:0 0 0 5px color-mix(in srgb,var(--warn-bright) 0%,transparent);
+  }
+}
+
+.version-badge.has-new{
+  background:color-mix(in srgb,var(--warn) 10%,var(--surface-2));
+  border-color:color-mix(in srgb,var(--warn) 45%,transparent);
+}
+.version-badge.has-new .version-num{
+  color:var(--warn-bright);
+}
+
+.header{text-align:center;margin-bottom:28px}
+.logo{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:96px;height:96px;border-radius:24px;background:#000;
+  border:1px solid rgba(91,140,255,.35);
+  box-shadow:0 14px 38px rgba(91,140,255,.32);
+  margin-bottom:16px;overflow:hidden;position:relative;
+}
+.logo img{display:block;width:100%;height:100%;object-fit:contain;border-radius:24px}
+.logo .fallback{font-size:44px;line-height:1}
+h1{
+  font-size:clamp(28px,5vw,42px);font-weight:800;
+  letter-spacing:-1px;margin:0 0 6px;
+  background:linear-gradient(135deg,var(--primary-soft),var(--primary));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.tagline{color:var(--on-variant);font-size:14.5px;margin:0}
+
+.version-bar{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0}
+.version-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 16px;border-radius:var(--r-full);
+  background:var(--surface-2);border:1px solid var(--outline);
+  font-size:12.5px;font-weight:700;color:var(--on-variant);
+  transition:background .3s,border-color .3s;
+}
+.version-badge .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--good);box-shadow:0 0 8px var(--good);
+  animation:pulse 2s ease-in-out infinite;
+}
+.version-badge.loading .dot{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+.version-badge.error .dot{background:var(--bad);box-shadow:0 0 8px var(--bad);animation:none}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
+.version-num{font-family:ui-monospace,Menlo,monospace;color:var(--on-surface);font-weight:800;transition:color .3s}
+.version-date{color:var(--on-variant);font-weight:600;font-size:11.5px}
+
+.whatsnew-row{display:flex;justify-content:center;margin:0 0 24px}
+.whatsnew-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:var(--r-full);
+  border:1px solid color-mix(in srgb,var(--primary) 45%,transparent);
+  background:color-mix(in srgb,var(--primary) 10%,transparent);
+  color:var(--primary);font-family:inherit;font-size:13px;font-weight:800;
+  cursor:pointer;letter-spacing:.3px;
+  transition:background .2s,color .2s,border-color .2s,transform .12s,box-shadow .2s;
+}
+.whatsnew-btn:hover:not(:disabled){
+  background:var(--primary);color:#fff;border-color:var(--primary);
+  box-shadow:0 6px 20px color-mix(in srgb,var(--primary) 40%,transparent);
+}
+.whatsnew-btn:active:not(:disabled){transform:scale(.97)}
+.whatsnew-btn:disabled{opacity:.5;cursor:wait;filter:grayscale(.5)}
+.whatsnew-btn .spark{font-size:14px;line-height:1}
+
+.downloads{display:grid;gap:14px;margin-bottom:28px}
+.dl-card{
+  display:flex;align-items:center;gap:16px;padding:18px 20px;
+  background:var(--surface-1);border:1px solid var(--outline-v);border-radius:var(--r-lg);
+  text-decoration:none;color:inherit;
+  transition:transform .2s,box-shadow .2s,background .2s;position:relative;
+}
+.dl-card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.35);background:var(--surface-2)}
+.dl-card:active{transform:translateY(0) scale(.99)}
+.dl-card.recommended{
+  border-color:transparent;
+  animation:breatheGlow 3.5s cubic-bezier(0.25,0.46,0.45,0.94) infinite;
+  will-change:box-shadow,border-color;
+}
+@keyframes breatheGlow{
+  0%,100%{
+    border-color:color-mix(in srgb,var(--primary) 55%,transparent);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb,var(--primary) 35%,transparent),
+      0 0 14px color-mix(in srgb,var(--primary) 28%,transparent),
+      0 0 34px color-mix(in srgb,var(--primary) 14%,transparent);
+  }
+  50%{
+    border-color:color-mix(in srgb,var(--good-bright) 70%,transparent);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb,var(--good-bright) 48%,transparent),
+      0 0 20px color-mix(in srgb,var(--good-bright) 42%,transparent),
+      0 0 46px color-mix(in srgb,var(--good-bright) 22%,transparent);
+  }
+}
+.dl-card.recommended .dl-icon--android svg{
+  animation:androidBreathe 3.5s cubic-bezier(0.25,0.46,0.45,0.94) infinite;
+}
+@keyframes androidBreathe{0%,100%{color:#3ddc84}50%{color:var(--good-bright)}}
+.dl-card.disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
+
+.dl-icon{
+  flex-shrink:0;width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface-2);border:1px solid var(--outline-v);
+  transition:background .2s,border-color .2s;
+}
+.dl-card.recommended .dl-icon{
+  background:color-mix(in srgb,var(--primary) 15%,var(--surface-2));
+  border-color:color-mix(in srgb,var(--primary) 35%,transparent);
+}
+.dl-icon svg{width:28px;height:28px;display:block;transition:color .2s}
+.dl-icon--android svg{color:#3ddc84}
+.dl-icon--apple svg{color:var(--on-surface)}
+.dl-icon--web svg{color:var(--primary)}
+
+.dl-body{flex:1;min-width:0}
+.dl-title{font-size:15px;font-weight:800;margin:0 0 3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dl-title .size{
+  font-size:11px;font-weight:700;color:var(--on-variant);
+  background:var(--surface-2);padding:2px 8px;border-radius:var(--r-full);
+  letter-spacing:.3px;
+}
+.dl-sub{font-size:12.5px;color:var(--on-variant);margin:0}
+.dl-arrow{flex-shrink:0;font-size:20px;color:var(--on-variant);transition:color .2s,transform .2s}
+.dl-card:hover .dl-arrow{color:var(--primary);transform:translateX(3px)}
+
+.skeleton{
+  height:88px;border-radius:var(--r-lg);
+  background:linear-gradient(90deg,var(--surface-1) 0%,var(--surface-2) 50%,var(--surface-1) 100%);
+  background-size:200% 100%;animation:shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.notes{
+  background:var(--surface-1);border:1px solid var(--outline-v);
+  border-radius:var(--r-md);padding:16px 18px;
+  font-size:13px;color:var(--on-variant);line-height:1.6;
+}
+.notes strong{color:var(--on-surface);font-weight:700}
+.notes ul{margin:8px 0 0;padding-left:20px}
+.notes li{margin-bottom:5px}
+.notes li:last-child{margin-bottom:0}
+.notes a{color:var(--primary);text-decoration:none;font-weight:600}
+.notes a:hover{text-decoration:underline}
+
+.error-box{
+  padding:14px 16px;border-radius:var(--r-md);
+  background:color-mix(in srgb,var(--bad) 10%,transparent);
+  border:1px solid color-mix(in srgb,var(--bad) 45%,transparent);
+  color:var(--bad);font-size:13px;margin-bottom:14px;display:none;
+}
+.error-box.show{display:block}
+.error-box code{
+  font-family:ui-monospace,Menlo,monospace;
+  background:rgba(255,255,255,.06);padding:1px 6px;border-radius:5px;
+}
+
+footer{text-align:center;margin-top:32px;font-size:12px;color:var(--on-variant);line-height:1.7}
+footer a{color:var(--primary);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+.wn-overlay{
+  position:fixed;inset:0;z-index:9000;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;background:rgba(5,8,18,.72);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  animation:wnFadeIn .2s ease both;
+  overscroll-behavior:contain;
+}
+@keyframes wnFadeIn{from{opacity:0}to{opacity:1}}
+.wn-panel{
+  width:100%;max-width:720px;max-height:calc(100vh - 40px);
+  display:flex;flex-direction:column;border-radius:20px;
+  background:var(--surface-1);border:1px solid var(--outline-v);
+  box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px color-mix(in srgb,var(--primary) 8%,transparent);
+  animation:wnPanelIn .28s cubic-bezier(.2,.9,.3,1.15) both;overflow:hidden;
+  overscroll-behavior:contain;
+}
+@keyframes wnPanelIn{
+  from{opacity:0;transform:translateY(16px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+.wn-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:16px 20px 14px;
+  border-bottom:1px solid var(--outline-v);flex-shrink:0;
+}
+.wn-title{
+  font-size:15.5px;font-weight:800;color:var(--on-surface);
+  letter-spacing:.2px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.wn-title .wn-ver{
+  font-size:11px;font-weight:800;padding:3px 10px;border-radius:var(--r-full);
+  background:color-mix(in srgb,var(--primary) 15%,transparent);
+  color:var(--primary);font-family:ui-monospace,Menlo,monospace;
+  border:1px solid color-mix(in srgb,var(--primary) 35%,transparent);
+}
+.wn-close{
+  width:32px;height:32px;flex-shrink:0;border-radius:50%;
+  border:1px solid var(--outline);background:transparent;color:var(--on-variant);
+  font-size:18px;font-weight:700;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,color .18s,border-color .18s,transform .12s;padding:0;
+}
+.wn-close:hover{
+  background:color-mix(in srgb,var(--bad) 18%,transparent);
+  border-color:color-mix(in srgb,var(--bad) 55%,transparent);color:var(--bad);
+}
+.wn-close:active{transform:scale(.9)}
+
+.wn-body{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:18px 22px 22px;font-size:14px;line-height:1.7;color:var(--on-surface);
+  overscroll-behavior:contain;
+  -ms-overflow-style:none;
+  scrollbar-width:thin;
+  scrollbar-color:color-mix(in srgb,var(--primary) 45%,transparent) transparent;
+}
+.wn-body::-webkit-scrollbar{width:8px}
+.wn-body::-webkit-scrollbar-track{background:transparent}
+.wn-body::-webkit-scrollbar-thumb{
+  background:color-mix(in srgb,var(--primary) 40%,transparent);
+  border-radius:4px;
+  border:2px solid transparent;
+  background-clip:padding-box;
+}
+.wn-body::-webkit-scrollbar-thumb:hover{
+  background:color-mix(in srgb,var(--primary) 65%,transparent);
+  background-clip:padding-box;
+}
+
+.wn-body .md h1,
+.wn-body .md h2,
+.wn-body .md h3,
+.wn-body .md h4{
+  font-weight:800;color:var(--on-surface);
+  margin:1.4em 0 .5em;line-height:1.25;letter-spacing:-.2px;
+}
+.wn-body .md h1:first-child,
+.wn-body .md h2:first-child,
+.wn-body .md h3:first-child,
+.wn-body .md h4:first-child{margin-top:0}
+.wn-body .md h1{font-size:1.4em}
+.wn-body .md h2{font-size:1.15em;padding-bottom:.35em;border-bottom:1px solid var(--outline-v)}
+.wn-body .md h3{font-size:1.02em}
+.wn-body .md h4{font-size:.95em;color:var(--on-variant)}
+
+.wn-body .md p{margin:.6em 0}
+.wn-body .md strong{font-weight:800;color:var(--on-surface)}
+.wn-body .md em{font-style:italic;color:var(--on-variant)}
+.wn-body .md a{
+  color:var(--primary);text-decoration:none;font-weight:600;
+  border-bottom:1px dotted color-mix(in srgb,var(--primary) 55%,transparent);
+}
+.wn-body .md a:hover{border-bottom-style:solid}
+
+.wn-body .md ul,
+.wn-body .md ol{margin:.5em 0;padding-left:1.6em}
+.wn-body .md li{margin:.25em 0}
+.wn-body .md li > p{margin:0}
+.wn-body .md ul ul,
+.wn-body .md ol ol,
+.wn-body .md ul ol,
+.wn-body .md ol ul{margin:.15em 0}
+
+.wn-body .md code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.88em;background:var(--surface-2);
+  padding:.15em .4em;border-radius:5px;
+  border:1px solid var(--outline-v);word-break:break-word;
+}
+.wn-body .md pre{
+  background:var(--surface-2);border:1px solid var(--outline-v);
+  border-radius:10px;padding:12px 14px;overflow-x:auto;
+  font-size:.85em;line-height:1.55;margin:.9em 0;-webkit-overflow-scrolling:touch;
+}
+.wn-body .md pre code{background:none;border:0;padding:0;font-size:1em}
+
+.wn-body .md blockquote{
+  margin:.9em 0;padding:.6em 1em;
+  border-left:3px solid var(--primary);
+  background:color-mix(in srgb,var(--primary) 6%,transparent);
+  border-radius:0 8px 8px 0;color:var(--on-variant);
+}
+.wn-body .md blockquote p{margin:.25em 0}
+
+.wn-body .md hr{border:0;border-top:1px solid var(--outline-v);margin:1.4em 0}
+
+.wn-body .md img,
+.wn-body .md img.md-img{
+  max-width:100%;height:auto;border-radius:6px;
+  margin:2px 2px;display:inline-block;vertical-align:middle;
+}
+.wn-body .md .md-img-broken{
+  display:inline-block;padding:2px 8px;border-radius:5px;
+  background:var(--surface-2);border:1px dashed var(--outline-v);
+  color:var(--on-variant);font-size:.85em;
+  font-family:ui-monospace,Menlo,monospace;
+  vertical-align:middle;margin:2px 2px;
+}
+
+.wn-body .md table{
+  width:100%;border-collapse:collapse;margin:.9em 0;font-size:.9em;
+  border:1px solid var(--outline-v);border-radius:8px;overflow:hidden;
+}
+.wn-body .md th,
+.wn-body .md td{
+  padding:.5em .75em;border-bottom:1px solid var(--outline-v);text-align:left;
+}
+.wn-body .md th{
+  background:var(--surface-2);font-weight:800;
+  color:var(--on-variant);font-size:.85em;
+  letter-spacing:.4px;text-transform:uppercase;
+}
+.wn-body .md tr:last-child td{border-bottom:0}
+
+.wn-loading{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px}
+.wn-loading-line{
+  height:12px;border-radius:6px;
+  background:linear-gradient(90deg,var(--surface-2) 0%,color-mix(in srgb,var(--surface-2) 60%,var(--outline-v)) 50%,var(--surface-2) 100%);
+  background-size:200% 100%;animation:shimmer 1.3s ease-in-out infinite;
+}
+.wn-loading-line.w-60{width:60%}
+.wn-loading-line.w-90{width:90%}
+.wn-loading-line.w-80{width:80%}
+.wn-loading-line.w-40{width:40%}
+
+.wn-empty{
+  padding:40px 20px;text-align:center;
+  color:var(--on-variant);font-size:13px;font-style:italic;
+}
+.wn-notice{
+  padding:10px 14px;border-radius:10px;
+  background:color-mix(in srgb,var(--warn) 10%,transparent);
+  border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);
+  color:var(--warn);font-size:12px;margin-bottom:14px;line-height:1.5;
+}
+
+@media (max-width:520px){
+  body{padding:22px 14px 40px}
+  .icon-btn{width:34px;height:34px;font-size:16px}
+  .icon-btn .flag,.icon-btn .bell{font-size:15px}
+  .top-actions{top:-4px;right:-2px}
+  .logo{width:78px;height:78px;border-radius:20px;margin-bottom:12px}
+  .logo .fallback{font-size:36px}
+  .dl-card{padding:14px 16px;gap:12px}
+  .dl-icon{width:44px;height:44px;border-radius:12px}
+  .dl-icon svg{width:24px;height:24px}
+  .dl-title{font-size:14px}
+  .dl-sub{font-size:11.5px}
+  .wn-overlay{padding:10px;align-items:flex-end}
+  .wn-panel{
+    border-radius:16px;max-height:calc(100dvh - 20px);
+    animation:wnPanelMobileIn .28s cubic-bezier(.2,.9,.3,1.15) both;
+  }
+  @keyframes wnPanelMobileIn{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:none}
+  }
+  .wn-body{padding:16px 18px 18px;font-size:13.5px}
+  .wn-title{font-size:14px}
+  .new-version-flag{font-size:9px;padding:2px 8px 2px 6px}
+  .new-version-flag svg{width:10px;height:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top-actions">
+    <button class="icon-btn" id="bellToggle" type="button" aria-label="Enable notifications" title="Enable notifications">
+      <span class="bell" aria-hidden="true">🔔</span>
+    </button>
+    <button class="icon-btn" id="langToggle" type="button" aria-label="Change language" title="Change language">
+      <span class="flag" id="langFlag">🇬🇧</span>
+    </button>
+  </div>
+
+  <header class="header">
+    <div class="logo">
+      <img src="images/nibbly.png" alt="Nibbly" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+      <span class="fallback" style="display:none" aria-hidden="true">🎮</span>
+    </div>
+    <h1>Nibbly</h1>
+    <p class="tagline" id="tagline">The all-in-one converter for Android &amp; iOS</p>
+  </header>
+
+  <div class="version-bar">
+    <div class="version-badge loading" id="versionBadge">
+      <span class="dot"></span>
+      <span id="versionLabel">Version</span>
+      <span class="version-num" id="versionNum">…</span>
+      <span class="version-date" id="versionDate"></span>
+      <span class="new-version-flag" id="newFlag" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l1.8 5.5 5.5 1.8-5.5 1.8L12 16.6l-1.8-5.5-5.5-1.8 5.5-1.8L12 2zm0 17l1.1 3.4 3.4 1.1-3.4 1.1L12 28l-1.1-3.4-3.4-1.1 3.4-1.1L12 19z" transform="translate(0 -3)"/>
+        </svg>
+        <span class="nf-txt" id="newFlagTxt">NEW</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="whatsnew-row">
+    <button class="whatsnew-btn" id="whatsNewBtn" type="button" disabled>
+      <span class="spark" aria-hidden="true">✨</span>
+      <span id="whatsNewLabel">What's new?</span>
+    </button>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="downloads" id="downloads">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </div>
+
+  <div class="notes" id="notes"></div>
+
+  <footer id="footer"></footer>
+
+</div>
+
+<script>
+(function(){
+'use strict';
+
+// ══════════════════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════════════════
+const REPO = 'edwarly999plus/Nibbly';
+const API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
+const RELEASES_URL = `https://github.com/${REPO}/releases`;
+const DOWNLOAD_BASE = `https://github.com/${REPO}/releases/download`;
+const RAW_BASE = `https://raw.githubusercontent.com/${REPO}`;
+const CHANGELOG_DIR = 'changelogs';
+const PAGES_URL = 'https://edwarly999plus.github.io/Nibbly/';
+
+const LANG_KEY       = 'nibbly-dl-lang';
+const NOTIFY_KEY     = 'nibbly-dl-notify';
+const LAST_TAG_KEY   = 'nibbly-dl-last-tag';
+const LAST_CHECK_KEY = 'nibbly-dl-last-check';
+const NEW_DISMISS_PREFIX = 'nibbly-dl-new-dismissed-';
+
+const FALLBACK_VERSION = '2.0.3';
+const FALLBACK_APK_URL = `${DOWNLOAD_BASE}/${FALLBACK_VERSION}/Nibbly-v${FALLBACK_VERSION}.apk`;
+const FALLBACK_IOS_URL = `${DOWNLOAD_BASE}/${FALLBACK_VERSION}/Nibbly.mobileconfig`;
+
+const POLL_INTERVAL_MS = 20 * 60 * 1000;
+const NEW_WINDOW_MS = 24 * 60 * 60 * 1000;  // 24h para el badge NEW
+const NEW_RECHECK_MS = 5 * 60 * 1000;        // cada 5 min re-verifica expiración
+
+// ══════════════════════════════════════════════════════════════════
+// i18n
+// ══════════════════════════════════════════════════════════════════
+const I18N = {
+  es: {
+    flag: '🇪🇸', otherLang: 'English', htmlLang: 'es',
+    title: 'Descargar Nibbly',
+    tagline: 'El conversor todo-en-uno para Android & iOS',
+    versionLabel: 'Versión',
+    newBadge: 'NUEVO',
+    androidTitle: 'Android APK', androidSub: 'Android 6.0+ · WebView actualizado',
+    iosTitle: 'iOS Web Clip', iosSub: 'iOS 9+ · Safari · perfil .mobileconfig',
+    webTitle: 'Probar online', webSub: 'Sin instalación · GitHub Pages',
+    errTitle: '⚠️ No se pudo consultar la última versión.',
+    errRateLimit: 'GitHub limitó las consultas (rate limit).',
+    errNetwork: 'Error de red o de la API de GitHub.',
+    errFallback: (v) => `Se muestran los enlaces de la versión v${v}. Puedes ver todas las versiones en `,
+    errNoApk: 'El asset <code>.apk</code> no está presente en la última release.',
+    errReleasesLink: 'GitHub Releases',
+    notesTitle: '📌 Notas de instalación',
+    noteAndroid: '<strong>Android:</strong> requiere Android 6.0+ y Android System WebView actualizado. Activa "Instalar apps de origen desconocido" al instalar el APK.',
+    noteIOS: '<strong>iOS:</strong> instala el perfil <code>.mobileconfig</code> desde Safari y luego ve a <em>Ajustes → General → VPN y Gestión de dispositivos</em>. Compatible con iOS 9+.',
+    noteWeb: '<strong>Web:</strong> funciona sin instalación. Ideal para probar antes de descargar.',
+    footerMade: 'Hecho con ♥️ por', footerRepo: 'Repositorio', footerReleases: 'Todas las versiones',
+    bellTitleOn: 'Notificaciones activadas · clic para desactivar',
+    bellTitleOff: 'Activar notificaciones de nuevas versiones',
+    bellTitleDenied: 'Notificaciones bloqueadas en el navegador',
+    bellTitleUnsupported: 'Tu navegador no soporta notificaciones',
+    bellToastOn: 'Notificaciones activadas', bellToastOff: 'Notificaciones desactivadas',
+    bellToastDenied: 'Permiso de notificaciones denegado',
+    bellToastUnsupported: 'Notificaciones no soportadas en este navegador',
+    newVersionFlagTitle: (v) => `Nueva versión v${v} disponible`,
+    notifNewTitle: 'Nibbly se actualizó',
+    notifNewBody: (v) => `Nueva versión v${v} disponible. Pulsa para descargar.`,
+    whatsNewLabel: '¿Qué hay de nuevo?', wnTitle: '¿Qué hay de nuevo?',
+    wnLoading: 'Cargando changelog…', wnClose: 'Cerrar',
+    wnEmpty: 'Esta versión no incluye notas en la release.',
+    wnFallbackNotice: 'Este changelog no está disponible en tu idioma. Se muestra la versión principal.',
+    langBtnTitle: 'Cambiar a English'
+  },
+  en: {
+    flag: '🇬🇧', otherLang: 'Español', htmlLang: 'en',
+    title: 'Download Nibbly',
+    tagline: 'The all-in-one converter for Android & iOS',
+    versionLabel: 'Version',
+    newBadge: 'NEW',
+    androidTitle: 'Android APK', androidSub: 'Android 6.0+ · Updated WebView',
+    iosTitle: 'iOS Web Clip', iosSub: 'iOS 9+ · Safari · .mobileconfig profile',
+    webTitle: 'Try online', webSub: 'No install required · GitHub Pages',
+    errTitle: '⚠️ Could not fetch the latest version.',
+    errRateLimit: 'GitHub rate limit reached.',
+    errNetwork: 'Network or GitHub API error.',
+    errFallback: (v) => `Showing links for version v${v}. You can see all versions on `,
+    errNoApk: 'The <code>.apk</code> asset is missing from the latest release.',
+    errReleasesLink: 'GitHub Releases',
+    notesTitle: '📌 Installation notes',
+    noteAndroid: '<strong>Android:</strong> requires Android 6.0+ and an updated Android System WebView. Enable "Install apps from unknown sources" when installing the APK.',
+    noteIOS: '<strong>iOS:</strong> install the <code>.mobileconfig</code> profile from Safari, then go to <em>Settings → General → VPN & Device Management</em>. Compatible with iOS 9+.',
+    noteWeb: '<strong>Web:</strong> works without installing. Great for trying it before downloading.',
+    footerMade: 'Made with ♥️ by', footerRepo: 'Repository', footerReleases: 'All releases',
+    bellTitleOn: 'Notifications enabled · click to disable',
+    bellTitleOff: 'Enable new version notifications',
+    bellTitleDenied: 'Notifications blocked in your browser',
+    bellTitleUnsupported: 'Your browser does not support notifications',
+    bellToastOn: 'Notifications enabled', bellToastOff: 'Notifications disabled',
+    bellToastDenied: 'Notification permission denied',
+    bellToastUnsupported: 'Notifications not supported in this browser',
+    newVersionFlagTitle: (v) => `New version v${v} available`,
+    notifNewTitle: 'Nibbly was updated',
+    notifNewBody: (v) => `New version v${v} is out. Tap to download.`,
+    whatsNewLabel: "What's new?", wnTitle: "What's new?",
+    wnLoading: 'Loading changelog…', wnClose: 'Close',
+    wnEmpty: 'This release does not include notes.',
+    wnFallbackNotice: 'This changelog is not available in your language. Showing the main version.',
+    langBtnTitle: 'Cambiar a Español'
+  }
+};
+
+let currentLang = 'en';
+function detectLang(){
+  try {
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved === 'es' || saved === 'en') return saved;
+  } catch(_) {}
+  const list = (navigator.languages && navigator.languages.length)
+    ? navigator.languages : [navigator.language || 'en'];
+  for (const l of list){
+    const code = String(l || '').toLowerCase().slice(0, 2);
+    if (code === 'es') return 'es';
+    if (code === 'en') return 'en';
+  }
+  return 'en';
+}
+function t(){ return I18N[currentLang] || I18N.en; }
+
+// ══════════════════════════════════════════════════════════════════
+// ICONS
+// ══════════════════════════════════════════════════════════════════
+const ICONS = {
+  android: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.463 11.463 0 0 0-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>`,
+  apple: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>`,
+  web: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`
+};
+
+// ══════════════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════════════
+function $(sel){return document.querySelector(sel);}
+function detectOS(){
+  const ua = navigator.userAgent || '';
+  if (/android/i.test(ua)) return 'android';
+  if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'ios';
+  return 'desktop';
+}
+function formatBytes(bytes){
+  if (!bytes || bytes <= 0) return '';
+  const units = ['B','KB','MB','GB'];
+  let i = 0, n = bytes;
+  while (n >= 1024 && i < units.length - 1){ n /= 1024; i++; }
+  return n.toFixed(n >= 10 || i === 0 ? 0 : 1) + ' ' + units[i];
+}
+function formatDate(iso){
+  if (!iso) return '';
+  try {
+    const d = new Date(iso);
+    const locale = currentLang === 'es' ? 'es' : 'en';
+    return d.toLocaleDateString(locale, { year:'numeric', month:'short', day:'numeric' });
+  } catch(_) { return ''; }
+}
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+function escapeAttr(s){
+  return String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SCROLL LOCK DEL BODY
+// ══════════════════════════════════════════════════════════════════
+let scrollLockY = 0;
+let scrollLocked = false;
+
+function lockBodyScroll(){
+  if (scrollLocked) return;
+  scrollLocked = true;
+  scrollLockY = window.scrollY || window.pageYOffset || 0;
+  document.body.style.setProperty('--scroll-lock-y', `-${scrollLockY}px`);
+  document.body.classList.add('modal-open');
+}
+
+function unlockBodyScroll(){
+  if (!scrollLocked) return;
+  scrollLocked = false;
+  document.body.classList.remove('modal-open');
+  document.body.style.removeProperty('--scroll-lock-y');
+  window.scrollTo(0, scrollLockY);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// MINI MARKDOWN PARSER
+// ══════════════════════════════════════════════════════════════════
+const HTML_WHITELIST = /<\/?(?:p|br|hr|img|a|strong|em|b|i|u|s|del|code|span|div|h[1-6]|picture|source|figure|figcaption|small|sub|sup)\b[^>]*>/gi;
+
+function sanitizeTag(tag){
+  let safe = String(tag)
+    .replace(/\s+on[a-z]+\s*=\s*"[^"]*"/gi, '')
+    .replace(/\s+on[a-z]+\s*=\s*'[^']*'/gi, '')
+    .replace(/\s+on[a-z]+\s*=\s*[^\s>]+/gi, '')
+    .replace(/\s+href\s*=\s*["']\s*javascript:[^"']*["']/gi, '')
+    .replace(/\s+src\s*=\s*["']\s*javascript:[^"']*["']/gi, '')
+    .replace(/\s+style\s*=\s*["'][^"']*expression\s*\([^"']*["']/gi, '');
+  if (/^<a\b/i.test(safe) && !/\btarget\s*=/i.test(safe) && /\bhref\s*=\s*["']https?:/i.test(safe)){
+    safe = safe.replace(/^<a\b/i, '<a target="_blank" rel="noopener" ');
+  }
+  if (/^<img\b/i.test(safe) && /\bsrc\s*=\s*["']https?:/i.test(safe) && !/\breferrerpolicy\s*=/i.test(safe)){
+    safe = safe.replace(/^<img\b/i, '<img referrerpolicy="no-referrer" loading="lazy" ');
+  }
+  return safe;
+}
+
+function protectSafeHtml(md){
+  const tokens = [];
+  const out = String(md).replace(HTML_WHITELIST, (tag) => {
+    const safe = sanitizeTag(tag);
+    const idx = tokens.length;
+    tokens.push(safe);
+    return `\u0000SAFEHTML${idx}\u0000`;
+  });
+  return { md: out, tokens };
+}
+
+function restoreSafeHtml(html, tokens){
+  if (!tokens.length) return html;
+  return String(html).replace(/\u0000SAFEHTML(\d+)\u0000/g, (_, i) => tokens[parseInt(i, 10)] || '');
+}
+
+function mdInline(text){
+  let s = escapeHTML(text);
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
+    (_, alt, src, title) => {
+      const titleAttr = title ? ` title="${escapeAttr(title)}"` : '';
+      const referrerAttr = /^https?:/i.test(src) ? ' referrerpolicy="no-referrer"' : '';
+      return `<img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}"${titleAttr}${referrerAttr} loading="lazy" class="md-img">`;
+    });
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
+    (_, label, href, title) => {
+      const titleAttr = title ? ` title="${escapeAttr(title)}"` : '';
+      const isExternal = /^https?:\/\//i.test(href);
+      const attrs = isExternal ? ' target="_blank" rel="noopener"' : '';
+      return `<a href="${escapeAttr(href)}"${titleAttr}${attrs}>${label}</a>`;
+    });
+  s = s.replace(/&lt;(https?:\/\/[^\s&]+)&gt;/g,
+    (_, url) => `<a href="${escapeAttr(url)}" target="_blank" rel="noopener">${escapeAttr(url)}</a>`);
+  s = s.replace(/`([^`]+)`/g, (_, code) => `<code>${code}</code>`);
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+  s = s.replace(/(^|[^_])_([^_\n]+)_(?!_)/g, '$1<em>$2</em>');
+  s = s.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+  s = s.replace(/ {2,}$/gm, '<br>');
+  return s;
+}
+
+function mdToHTML(md){
+  if (!md) return '';
+  let src = String(md).replace(/\r\n?/g, '\n');
+
+  const protected_ = protectSafeHtml(src);
+  src = protected_.md;
+  const htmlTokens = protected_.tokens;
+
+  const codeBlocks = [];
+  src = src.replace(/```([a-zA-Z0-9_+-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    const idx = codeBlocks.length;
+    const cls = lang ? ` class="language-${escapeAttr(lang)}"` : '';
+    codeBlocks.push(`<pre><code${cls}>${escapeHTML(code.replace(/\n$/,''))}</code></pre>`);
+    return `\u0000CODEBLOCK${idx}\u0000`;
+  });
+
+  const lines = src.split('\n');
+  const out = [];
+  let i = 0;
+
+  const flushParagraph = (buf) => {
+    if (!buf.length) return;
+    out.push('<p>' + mdInline(buf.join(' ')) + '</p>');
+    buf.length = 0;
+  };
+
+  let paraBuf = [];
+
+  while (i < lines.length){
+    const line = lines[i];
+
+    const phMatch = line.match(/^\u0000CODEBLOCK(\d+)\u0000$/);
+    if (phMatch){
+      flushParagraph(paraBuf);
+      out.push(codeBlocks[parseInt(phMatch[1],10)]);
+      i++; continue;
+    }
+
+    const safePhMatch = line.match(/^\u0000SAFEHTML(\d+)\u0000$/);
+    if (safePhMatch){
+      flushParagraph(paraBuf);
+      out.push(`\u0000SAFEHTML${safePhMatch[1]}\u0000`);
+      i++; continue;
+    }
+
+    if (/^\s*$/.test(line)){
+      flushParagraph(paraBuf);
+      i++; continue;
+    }
+
+    if (/^ {0,3}([-*_])\s*(?:\1\s*){2,}$/.test(line)){
+      flushParagraph(paraBuf);
+      out.push('<hr>');
+      i++; continue;
+    }
+
+    const hMatch = line.match(/^(#{1,6})\s+(.*)$/);
+    if (hMatch){
+      flushParagraph(paraBuf);
+      const level = hMatch[1].length;
+      out.push(`<h${level}>${mdInline(hMatch[2].trim())}</h${level}>`);
+      i++; continue;
+    }
+
+    if (/^ {0,3}>\s?/.test(line)){
+      flushParagraph(paraBuf);
+      const qLines = [];
+      while (i < lines.length && /^ {0,3}>\s?/.test(lines[i])){
+        qLines.push(lines[i].replace(/^ {0,3}>\s?/, ''));
+        i++;
+      }
+      out.push('<blockquote>' + mdToHTML(qLines.join('\n')) + '</blockquote>');
+      continue;
+    }
+
+    if (/\|/.test(line) && i + 1 < lines.length && /^\s*\|?[\s:-]+\|[\s:|-]+\|?\s*$/.test(lines[i+1])){
+      flushParagraph(paraBuf);
+      const headerCells = line.replace(/^\||\|$/g,'').split('|').map(c=>c.trim());
+      i += 2;
+      const bodyRows = [];
+      while (i < lines.length && /\|/.test(lines[i]) && !/^\s*$/.test(lines[i])){
+        bodyRows.push(lines[i].replace(/^\||\|$/g,'').split('|').map(c=>c.trim()));
+        i++;
+      }
+      let tbl = '<table><thead><tr>';
+      headerCells.forEach(c=>{ tbl += '<th>' + mdInline(c) + '</th>'; });
+      tbl += '</tr></thead><tbody>';
+      bodyRows.forEach(r=>{
+        tbl += '<tr>';
+        r.forEach(c=>{ tbl += '<td>' + mdInline(c) + '</td>'; });
+        tbl += '</tr>';
+      });
+      tbl += '</tbody></table>';
+      out.push(tbl);
+      continue;
+    }
+
+    const ulMatch = line.match(/^(\s*)([-*+])\s+(.*)$/);
+    const olMatch = line.match(/^(\s*)(\d+)\.\s+(.*)$/);
+    if (ulMatch || olMatch){
+      flushParagraph(paraBuf);
+      const ordered = !!olMatch;
+      const baseIndent = (ulMatch ? ulMatch[1] : olMatch[1]).length;
+      const items = [];
+      while (i < lines.length){
+        const l = lines[i];
+        const u = l.match(/^(\s*)([-*+])\s+(.*)$/);
+        const o = l.match(/^(\s*)(\d+)\.\s+(.*)$/);
+        if (!u && !o) break;
+        const indent = (u ? u[1] : o[1]).length;
+        const isOrdered = !!o;
+        if (indent < baseIndent) break;
+        if (isOrdered !== ordered && indent === baseIndent) break;
+        items.push({ indent, text: (u ? u[3] : o[3]) });
+        i++;
+      }
+      const tag = ordered ? 'ol' : 'ul';
+      let html = `<${tag}>`;
+      items.forEach(it=>{ html += '<li>' + mdInline(it.text) + '</li>'; });
+      html += `</${tag}>`;
+      out.push(html);
+      continue;
+    }
+
+    paraBuf.push(line);
+    i++;
+  }
+
+  flushParagraph(paraBuf);
+  return restoreSafeHtml(out.join('\n'), htmlTokens);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════════
+let lastRelease = null;
+let lastError = null;
+let newBadgeTimer = null;
+let newBadgeRecheckTimer = null;
+
+const NotifyState = {
+  supported: (typeof window !== 'undefined') && ('Notification' in window) && (Notification.permission !== undefined),
+  permission: 'default',
+  enabled: false,
+  lastTag: null,
+  lastCheck: 0
+};
+
+function loadNotifyState(){
+  if (!NotifyState.supported) return;
+  NotifyState.permission = Notification.permission || 'default';
+  try {
+    NotifyState.enabled = localStorage.getItem(NOTIFY_KEY) === 'on';
+    NotifyState.lastTag = localStorage.getItem(LAST_TAG_KEY) || null;
+    NotifyState.lastCheck = parseInt(localStorage.getItem(LAST_CHECK_KEY) || '0', 10) || 0;
+  } catch(_) {}
+}
+
+function saveNotifyState(){
+  try {
+    localStorage.setItem(NOTIFY_KEY, NotifyState.enabled ? 'on' : 'off');
+    if (NotifyState.lastTag) localStorage.setItem(LAST_TAG_KEY, NotifyState.lastTag);
+    localStorage.setItem(LAST_CHECK_KEY, String(NotifyState.lastCheck));
+  } catch(_) {}
+}
+
+function updateBellUI(){
+  const btn = $('#bellToggle');
+  if (!btn) return;
+  btn.classList.remove('notify-on', 'notify-denied', 'notify-unsupported');
+  const dict = t();
+  if (!NotifyState.supported){
+    btn.classList.add('notify-unsupported');
+    btn.title = dict.bellTitleUnsupported; btn.setAttribute('aria-label', dict.bellTitleUnsupported);
+    btn.innerHTML = '<span class="bell" aria-hidden="true">🔕</span>';
+    return;
+  }
+  if (NotifyState.permission === 'denied'){
+    btn.classList.add('notify-denied');
+    btn.title = dict.bellTitleDenied; btn.setAttribute('aria-label', dict.bellTitleDenied);
+    btn.innerHTML = '<span class="bell" aria-hidden="true">🔕</span>';
+    return;
+  }
+  if (NotifyState.enabled && NotifyState.permission === 'granted'){
+    btn.classList.add('notify-on');
+    btn.title = dict.bellTitleOn; btn.setAttribute('aria-label', dict.bellTitleOn);
+    btn.innerHTML = '<span class="bell" aria-hidden="true">🔔</span>';
+    return;
+  }
+  btn.title = dict.bellTitleOff; btn.setAttribute('aria-label', dict.bellTitleOff);
+  btn.innerHTML = '<span class="bell" aria-hidden="true">🔔</span>';
+}
+
+// ══════════════════════════════════════════════════════════════════
+// BADGE NEW — cálculo + expiración
+// ══════════════════════════════════════════════════════════════════
+function getReleaseReferenceTime(release){
+  if (!release) return 0;
+  const p = release.published_at ? new Date(release.published_at).getTime() : 0;
+  const u = release.updated_at ? new Date(release.updated_at).getTime() : 0;
+  return Math.max(p, u);
+}
+
+function wasNewDismissed(tag){
+  try { return localStorage.getItem(NEW_DISMISS_PREFIX + tag) === '1'; }
+  catch(_) { return false; }
+}
+
+function markNewDismissed(tag){
+  try { localStorage.setItem(NEW_DISMISS_PREFIX + tag, '1'); }
+  catch(_) {}
+}
+
+function computeShowNew(release){
+  if (!release || !release.tag_name) return false;
+  if (wasNewDismissed(release.tag_name)) return false;
+  const ref = getReleaseReferenceTime(release);
+  if (!ref) return false;
+  const age = Date.now() - ref;
+  if (age < 0) return true;               // fecha futura por reloj mal → mostrar
+  return age < NEW_WINDOW_MS;
+}
+
+function scheduleNewBadgeExpiry(release, showNew){
+  if (newBadgeTimer){ clearTimeout(newBadgeTimer); newBadgeTimer = null; }
+  if (!showNew || !release) return;
+  const ref = getReleaseReferenceTime(release);
+  if (!ref) return;
+  const remaining = NEW_WINDOW_MS - (Date.now() - ref);
+  if (remaining <= 0) return;
+  // setTimeout se throttlea en bg tabs, pero por si acaso
+  const delay = Math.min(remaining + 1000, 0x7fffffff);
+  newBadgeTimer = setTimeout(() => {
+    if (!lastRelease) return;
+    if (!computeShowNew(lastRelease)){
+      markNewDismissed(lastRelease.tag_name);
+      renderVersionBadge({
+        version: (lastRelease.tag_name || '').replace(/^v/, '') || FALLBACK_VERSION,
+        date: lastRelease.published_at,
+        ok: true
+      });
+    }
+    if (newBadgeTimer){ clearTimeout(newBadgeTimer); newBadgeTimer = null; }
+  }, delay);
+}
+
+function startNewBadgeRecheck(){
+  if (newBadgeRecheckTimer) clearInterval(newBadgeRecheckTimer);
+  newBadgeRecheckTimer = setInterval(() => {
+    if (!lastRelease) return;
+    const flag = $('#newFlag');
+    const wasShown = flag && flag.classList.contains('show');
+    const shouldShow = computeShowNew(lastRelease);
+    if (wasShown && !shouldShow){
+      markNewDismissed(lastRelease.tag_name);
+      renderVersionBadge({
+        version: (lastRelease.tag_name || '').replace(/^v/, '') || FALLBACK_VERSION,
+        date: lastRelease.published_at,
+        ok: true
+      });
+    }
+  }, NEW_RECHECK_MS);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// GITHUB
+// ══════════════════════════════════════════════════════════════════
+async function fetchLatestRelease(){
+  const res = await fetch(API_URL, {
+    headers: { 'Accept': 'application/vnd.github+json' },
+    cache: 'no-store'
+  });
+  if (!res.ok){
+    if (res.status === 403 || res.status === 429) throw new Error('RATE_LIMIT');
+    throw new Error('HTTP_' + res.status);
+  }
+  return res.json();
+}
+
+function pickAsset(assets, matcher){
+  if (!Array.isArray(assets)) return null;
+  return assets.find(a => matcher(a.name || '', a));
+}
+
+function buildRawUrl(ref, path){
+  const cleanRef = String(ref || 'main').replace(/^refs\/tags\//, '');
+  return `${RAW_BASE}/${encodeURIComponent(cleanRef)}/${path}`;
+}
+
+async function tryFetchText(url){
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok){
+      console.info('[Nibbly] fetch', url, '→', res.status);
+      return '';
+    }
+    const txt = await res.text();
+    console.info('[Nibbly] fetch', url, '→ 200 OK', (txt.length + ' bytes'));
+    return txt || '';
+  } catch(err){
+    console.info('[Nibbly] fetch', url, '→ EXCEPTION', err && err.message);
+    return '';
+  }
+}
+
+async function resolveChangelog(lang){
+  if (!lastRelease) return { markdown: '', source: 'body' };
+  const tag = lastRelease.tag_name || 'main';
+  const langFile = lang === 'es' ? 'changelog-es.md' : 'changelog-en.md';
+
+  const langTagUrl = buildRawUrl(tag, `${CHANGELOG_DIR}/${langFile}`);
+  let md = await tryFetchText(langTagUrl);
+  if (md.trim()) return { markdown: md, source: 'lang', ref: tag };
+
+  const langMainUrl = buildRawUrl('main', `${CHANGELOG_DIR}/${langFile}`);
+  md = await tryFetchText(langMainUrl);
+  if (md.trim()) return { markdown: md, source: 'lang', ref: 'main' };
+
+  const fbTagUrl = buildRawUrl(tag, `${CHANGELOG_DIR}/changelog.md`);
+  md = await tryFetchText(fbTagUrl);
+  if (md.trim()) return { markdown: md, source: 'fallback', ref: tag };
+
+  const fbMainUrl = buildRawUrl('main', `${CHANGELOG_DIR}/changelog.md`);
+  md = await tryFetchText(fbMainUrl);
+  if (md.trim()) return { markdown: md, source: 'fallback', ref: 'main' };
+
+  return { markdown: lastRelease.body || '', source: 'body' };
+}
+
+// ══════════════════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════════════════
+function renderVersionBadge({ version, date, ok }){
+  const badge = $('#versionBadge');
+  const num = $('#versionNum');
+  const dateEl = $('#versionDate');
+  const flag = $('#newFlag');
+  const flagTxt = $('#newFlagTxt');
+  const dict = t();
+  badge.classList.remove('loading', 'error');
+  if (!ok) badge.classList.add('error');
+  num.textContent = 'v' + version;
+  dateEl.textContent = date ? '· ' + formatDate(date) : '';
+  if (flagTxt) flagTxt.textContent = dict.newBadge || 'NEW';
+
+  const showNew = computeShowNew(lastRelease);
+  badge.classList.toggle('has-new', showNew);
+
+  if (flag){
+    if (showNew){
+      flag.classList.add('show');
+      flag.setAttribute('aria-hidden', 'false');
+      flag.title = dict.newVersionFlagTitle(version);
+    } else {
+      flag.classList.remove('show');
+      flag.setAttribute('aria-hidden', 'true');
+      flag.title = '';
+    }
+  }
+
+  scheduleNewBadgeExpiry(lastRelease, showNew);
+}
+
+function renderError(message){
+  const box = $('#errorBox');
+  const dict = t();
+  box.classList.add('show');
+  box.innerHTML =
+    '<strong>' + dict.errTitle + '</strong><br>' + message +
+    '<br><br>' + dict.errFallback(FALLBACK_VERSION) +
+    '<a href="' + RELEASES_URL + '" target="_blank" rel="noopener">' +
+    dict.errReleasesLink + '</a>.';
+}
+
+function renderNotes(){
+  const dict = t();
+  $('#notes').innerHTML =
+    '<strong>' + dict.notesTitle + '</strong>' +
+    '<ul>' +
+      '<li>' + dict.noteAndroid + '</li>' +
+      '<li>' + dict.noteIOS + '</li>' +
+      '<li>' + dict.noteWeb + '</li>' +
+    '</ul>';
+}
+
+function renderFooter(){
+  const dict = t();
+  $('#footer').innerHTML =
+    '<p>' + dict.footerMade + ' <a href="https://github.com/edwarly999plus" target="_blank" rel="noopener">EdwarlyGamer999+</a>' +
+    ' · <a href="https://github.com/edwarly999plus/Nibbly" target="_blank" rel="noopener">' + dict.footerRepo + '</a>' +
+    ' · <a href="https://github.com/edwarly999plus/Nibbly/releases" target="_blank" rel="noopener">' + dict.footerReleases + '</a></p>';
+}
+
+function updateLanguageUI(){
+  const dict = t();
+  document.documentElement.lang = dict.htmlLang;
+  document.title = dict.title;
+  $('#tagline').textContent = dict.tagline;
+  $('#versionLabel').textContent = dict.versionLabel;
+  $('#langFlag').textContent = dict.flag;
+  const langBtn = $('#langToggle');
+  langBtn.title = dict.langBtnTitle || dict.otherLang;
+  langBtn.setAttribute('aria-label', dict.langBtnTitle || dict.otherLang);
+  const wnLabel = $('#whatsNewLabel');
+  if (wnLabel) wnLabel.textContent = dict.whatsNewLabel;
+  const wnBtn = $('#whatsNewBtn');
+  if (wnBtn) wnBtn.title = dict.whatsNewLabel;
+  const flagTxt = $('#newFlagTxt');
+  if (flagTxt) flagTxt.textContent = dict.newBadge || 'NEW';
+  const flag = $('#newFlag');
+  if (flag && flag.classList.contains('show') && lastRelease){
+    const version = (lastRelease.tag_name || '').replace(/^v/, '');
+    flag.title = dict.newVersionFlagTitle(version);
+  }
+  renderNotes();
+  renderFooter();
+  updateBellUI();
+}
+
+function renderDownloads({ apkUrl, apkSize, iosUrl, version }){
+  const os = detectOS();
+  const dict = t();
+  const container = $('#downloads');
+
+  const platforms = [
+    { id:'android', icon: ICONS.android, title: dict.androidTitle, sub: dict.androidSub, url: apkUrl, size: apkSize, available: !!apkUrl },
+    { id:'ios',     icon: ICONS.apple,   title: dict.iosTitle,     sub: dict.iosSub,     url: iosUrl, size: null,    available: !!iosUrl },
+    { id:'web',     icon: ICONS.web,     title: dict.webTitle,     sub: dict.webSub,     url: PAGES_URL, size: null, available: true }
+  ];
+
+  container.innerHTML = platforms.map(p => {
+    const recommended =
+      (os === 'android' && p.id === 'android') ||
+      (os === 'ios' && p.id === 'ios') ||
+      (os === 'desktop' && p.id === 'web');
+    const disabled = !p.available;
+    const sizeLabel = p.size ? '<span class="size">' + escapeHTML(formatBytes(p.size)) + '</span>' : '';
+    const tag = disabled ? 'span' : 'a';
+    const attrs = disabled
+      ? 'class="dl-card disabled" aria-disabled="true"'
+      : `class="dl-card${recommended ? ' recommended' : ''}" href="${escapeHTML(p.url)}" target="_blank" rel="noopener"`;
+    return `<${tag} ${attrs}>
+      <div class="dl-icon dl-icon--${p.id}">${p.icon}</div>
+      <div class="dl-body">
+        <div class="dl-title">${escapeHTML(p.title)} ${sizeLabel}</div>
+        <div class="dl-sub">${escapeHTML(p.sub)}</div>
+      </div>
+      <div class="dl-arrow">${disabled ? '—' : '→'}</div>
+    </${tag}>`;
+  }).join('');
+
+  if (!apkUrl) renderError(dict.errNoApk);
+}
+
+function rerender(){
+  updateLanguageUI();
+  if (lastRelease){
+    const version = (lastRelease.tag_name || '').replace(/^v/, '') || FALLBACK_VERSION;
+    const apkAsset = pickAsset(lastRelease.assets, n => /\.apk$/i.test(n));
+    const iosAsset = pickAsset(lastRelease.assets, n => /\.mobileconfig$/i.test(n));
+    const apkUrl = apkAsset ? apkAsset.browser_download_url : null;
+    const apkSize = apkAsset ? apkAsset.size : null;
+    const iosUrl = iosAsset
+      ? iosAsset.browser_download_url
+      : `${DOWNLOAD_BASE}/${version}/Nibbly.mobileconfig`;
+    renderVersionBadge({ version, date: lastRelease.published_at, ok: !!apkUrl });
+    renderDownloads({ apkUrl, apkSize, iosUrl, version });
+    const wnBtn = $('#whatsNewBtn');
+    if (wnBtn) wnBtn.disabled = false;
+  } else {
+    renderVersionBadge({ version: FALLBACK_VERSION, date: null, ok: false });
+    renderDownloads({
+      apkUrl: FALLBACK_APK_URL, apkSize: null,
+      iosUrl: FALLBACK_IOS_URL, version: FALLBACK_VERSION
+    });
+    if (lastError){
+      const dict = t();
+      const msg = lastError === 'RATE_LIMIT' ? dict.errRateLimit : dict.errNetwork;
+      renderError(msg);
+    }
+    const wnBtn = $('#whatsNewBtn');
+    if (wnBtn) wnBtn.disabled = true;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// WHATS NEW MODAL
+// ══════════════════════════════════════════════════════════════════
+let activeWnModal = null;
+let wnFetchToken = 0;
+
+function closeWhatsNew(){
+  if (!activeWnModal) return;
+  try { activeWnModal.remove(); } catch(_) {}
+  activeWnModal = null;
+  document.removeEventListener('keydown', onWnKey);
+  unlockBodyScroll();
+}
+
+function onWnKey(e){
+  if (e.key === 'Escape'){ e.preventDefault(); closeWhatsNew(); }
+}
+
+function buildWhatsNewShell(version){
+  const dict = t();
+  const overlay = document.createElement('div');
+  overlay.className = 'wn-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', dict.wnTitle);
+
+  overlay.innerHTML = `
+    <div class="wn-panel">
+      <div class="wn-header">
+        <div class="wn-title">
+          <span>${escapeHTML(dict.wnTitle)}</span>
+          <span class="wn-ver">v${escapeHTML(version)}</span>
+        </div>
+        <button class="wn-close" type="button" aria-label="${escapeAttr(dict.wnClose)}" title="${escapeAttr(dict.wnClose)}">×</button>
+      </div>
+      <div class="wn-body" id="wnBody">
+        <div class="wn-loading">
+          <div class="wn-loading-line w-60"></div>
+          <div class="wn-loading-line w-90"></div>
+          <div class="wn-loading-line w-80"></div>
+          <div class="wn-loading-line w-40"></div>
+          <div class="wn-loading-line w-90"></div>
+          <div class="wn-loading-line w-60"></div>
+        </div>
+      </div>
+    </div>
+  `;
+  return overlay;
+}
+
+function attachImageErrorFallbacks(scope){
+  if (!scope) return;
+  scope.querySelectorAll('img').forEach(img => {
+    if (img.dataset.mdBound) return;
+    img.dataset.mdBound = '1';
+    if (img.complete && img.naturalWidth === 0){ replaceBrokenImg(img); return; }
+    img.addEventListener('error', () => replaceBrokenImg(img), { once: true });
+  });
+}
+
+function replaceBrokenImg(img){
+  if (!img || img.dataset.replaced === '1') return;
+  img.dataset.replaced = '1';
+  const span = document.createElement('span');
+  span.className = 'md-img-broken';
+  span.textContent = img.alt || '[imagen]';
+  if (img.src) span.title = img.src;
+  if (img.parentNode) img.parentNode.replaceChild(span, img);
+}
+
+async function openWhatsNew(){
+  if (!lastRelease) return;
+  closeWhatsNew();
+
+  const version = (lastRelease.tag_name || '').replace(/^v/, '') || '—';
+  const overlay = buildWhatsNewShell(version);
+  document.body.appendChild(overlay);
+  activeWnModal = overlay;
+  lockBodyScroll();
+
+  overlay.querySelector('.wn-close').addEventListener('click', closeWhatsNew);
+  overlay.addEventListener('pointerdown', (ev) => {
+    if (ev.target === overlay) closeWhatsNew();
+  });
+  document.addEventListener('keydown', onWnKey);
+  setTimeout(() => {
+    const closeBtn = overlay.querySelector('.wn-close');
+    if (closeBtn) closeBtn.focus();
+  }, 50);
+
+  const token = ++wnFetchToken;
+  const bodyEl = overlay.querySelector('#wnBody');
+  const dict = t();
+
+  let result;
+  try {
+    result = await resolveChangelog(currentLang);
+  } catch(_) {
+    result = { markdown: lastRelease.body || '', source: 'body' };
+  }
+
+  if (token !== wnFetchToken || !activeWnModal) return;
+
+  let noticeHtml = '';
+  if (result.source === 'fallback'){
+    noticeHtml = '<div class="wn-notice">' + escapeHTML(dict.wnFallbackNotice) + '</div>';
+  }
+
+  const isEmpty = !result.markdown || !result.markdown.trim();
+  const contentHtml = isEmpty
+    ? '<div class="wn-empty">' + escapeHTML(dict.wnEmpty) + '</div>'
+    : '<div class="md">' + mdToHTML(result.markdown) + '</div>';
+
+  bodyEl.innerHTML = noticeHtml + contentHtml;
+  attachImageErrorFallbacks(bodyEl);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// NOTIFICACIONES
+// ══════════════════════════════════════════════════════════════════
+async function askPermission(){
+  if (!NotifyState.supported) return 'unsupported';
+  if (Notification.permission === 'granted') return 'granted';
+  if (Notification.permission === 'denied') return 'denied';
+  try { return await Notification.requestPermission(); }
+  catch(_) { return 'denied'; }
+}
+
+async function toggleBell(){
+  const dict = t();
+  if (!NotifyState.supported){ showToast(dict.bellToastUnsupported); return; }
+  if (NotifyState.permission === 'denied'){ showToast(dict.bellToastDenied); return; }
+  if (NotifyState.enabled && NotifyState.permission === 'granted'){
+    NotifyState.enabled = false;
+    saveNotifyState();
+    updateBellUI();
+    showToast(dict.bellToastOff);
+    return;
+  }
+  const perm = await askPermission();
+  NotifyState.permission = (typeof Notification !== 'undefined') ? Notification.permission : perm;
+  if (perm !== 'granted'){ updateBellUI(); showToast(dict.bellToastDenied); return; }
+  NotifyState.enabled = true;
+  if (!NotifyState.lastTag && lastRelease && lastRelease.tag_name){
+    NotifyState.lastTag = lastRelease.tag_name;
+  }
+  saveNotifyState();
+  updateBellUI();
+  showToast(dict.bellToastOn);
+  pollOnce({ silent: true });
+}
+
+function fireNotification(newTag){
+  if (!NotifyState.supported) return;
+  if (Notification.permission !== 'granted') return;
+  const dict = t();
+  const version = newTag.replace(/^v/, '');
+  const opts = {
+    body: dict.notifNewBody(version),
+    icon: 'images/nibbly.png', badge: 'images/nibbly.png',
+    tag: 'nibbly-update-' + version, renotify: true,
+    data: { url: PAGES_URL, version }
+  };
+  let n = null;
+  try { n = new Notification(dict.notifNewTitle, opts); }
+  catch(_) {
+    try {
+      if (navigator.serviceWorker && navigator.serviceWorker.ready){
+        navigator.serviceWorker.ready.then(reg => reg.showNotification(dict.notifNewTitle, opts));
+      }
+    } catch(_e){}
+    return;
+  }
+  n.onclick = function(){
+    try { window.focus(); } catch(_){}
+    try { window.open(PAGES_URL, '_blank', 'noopener'); } catch(_){}
+    n.close();
+  };
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════════════════════
+let toastEl = null;
+function showToast(msg){
+  if (!toastEl){
+    toastEl = document.createElement('div');
+    toastEl.style.cssText =
+      'position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));' +
+      'transform:translate(-50%,20px);padding:11px 20px;border-radius:999px;' +
+      'font-weight:800;font-size:12.5px;opacity:0;pointer-events:none;' +
+      'transition:opacity .25s,transform .25s;z-index:9500;' +
+      'box-shadow:0 10px 28px rgba(0,0,0,.4);max-width:90vw;text-align:center;' +
+      'font-family:inherit;background:var(--surface-2);color:var(--on-surface);' +
+      'border:1px solid var(--outline);';
+    document.body.appendChild(toastEl);
+  }
+  toastEl.textContent = msg;
+  toastEl.style.opacity = '1';
+  toastEl.style.transform = 'translate(-50%,0)';
+  clearTimeout(toastEl._t);
+  toastEl._t = setTimeout(() => {
+    toastEl.style.opacity = '0';
+    toastEl.style.transform = 'translate(-50%,20px)';
+  }, 2200);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// POLLING
+// ══════════════════════════════════════════════════════════════════
+let pollTimer = null;
+
+async function pollOnce({ silent = false } = {}){
+  try {
+    const release = await fetchLatestRelease();
+    if (!release || !release.tag_name) return;
+    const newTag = release.tag_name;
+    const oldTag = NotifyState.lastTag;
+    NotifyState.lastCheck = Date.now();
+    lastRelease = release;
+    if (!oldTag){ NotifyState.lastTag = newTag; saveNotifyState(); return; }
+    if (oldTag === newTag){ saveNotifyState(); return; }
+    NotifyState.lastTag = newTag;
+    saveNotifyState();
+
+    const version = newTag.replace(/^v/, '');
+    const apkAsset = pickAsset(release.assets, n => /\.apk$/i.test(n));
+    const iosAsset = pickAsset(release.assets, n => /\.mobileconfig$/i.test(n));
+    const apkUrl = apkAsset ? apkAsset.browser_download_url : null;
+    const apkSize = apkAsset ? apkAsset.size : null;
+    const iosUrl = iosAsset ? iosAsset.browser_download_url : `${DOWNLOAD_BASE}/${version}/Nibbly.mobileconfig`;
+    renderVersionBadge({ version, date: release.published_at, ok: !!apkUrl });
+    renderDownloads({ apkUrl, apkSize, iosUrl, version });
+    const wnBtn = $('#whatsNewBtn');
+    if (wnBtn) wnBtn.disabled = false;
+    if (!silent && NotifyState.enabled && NotifyState.permission === 'granted'){
+      fireNotification(newTag);
+    }
+  } catch(err) {
+    console.info('[Nibbly] poll failed:', err && err.message);
+  }
+}
+
+function startPolling(){
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(() => {
+    if (document.visibilityState === 'visible') pollOnce({ silent: false });
+  }, POLL_INTERVAL_MS);
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  const elapsed = Date.now() - NotifyState.lastCheck;
+  if (elapsed >= POLL_INTERVAL_MS) pollOnce({ silent: false });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// BOOT
+// ══════════════════════════════════════════════════════════════════
+async function boot(){
+  currentLang = detectLang();
+  loadNotifyState();
+  updateLanguageUI();
+
+  try {
+    const release = await fetchLatestRelease();
+    lastRelease = release;
+
+    const version = (release.tag_name || '').replace(/^v/, '') || FALLBACK_VERSION;
+    const apkAsset = pickAsset(release.assets, n => /\.apk$/i.test(n));
+    const iosAsset = pickAsset(release.assets, n => /\.mobileconfig$/i.test(n));
+    const apkUrl = apkAsset ? apkAsset.browser_download_url : null;
+    const apkSize = apkAsset ? apkAsset.size : null;
+    const iosUrl = iosAsset ? iosAsset.browser_download_url : `${DOWNLOAD_BASE}/${version}/Nibbly.mobileconfig`;
+    renderVersionBadge({ version, date: release.published_at, ok: !!apkUrl });
+    renderDownloads({ apkUrl, apkSize, iosUrl, version });
+
+    const wnBtn = $('#whatsNewBtn');
+    if (wnBtn) wnBtn.disabled = false;
+
+    if (!NotifyState.lastTag){ NotifyState.lastTag = release.tag_name; saveNotifyState(); }
+  } catch(err){
+    lastError = (err && err.message) || 'UNKNOWN';
+    lastRelease = null;
+    renderVersionBadge({ version: FALLBACK_VERSION, date: null, ok: false });
+    renderDownloads({
+      apkUrl: FALLBACK_APK_URL, apkSize: null,
+      iosUrl: FALLBACK_IOS_URL, version: FALLBACK_VERSION
+    });
+    const dict = t();
+    const msg = lastError === 'RATE_LIMIT' ? dict.errRateLimit : dict.errNetwork;
+    renderError(msg);
+    const wnBtn = $('#whatsNewBtn');
+    if (wnBtn) wnBtn.disabled = true;
+  }
+
+  startPolling();
+  startNewBadgeRecheck();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// EVENTS
+// ══════════════════════════════════════════════════════════════════
+function bindEvents(){
+  const bell = $('#bellToggle');
+  if (bell && !bell.dataset.bound){
+    bell.dataset.bound = '1';
+    bell.addEventListener('click', toggleBell);
+  }
+  const lang = $('#langToggle');
+  if (lang && !lang.dataset.bound){
+    lang.dataset.bound = '1';
+    lang.addEventListener('click', () => {
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      try { localStorage.setItem(LANG_KEY, currentLang); } catch(_) {}
+      closeWhatsNew();
+      updateLanguageUI();
+      rerender();
+    });
+  }
+  const wn = $('#whatsNewBtn');
+  if (wn && !wn.dataset.bound){
+    wn.dataset.bound = '1';
+    wn.addEventListener('click', openWhatsNew);
+  }
+}
+
+if (document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', () => { bindEvents(); boot(); }, { once: true });
+} else {
+  bindEvents();
+  boot();
+}
+})();
+</script>
+</body>
+</html>
