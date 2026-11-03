@@ -28,7 +28,7 @@
   <a href="https://edwarly999plus.github.io/Nibbly/player.html">
     <img src="https://img.shields.io/badge/🎵_Music_Player-5b8cff?style=for-the-badge" alt="Music Player">
   </a>
-  <a href="download.html">
+  <a href="https://edwarly999plus.github.io/Nibbly/download.html">
   <img src="https://img.shields.io/badge/⬇_Download_Page-5b8cff?style=for-the-badge" alt="Download Page">
 </a>
 </p>
