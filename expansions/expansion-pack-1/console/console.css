@@ -209,6 +209,29 @@ scrollbar-width:thin}
 border-radius:3px}
 .console-input::placeholder{color:rgba(255,255,255,.3)}
 
+.nib-console .console-line pre.console-table{margin:4px 0;
+padding:8px 10px;
+background:var(--surface-2,#1a2138);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+border-radius:6px;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+font-size:11px;
+line-height:1.4;
+white-space:pre;
+overflow-x:auto;
+color:var(--on-surface,#f0f2f8);
+max-width:100%;
+box-sizing:border-box}
+
+
+@media (min-width:900px){.nib-console .console-line pre.console-table{font-size:12.5px;
+padding:10px 14px;
+line-height:1.5}}
+
+
+@media (max-width:400px){.nib-console .console-line pre.console-table{font-size:10px;
+padding:6px 8px}}
+
 
 @media (max-width:400px){.console-enabled{max-height:60vh;
 min-height:300px}

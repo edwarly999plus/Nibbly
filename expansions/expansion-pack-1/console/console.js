@@ -63,18 +63,23 @@ if(lines[i].trim()){lastNonEmpty=i;break;}
 }
 if(lastNonEmpty===-1)return code;
 
-const lastLine=lines[lastNonEmpty].trim();
-
+const rawLast=lines[lastNonEmpty];
+const lastLine=rawLast.trim();
 
 if(/^return\b/.test(lastLine))return code;
 
-
-if(/^(function|const|let|var|class|for|while|if|switch|try|throw|break|continue|\{|\})/.test(lastLine)){
+if(/^(function|const|let|var|class|for|while|if|switch|try|catch|throw|break|continue|\{|\})/.test(lastLine)){
 return code;
 }
 
+let toWrap=rawLast.replace(/[\s;]+$/,'');
 
-lines[lastNonEmpty]='return ('+lastLine+');';
+if(!toWrap.trim())return code;
+
+const indentMatch=rawLast.match(/^(\s*)/);
+const indent=indentMatch?indentMatch[1]:'';
+
+lines[lastNonEmpty]=indent+'return ('+toWrap.trim()+');';
 return lines.join('\n');
 }
 
@@ -281,6 +286,287 @@ return String(v);
 }
 
 
+function formatConsoleArgs(args){
+if(!args.length)return{text:'',styles:[]};
+
+const format=typeof args[0]==='string'?args[0]:null;
+if(!format||format.indexOf('%')===-1){
+return{
+text:args.map(a=>formatValue(a)).join(' '),
+styles:[]
+};
+}
+
+let argIndex=1;
+const styles=[];
+const parts=[];
+let i=0;
+
+while(i<format.length){
+const ch=format[i];
+if(ch!=='%'){
+parts.push(ch);
+i++;
+continue;
+}
+
+const next=format[i+1];
+if(next===undefined){
+parts.push('%');
+i++;
+continue;
+}
+i+=2;
+
+switch(next){
+case'c':{
+styles.push(String(args[argIndex++]||''));
+parts.push('\u0000C');
+break;
+}
+case's':{
+parts.push(String(args[argIndex-1]!=null?args[argIndex-1]:''));
+argIndex++;
+break;
+}
+case'd':
+case'i':{
+parts.push(String(parseInt(args[argIndex++],10)));
+break;
+}
+case'f':{
+parts.push(String(parseFloat(args[argIndex++])));
+break;
+}
+case'o':
+case'O':{
+parts.push(formatValue(args[argIndex++]));
+break;
+}
+case'%':{
+parts.push('%');
+break;
+}
+default:{
+parts.push('%'+next);
+break;
+}
+}
+}
+
+while(argIndex<args.length){
+parts.push(' '+formatValue(args[argIndex++]));
+}
+
+return{
+text:parts.join('').replace(/\u0000C/g,''),
+styles
+};
+}
+
+
+function getOutputWidth(){
+if(!output)return 300;
+const rect=output.getBoundingClientRect();
+return Math.max(220,rect.width-20);
+}
+
+function getCharBudget(){
+const widthPx=getOutputWidth();
+const charW=7;
+return Math.max(28,Math.floor(widthPx/charW));
+}
+
+function isUnbreakableColumn(name){
+const n=String(name||'').toLowerCase().trim();
+return n==='comando'||n==='command'||
+n==='código'||n==='codigo'||n==='code'||
+n==='clave'||n==='key';
+}
+
+function formatTable(rows){
+if(!rows)return'(empty)';
+if(!Array.isArray(rows)&&typeof rows!=='object')return String(rows);
+
+if(Array.isArray(rows)){
+if(rows.length===0)return'(empty table)';
+
+const keys=[];
+rows.forEach(r=>{
+if(r&&typeof r==='object'){
+Object.keys(r).forEach(k=>{
+if(keys.indexOf(k)===-1)keys.push(k);
+});
+}
+});
+if(keys.length===0)return'(no columns)';
+
+const charBudget=getCharBudget();
+const minGap=3;
+
+const naturalWidths=keys.map(k=>k.length);
+rows.forEach(r=>{
+if(r&&typeof r==='object'){
+keys.forEach((k,i)=>{
+const len=String(r[k]==null?'':r[k]).length;
+if(len>naturalWidths[i])naturalWidths[i]=len;
+});
+}
+});
+
+const unbreakable=keys.map(k=>isUnbreakableColumn(k));
+
+const minWidths=keys.map((k,i)=>{
+if(unbreakable[i])return naturalWidths[i];
+return Math.min(k.length,4);
+});
+
+function totalWidth(widths){
+return widths.reduce((s,w)=>s+w,0)+(keys.length-1)*minGap+4;
+}
+
+if(totalWidth(naturalWidths)<=charBudget){
+return renderTable(rows,keys,naturalWidths);
+}
+
+const unbreakableSum=unbreakable.reduce((s,isU,i)=>
+s+(isU?naturalWidths[i]:0),0);
+const gapSum=(keys.length-1)*minGap+4;
+const remaining=charBudget-unbreakableSum-gapSum;
+
+const flexIndices=[];
+keys.forEach((_,i)=>{if(!unbreakable[i])flexIndices.push(i);});
+
+if(flexIndices.length===0){
+if(totalWidth(naturalWidths)>charBudget){
+return renderKeyValue(rows,keys);
+}
+return renderTable(rows,keys,naturalWidths);
+}
+
+const flexNaturalSum=flexIndices.reduce((s,i)=>s+naturalWidths[i],0);
+const widths=naturalWidths.slice();
+
+flexIndices.forEach(i=>{
+const share=flexNaturalSum>0
+?Math.floor(naturalWidths[i]/flexNaturalSum*remaining)
+:4;
+widths[i]=Math.max(4,Math.min(naturalWidths[i],share));
+});
+
+while(totalWidth(widths)>charBudget){
+let widestFlex=-1;
+flexIndices.forEach(i=>{
+if(widths[i]>4&&(widestFlex===-1||widths[i]>widths[widestFlex])){
+widestFlex=i;
+}
+});
+if(widestFlex===-1)break;
+widths[widestFlex]--;
+}
+
+if(totalWidth(widths)>charBudget){
+return renderKeyValue(rows,keys);
+}
+
+return renderTable(rows,keys,widths);
+}
+
+if(typeof rows==='object'){
+return Object.keys(rows).map(k=>k+': '+formatValue(rows[k])).join('\n');
+}
+
+return String(rows);
+}
+
+function truncate(str,max){
+const s=String(str==null?'':str);
+if(s.length<=max)return s;
+if(max<=1)return s.slice(0,max);
+return s.slice(0,max-1)+'…';
+}
+
+function renderTable(rows,keys,widths){
+const realWidths=keys.map((k,i)=>{
+if(isUnbreakableColumn(k)){
+let w=String(k).length;
+rows.forEach(r=>{
+const v=String(r&&r[k]!=null?r[k]:'');
+if(v.length>w)w=v.length;
+});
+return w;
+}
+return widths[i];
+});
+
+const header='│ '+keys.map((k,i)=>
+String(k).padEnd(realWidths[i])
+).join(' │ ')+' │';
+const sep='├─'+realWidths.map(w=>'─'.repeat(w)).join('─┼─')+'─┤';
+const top='┌─'+realWidths.map(w=>'─'.repeat(w)).join('─┬─')+'─┐';
+const bottom='└─'+realWidths.map(w=>'─'.repeat(w)).join('─┴─')+'─┘';
+
+const lines=[top,header,sep];
+rows.forEach(r=>{
+const cells=keys.map((k,i)=>{
+const v=String(r&&r[k]!=null?r[k]:'');
+if(isUnbreakableColumn(k)){
+return v.padEnd(realWidths[i]);
+}
+return truncate(v,realWidths[i]).padEnd(realWidths[i]);
+});
+lines.push('│ '+cells.join(' │ ')+' │');
+});
+lines.push(bottom);
+return lines.join('\n');
+}
+
+function renderKeyValue(rows,keys){
+const lines=[];
+rows.forEach((r,idx)=>{
+if(idx>0)lines.push('───');
+keys.forEach(k=>{
+lines.push(k+': '+formatValue(r&&r[k]));
+});
+});
+return lines.join('\n');
+}
+
+
+function appendStyledLine(level,text,styles){
+const line=el('div',{class:'console-line console-line-'+level});
+const time=new Date().toLocaleTimeString([],{
+hour:'2-digit',minute:'2-digit',second:'2-digit'
+});
+line.appendChild(el('span',{class:'console-time',text:time}));
+
+const msg=el('span',{class:'console-msg'});
+msg.textContent=text;
+
+if(styles&&styles.length>0){
+const style=styles[0]||'';
+const rules=style.split(';').map(s=>s.trim()).filter(Boolean);
+rules.forEach(rule=>{
+const idx=rule.indexOf(':');
+if(idx===-1)return;
+const prop=rule.slice(0,idx).trim();
+const val=rule.slice(idx+1).trim();
+if(!prop||!val)return;
+try{
+msg.style.setProperty(prop,val);
+}catch(_){}
+});
+}
+
+line.appendChild(msg);
+output.appendChild(line);
+output.scrollTop=output.scrollHeight;
+while(output.children.length>500){
+output.removeChild(output.firstChild);
+}
+}
+
+
 function appendLine(level,text){
 const line=el('div',{class:'console-line console-line-'+level});
 const time=new Date().toLocaleTimeString([],{
@@ -294,6 +580,24 @@ while(output.children.length>500){
 output.removeChild(output.firstChild);
 }
 }
+
+
+function appendTable(text){
+const line=el('div',{class:'console-line console-line-log'});
+const time=new Date().toLocaleTimeString([],{
+hour:'2-digit',minute:'2-digit',second:'2-digit'
+});
+line.appendChild(el('span',{class:'console-time',text:time}));
+const pre=el('pre',{class:'console-msg console-table'});
+pre.textContent=text;
+line.appendChild(pre);
+output.appendChild(line);
+output.scrollTop=output.scrollHeight;
+while(output.children.length>500){
+output.removeChild(output.firstChild);
+}
+}
+
 
 function clearOutput(){
 output.innerHTML='';
@@ -365,6 +669,7 @@ const scopeKeys=[
 'NibblyStrings','NibblyEs','NibblyLangs',
 'NibblyPaint','NibblyGames','NibblyFormulas',
 'NibblyRange','NibblyMemory','NibblyConsole','NibblyIcons',
+'NibblyVersionCheck','dev',
 'console','window','document',
 'localStorage','sessionStorage','navigator','location','caches',
 'fetch','setTimeout','setInterval',
@@ -387,6 +692,8 @@ if(k==='NibblyRange')return window.NibblyRange;
 if(k==='NibblyMemory')return window.NibblyMemory;
 if(k==='NibblyConsole')return window.NibblyConsole;
 if(k==='NibblyIcons')return window.NibblyIcons;
+if(k==='NibblyVersionCheck')return window.NibblyVersionCheck;
+if(k==='dev')return window.dev;
 if(k==='console')return console;
 if(k==='fetch')return window.fetch.bind(window);
 if(k==='setTimeout')return window.setTimeout.bind(window);
@@ -416,22 +723,36 @@ const origLog=console.log;
 const origWarn=console.warn;
 const origError=console.error;
 const origInfo=console.info;
+const origTable=console.table;
 
 console.log=(...args)=>{
 origLog.apply(console,args);
-appendLine('log',args.map(a=>formatValue(a)).join(' '));
+const f=formatConsoleArgs(args);
+appendStyledLine('log',f.text,f.styles);
 };
 console.warn=(...args)=>{
 origWarn.apply(console,args);
-appendLine('warn',args.map(a=>formatValue(a)).join(' '));
+const f=formatConsoleArgs(args);
+appendStyledLine('warn',f.text,f.styles);
 };
 console.error=(...args)=>{
 origError.apply(console,args);
-appendLine('error',args.map(a=>formatValue(a)).join(' '));
+const f=formatConsoleArgs(args);
+appendStyledLine('error',f.text,f.styles);
 };
 console.info=(...args)=>{
 origInfo.apply(console,args);
-appendLine('info',args.map(a=>formatValue(a)).join(' '));
+const f=formatConsoleArgs(args);
+appendStyledLine('info',f.text,f.styles);
+};
+console.table=(rows,cols)=>{
+origTable.apply(console,arguments);
+try{
+const text=formatTable(rows);
+appendTable(text);
+}catch(_){
+appendLine('log','(table error)');
+}
 };
 
 try{
@@ -449,6 +770,7 @@ console.log=origLog;
 console.warn=origWarn;
 console.error=origError;
 console.info=origInfo;
+console.table=origTable;
 }
 }
 
@@ -592,12 +914,12 @@ destroy(){root.remove();}
 window.NibblyModules=window.NibblyModules||{};
 window.NibblyModules.console={
 id:'console',
-version:'2.0.7',
+version:'2.0.11',
 init:init
 };
 window.NibblyConsole=window.NibblyModules.console;
 
 if(console&&console.debug){
-console.debug('[Nibbly] console.js loaded → window.NibblyModules.console (v2.0.7)');
+console.debug('[Nibbly] console.js loaded → window.NibblyModules.console (v2.0.11)');
 }
 })();
