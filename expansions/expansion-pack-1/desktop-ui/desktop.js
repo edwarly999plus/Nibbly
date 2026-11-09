@@ -17,21 +17,22 @@ memory:'memory',
 markdown:'markdown',
 console:'console',
 logic:'logic',
-flowcharts:'flowchart'
+flowcharts:'flowchart',
+practice:'brain'
 };
 
 const FALLBACK_EMOJIS={
 numbers:'🔢',text:'📝',bits:'📊',thunder:'⚡',
 music:'🎵',calc:'🧮',cipher:'🔐',pencil:'🎨',
 games:'🎮',formulas:'🧮',range:'📈',memory:'🧩',
-markdown:'📄',console:'🖥️',logic:'🔌',flowchart:'📊'
+markdown:'📄',console:'🖥️',logic:'🔌',flowchart:'📊',
+brain:'🧠'
 };
 
 let initialized=false;
 let observerActive=false;
 
 function injectTabIcons(){
-
 if(!window.NibblyIcons){
 setTimeout(injectTabIcons,100);
 return;
@@ -51,7 +52,6 @@ tab.textContent='';
 const iconEl=document.createElement('span');
 iconEl.className='tab-icon';
 iconEl.setAttribute('aria-hidden','true');
-
 
 let html='';
 if(window.NibblyIcons){
@@ -96,17 +96,49 @@ if(needsReinject)injectTabIcons();
 observer.observe(navBar,{childList:true,subtree:false});
 }
 
+/* ─── Version Badge (separado correctamente) ──── */
 function addVersionBadge(){
 const brand=document.querySelector('.topbar .brand');
-if(!brand||brand.querySelector('.version-badge'))return;
+if(!brand)return;
 const h1=brand.querySelector('h1');
 if(!h1)return;
 
-const version=window.__NIBBLY_APP_VERSION||'2.0.3';
-const badge=document.createElement('span');
+let badge=brand.querySelector('.version-badge');
+if(!badge){
+badge=document.createElement('span');
 badge.className='version-badge';
-badge.textContent='v'+version;
 h1.appendChild(badge);
+}
+
+// Única fuente de verdad: window.__NIBBLY_APP_VERSION
+const version=window.__NIBBLY_APP_VERSION;
+if(version){
+badge.textContent='v'+version;
+badge.style.display='';
+}else{
+badge.textContent='';
+badge.style.display='none';
+}
+}
+
+function watchVersionBadge(){
+if(window.__nibblyVersionWatch)return;
+window.__nibblyVersionWatch=true;
+
+let tries=0;
+const tick=()=>{
+tries++;
+const brand=document.querySelector('.topbar .brand');
+const v=window.__NIBBLY_APP_VERSION;
+if(v&&brand){
+addVersionBadge();
+return;
+}
+if(tries<20){
+requestAnimationFrame(tick);
+}
+};
+tick();
 }
 
 function addKeyboardShortcuts(){
@@ -171,6 +203,7 @@ function run(){
 injectTabIcons();
 watchNavBar();
 addVersionBadge();
+watchVersionBadge();
 addKeyboardShortcuts();
 addCardHover();
 }
@@ -185,13 +218,24 @@ setTimeout(run,0);
 }
 }
 
-window.NibblyDesktop={
+
+const api={
+id:'desktop',
+version:'1.0.1',
 init:init,
 refresh:init,
 _TAB_ICONS:TAB_ICONS_MAP
 };
 
+window.NibblyDesktop=api;
+window.NibblyModules=window.NibblyModules||{};
+window.NibblyModules.desktop=api;
+
 if(document.body&&document.body.classList.contains('desktop-ui')){
 init();
+}
+
+if(console&&console.debug){
+console.debug('[Nibbly] desktop.js loaded → window.NibblyDesktop + window.NibblyModules.desktop');
 }
 })();
