@@ -117,6 +117,17 @@ const strings={
 'pestaña no carga correctamente.',
 
 
+'external.title':'Abrir en navegador',
+'external.title.update':'Abrir latest release',
+'external.desc':'Este link necesita abrirse en tu navegador. Copia la URL y pégala manualmente.',
+'external.copy':'Copiar URL',
+'external.copied':'Copiada',
+'external.copyFail':'Error',
+'external.retry':'Intentar abrir',
+'external.cancel':'Cerrar',
+'about.opening':'Abriendo…',
+
+
 'log.title':'Registro',
 'log.clear':'Limpiar',
 'log.empty':'Sin registros aún.',
@@ -621,7 +632,7 @@ const strings={
 'formulas.reveal2':'Revelando cálculo…',
 'formulas.reveal3':'Ya casi…',
 
-'games.loading':'Cargando juegos…',
+'games.loading':'Cargando…',
 'games.error':
 'No hay archivos instalados, descargue los archivos faltantes en GitHub :(',
 'games.disabled':
@@ -908,6 +919,49 @@ const strings={
 
 'tab.flowcharts':'Diag. de flujo',
 'checker.cat.flowcharts':'Diag. de flujo',
+
+
+'settings.updateBell':'Notificaciones de actualización',
+'settings.updateBell.desc':'Consulta en GitHub si hay nuevas versiones de Nibbly.',
+'settings.updateBell.denied':'Las notificaciones están bloqueadas en tu navegador.',
+'settings.updateBell.unsupported':'Este navegador no soporta notificaciones.',
+'settings.updateBell.checking':'Comprobando…',
+
+'toast.notifDenied':'Notificaciones bloqueadas por el navegador',
+
+
+'version.new.title':'Nueva versión disponible',
+'version.updated.title':'Actualizado',
+'version.dev.title':'Versión de desarrollador',
+'version.dev.toast':'Versión de desarrollador v{0} — no necesita actualización',
+'version.updated.toast':'Actualizado — v{0}',
+'version.click.github':'Click para abrir la release en GitHub',
+
+
+'tab.practice':'Práctica',
+'checker.cat.practice':'Práctica',
+'practice.title':'Práctica',
+'practice.mode.practice':'Práctica',
+'practice.mode.exam':'Examen',
+'practice.difficulty.easy':'Fácil',
+'practice.difficulty.normal':'Normal',
+'practice.difficulty.hard':'Difícil',
+'practice.newExercise':'Nuevo ejercicio',
+'practice.convert':'Convierte',
+'practice.from':'de',
+'practice.to':'a',
+'practice.verify':'Verificar',
+'practice.reset':'Reiniciar',
+'practice.result':'Resultado',
+'practice.yourResult':'Tu resultado',
+'practice.realResult':'Resultado real',
+'practice.correct':'✓ Correcto',
+'practice.wrong':'✗ Incorrecto',
+'practice.downloadCsv':'Descargar CSV',
+'practice.csvLocked':'Corrige todo para descargar',
+'practice.emptyInput':'Rellena todas las celdas primero',
+'practice.examNoReveal':'Sigue intentando — en modo Examen no se revela nada',
+'practice.resetOnLeave':'El progreso se reinicia al cambiar de pestaña',
 
 };
 

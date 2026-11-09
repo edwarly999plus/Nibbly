@@ -110,6 +110,17 @@ const strings={
 'The app will run slow on first start. Clear cache if a tab does not '+
 'load correctly.',
 
+
+'external.title':'Open in browser',
+'external.title.update':'Open latest release',
+'external.desc':'This link needs to open in your browser. Copy the URL and paste it manually.',
+'external.copy':'Copy URL',
+'external.copied':'Copied',
+'external.copyFail':'Error',
+'external.retry':'Try to open',
+'external.cancel':'Close',
+'about.opening':'Opening…',
+
 'range.goto':'Go to page',
 'range.jump':'Go',
 'range.sequential':'Sequential display',
@@ -613,7 +624,7 @@ const strings={
 'formulas.reveal2':'Revealing calculation…',
 'formulas.reveal3':'Almost there…',
 
-'games.loading':'Loading games…',
+'games.loading':'Loading…',
 'games.error':
 'No files installed, download the missing files on GitHub :(',
 'games.disabled':
@@ -882,6 +893,50 @@ const strings={
 
 'tab.flowcharts':'Flowcharts',
 'checker.cat.flowcharts':'Flowcharts',
+
+
+'settings.updateBell':'Update notifications',
+'settings.updateBell.desc':'Checks GitHub for new Nibbly releases.',
+'settings.updateBell.denied':'Notifications are blocked in your browser.',
+'settings.updateBell.unsupported':'Notifications are not supported in this browser.',
+'settings.updateBell.checking':'Checking…',
+
+'toast.notifDenied':'Notifications blocked by browser',
+
+
+'version.new.title':'New version available',
+'version.updated.title':'Up to date',
+'version.dev.title':'Developer version',
+'version.dev.toast':'Developer version v{0} — no need to update',
+'version.updated.toast':'Updated — v{0}',
+'version.click.github':'Click to open GitHub release',
+
+
+'tab.practice':'Practice',
+'checker.cat.practice':'Practice',
+'practice.title':'Practice',
+'practice.mode.practice':'Practice',
+'practice.mode.exam':'Exam',
+'practice.difficulty.easy':'Easy',
+'practice.difficulty.normal':'Normal',
+'practice.difficulty.hard':'Hard',
+'practice.newExercise':'New exercise',
+'practice.convert':'Convert',
+'practice.from':'from',
+'practice.to':'to',
+'practice.verify':'Verify',
+'practice.reset':'Reset',
+'practice.result':'Result',
+'practice.yourResult':'Your result',
+'practice.realResult':'Real result',
+'practice.correct':'✓ Correct',
+'practice.wrong':'✗ Incorrect',
+'practice.downloadCsv':'Download CSV',
+'practice.csvLocked':'Fix all cells to download',
+'practice.emptyInput':'Fill all cells first',
+'practice.examNoReveal':'Keep trying — no answer revealed in Exam mode',
+'practice.resetOnLeave':'Progress reset when leaving the tab',
+
 };
 
 window.NibblyStrings=strings;
