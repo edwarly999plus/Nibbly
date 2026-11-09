@@ -48,7 +48,20 @@ editEmpty:'El título no puede estar vacío.',
 clearTitle:'¿Borrar todo el diagrama?',
 clearDesc:'Se eliminarán todos los nodos y conexiones. Esta acción no se puede deshacer.',
 clearCancel:'Cancelar',
-clearConfirm:'Borrar todo'
+clearConfirm:'Borrar todo',
+
+
+savedOk:'✓ Diagrama guardado',
+loadOk:'✓ Diagrama cargado',
+loadErr:'✗ Archivo .nib inválido',
+confirmLoad:'¿Reemplazar el diagrama actual?',
+confirmLoadDesc:'Se perderán todos los nodos y conexiones actuales. Esta acción no se puede deshacer.',
+confirmYes:'Sí, cargar',
+confirmNo:'Cancelar',
+nibEmpty:'No hay nada que guardar todavía.',
+nibSaveErr:'No se pudo guardar el archivo.',
+nibVersion:'Versión',
+nibFormatErr:'El archivo no tiene el formato .nib de Nibbly.'
 },
 en:{
 title:'Flowcharts',
@@ -93,7 +106,19 @@ editEmpty:'Title cannot be empty.',
 clearTitle:'Clear the whole diagram?',
 clearDesc:'All nodes and connections will be removed. This cannot be undone.',
 clearCancel:'Cancel',
-clearConfirm:'Delete all'
+clearConfirm:'Delete all',
+
+savedOk:'✓ Diagram saved',
+loadOk:'✓ Diagram loaded',
+loadErr:'✗ Invalid .nib file',
+confirmLoad:'Replace current diagram?',
+confirmLoadDesc:'Current nodes and connections will be lost. This cannot be undone.',
+confirmYes:'Yes, load',
+confirmNo:'Cancel',
+nibEmpty:'Nothing to save yet.',
+nibSaveErr:'Could not save the file.',
+nibVersion:'Version',
+nibFormatErr:'The file does not have Nibbly\'s .nib format.'
 }
 };
 
@@ -142,7 +167,9 @@ el.style.transform='translate(-50%,20px)';
 
 const ICONS={
 svg:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`,
-png:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
+png:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`,
+save:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>`,
+load:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><polyline points="9 14 12 17 15 14"></polyline></svg>`
 };
 
 const state={
@@ -319,6 +346,32 @@ sizeWrap.innerHTML=`
 <button type="button" class="f-btn f-zoom-btn" id="fZoomIn" title="Zoom In">+</button>
 `;
 bar.appendChild(sizeWrap);
+
+
+const saveNib=document.createElement('button');
+saveNib.type='button';
+saveNib.className='f-btn f-icon-btn';
+saveNib.id='fSaveNib';
+saveNib.innerHTML=ICONS.save;
+saveNib.title='Save .nib';
+saveNib.setAttribute('aria-label','Save .nib');
+bar.appendChild(saveNib);
+
+const loadNib=document.createElement('button');
+loadNib.type='button';
+loadNib.className='f-btn f-icon-btn';
+loadNib.id='fLoadNib';
+loadNib.innerHTML=ICONS.load;
+loadNib.title='Load .nib';
+loadNib.setAttribute('aria-label','Load .nib');
+bar.appendChild(loadNib);
+
+const nibFileInput=document.createElement('input');
+nibFileInput.type='file';
+nibFileInput.accept='.nib,application/json,application/octet-stream';
+nibFileInput.id='fNibFileInput';
+nibFileInput.style.display='none';
+bar.appendChild(nibFileInput);
 
 const clear=document.createElement('button');
 clear.type='button';
@@ -611,6 +664,30 @@ img.src=url;
 }catch(e){showToast(String(e),true);}
 });
 
+
+const saveNibBtn=container.querySelector('#fSaveNib');
+if(saveNibBtn){
+saveNibBtn.addEventListener('click',()=>{
+saveNibFile();
+});
+}
+
+const loadNibBtn=container.querySelector('#fLoadNib');
+const nibInput=container.querySelector('#fNibFileInput');
+if(loadNibBtn&&nibInput){
+loadNibBtn.addEventListener('click',()=>{
+if(state.nodes.length>0){
+const ok=window.confirm(t('confirmLoad')+'\n\n'+t('confirmLoadDesc'));
+if(!ok)return;
+}
+nibInput.value='';
+nibInput.click();
+});
+nibInput.addEventListener('change',(ev)=>{
+const f=ev.target.files&&ev.target.files[0];
+if(f)importNibFile(f);
+});
+}
 
 canvas.addEventListener('pointerdown',onCanvasPointerDown);
 
@@ -963,6 +1040,178 @@ if(cur)lines.push(cur);
 return lines.length?lines:[''];
 }
 
+
+const NIB_FORMAT_VERSION='1.0';
+
+function splitNodeText(text){
+const parts=String(text||'').split('|').map(p=>p.trim());
+return{
+title:parts[0]||'',
+desc:parts.slice(1,4).filter(Boolean)
+};
+}
+
+function buildNibData(){
+const nodes=state.nodes.map(n=>{
+const tt=splitNodeText(n.text);
+const connected=state.edges
+.filter(e=>e.from===n.id)
+.map(e=>e.to);
+return{
+id:n.id,
+type:n.type,
+pos:{x:Math.round(n.x),y:Math.round(n.y)},
+size:{
+w:Math.round(n.w||DEFAULT_W),
+h:Math.round(n.h||DEFAULT_H)
+},
+title:tt.title,
+desc:tt.desc,
+connected
+};
+});
+
+return{
+save_type:'flowchart',
+version:NIB_FORMAT_VERSION,
+app:'Nibbly',
+saved_at:new Date().toISOString(),
+canvas_size:{
+w:Math.round(state.canvasW),
+h:Math.round(state.canvasH)
+},
+nodes,
+edges:state.edges.map(e=>({from:e.from,to:e.to}))
+};
+}
+
+function saveNibFile(){
+if(!state.nodes.length){
+showToast(t('nibEmpty'),true);
+return;
+}
+try{
+const data=buildNibData();
+const json=JSON.stringify(data,null,2);
+const blob=new Blob([json],{type:'application/json;charset=utf-8'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download='nibbly-flowchart-'+Date.now()+'.nib';
+document.body.appendChild(a);
+a.click();
+setTimeout(()=>{
+URL.revokeObjectURL(url);
+a.remove();
+},60000);
+showToast(t('savedOk'));
+}catch(e){
+console.error('[Nibbly flowcharts] save .nib error:',e);
+showToast(t('nibSaveErr'),true);
+}
+}
+
+function loadNibData(raw){
+if(!raw||typeof raw!=='object'){
+throw new Error(t('nibFormatErr'));
+}
+if(raw.save_type!=='flowchart'){
+throw new Error(t('nibFormatErr'));
+}
+if(!Array.isArray(raw.nodes)){
+throw new Error(t('nibFormatErr'));
+}
+
+const idMap={};
+const newNodes=[];
+let nextId=1;
+
+raw.nodes.forEach(rawNode=>{
+if(!rawNode||typeof rawNode!=='object')return;
+const oldId=rawNode.id!=null?rawNode.id:('tmp_'+nextId);
+const newId=nextId++;
+idMap[oldId]=newId;
+
+const type=['start','end','process','decision','io'].indexOf(rawNode.type)!==-1
+?rawNode.type
+:'process';
+
+const title=String(rawNode.title||'').trim()||defaultText(type).split('|')[0].trim();
+const desc=Array.isArray(rawNode.desc)
+?rawNode.desc.map(d=>String(d||'').trim()).filter(Boolean).slice(0,3)
+:[];
+
+const parts=[title].concat(desc);
+const text=parts.join(' | ');
+
+const pos=rawNode.pos||{};
+const size=rawNode.size||{};
+
+newNodes.push({
+id:newId,
+type,
+x:Number.isFinite(pos.x)?pos.x:0,
+y:Number.isFinite(pos.y)?pos.y:0,
+w:Number.isFinite(size.w)?Math.max(MIN_W,size.w):DEFAULT_W,
+h:Number.isFinite(size.h)?Math.max(MIN_H,size.h):DEFAULT_H,
+text
+});
+});
+
+const newEdges=[];
+(raw.edges||[]).forEach(e=>{
+if(!e)return;
+const from=idMap[e.from];
+const to=idMap[e.to];
+if(!from||!to)return;
+if(newEdges.some(x=>x.from===from&&x.to===to))return;
+newEdges.push({id:nextId++,from,to});
+});
+
+let newW=state.canvasW;
+let newH=state.canvasH;
+if(raw.canvas_size&&typeof raw.canvas_size==='object'){
+const w=Number(raw.canvas_size.w);
+const h=Number(raw.canvas_size.h);
+if(Number.isFinite(w)&&w>=600)newW=w;
+if(Number.isFinite(h)&&h>=400)newH=h;
+}
+
+state.nodes=newNodes;
+state.edges=newEdges;
+state.nextId=nextId;
+state.canvasW=newW;
+state.canvasH=newH;
+state.pendingSource=null;
+state.drag=null;
+state.resize=null;
+}
+
+function importNibFile(file){
+if(!file)return;
+const reader=new FileReader();
+
+reader.onload=()=>{
+try{
+const raw=JSON.parse(reader.result);
+loadNibData(raw);
+renderAll(false);
+console.info('[Nibbly flowcharts] ✅ .nib cargado —',state.nodes.length,'nodos,',state.edges.length,'edges');
+showToast(t('loadOk'));
+}catch(e){
+console.error('[Nibbly flowcharts] load .nib error:',e);
+showToast(t('loadErr')+' — '+(e.message||String(e)),true);
+}
+};
+
+reader.onerror=()=>{
+showToast(t('loadErr'),true);
+};
+
+reader.readAsText(file);
+}
+
+
 function buildExportSVG(){
 const C_BG='#0b1020';
 const C_SURF='#141a2e';
@@ -1221,12 +1470,12 @@ if(c)c.focus();
 
 const api={
 id:'flowcharts',
-version:'2.3.0',
+version:'2.4.0',
 init:function(c){
 if(!c)return;
 container=c;
 renderAll(false);
-console.info('[Nibbly flowcharts] ✅ ready (v2.3.0 — scroll preservado + modales Nibbly + modo editar)');
+console.info('[Nibbly flowcharts] ✅ ready (v2.4.0 — .nib save/load + scroll preservado + modales Nibbly + modo editar)');
 }
 };
 
