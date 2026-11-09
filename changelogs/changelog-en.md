@@ -1,18 +1,29 @@
-# 🎮 Nibbly v2.0.3 — Bug fixes & Flowchart QoL
+# 🎮 Nibbly v2.0.4 — Bug Fixes & Expansión Pack 2
 
-> This release fixes six reported bugs and improves the Flowcharts experience.
+This release fixes multiple reported bugs and adds a new practice expansion, 200+ icons, and Flowchart node save/load.
 
 ## ✨ Added
-- **Edit mode** in Flowcharts: one tap on any node opens the editor.
-- **Nibbly-style modals** replacing `prompt()` and `confirm()`.
+
+· Practice expansion — practice.js + practice.css in expansions/expansion-pack-2/practice/.
+· Flowchart node save/load (.nib) in flowcharts.js v2.4.0.
+· 200+ new icons (including brain) in icons.js v3.1.0.
+· 6 new CSS blocks in config.css.
+· +33 language keys in langs/strings.js and langs/es.js.
+· .console-table class in console.css.
+· 4 new dev commands in dev-commands.js v1.1.1.
 
 ## 🐛 Fixed
-- The "Process" node now shows "Proceso" in Spanish.
-- Formula button icons no longer stack above the text.
-- The loading screen turns red on error.
-- Flowchart arrows stick correctly to diamonds and ellipses.
-- Exported SVG/PNG text now wraps.
+
+· 15+ fixes in app/config.js (settings logic).
+· 3 fixes in index.html (loading and startup).
+· 3 fixes in app/version-check.js.
+· 4 fixes in expansion-pack-1/console/console.js.
+· 3 fixes in expansion-pack-1/desktop-ui/desktop.js (including version badge).
 
 ## 🔧 Under the hood
-- Shape-aware `edgePoint()` for every node type.
-- Global listeners registered only once.
+
+· Version bumped to 2.0.4 across the project.
+· flowcharts.js → v2.4.0 with node save/load.
+· icons.js → v3.1.0 with brain + 200+ icons.
+· dev-commands.js → v1.1.1 with 4 new features.
+· No data migration needed; settings remain in nibbly-settings-v2.
