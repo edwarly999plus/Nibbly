@@ -280,7 +280,7 @@ globalSyntaxError=`Promesa rechazada: ${msg}`;
 });
 
 
-const APP_VERSION='2.0.3';
+const APP_VERSION='2.0.4';
 window.__NIBBLY_APP_VERSION=APP_VERSION;
 
 const EXPANSION_BASE='expansions/expansion-pack-1/';
@@ -302,7 +302,10 @@ const PHASES=[
 {
 key:'config',
 label:'Loading configuration...',
-files:[{js:'app/config.js',css:'app/config.css'}]
+files:[
+{js:'app/config.js',css:'app/config.css'},
+{js:'app/dev-commands.js'}
+]
 },
 {
 key:'effects',
@@ -338,6 +341,11 @@ files:[
 ]
 },
 {
+key:'version',
+label:'Checking version...',
+files:[{js:'app/version-check.js'}]
+},
+{
 key:'expansion',
 label:'Loading expansion files...',
 files:[
@@ -367,6 +375,8 @@ css:EXPANSION_BASE+'games/games-extras.css',optional:true},
 css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',optional:true},
 {js:EXPANSION_BASE_2+'flowcharts/flowcharts.js',
 css:EXPANSION_BASE_2+'flowcharts/flowcharts.css',optional:true},
+{js:EXPANSION_BASE_2+'practice/practice.js',
+css:EXPANSION_BASE_2+'practice/practice.css',optional:true},
 ]
 }
 ];
@@ -525,6 +535,7 @@ lines.push('  NibblyStrings: '+!!window.NibblyStrings);
 lines.push('  NibblyEs:      '+!!window.NibblyEs);
 lines.push('  NibblyLangs:   '+!!window.NibblyLangs);
 lines.push('  NibblyIcons:   '+!!window.NibblyIcons);
+lines.push('  dev:           '+!!window.dev);
 lines.push('');
 lines.push('── Cache API ───────────────────────────────────');
 lines.push('  (loading…)');
@@ -895,6 +906,16 @@ window.NibblyModules.icons&&
 typeof window.NibblyModules.icons.init==='function');
 }
 
+if(filename==='dev-commands'){
+return!!(window.dev&&window.dev.__ready===true&&
+typeof window.dev.help==='function');
+}
+
+if(filename==='version-check'){
+return!!(window.NibblyVersionCheck&&
+typeof window.NibblyVersionCheck.check==='function');
+}
+
 if(path.indexOf('/langs/')!==-1){
 if(filename==='strings'){
 if(window.NibblyStrings&&
@@ -1000,6 +1021,16 @@ if(window.NibblyLangs)delete window.NibblyLangs.es;
 return;
 }
 if(filename==='config'){delete window.NibblyApp;return;}
+
+if(filename==='dev-commands'){
+if(window.dev)delete window.dev;
+return;
+}
+if(filename==='version-check'){
+if(window.NibblyVersionCheck)delete window.NibblyVersionCheck;
+if(window.NibblyModules)delete window.NibblyModules['version-check'];
+return;
+}
 
 if(filename==='main'){
 if(window.NibblyModules){

@@ -6,11 +6,11 @@
 
 <p align="center">
   <b>The all-in-one converter for Android & iOS</b><br>
-  Bases · Text · Morse · Bits · Power · Multimedia · Calculator · Formulas · Logic · Flowcharts · Drawing · Games · Private Mode
+  Bases · Text · Morse · Bits · Power · Multimedia · Calculator · Formulas · Logic · Flowcharts · Practice · Drawing · Games · Private Mode
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.0.3-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-2.0.4-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/iOS-9.0%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
@@ -28,9 +28,6 @@
   <a href="https://edwarly999plus.github.io/Nibbly/player.html">
     <img src="https://img.shields.io/badge/🎵_Music_Player-5b8cff?style=for-the-badge" alt="Music Player">
   </a>
-  <a href="https://edwarly999plus.github.io/Nibbly/download.html">
-  <img src="https://img.shields.io/badge/⬇_Download_Page-5b8cff?style=for-the-badge" alt="Download Page">
-</a>
 </p>
 
 ---
@@ -119,9 +116,12 @@ We know that downloading configuration profiles (`.mobileconfig`) can raise conc
 
 ## 📖 Description
 
-**Nibbly** is a cross-platform app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a boolean logic calculator & diagram builder**, **a flowchart editor**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **5 minigames**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
+**Nibbly** is a cross-platform app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a boolean logic calculator & diagram builder**, **a flowchart editor**, **a practice tab for exam preparation without AI**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **5 minigames**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
 
 Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova, and the iOS version works via a `.mobileconfig` Web Clip.
+
+**v2.0.4 highlights (Practice Tab):**
+- 📚 **New "Practice" Tab** — Designed specifically to study and practice for exams completely offline, working 100% locally **without relying on any AI**.
 
 **v2.0.3 highlights (Bug fixes & Flowchart QoL):**
 - 🐛 **Fixed: "Process" untranslated in Flowcharts (ES)** — the default node label now shows "Proceso".
@@ -140,14 +140,6 @@ Lightweight, fast, and **100% offline**. The APK can be easily generated with We
 - 📐 **Flowcharts Tab** — A full diagram builder with live preview, 60 FPS rendering, and SVG/PNG export.
 - 🎨 **Vector Icons Optimization** — No PNGs required for offline vector rendering. Tab icons now work perfectly on Android (previously PC-only), with the new inline SVG system that prevents color inversion issues.
 - 🍏 **iOS Support (9+)** — Now installable on iPhone/iPad via Safari using a `.mobileconfig` Web Clip. No jailbreak required.
-
-**v2.0.0 highlights:**
-- 🧩 **Complete re-foundation** — `index.html` is now a bootloader. Every tab is a self-contained module.
-- 🔐 **Cipher suite** — Caesar, ROT13/47, Atbash, Vigenère, Affine, Substitution, URL, Unicode, XOR, AES, DES, 3DES, RC4.
-- 📄 **Markdown editor** — live preview, GitHub integration, focus mode, bilingual sample.
-- 📊 **Massive ranges** — paginated conversion tables up to 100,000 entries with CSV export.
-- 🧠 **Memory simulator** — 4 KB addressable memory with read/write/fill/clear.
-- 🌍 **Full bilingual support** — English (required) + Spanish (optional).
 
 ---
 
@@ -236,6 +228,10 @@ Each one shows the **complete procedure table** so you can reproduce it by hand.
 
 #### ⏳ Reveal sequence
 3 loading messages, then full procedure + copy button with toast feedback.
+
+### 📚 Práctica (Practice Tab)
+- **No AI required** — Built specifically to practice exams locally and completely offline.
+- Interactive question-and-answer training tools designed to help students test their knowledge before tests.
 
 ### 🔐 Ciphers
 
@@ -439,7 +435,6 @@ Optional looping music. Behavior changes depending on the platform:
 ### 🛠️ Option 4 — Build from source
 
 ```
-
 nibbly/
 ├── index.html                 ← bootloader
 ├── app/
@@ -468,7 +463,6 @@ nibbly/
 ├── images/
 ├── mus/
 └── img/
-
 ```
 
 #### ⚠️ About `desktop-ui/` in the Android/iOS builds
@@ -496,7 +490,6 @@ npx cap sync
 ```
 
 With Cordova
-
 ```bash
 cordova create nibbly com.edwarly999plus.nibbly Nibbly
 # Copy everything except desktop-ui/ and img/ to www/
@@ -543,6 +536,7 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 · ☑ v2.0.1 — Logic Gates (first expansion-pack-2 module)
 · ☑ v2.0.2 — Diagrams, iOS Support & Fixes (Flowcharts tab, Remainder Finder, Boolean Logic, new base conversions, Inline SVG optimization, iOS Web Clip installation)
 · ☑ v2.0.3 — Bug fixes & Flowchart QoL (ES "Proceso", icon alignment, red error background, shape-aware arrows, SVG text wrap, scroll preservation, Edit mode, Nibbly-style modals)
+· ☑ v2.0.4 — Practice Tab (Works 100% locally without AI for exam preparation)
 · ☐ v2.0.x — More bug fixes
 · ☐ v3.0.x — (Soon...)
 
@@ -551,9 +545,9 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 ### 🤝 Contributing
 
 1. Fork the project
-2. Create a branch: git checkout -b fix/bug-name
-3. Commit: git commit -m "fix: bug description"
-4. Push: git push origin fix/bug-name
+2. Create a branch: `git checkout -b fix/bug-name`
+3. Commit: `git commit -m "fix: bug description"`
+4. Push: `git push origin fix/bug-name`
 5. Open a Pull Request
 
 ---
