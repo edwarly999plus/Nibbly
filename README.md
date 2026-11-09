@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-2.0.4-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-2.0.4-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/iOS-9.0%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
@@ -19,9 +19,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/edwarly999plus/Nibbly/releases/latest">
-    <img src="https://img.shields.io/badge/⬇_Download_APK-Releases-5b8cff?style=for-the-badge&logo=android&logoColor=white" alt="Download APK">
-  </a>
+ <a href="https://edwarly999plus.github.io/Nibbly/download.html">
+  <img src="https://img.shields.io/badge/⬇️_Descargar-Nibbly-2ea44f?style=for-the-badge&logo=github&logoColor=white" alt="Descargar Nibbly">
+ </a>
   <a href="https://edwarly999plus.github.io/Nibbly/">
     <img src="https://img.shields.io/badge/▶_Try_Online-GitHub_Pages-22d3a6?style=for-the-badge&logo=github&logoColor=white" alt="Try Online">
   </a>
