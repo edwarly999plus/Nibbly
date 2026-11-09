@@ -13,7 +13,7 @@ effects:true,sounds:true,soundVolume:100,
 music:false,musicVolume:100,
 gamesEnabled:true,pleaseDont:false,
 lang:'en',uiMode:'auto',logMode:'off',
-bgIntensity:100
+bgIntensity:100,updateBell:false
 };
 
 const CORE_TABS=[
@@ -68,7 +68,13 @@ key:'tab.flowcharts',
 mod:'flowcharts',
 js:EXPANSION_BASE_2+'flowcharts/flowcharts.js',
 css:EXPANSION_BASE_2+'flowcharts/flowcharts.css',
-panel:'panel-flowcharts'}
+panel:'panel-flowcharts'},
+{id:'practice',
+key:'tab.practice',
+mod:'practice',
+js:EXPANSION_BASE_2+'practice/practice.js',
+css:EXPANSION_BASE_2+'practice/practice.css',
+panel:'panel-practice'}
 ];
 
 const EXPANSION_FILES=[
@@ -110,7 +116,10 @@ css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',
 cat:'checker.cat.logic'},
 {js:EXPANSION_BASE_2+'flowcharts/flowcharts.js',
 css:EXPANSION_BASE_2+'flowcharts/flowcharts.css',
-cat:'checker.cat.flowcharts'}
+cat:'checker.cat.flowcharts'},
+{js:EXPANSION_BASE_2+'practice/practice.js',
+css:EXPANSION_BASE_2+'practice/practice.css',
+cat:'checker.cat.practice'}
 ];
 
 
@@ -358,7 +367,8 @@ formulas:'formulas',
 console:'console',
 markdown:'markdown',
 logic:'logic',
-flowcharts:'flowchart'
+flowcharts:'flowchart',
+practice:'brain'
 };
 
 function tabIcon(name){
@@ -455,6 +465,7 @@ function switchTab(tabId){
 const prevTab=currentTab;
 currentTab=tabId;
 
+
 if(prevTab==='games'&&tabId!=='games'){
 const g=window.NibblyGames;
 if(g&&typeof g.pauseActive==='function'){
@@ -465,6 +476,14 @@ if(prevTab!=='games'&&tabId==='games'){
 const g=window.NibblyGames;
 if(g&&typeof g.resumeActive==='function'){
 try{g.resumeActive();}catch(_){}
+}
+}
+
+
+if(prevTab==='practice'&&tabId!=='practice'){
+const p=window.NibblyModules&&window.NibblyModules.practice;
+if(p&&typeof p.reset==='function'){
+try{p.reset();}catch(_){}
 }
 }
 
@@ -800,6 +819,7 @@ switchEl('setGames',settings.gamesEnabled)
 
 h('div',{class:'setting-section'},[
 h('h3',{'data-i18n':'settings.extras',text:t('settings.extras','Extras')}),
+
 h('div',{class:'setting-row'},[
 h('div',{class:'rl'},[
 h('div',{class:'t','data-i18n':'settings.pleaseDont',
@@ -809,7 +829,19 @@ text:t('settings.pleaseDont.desc',
 'Activates EasterEggs when you make an error in the calculator.')})
 ]),
 switchEl('setPleaseDont',settings.pleaseDont)
-])
+]),
+
+h('div',{class:'setting-row'},[
+h('div',{class:'rl'},[
+h('div',{class:'t','data-i18n':'settings.updateBell',
+text:t('settings.updateBell','Update notifications')}),
+h('div',{class:'d','data-i18n':'settings.updateBell.desc',
+text:t('settings.updateBell.desc','Checks GitHub for new Nibbly releases.')})
+]),
+switchEl('setUpdateBell',settings.updateBell)
+]),
+
+h('div',{id:'nibUpdateStatus',style:'margin-top:8px;font-size:12px;color:var(--on-variant);white-space:pre-line;'})
 ]),
 
 h('div',{class:'setting-section'},[
@@ -874,7 +906,17 @@ h('span',{class:'v',text:'EdwarlyGamer999+'})
 ]),
 h('div',{class:'about-row'},[
 h('span',{class:'k','data-i18n':'about.version',text:t('about.version','Version')}),
-h('span',{class:'v',text:window.__NIBBLY_APP_VERSION||'2.0.0'})
+h('span',{class:'v'},[
+h('span',{class:'version-group'},[
+h('span',{
+class:'version-badge-pill',
+id:'nibVersionBadge',
+'data-state':'idle',
+'aria-label':'Version status'
+}),
+h('span',{class:'version-num',id:'nibVersionText',text:window.__NIBBLY_APP_VERSION||'2.0.0'})
+])
+])
 ]),
 h('div',{class:'about-row'},[
 h('span',{class:'k',text:'Copyright ©'}),
@@ -938,6 +980,18 @@ if(s)s.classList.add('show');
 if(o)o.classList.add('show');
 syncSettingsUI();
 syncColorChips();
+
+
+if(window.NibblyVersionCheck){
+const st=window.NibblyVersionCheck.getState();
+if(st.status==='idle'){
+window.NibblyVersionCheck.check(false).then(()=>{
+updateVersionBadge();
+});
+}else{
+updateVersionBadge();
+}
+}
 }
 function closeSheet(){
 const s=document.getElementById('nibSheet');
@@ -1042,6 +1096,107 @@ settings.pleaseDont=e.target.checked;
 saveSettings();
 });
 
+const bell=document.getElementById('setUpdateBell');
+const statusBox=document.getElementById('nibUpdateStatus');
+
+if(bell){
+bell.checked=!!settings.updateBell;
+
+const notifState=window.NibblyVersionCheck
+?window.NibblyVersionCheck.getNotificationState()
+:'unsupported';
+
+const isBlocked=(notifState==='denied'||notifState==='unsupported');
+
+if(isBlocked){
+bell.checked=false;
+bell.disabled=true;
+const switchWrap=bell.closest('.switch');
+if(switchWrap){
+switchWrap.classList.add('switch-blocked');
+switchWrap.title=notifState==='denied'
+?t('settings.updateBell.denied','Notifications are blocked in your browser.')
+:t('settings.updateBell.unsupported','Notifications are not supported in this browser.');
+}
+if(statusBox){
+statusBox.textContent=notifState==='denied'
+?t('settings.updateBell.denied','Notifications are blocked in your browser.')
+:t('settings.updateBell.unsupported','Notifications are not supported in this browser.');
+statusBox.style.color='var(--bad)';
+statusBox.style.cursor='';
+statusBox.onclick=null;
+}
+}else{
+bell.addEventListener('change',async()=>{
+settings.updateBell=bell.checked;
+saveSettings();
+
+if(bell.checked){
+const perm=await window.NibblyVersionCheck.requestNotificationPermission();
+
+if(!perm.ok){
+settings.updateBell=false;
+bell.checked=false;
+bell.disabled=true;
+const sw=bell.closest('.switch');
+if(sw)sw.classList.add('switch-blocked');
+if(statusBox){
+statusBox.textContent=t(
+'settings.updateBell.denied',
+'Notifications are blocked in your browser.'
+);
+statusBox.style.color='var(--bad)';
+statusBox.style.cursor='';
+statusBox.onclick=null;
+}
+saveSettings();
+toast(t('toast.notifDenied','Notifications blocked by browser'),true);
+return;
+}
+
+if(statusBox){
+statusBox.textContent='Checking…';
+statusBox.style.color='var(--on-variant)';
+}
+const res=await window.NibblyVersionCheck.check(true);
+if(statusBox){
+statusBox.textContent=window.NibblyVersionCheck.getStatusText();
+statusBox.style.color=window.NibblyVersionCheck.hasUpdate()
+?'var(--warn)':'var(--on-variant)';
+statusBox.style.cursor=window.NibblyVersionCheck.hasUpdate()?'pointer':'';
+statusBox.onclick=window.NibblyVersionCheck.hasUpdate()
+?()=>openExternal(res.latestUrl)
+:null;
+}
+}else{
+if(statusBox){
+statusBox.textContent='';
+statusBox.style.color='var(--on-variant)';
+statusBox.style.cursor='';
+statusBox.onclick=null;
+}
+}
+});
+
+if(bell.checked&&window.NibblyVersionCheck){
+const s=window.NibblyVersionCheck.getState();
+if(s.status!=='idle'){
+statusBox.textContent=window.NibblyVersionCheck.getStatusText();
+statusBox.style.color=window.NibblyVersionCheck.hasUpdate()
+?'var(--warn)':'var(--on-variant)';
+statusBox.style.cursor=window.NibblyVersionCheck.hasUpdate()?'pointer':'';
+statusBox.onclick=window.NibblyVersionCheck.hasUpdate()
+?()=>openExternal(s.latestUrl)
+:null;
+}else{
+window.NibblyVersionCheck.check(false).then(()=>{
+statusBox.textContent=window.NibblyVersionCheck.getStatusText();
+});
+}
+}
+}
+}
+
 const langSeg=document.getElementById('langSeg');
 if(langSeg)langSeg.addEventListener('click',e=>{
 const btn=e.target.closest('.seg-btn');
@@ -1068,6 +1223,7 @@ if(reloadBtn)reloadBtn.addEventListener('click',reloadExpansionFiles);
 const clearCacheBtn=document.getElementById('nibClearCache');
 if(clearCacheBtn)clearCacheBtn.addEventListener('click',clearNibblyCache);
 }
+
 
 function buildPresets(boxId,colors,onPick){
 const box=document.getElementById(boxId);
@@ -1098,6 +1254,66 @@ onPick(btn.dataset.value);
 });
 }
 
+function updateVersionBadge(){
+const badge=document.getElementById('nibVersionBadge');
+if(!badge)return;
+if(!window.NibblyVersionCheck){
+badge.innerHTML='';
+badge.dataset.state='idle';
+return;
+}
+
+const badgeState=window.NibblyVersionCheck.getBadgeState();
+const s=window.NibblyVersionCheck.getState();
+const appV=window.__NIBBLY_APP_VERSION||'?';
+const latestTag=(s.latestTag||'').replace(/^v/i,'');
+
+function setText(txt){
+badge.innerHTML='<span class="badge-inner">'+escapeHtml(txt)+'</span>';
+}
+
+switch(badgeState){
+case'new':
+setText('New '+latestTag);
+badge.dataset.state='new';
+badge.title='App '+appV+' · GitHub '+latestTag;
+badge.onclick=()=>{
+if(s.latestUrl)openExternal(s.latestUrl);
+};
+break;
+case'fresh':
+setText('Updated');
+badge.dataset.state='fresh';
+badge.title=t('version.updated.title','Up to date')+' — '+appV;
+badge.onclick=()=>{
+toast(t('version.updated.toast','Updated — v{0}').replace('{0}',appV));
+};
+break;
+case'dev':
+setText('Dev '+appV);
+badge.dataset.state='dev';
+badge.title=t('version.dev.title','Developer version')+' — '+appV;
+badge.onclick=()=>{
+toast(t('version.dev.toast','Developer Version v{0} — No Need To Update').replace('{0}',appV));
+};
+break;
+case'loading':
+setText('…');
+badge.dataset.state='loading';
+badge.onclick=null;
+break;
+case'error':
+setText('?');
+badge.dataset.state='error';
+badge.onclick=null;
+break;
+default:
+badge.innerHTML='';
+badge.dataset.state='idle';
+badge.onclick=null;
+}
+}
+
 function syncSettingsUI(){
 const setVal=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v;};
 const setChk=(id,v)=>{const el=document.getElementById(id);if(el)el.checked=!!v;};
@@ -1122,6 +1338,14 @@ const sb=document.getElementById('setBg');
 if(sa)sa.value=settings.accent;
 if(sb)sb.value=settings.bg;
 syncColorChips();
+
+
+if(window.NibblyVersionCheck){
+window.NibblyVersionCheck.check(false).then(()=>{
+updateVersionBadge();
+});
+}
+updateVersionBadge();
 }
 
 
@@ -1303,6 +1527,14 @@ return false;
 
 if(filename==='config'){
 return!!(window.NibblyApp&&typeof window.NibblyApp.init==='function');
+}
+
+if(filename==='version-check'){
+return!!(window.NibblyVersionCheck&&typeof window.NibblyVersionCheck.check==='function');
+}
+
+if(filename==='dev-commands'){
+return!!(window.dev&&window.dev.__ready===true&&typeof window.dev.help==='function');
 }
 
 if(filename==='games-extras'){
@@ -1575,31 +1807,190 @@ toast('Failed: '+(err.message||err),true);
 
 function openExternal(url){
 if(!url)return;
+
+
 try{
 if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Browser){
 window.Capacitor.Plugins.Browser.open({url});return;
 }
 }catch(_){}
+
 const isAndroid=/Android/i.test(navigator.userAgent);
-const isWebView=/; wv\)/.test(navigator.userAgent);
+const isWebView=/; wv\)/.test(navigator.userAgent)
+||(window.Capacitor)
+||(window.cordova)
+||(window.ReactNativeWebView);
+
+
 if(isAndroid&&isWebView){
-try{
-const isHttps=url.indexOf('https://')===0;
-const clean=url.replace(/^https?:\/\//,'');
-const scheme=isHttps?'https':'http';
-window.location.href='intent://'+clean+'#Intent;scheme='+scheme+';end';
+console.info('[Nibbly external] WebView detected → showing modal');
+showExternalModal(url);
 return;
-}catch(_){}
 }
+
+
 try{
 const w=window.open(url,'_blank','noopener,noreferrer');
-if(!w){
-const a=document.createElement('a');
-a.href=url;a.target='_blank';a.rel='noopener noreferrer';
-document.body.appendChild(a);a.click();
-setTimeout(()=>a.remove(),1000);
+if(w&&!w.closed){
+console.info('[Nibbly external] opened via window.open');
+return;
 }
-}catch(_){window.location.href=url;}
+}catch(_){}
+
+
+try{
+const a=document.createElement('a');
+a.href=url;
+a.target='_blank';
+a.rel='noopener noreferrer';
+document.body.appendChild(a);
+a.click();
+setTimeout(()=>a.remove(),1000);
+console.info('[Nibbly external] opened via dynamic <a>');
+return;
+}catch(_){}
+
+
+console.info('[Nibbly external] all failed → showing modal');
+showExternalModal(url);
+}
+
+
+function showExternalModal(url){
+const existing=document.getElementById('nibExternalModal');
+if(existing)existing.remove();
+
+const overlay=document.createElement('div');
+overlay.id='nibExternalModal';
+overlay.className='nib-external-overlay';
+
+const isUpdate=/releases/.test(url);
+const title=isUpdate
+?t('external.title.update','Abrir latest release')
+:t('external.title','Abrir en navegador');
+
+const desc=t('external.desc',
+'Este link necesita abrirse en tu navegador. Copia la URL y pégala en Chrome o en el navegador que prefieras.');
+
+const panel=document.createElement('div');
+panel.className='nib-external-panel';
+
+panel.innerHTML=
+'<div class="nib-external-icon">'+(isUpdate?'🎉':'🌐')+'</div>'+
+'<div class="nib-external-title">'+escapeHtml(title)+'</div>'+
+'<div class="nib-external-desc">'+escapeHtml(desc)+'</div>'+
+'<div class="nib-external-url" id="nibExternalUrl">'+escapeHtml(url)+'</div>'+
+'<div class="nib-external-actions">'+
+'<button type="button" class="nib-external-btn nib-external-copy" id="nibExternalCopy">'+
+'📋 '+escapeHtml(t('external.copy','Copiar URL'))+
+'</button>'+
+'<button type="button" class="nib-external-btn nib-external-retry" id="nibExternalRetry">'+
+'🌐 '+escapeHtml(t('external.retry','Intentar abrir'))+
+'</button>'+
+'<button type="button" class="nib-external-btn nib-external-cancel" id="nibExternalCancel">'+
+escapeHtml(t('external.cancel','Cerrar'))+
+'</button>'+
+'</div>';
+
+overlay.appendChild(panel);
+document.body.appendChild(overlay);
+
+
+overlay.addEventListener('pointerdown',(ev)=>{
+if(ev.target===overlay)overlay.remove();
+});
+
+
+const onEsc=(ev)=>{
+if(ev.key==='Escape'){
+overlay.remove();
+document.removeEventListener('keydown',onEsc);
+}
+};
+document.addEventListener('keydown',onEsc);
+
+
+const copyBtn=overlay.querySelector('#nibExternalCopy');
+copyBtn.addEventListener('click',async()=>{
+const ok=await copyToClipboard(url);
+if(ok){
+copyBtn.innerHTML='✓ '+escapeHtml(t('external.copied','Copiada'));
+copyBtn.classList.add('copied');
+setTimeout(()=>{
+copyBtn.innerHTML='📋 '+escapeHtml(t('external.copy','Copiar URL'));
+copyBtn.classList.remove('copied');
+},2000);
+}else{
+copyBtn.innerHTML='✗ '+escapeHtml(t('external.copyFail','Error'));
+setTimeout(()=>{
+copyBtn.innerHTML='📋 '+escapeHtml(t('external.copy','Copiar URL'));
+},2000);
+}
+});
+
+
+const retryBtn=overlay.querySelector('#nibExternalRetry');
+retryBtn.addEventListener('click',()=>{
+if(retryBtn.dataset.opening==='1')return;
+retryBtn.dataset.opening='1';
+
+const origHTML=retryBtn.innerHTML;
+retryBtn.innerHTML='⏳ '+escapeHtml(t('external.retrying','Intentando…'));
+
+try{
+const clean=url.replace(/^https?:\/\//,'');
+const scheme=url.indexOf('https://')===0?'https':'http';
+const intentUrl='intent://'+clean+
+'#Intent;scheme='+scheme+
+';action=android.intent.action.VIEW'+
+';end';
+console.info('[Nibbly external] user clicked "try to open" → intent');
+window.location.href=intentUrl;
+}catch(_){}
+
+
+setTimeout(()=>{
+if(retryBtn&&retryBtn.isConnected){
+retryBtn.innerHTML=origHTML;
+retryBtn.dataset.opening='0';
+const descEl=overlay.querySelector('.nib-external-desc');
+if(descEl){
+descEl.textContent=t('external.retryFailed',
+'No se pudo abrir el navegador. Copia la URL y pégala manualmente.');
+descEl.style.color='var(--warn,#ffb020)';
+}
+}
+},2000);
+});
+
+
+overlay.querySelector('#nibExternalCancel').addEventListener('click',()=>{
+overlay.remove();
+});
+}
+
+
+async function copyToClipboard(text){
+try{
+if(navigator.clipboard&&window.isSecureContext){
+await navigator.clipboard.writeText(text);
+return true;
+}
+}catch(_){}
+try{
+const ta=document.createElement('textarea');
+ta.value=text;
+ta.setAttribute('readonly','');
+ta.style.position='fixed';
+ta.style.top='-9999px';
+ta.style.opacity='0';
+document.body.appendChild(ta);
+ta.select();
+ta.setSelectionRange(0,text.length);
+const ok=document.execCommand('copy');
+ta.remove();
+return ok;
+}catch(_){return false;}
 }
 
 
@@ -1648,7 +2039,23 @@ const link=e.target.closest('.github-link');
 if(!link)return;
 e.preventDefault();e.stopPropagation();
 const href=link.getAttribute('href');
-if(href)openExternal(href);
+if(!href)return;
+
+
+const labelEl=link.querySelector('span:last-child');
+const origText=labelEl?labelEl.textContent:'';
+if(labelEl){
+labelEl.textContent=t('about.opening','Abriendo…');
+}
+
+openExternal(href);
+
+
+setTimeout(()=>{
+if(labelEl&&labelEl.textContent===t('about.opening','Abriendo…')){
+labelEl.textContent=origText;
+}
+},3000);
 },true);
 
 document.querySelectorAll('#langSeg .seg-btn').forEach(b=>{
@@ -1670,6 +2077,24 @@ if(typeof g.pauseActive==='function'){
 try{g.pauseActive();}catch(_){}
 }
 }
+
+
+if(!document.hidden&&window.NibblyVersionCheck){
+const bell=document.getElementById('setUpdateBell');
+if(bell&&bell.disabled){
+const ns=window.NibblyVersionCheck.getNotificationState();
+if(ns==='granted'){
+bell.disabled=false;
+const sw=bell.closest('.switch');
+if(sw)sw.classList.remove('switch-blocked');
+const statusBox=document.getElementById('nibUpdateStatus');
+if(statusBox){
+statusBox.textContent='';
+statusBox.style.color='var(--on-variant)';
+}
+}
+}
+}
 });
 
 const api={
@@ -1683,6 +2108,7 @@ toast,log:logCalc,playClick,
 switchTab,openSheet,closeSheet,
 refreshModules,reloadExpansionFiles,clearNibblyCache,
 updateConsoleTabVisibility,
+openExternal,
 destroy
 };
 window.NibblyApp=Object.assign(window.NibblyApp||{},api);
@@ -1706,11 +2132,11 @@ if(el&&el.parentNode)el.parentNode.removeChild(el);
 
 
 window.NibblyModules=window.NibblyModules||{};
-window.NibblyModules.config={id:'config',version:'2.0.31',init};
+window.NibblyModules.config={id:'config',version:'2.1.0',init};
 window.NibblyApp=window.NibblyApp||{};
 window.NibblyApp.init=init;
 
 if(console&&console.debug){
-console.debug('[Nibbly] config.js loaded → window.NibblyApp.init ready (v2.0.31)');
+console.debug('[Nibbly] config.js loaded → window.NibblyApp.init ready (v2.1.0)');
 }
 })();

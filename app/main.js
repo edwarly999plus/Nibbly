@@ -423,11 +423,32 @@ numOut.textContent=result;
 }
 const CONVERT_KEYS=['convert.msg1','convert.msg2','convert.msg3',
 'convert.msg4','convert.msg5','convert.msg6'];
+
+
+function getConvertDelay(){
+if(window.__nibblyPracticeDev&&typeof window.__nibblyPracticeDev.convertDelay==='number'){
+return window.__nibblyPracticeDev.convertDelay;
+}
+return 3000;
+}
+
 numConvert.addEventListener('click',()=>{
 if(convertBusy)return;
 convertBusy=true;
 numConvert.disabled=true;
 numLoading.classList.add('show');
+
+const delay=getConvertDelay();
+
+
+if(delay===0){
+numLoading.classList.remove('show');
+numConvert.disabled=false;
+convertBusy=false;
+renderNum();
+return;
+}
+
 let idx=0;
 numLoading.textContent=getStr(ctx,CONVERT_KEYS[0],'…');
 convertMsgTimer=setInterval(()=>{
@@ -441,7 +462,7 @@ numLoading.classList.remove('show');
 numConvert.disabled=false;
 convertBusy=false;
 renderNum();
-},3000);
+},delay);
 });
 chipsWrap.addEventListener('click',e=>{
 const chip=e.target.closest('.chip');
