@@ -585,6 +585,44 @@ border-radius:var(--r-md,10px)}
 .p-calc-display{font-size:18px;padding:10px 12px}
 .p-calc-btn{font-size:14px;padding:12px 6px}}
 
+/* SVG en botones de acciones (reset / verify / csv) */
+.p-btn-primary,
+.p-btn-ghost{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+line-height:1}
+.p-btn-primary svg,
+.p-btn-ghost svg{
+display:block;
+flex-shrink:0;
+width:16px;
+height:16px}
+.p-btn-primary span,
+.p-btn-ghost span{display:inline-block;
+line-height:1}
+
+/* SVG en summaries de details (help / scratch / calc) */
+.p-help-summary svg,
+.p-scratch-summary svg,
+.p-calc-summary svg{
+display:block;
+flex-shrink:0;
+width:16px;
+height:16px;
+margin-right:6px}
+.p-help-summary span,
+.p-scratch-summary span,
+.p-calc-summary span{
+display:inline-block;
+line-height:1;
+flex:1;
+min-width:0;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap}
+
 @media (prefers-reduced-motion:reduce){.p-egg-box{animation:none}
 .p-help-summary,
 .p-help-summary::after,

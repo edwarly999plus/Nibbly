@@ -290,6 +290,11 @@ return String(s).replace(/[&<>"']/g,c=>({
 }[c]));
 }
 
+function stripLeadingEmoji(str,emoji){
+if(str.indexOf(emoji)===0)return str.slice(emoji.length).trimStart();
+return str;
+}
+
 function showToast(msg,isErr){
 if(window.NibblyApp&&typeof window.NibblyApp.toast==='function'){
 try{window.NibblyApp.toast(msg,!!isErr);return;}catch(_){}
@@ -671,7 +676,7 @@ const newBtn=document.createElement('button');
 newBtn.type='button';
 newBtn.className='p-new-btn';
 newBtn.id='pNewExerciseBtn';
-newBtn.innerHTML=icon('reload',16)+' <span>'+esc(t('newExercise'))+'</span>';
+newBtn.innerHTML=icon('reload',16,'🔄')+' <span>'+esc(t('newExercise'))+'</span>';
 wrap.appendChild(newBtn);
 return wrap;
 }
@@ -1021,7 +1026,8 @@ details.className='p-help-box';
 
 const summary=document.createElement('summary');
 summary.className='p-help-summary';
-summary.textContent=t('helpTitle');
+const helpText=stripLeadingEmoji(t('helpTitle'),'📘');
+summary.innerHTML=icon('help',16,'📘')+' <span>'+esc(helpText)+'</span>';
 details.appendChild(summary);
 
 const body=document.createElement('div');
@@ -1052,7 +1058,8 @@ details.id='pScratchBox';
 
 const summary=document.createElement('summary');
 summary.className='p-scratch-summary';
-summary.textContent=t('scratchTitle');
+const scratchText=stripLeadingEmoji(t('scratchTitle'),'📝');
+summary.innerHTML=icon('edit',16,'📝')+' <span>'+esc(scratchText)+'</span>';
 details.appendChild(summary);
 
 const body=document.createElement('div');
@@ -1107,11 +1114,12 @@ const summary=document.createElement('summary');
 summary.className='p-calc-summary';
 
 const enabled=isCalcEnabled();
+const calcText=stripLeadingEmoji(t('calcTitle'),'🧮');
 
 if(enabled){
-summary.textContent=t('calcTitle');
+summary.innerHTML=icon('calc',16,'🧮')+' <span>'+esc(calcText)+'</span>';
 }else{
-summary.textContent=t('calcTitle')+' · '+t('calcDisabled');
+summary.innerHTML=icon('calc',16,'🧮')+' <span>'+esc(calcText)+' · '+esc(t('calcDisabled'))+'</span>';
 summary.classList.add('p-calc-summary-disabled');
 summary.addEventListener('click',(e)=>{
 e.preventDefault();
@@ -1276,12 +1284,12 @@ const resetBtn=document.createElement('button');
 resetBtn.type='button';
 resetBtn.className='p-btn-ghost';
 resetBtn.id='pResetBtn';
-resetBtn.textContent=t('reset');
+resetBtn.innerHTML=icon('refresh-cw',16,'🔄')+' <span>'+esc(t('reset'))+'</span>';
 const verifyBtn=document.createElement('button');
 verifyBtn.type='button';
 verifyBtn.className='p-btn-primary';
 verifyBtn.id='pVerifyBtn';
-verifyBtn.textContent=t('verify');
+verifyBtn.innerHTML=icon('check',16,'✓')+' <span>'+esc(t('verify'))+'</span>';
 wrap.appendChild(resetBtn);
 wrap.appendChild(verifyBtn);
 return wrap;
@@ -1643,7 +1651,7 @@ const btn=document.createElement('button');
 btn.type='button';
 btn.className='p-btn-primary';
 btn.style.marginTop='10px';
-btn.textContent='📥 '+t('downloadCsv');
+btn.innerHTML=icon('download',16,'📥')+' <span>'+esc(t('downloadCsv'))+'</span>';
 btn.addEventListener('click',()=>{
 downloadCSV();
 });
