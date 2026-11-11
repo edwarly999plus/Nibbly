@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.0.4-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-2.0.5-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/iOS-9.0%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
@@ -120,26 +120,10 @@ We know that downloading configuration profiles (`.mobileconfig`) can raise conc
 
 Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova, and the iOS version works via a `.mobileconfig` Web Clip.
 
-**v2.0.4 highlights (Practice Tab):**
-- 📚 **New "Practice" Tab** — Designed specifically to study and practice for exams completely offline, working 100% locally **without relying on any AI**.
+**v2.0.5 highlights (Practice Tab):**
+- 📚 **"Practice" Tab** — Designed specifically to study and practice for exams completely offline, working 100% locally **without relying on any AI**.
 
-**v2.0.3 highlights (Bug fixes & Flowchart QoL):**
-- 🐛 **Fixed: "Process" untranslated in Flowcharts (ES)** — the default node label now shows "Proceso".
-- 🎨 **Fixed: Formula buttons icons stacked above text** — icon alignment on `.f-copy`, `.f-btn`, `.formulas-reveal-btn`, `.f-seg-btn` etc. no longer depends on `:has()`, so it works on old WebViews (iOS 9+, older Android System WebView).
-- 🔴 **Fixed: Loading screen didn't turn red on error** — removed a `background-color:#0b1020 !important` override; now `--bg` can transition to `--bg-error`. Accent tint (spinner, rescan button) already follows `--accent-error`.
-- 🎯 **Fixed: Flowchart arrows not sticking to diamonds / ellipses / parallelograms** — `edgePoint()` is now shape-aware (exact intersections per node type).
-- 📐 **Fixed: Text without wrapping in exported SVG/PNG** — the exporter now wraps title + subtitles per node using `wrapTextToLines()`.
-- 🧭 **Flowcharts: camera no longer recenters on interaction** — scroll position is preserved on add/connect/delete/move, especially useful on Android.
-- ✏️ **Flowcharts: new "Edit" mode** — one tap on a node opens the editor. Adds alongside Move / Connect / Delete.
-- 🪟 **Flowcharts: Nibbly-style modals** — the editor and the "Clear all" confirmation are now native Nibbly dialogs (no `prompt()` / `confirm()`), fully themed and mobile-friendly. Required on iOS where native dialogs are heavily restricted.
-
-**v2.0.2 highlights:**
-- 📈 **More Step-by-Step Formulas** — Added Base → Decimal, Octal → Binary/Hex, Hex → Dec/Bin/Octal conversions.
-- 🔍 **Remainder Finder** — Find division residues easily, even with step-by-step procedures for complex divisions.
-- 🧠 **Boolean Logic Calculator & Diagrammer** — Similar to logic gates, but with detailed Boolean rules and downloadable diagrams.
-- 📐 **Flowcharts Tab** — A full diagram builder with live preview, 60 FPS rendering, and SVG/PNG export.
-- 🎨 **Vector Icons Optimization** — No PNGs required for offline vector rendering. Tab icons now work perfectly on Android (previously PC-only), with the new inline SVG system that prevents color inversion issues.
-- 🍏 **iOS Support (9+)** — Now installable on iPhone/iPad via Safari using a `.mobileconfig` Web Clip. No jailbreak required.
+- 💡 **WatchDog & SVG icons** --- Rebuilt for faster load
 
 ---
 
@@ -537,6 +521,7 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 · ☑ v2.0.2 — Diagrams, iOS Support & Fixes (Flowcharts tab, Remainder Finder, Boolean Logic, new base conversions, Inline SVG optimization, iOS Web Clip installation)
 · ☑ v2.0.3 — Bug fixes & Flowchart QoL (ES "Proceso", icon alignment, red error background, shape-aware arrows, SVG text wrap, scroll preservation, Edit mode, Nibbly-style modals)
 · ☑ v2.0.4 — Practice Tab (Works 100% locally without AI for exam preparation)
+· ☑ v2.0.5 — Practice Tab icon patches & updated watchdog
 · ☐ v2.0.x — More bug fixes
 · ☐ v3.0.x — (Soon...)
 
