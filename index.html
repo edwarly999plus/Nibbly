@@ -280,7 +280,7 @@ globalSyntaxError=`Promesa rechazada: ${msg}`;
 });
 
 
-const APP_VERSION='2.0.4';
+const APP_VERSION='2.0.5';
 window.__NIBBLY_APP_VERSION=APP_VERSION;
 
 const EXPANSION_BASE='expansions/expansion-pack-1/';
@@ -290,7 +290,7 @@ const OPTIONAL_TIMEOUT=8000;
 const VERIFY_DELAY_MS=1000;
 const VERIFY_DELAY_CSS=300;
 const INIT_TIMEOUT_MS=30000;
-const GLOBAL_TIMEOUT=40000;
+const GLOBAL_TIMEOUT=60000;
 const FADE_OUT_MS=1000;
 const FADE_STEP_MS=40;
 
@@ -401,10 +401,10 @@ const FALLBACK={
 'error.initTimeout':
 '[ - App init took too long (30s). Error Code: MissingNo. ]',
 'error.timeoutBrick':
-'[ - Load timeout (40s) reached. No files loaded. '+
+'[ - Load timeout (60s) reached. No files loaded. '+
 'Error Code: Brick. ]',
 'error.timeoutMissingNo':
-'[ - Load timeout (40s) reached. Some files still loading. '+
+'[ - Load timeout (60s) reached. Some files still loading. '+
 'Error Code: MissingNo. ]',
 'error.boom':
 '[ - File loading stopped due to an unknown error. '+
@@ -1316,7 +1316,7 @@ if(loadingEl)loadingEl.style.display='none';
 
 const bootWatchdog=setTimeout(()=>{
 if(bootCompleted)return;
-console.warn('[Nibbly] 40s watchdog fired');
+console.warn('[Nibbly] 60s watchdog fired');
 if(loadingEl)loadingEl.style.display='none';
 hideBoomBtn();
 setErrorState(true);
@@ -1329,7 +1329,7 @@ window.NibblyApp||
 if(!hasAnyCore){
 killLoadingMusic();
 const mainText=getString('error.timeoutBrick');
-currentErrorReport=buildErrorReport('TimeoutBrick',mainText,null,'40s watchdog');
+currentErrorReport=buildErrorReport('TimeoutBrick',mainText,null,'60s watchdog');
 
 let errorDisplay='';
 if(globalSyntaxError){
@@ -1351,7 +1351,7 @@ iconOrEmoji('copy','📋',16)+' '+escapeHTML(getString('error.copyReport'))+
 '</div>';
 }else{
 const mainText=getString('error.timeoutMissingNo');
-currentErrorReport=buildErrorReport('TimeoutMissingNo',mainText,null,'40s watchdog');
+currentErrorReport=buildErrorReport('TimeoutMissingNo',mainText,null,'60s watchdog');
 
 let errorDisplay='';
 if(globalSyntaxError){
