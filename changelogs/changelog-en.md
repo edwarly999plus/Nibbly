@@ -1,29 +1,20 @@
-# 🎮 Nibbly v2.0.4 — Bug Fixes & Expansión Pack 2
+# Nibbly v2.0.5 — Watchdog & Practice Polish
 
-This release fixes multiple reported bugs and adds a new practice expansion, 200+ icons, and Flowchart node save/load.
+This release extends the global boot watchdog from 40s to 60s to avoid false positives on slow connections, and unifies the vector iconography in the Practice tab. No breaking changes, no data migration, no new files.
 
 ## ✨ Added
 
-· Practice expansion — practice.js + practice.css in expansions/expansion-pack-2/practice/.
-· Flowchart node save/load (.nib) in flowcharts.js v2.4.0.
-· 200+ new icons (including brain) in icons.js v3.1.0.
-· 6 new CSS blocks in config.css.
-· +33 language keys in langs/strings.js and langs/es.js.
-· .console-table class in console.css.
-· 4 new dev commands in dev-commands.js v1.1.1.
-
-## 🐛 Fixed
-
-· 15+ fixes in app/config.js (settings logic).
-· 3 fixes in index.html (loading and startup).
-· 3 fixes in app/version-check.js.
-· 4 fixes in expansion-pack-1/console/console.js.
-· 3 fixes in expansion-pack-1/desktop-ui/desktop.js (including version badge).
+· SVG icons in the 4 Practice action buttons (New exercise, Reset, Verify, Download CSV).
+· SVG icons in the 3 collapsible summaries (How to calculate, Scratchpad, Mini calculator).
+· `stripLeadingEmoji()` helper in practice.js to strip the emoji from the title without touching i18n.
+· Emoji fallback on every `icon()` call in case `NibblyIcons` hasn't loaded yet.
 
 ## 🔧 Under the hood
 
-· Version bumped to 2.0.4 across the project.
-· flowcharts.js → v2.4.0 with node save/load.
-· icons.js → v3.1.0 with brain + 200+ icons.
-· dev-commands.js → v1.1.1 with 4 new features.
+· `GLOBAL_TIMEOUT` from 40000 → 60000 in index.html.
+· 5 textual "40s" → "60s" references (fallbacks, log, buildErrorReport).
+· `INIT_TIMEOUT_MS` (30s) unchanged.
+· 2 new CSS blocks in practice.css (action buttons + summaries).
+· Version bumped to 2.0.5 across the project.
 · No data migration needed; settings remain in nibbly-settings-v2.
+· No new files: only index.html, practice.js and practice.css are modified.
