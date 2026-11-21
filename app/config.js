@@ -2,7 +2,6 @@
 'use strict';
 if(window.NibblyApp&&window.NibblyApp.init)return;
 
-
 const SETTINGS_KEY='nibbly-settings-v2';
 const EXPANSION_BASE='expansions/expansion-pack-1/';
 const EXPANSION_BASE_2='expansions/expansion-pack-2/';
@@ -110,6 +109,7 @@ cat:'checker.cat.console'},
 css:EXPANSION_BASE+'markdown/markdown.css',
 cat:'checker.cat.markdown'},
 {asset:'mus/You Are Nibbled.ogg',assetType:'audio',cat:'checker.cat.music'},
+{asset:'mus/Cubic Nibbly.ogg',assetType:'audio',cat:'checker.cat.music'},
 
 {js:EXPANSION_BASE_2+'logic-gates/logic-gates.js',
 css:EXPANSION_BASE_2+'logic-gates/logic-gates.css',
@@ -121,7 +121,6 @@ cat:'checker.cat.flowcharts'},
 css:EXPANSION_BASE_2+'practice/practice.css',
 cat:'checker.cat.practice'}
 ];
-
 
 let settings=Object.assign({},DEFAULT_SETTINGS);
 let ctxRef=null;
@@ -137,7 +136,6 @@ let lazyLoading={};
 let destroyed=false;
 let reloading=false;
 
-
 function loadSettings(){
 try{
 const raw=localStorage.getItem(SETTINGS_KEY);
@@ -147,7 +145,6 @@ if(raw)settings=Object.assign({},DEFAULT_SETTINGS,JSON.parse(raw));
 function saveSettings(){
 try{localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));}catch(_){}
 }
-
 
 function t(key,fallback){
 if(ctxRef&&typeof ctxRef.getString==='function'){
@@ -172,7 +169,6 @@ if(v)el.title=v;
 });
 document.documentElement.lang=settings.lang;
 }
-
 
 function syncColorChips(){
 const sa=document.getElementById('setAccent');
@@ -218,7 +214,6 @@ if(sb)sb.value=settings.bg;
 syncColorChips();
 }
 
-
 function ensureToast(){
 let el=document.getElementById('nibToast');
 if(!el){
@@ -237,7 +232,6 @@ el.classList.add('show');
 clearTimeout(toastTimer);
 toastTimer=setTimeout(()=>el.classList.remove('show'),2000);
 }
-
 
 function logCalc(msg){
 if(settings.logMode==='off')return;
@@ -263,7 +257,6 @@ return String(s).replace(/[&<>"']/g,c=>({
 '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[c]));
 }
-
 
 function ensureAudioCtx(){
 if(!audioCtx){
@@ -302,7 +295,6 @@ osc.start(now);osc.stop(now+0.1);
 }catch(_){}
 }
 
-
 function h(tag,attrs,children){
 const n=document.createElement(tag);
 if(attrs){
@@ -329,7 +321,6 @@ n.appendChild(typeof c==='string'?document.createTextNode(c):c);
 return n;
 }
 
-
 function buildShell(){
 rootApp=h('div',{class:'app'});
 
@@ -349,7 +340,6 @@ html:window.NibblyIcons?window.NibblyIcons.get('config',{size:24}):''
 })
 ]);
 rootApp.appendChild(topbar);
-
 
 const TAB_ICONS={
 num:'numbers',
@@ -446,7 +436,6 @@ settingsBtn.dataset.spinning='0';
 return rootApp;
 }
 
-
 function initPrivacyFab(){
 if(!window.NibblyPrivacy)return;
 try{
@@ -460,11 +449,9 @@ console.warn('[Nibbly] privacy mount failed:',e);
 }
 }
 
-
 function switchTab(tabId){
 const prevTab=currentTab;
 currentTab=tabId;
-
 
 if(prevTab==='games'&&tabId!=='games'){
 const g=window.NibblyGames;
@@ -478,7 +465,6 @@ if(g&&typeof g.resumeActive==='function'){
 try{g.resumeActive();}catch(_){}
 }
 }
-
 
 if(prevTab==='practice'&&tabId!=='practice'){
 const p=window.NibblyModules&&window.NibblyModules.practice;
@@ -509,7 +495,6 @@ console.warn('[Nibbly] rebuild '+coreTab.mod+':',e);
 const opt=OPTIONAL_TABS.find(x=>x.id===tabId);
 if(opt)lazyLoadOptional(opt);
 }
-
 
 function initCoreModules(){
 CORE_TABS.forEach(tab=>{
@@ -622,7 +607,6 @@ catch(e){console.warn('[Nibbly] refresh '+tab.mod+':',e);}
 });
 }
 
-
 function updateConsoleTabVisibility(){
 const tabBtn=document.querySelector('.tab[data-tab="console"]');
 if(!tabBtn)return;
@@ -632,7 +616,6 @@ if(!shouldShow&&currentTab==='console'){
 switchTab('num');
 }
 }
-
 
 function injectSheetIcons(){
 if(!window.NibblyIcons){
@@ -656,7 +639,6 @@ clearBtn.innerHTML=window.NibblyIcons.get('trash',{size:18,class:'tint-bad'})+
 ' '+(text||t('settings.clearCache','Clear Cache & Reload'));
 }
 }
-
 
 function buildSheet(){
 const overlay=h('div',{class:'sheet-overlay',id:'nibSheetOverlay'});
@@ -956,7 +938,6 @@ syncColorChips();
 return{sheet,overlay};
 }
 
-
 function segBtn(value,i18nKey,fallback,active,disabled){
 return h('button',{
 class:'seg-btn'+(active?' active':'')+(disabled?' disabled':''),
@@ -980,7 +961,6 @@ if(s)s.classList.add('show');
 if(o)o.classList.add('show');
 syncSettingsUI();
 syncColorChips();
-
 
 if(window.NibblyVersionCheck){
 const st=window.NibblyVersionCheck.getState();
@@ -1082,6 +1062,10 @@ settings.musicVolume=parseInt(e.target.value,10);
 saveSettings();syncSettingsUI();
 const mm=moduleInst.music;
 if(mm&&typeof mm.setVolume==='function')mm.setVolume(settings.musicVolume);
+
+if(window.NibblyCubeRun&&typeof window.NibblyCubeRun.setMusicVolume==='function'){
+window.NibblyCubeRun.setMusicVolume(settings.musicVolume);
+}
 });
 
 const games=document.getElementById('setGames');
@@ -1224,7 +1208,6 @@ const clearCacheBtn=document.getElementById('nibClearCache');
 if(clearCacheBtn)clearCacheBtn.addEventListener('click',clearNibblyCache);
 }
 
-
 function buildPresets(boxId,colors,onPick){
 const box=document.getElementById(boxId);
 if(!box)return;
@@ -1339,7 +1322,6 @@ if(sa)sa.value=settings.accent;
 if(sb)sb.value=settings.bg;
 syncColorChips();
 
-
 if(window.NibblyVersionCheck){
 window.NibblyVersionCheck.check(false).then(()=>{
 updateVersionBadge();
@@ -1347,7 +1329,6 @@ updateVersionBadge();
 }
 updateVersionBadge();
 }
-
 
 let desktopLoaded=false,desktopMissing=false,desktopPromise=null;
 function loadDesktop(){
@@ -1444,7 +1425,6 @@ h('div',{class:'log-body',id:'nibLogBody'})
 ]);
 document.body.appendChild(panel);
 }
-
 
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function bustUrl(path){
@@ -1596,7 +1576,6 @@ catch(_){return true;}
 return false;
 }
 
-
 function checkFile(path){
 return new Promise(resolve=>{
 if(path.endsWith('.css')){
@@ -1680,7 +1659,6 @@ rows.forEach(r=>results.appendChild(r));
 btn.disabled=false;
 btn.textContent=orig;
 }
-
 
 async function reloadExpansionFiles(){
 if(reloading)return;
@@ -1781,7 +1759,6 @@ toast(t(toastKey,fallback),failCount>0);
 logCalc('reload-expansion: '+okCount+' ok, '+failCount+' failed');
 }
 
-
 async function clearNibblyCache(){
 try{
 let cleared=0;
@@ -1804,10 +1781,8 @@ toast('Failed: '+(err.message||err),true);
 }
 }
 
-
 function openExternal(url){
 if(!url)return;
-
 
 try{
 if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Browser){
@@ -1821,13 +1796,11 @@ const isWebView=/; wv\)/.test(navigator.userAgent)
 ||(window.cordova)
 ||(window.ReactNativeWebView);
 
-
 if(isAndroid&&isWebView){
 console.info('[Nibbly external] WebView detected → showing modal');
 showExternalModal(url);
 return;
 }
-
 
 try{
 const w=window.open(url,'_blank','noopener,noreferrer');
@@ -1836,7 +1809,6 @@ console.info('[Nibbly external] opened via window.open');
 return;
 }
 }catch(_){}
-
 
 try{
 const a=document.createElement('a');
@@ -1850,11 +1822,9 @@ console.info('[Nibbly external] opened via dynamic <a>');
 return;
 }catch(_){}
 
-
 console.info('[Nibbly external] all failed → showing modal');
 showExternalModal(url);
 }
-
 
 function showExternalModal(url){
 const existing=document.getElementById('nibExternalModal');
@@ -1895,11 +1865,9 @@ escapeHtml(t('external.cancel','Cerrar'))+
 overlay.appendChild(panel);
 document.body.appendChild(overlay);
 
-
 overlay.addEventListener('pointerdown',(ev)=>{
 if(ev.target===overlay)overlay.remove();
 });
-
 
 const onEsc=(ev)=>{
 if(ev.key==='Escape'){
@@ -1908,7 +1876,6 @@ document.removeEventListener('keydown',onEsc);
 }
 };
 document.addEventListener('keydown',onEsc);
-
 
 const copyBtn=overlay.querySelector('#nibExternalCopy');
 copyBtn.addEventListener('click',async()=>{
@@ -1927,7 +1894,6 @@ copyBtn.innerHTML='📋 '+escapeHtml(t('external.copy','Copiar URL'));
 },2000);
 }
 });
-
 
 const retryBtn=overlay.querySelector('#nibExternalRetry');
 retryBtn.addEventListener('click',()=>{
@@ -1948,7 +1914,6 @@ console.info('[Nibbly external] user clicked "try to open" → intent');
 window.location.href=intentUrl;
 }catch(_){}
 
-
 setTimeout(()=>{
 if(retryBtn&&retryBtn.isConnected){
 retryBtn.innerHTML=origHTML;
@@ -1963,12 +1928,10 @@ descEl.style.color='var(--warn,#ffb020)';
 },2000);
 });
 
-
 overlay.querySelector('#nibExternalCancel').addEventListener('click',()=>{
 overlay.remove();
 });
 }
-
 
 async function copyToClipboard(text){
 try{
@@ -1992,7 +1955,6 @@ ta.remove();
 return ok;
 }catch(_){return false;}
 }
-
 
 function init(containerEl,ctx){
 if(destroyed)return null;
@@ -2041,7 +2003,6 @@ e.preventDefault();e.stopPropagation();
 const href=link.getAttribute('href');
 if(!href)return;
 
-
 const labelEl=link.querySelector('span:last-child');
 const origText=labelEl?labelEl.textContent:'';
 if(labelEl){
@@ -2049,7 +2010,6 @@ labelEl.textContent=t('about.opening','Abriendo…');
 }
 
 openExternal(href);
-
 
 setTimeout(()=>{
 if(labelEl&&labelEl.textContent===t('about.opening','Abriendo…')){
@@ -2077,7 +2037,6 @@ if(typeof g.pauseActive==='function'){
 try{g.pauseActive();}catch(_){}
 }
 }
-
 
 if(!document.hidden&&window.NibblyVersionCheck){
 const bell=document.getElementById('setUpdateBell');
@@ -2130,13 +2089,12 @@ if(el&&el.parentNode)el.parentNode.removeChild(el);
 });
 }
 
-
 window.NibblyModules=window.NibblyModules||{};
-window.NibblyModules.config={id:'config',version:'2.1.0',init};
+window.NibblyModules.config={id:'config',version:'2.1.2',init};
 window.NibblyApp=window.NibblyApp||{};
 window.NibblyApp.init=init;
 
 if(console&&console.debug){
-console.debug('[Nibbly] config.js loaded → window.NibblyApp.init ready (v2.1.0)');
+console.debug('[Nibbly] config.js loaded → window.NibblyApp.init ready (v2.1.2)');
 }
 })();
