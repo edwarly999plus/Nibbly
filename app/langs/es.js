@@ -886,7 +886,7 @@ const strings={
 
 
 'lg.mode.calc':'Calculadora',
-'lg.mode.table':'Tabla de verdad',
+'lg.mode.table':'Tabla',
 'lg.mode.builder':'Constructor',
 
 'lg.result':'Resultado',
@@ -962,6 +962,56 @@ const strings={
 'practice.emptyInput':'Rellena todas las celdas primero',
 'practice.examNoReveal':'Sigue intentando — en modo Examen no se revela nada',
 'practice.resetOnLeave':'El progreso se reinicia al cambiar de pestaña',
+
+'lg.mode.wave':'Ondas',
+
+'lg.wave.hint':
+'Cada cuadrado es un ciclo de reloj (t). Las entradas A y B se combinan '+
+'para producir Y. Usa los botones para cambiar bits y ver el efecto al instante.',
+'lg.wave.a':'A',
+'lg.wave.b':'B',
+'lg.wave.y':'Y',
+'lg.wave.gate':'Puerta',
+'lg.wave.period':'Período',
+'lg.wave.readout':'Lectura en vivo',
+
+'lg.concepts.title':'Conceptos básicos de ondas',
+'lg.concept.1.title':'¿Qué es una onda?',
+'lg.concept.2.title':'Tiempo y ciclos (t)',
+'lg.concept.3.title':'Entradas vs. salida',
+'lg.concept.4.title':'Cómo marcar bien los tiempos',
+'lg.concept.5.title':'Retardo de propagación',
+'lg.concept.6.title':'Flancos y niveles',
+
+
+'lg.maker.title':'Wave Maker',
+'lg.maker.hint':
+'Toca una celda para cambiar su bit. A y B son tus entradas; Y se calcula '+
+'automáticamente con la puerta seleccionada en tiempo real.',
+'lg.maker.rowA':'Entrada A',
+'lg.maker.rowB':'Entrada B',
+'lg.maker.rowY':'Salida Y (auto)',
+'lg.maker.gate':'Puerta',
+'lg.maker.period':'Ciclos',
+'lg.maker.preset':'Preajustes',
+'lg.maker.preset.alt':'Alternado',
+'lg.maker.preset.low':'Todo 0',
+'lg.maker.preset.high':'Todo 1',
+'lg.maker.preset.random':'Aleatorio',
+'lg.maker.preset.invert':'Invertir A',
+'lg.maker.preset.copyAB':'Copiar A→B',
+'lg.maker.clear':'Limpiar',
+'lg.maker.download':'Descargar JSON',
+'lg.maker.copyBits':'Copiar bits',
+'lg.maker.legend':'0 = bajo · 1 = alto',
+'lg.maker.cell':'Celda',
+'lg.maker.colA':'A',
+'lg.maker.colB':'B',
+'lg.maker.colY':'Y',
+'lg.maker.colT':'t',
+'lg.maker.errPeriod':'Los ciclos deben estar entre 2 y 32.',
+'lg.maker.copied':'✓ Bits copiados',
+'lg.maker.jsonDone':'✓ JSON descargado',
 
 };
 

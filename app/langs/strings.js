@@ -860,7 +860,7 @@ const strings={
 
 
 'lg.mode.calc':'Calculator',
-'lg.mode.table':'Truth table',
+'lg.mode.table':'Truth',
 'lg.mode.builder':'Builder',
 
 'lg.result':'Result',
@@ -936,6 +936,56 @@ const strings={
 'practice.emptyInput':'Fill all cells first',
 'practice.examNoReveal':'Keep trying — no answer revealed in Exam mode',
 'practice.resetOnLeave':'Progress reset when leaving the tab',
+
+'lg.mode.wave':'Waves',
+
+'lg.wave.hint':
+'Each square is one clock cycle (t). A and B are combined to produce Y. '+
+'Use the buttons to toggle bits and see the effect instantly.',
+'lg.wave.a':'A',
+'lg.wave.b':'B',
+'lg.wave.y':'Y',
+'lg.wave.gate':'Gate',
+'lg.wave.period':'Period',
+'lg.wave.readout':'Live readout',
+
+'lg.concepts.title':'Waveform basics',
+'lg.concept.1.title':'What is a waveform?',
+'lg.concept.2.title':'Time and cycles (t)',
+'lg.concept.3.title':'Inputs vs. output',
+'lg.concept.4.title':'How to mark timing correctly',
+'lg.concept.5.title':'Propagation delay',
+'lg.concept.6.title':'Edges and levels',
+
+
+'lg.maker.title':'Wave Maker',
+'lg.maker.hint':
+'Tap a cell to toggle its bit. A and B are your inputs; Y is computed '+
+'automatically from the selected gate in real time.',
+'lg.maker.rowA':'Input A',
+'lg.maker.rowB':'Input B',
+'lg.maker.rowY':'Output Y (auto)',
+'lg.maker.gate':'Gate',
+'lg.maker.period':'Cycles',
+'lg.maker.preset':'Presets',
+'lg.maker.preset.alt':'Alternating',
+'lg.maker.preset.low':'All 0',
+'lg.maker.preset.high':'All 1',
+'lg.maker.preset.random':'Random',
+'lg.maker.preset.invert':'Invert A',
+'lg.maker.preset.copyAB':'Copy A→B',
+'lg.maker.clear':'Clear',
+'lg.maker.download':'Download JSON',
+'lg.maker.copyBits':'Copy bits',
+'lg.maker.legend':'0 = low · 1 = high',
+'lg.maker.cell':'Cell',
+'lg.maker.colA':'A',
+'lg.maker.colB':'B',
+'lg.maker.colY':'Y',
+'lg.maker.colT':'t',
+'lg.maker.errPeriod':'Cycles must be between 2 and 32.',
+'lg.maker.copied':'✓ Bits copied',
+'lg.maker.jsonDone':'✓ JSON downloaded',
 
 };
 
