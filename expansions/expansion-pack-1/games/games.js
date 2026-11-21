@@ -1161,6 +1161,10 @@ root.querySelectorAll('.ng-tab').forEach((tb)=>tb.classList.toggle('active',tb.d
 root.querySelectorAll('.ng-stage').forEach((st)=>st.classList.toggle('active',st.id==='ng-stage-'+id));
 ensureInit(id);
 currentGameId=id;
+const activeTab=root.querySelector('.ng-tab.active');
+if(activeTab&&activeTab.scrollIntoView){
+activeTab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
 }
 
 function rebuildTabs(){

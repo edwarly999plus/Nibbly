@@ -10,9 +10,20 @@ gap:4px;
 background:var(--surface-1,#1a1f30);
 border:1px solid var(--outline-v,rgba(255,255,255,.12));
 padding:6px;
-border-radius:var(--r-lg,24px)}
-.ng-tab{flex:1;
-padding:11px 8px;
+border-radius:var(--r-lg,24px);
+overflow-x:auto;
+overflow-y:hidden;
+scroll-behavior:smooth;
+-webkit-overflow-scrolling:touch;
+scrollbar-width:thin;
+scrollbar-color:color-mix(in srgb,var(--on-variant,#aaa) 35%,transparent) transparent}
+.ng-tabs::-webkit-scrollbar{height:6px}
+.ng-tabs::-webkit-scrollbar-track{background:transparent}
+.ng-tabs::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--on-variant,#aaa) 35%,transparent);
+border-radius:999px}
+.ng-tabs::-webkit-scrollbar-thumb:hover{background:color-mix(in srgb,var(--on-variant,#aaa) 55%,transparent)}
+.ng-tab{flex:0 0 auto;
+padding:11px 14px;
 border:0;
 background:transparent;
 color:var(--on-variant,#aaa);
@@ -21,7 +32,9 @@ font-weight:700;
 border-radius:var(--r-md,16px);
 cursor:pointer;
 font-family:inherit;
-transition:background .2s ease,color .2s ease}
+white-space:nowrap;
+transition:background .2s ease,color .2s ease;
+-webkit-tap-highlight-color:transparent}
 .ng-tab.active{background:var(--primary,#5b8cff);
 color:#fff;
 box-shadow:0 4px 14px color-mix(in srgb,var(--primary,#5b8cff) 35%,transparent)}
@@ -403,7 +416,7 @@ font-size:12px}
 margin-top:6px;
 line-height:1.35}
 .ng-tabs{padding:4px}
-.ng-tab{padding:9px 6px;
+.ng-tab{padding:9px 12px;
 font-size:12px}
 .ng-flag-toggle{padding:8px 12px;
 font-size:12px}
@@ -532,3 +545,141 @@ body.no-effects .ng-board-tetris.ng-tetris-shake{animation:none !important}
 body.no-effects .ng-tetris-cell.ng-tetris-cell-destroy{animation:none !important;
 opacity:0.6;
 transform:scale(0.85)}
+
+
+.ng-cuberun{display:flex;
+flex-direction:column;
+gap:10px;
+align-items:center;
+width:100%}
+
+.ng-cuberun-canvas-wrap{position:relative;
+width:100%;
+max-width:560px;
+aspect-ratio:4 / 3;
+background:#000;
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+border-radius:14px;
+overflow:hidden;
+margin:0 auto}
+
+.ng-cuberun-canvas{display:block;
+width:100%;
+height:100%;
+outline:none;
+touch-action:none;
+user-select:none;
+-webkit-user-select:none}
+
+.ng-cuberun-canvas-wrap>.ng-overlay{border-radius:0}
+
+.ng-cuberun-overlay-actions{display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:10px}
+
+
+.ng-cuberun-touchpad{display:flex;
+justify-content:space-between;
+width:100%;
+max-width:560px;
+padding:0 8px;
+gap:8px;
+margin-top:-2px}
+.ng-cuberun-touch-btn{flex:1;
+height:56px;
+border-radius:14px;
+border:2px solid var(--outline-v,rgba(255,255,255,.12));
+background:var(--surface-1,#1a1f30);
+color:var(--on-surface,#fff);
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+font-family:inherit;
+touch-action:none;
+-webkit-tap-highlight-color:transparent;
+transition:background .1s ease,transform .1s ease}
+.ng-cuberun-touch-btn:active{background:var(--primary,#5b8cff);
+color:#fff;
+transform:scale(.96)}
+.ng-cuberun-touch-jump{border-color:color-mix(in srgb,var(--accent,#5b8cff) 50%,transparent)}
+.ng-cuberun-touch-fall{border-color:color-mix(in srgb,#ffb020 50%,transparent);
+color:color-mix(in srgb,#ffb020 80%,var(--on-surface,#fff))}
+
+
+.ng-cuberun-shop{position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+padding:16px;
+backdrop-filter:blur(4px);
+-webkit-backdrop-filter:blur(4px)}
+.ng-cuberun-shop[style*="flex"]{display:flex !important}
+
+.ng-cuberun-shop-content{background:var(--surface-2,#222838);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+border-radius:24px;
+padding:20px 24px;
+max-width:min(560px,100%);
+max-height:90vh;
+overflow-y:auto;
+width:100%}
+
+.ng-cuberun-shop-coins{display:inline-flex;
+align-items:center;
+gap:6px;
+padding:6px 14px;
+background:color-mix(in srgb,#ffd700 15%,transparent);
+border:1px solid color-mix(in srgb,#ffd700 40%,transparent);
+border-radius:999px;
+color:#ffd700;
+font-weight:900;
+font-family:ui-monospace,monospace;
+margin:6px 0 16px}
+
+.ng-cuberun-shop-grid{display:grid;
+grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+gap:10px}
+
+.ng-cuberun-skin-item{display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+padding:12px 8px;
+background:var(--surface-1,#1a1f30);
+border:1px solid var(--outline-v,rgba(255,255,255,.12));
+border-radius:14px;
+transition:border-color .2s ease,background .2s ease}
+.ng-cuberun-skin-item.equipped{border-color:var(--accent,#5b8cff);
+background:color-mix(in srgb,var(--accent,#5b8cff) 12%,var(--surface-1,#1a1f30))}
+
+.ng-cuberun-skin-preview{display:block;
+width:80px;
+height:80px;
+margin-bottom:4px}
+
+.ng-cuberun-skin-name{font-size:13px;
+font-weight:800;
+color:var(--on-surface,#fff);
+text-align:center}
+
+.ng-cuberun-skin-price{font-size:11px;
+color:var(--on-variant,#aaa);
+font-family:ui-monospace,monospace;
+font-weight:700}
+
+.ng-cuberun-skin-action{padding:6px 12px !important;
+font-size:11px !important;
+margin-top:4px;
+width:100%}
+
+@media (max-width:400px){.ng-cuberun .ng-score-box{padding:6px 10px;min-width:56px}
+.ng-cuberun .ng-score-label{font-size:9px}
+.ng-cuberun .ng-score-value{font-size:15px}
+.ng-cuberun-touch-btn{height:48px;border-radius:12px}
+.ng-cuberun-shop-grid{grid-template-columns:repeat(2,1fr)}}
