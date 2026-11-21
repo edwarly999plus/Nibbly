@@ -5,14 +5,15 @@
 <h1 align="center">Nibbly</h1>
 
 <p align="center">
-  <b>The all-in-one converter for Android & iOS</b><br>
+  <b>The all-in-one converter for Android, iOS & Windows</b><br>
   Bases · Text · Morse · Bits · Power · Multimedia · Calculator · Formulas · Logic · Flowcharts · Practice · Drawing · Games · Private Mode
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.0.5-5b8cff?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-2.0.6-5b8cff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Android-6.0%2B-3ddc84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
   <img src="https://img.shields.io/badge/iOS-9.0%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS">
+  <img src="https://img.shields.io/badge/Windows-10%2F11-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Windows">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
   <img src="https://img.shields.io/badge/license-Apache%202.0-22d3a6?style=for-the-badge" alt="License">
@@ -32,61 +33,30 @@
 
 ---
 
-## 📥 Download
+## 📥 Download & Platforms
 
 > **⚡ Pre-built APK available at [Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)**
 
+### 🪟 Windows 10 / 11 (Native x86 & x64)
+Nibbly has been **natively ported to Windows 10/11** (both x86 and x64 architectures). 
+It uses the **Microsoft Edge WebView2 Runtime** for a lightweight, native window experience.
+- If the user doesn't have WebView2 installed, the Windows installer (or compiler) **will automatically download and install it** to ensure Nibbly runs perfectly.
+- Available for download in the Releases section.
+
+### 📱 Android
 The APK includes the HTML already built and ready to run. **No internet connection required** once installed.
+- **Background music** (`mus/You Are Nibbled.ogg` and `mus/Cubic Nibbly.ogg`) is bundled inside the APK.
+- **WebView Requirement:** Android 6.0+ with Android System WebView installed (usually preinstalled). If you see a blank screen, update WebView from the Play Store.
 
-**🎵 The background music (`mus/You Are Nibbled.ogg`) is already bundled inside the APK**, so you can enable it from Settings **without needing an internet connection** from the very first launch. On the **web/PC version**, the `.ogg` file **is not included**; the music is downloaded automatically the first time you enable it (usually in <5s) and stays cached for future use.
+### 🍏 iOS (via Safari) — Compatible with iOS 9+
+Installed as a **Web Clip** via `.mobileconfig`.
+- Works on iOS 9 or higher.
+- Background music is bundled if hosted on GitHub Pages, but **autoplay is restricted by Safari** (user must tap the screen first).
+- The `.mobileconfig` method avoids jailbreaking and keeps your device secure while providing an app-like icon.
 
-You can also listen to it right here directly without downloading anything.
-
-<a href="https://edwarly999plus.github.io/Nibbly/player.html">
-  <img src="https://img.shields.io/badge/🎵_Listen_Now-5b8cff?style=for-the-badge" alt="Music Player">
-</a>
-
-### ⚠️ Important requirement (Android)
-
-The app uses the **Android System WebView** (or Chrome) to render the interface.
-
-- **Android 6.0 (Marshmallow) or higher** ✅
-- **Android System WebView** installed and up to date ✅
-- On most modern devices it **comes preinstalled**
-
-If the app shows a blank screen, update **Android System WebView** from the Play Store or install **Chrome**.
-
-<p align="center">
-  <a href="https://play.google.com/store/apps/details?id=com.google.android.webview">
-    <img src="https://img.shields.io/badge/Update_WebView-Play_Store-3ddc84?style=for-the-badge&logo=google-play&logoColor=white" alt="Update WebView">
-  </a>
-</p>
-
----
-
-## 🍏 Install on iOS (via Safari) — Compatible with iOS 9+
-
-Since Nibbly is a web app built with HTML/JS, you can install it on your iPhone or iPad as a **Web Clip** (an app-like icon on your home screen that opens in full screen). This works on **iOS 9 or higher**.
-
-> **Note:** Some features like background music autoplay are limited by Safari's strict policies. You may need to tap the screen to start the audio.
-
-**How to install:**
-
-1. Download the `.mobileconfig` file from the **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)** section using Safari.
-2. Open the **Files app** (Archivos) on your iPhone. If the file didn't save directly to **iCloud Drive**, move it there manually.
-3. Tap the `.mobileconfig` file to open it. 
-4. A prompt will appear saying the profile has been downloaded. **Click "Close" (Cerrar)** when it tells you to go to Settings.
-5. Go to **Settings > General > VPN & Device Management** (Ajustes > General > VPN y Gestión de dispositivos).
-6. Tap the downloaded Nibbly profile and select **Install** (Instalar).
-7. The Nibbly icon will now appear on your home screen.
-
-### 🛡️ Security & Privacy on iOS
-
-We know that downloading configuration profiles (`.mobileconfig`) can raise concerns, so here is how it works and why we chose this method:
-
-- **The `.mobileconfig` is not certified by Apple.** It doesn't need to be. This file is not a full app, it is just a configuration profile that tells iOS to create a shortcut on your home screen (a "Web Clip") pointing to the Nibbly web app. It works exactly like adding a shortcut to your home screen from Safari manually. It does **not** have access to your personal data, photos, or system.
-- **No `.ipa` files are provided.** An `.ipa` is a native iOS app package. To install an `.ipa` outside the official App Store, you need to use enterprise certificates or sign the app yourself, which often requires **jailbreaking** your device. Jailbreaking breaks Apple's security sandbox and exposes your iPhone to malware. We chose the Web Clip method to **avoid forcing users to jailbreak and risk losing their device's security**.
-- **Compatible with iOS 9+.** We've patched the app's CSS and JavaScript to ensure it doesn't crash on older WebKit engines (like the one in the iPhone 6s), so even very old devices can run it smoothly.
+### 🌐 Web / PC
+- Available at [GitHub Pages](https://edwarly999plus.github.io/Nibbly/).
+- Music is **not included by default** to save bandwidth; it downloads automatically (<5s) from Archive.org when enabled.
 
 ---
 
@@ -116,14 +86,14 @@ We know that downloading configuration profiles (`.mobileconfig`) can raise conc
 
 ## 📖 Description
 
-**Nibbly** is a cross-platform app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a boolean logic calculator & diagram builder**, **a flowchart editor**, **a practice tab for exam preparation without AI**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **5 minigames**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
+**Nibbly** is a cross-platform app built with **HTML5 + CSS3 + JavaScript** that bundles over **40 conversion tools**, **a calculator with its own personality**, **a live formula editor with step-by-step math**, **a boolean logic calculator & diagram builder**, **a flowchart editor**, **a practice tab for exam preparation without AI**, **a full cipher suite**, **a Markdown editor with GitHub integration**, **a drawing editor**, **7 minigames**, and **a private mode with a disguised scientific calculator**, all inside a single **Material You 3** interface with customizable themes, sounds, calculation logging, bundled background music, vector icons, and bilingual support.
 
-Lightweight, fast, and **100% offline**. The APK can be easily generated with WebView, Capacitor, or Cordova, and the iOS version works via a `.mobileconfig` Web Clip.
+Lightweight, fast, and **100% offline**. Available natively on Android, iOS, and Windows (WebView2).
 
-**v2.0.5 highlights (Practice Tab):**
-- 📚 **"Practice" Tab** — Designed specifically to study and practice for exams completely offline, working 100% locally **without relying on any AI**.
-
-- 💡 **WatchDog & SVG icons** --- Rebuilt for faster load
+**v2.0.6 highlights (The Games & Logic Expansion):**
+- 🎮 **Cube Run & Snake** — Two new fully-featured games with local leaderboards, shops, skins, and audio ducking.
+- 🧠 **Logic Gates 1.7** — Waveforms visualizer, interactive Wave Maker, SVG/PNG export, and ANSI shapes.
+- 🪟 **Windows Native Port** — x86 and x64 builds using Edge WebView2 (auto-installs if missing).
 
 ---
 
@@ -132,403 +102,135 @@ Lightweight, fast, and **100% offline**. The APK can be easily generated with We
 ### 🔢 Numbers
 - Conversion between bases **2 – 36**
 - Output in **Binary, Octal, Decimal, Hex, Base32, Base36**
-- **Nibble** (4-bit blocks) and **BCD** (Binary-Coded Decimal)
+- **Nibble** (4-bit blocks) and **BCD**
 - **ASCII** and support for large numbers with `BigInt`
-- **⏳ "Convert" button** with a 3-second delay and **rotating messages**
-- **🎲 Alphanumeric code generator** with customizable separators, digits per block, 6 separator types, and 4 character types
+- **⏳ "Convert" button** with a 3-second delay and rotating messages
+- **🎲 Alphanumeric code generator** with customizable separators
 
 ### 📝 Text
 - Text ↔ Binary, Octal, Decimal, Hex, ASCII, **Morse**, **Base64**
 - Full **Unicode** support (emojis included)
-- **Built-in Morse keyboard** (dot, dash, space, `/`)
-- **🔊 Morse player**: listen to the frequencies as beeps (750 Hz)
-- **⬇ Download Morse audio as .wav** (with lead-in so players don't cut the start)
+- **Built-in Morse keyboard** and **Morse player** (audio + .wav download)
 
 ### 💾 Bits
 - **bit, byte, KB, MB, GB, TB, PB, EB, ZB, YB** (SI)
 - **KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB** (IEC)
-- **🔢 Combinations calculator**: how many values fit in X bits/bytes/GB (2^N)
+- **🔢 Combinations calculator**
 
 ### ⚡ Power
-- **Watts**: mW, W, kW, MW, GW, HP, CV, BTU/h with quality bar
-- **🌡️ CPU heat meter**: enter °C or °F, danger level, estimated CPU usage, and jokes at extreme levels
-- **Connection speed**: bps → Tbps, B/s → GB/s with download and upload meters
-- **CPU (GHz)**: Hz → THz with 8 vertical performance bars
-- **🧠 RAM**: DDR, DDR2, DDR3, DDR4, DDR5 with per-channel bandwidth and dual channel
-- **💾 Storage**: HDD, SATA SSD, NVMe Gen3/4/5, MicroSD, eMMC, USB, Thunderbolt
+- **Watts**, **🌡️ CPU heat meter**, **Connection speed**, **CPU (GHz)**, **🧠 RAM** (DDR1-5), **💾 Storage** (HDD, SATA, NVMe).
 
 ### 🎵 Multimedia
-- **Audio bitrate**: quality from voice to lossless
-- **Decibels**: dB SPL, dBu, dBV, dBFS, dBm with **Bass/Mid/Treble spectrum**
-- **Video resolution**: px, Kpx, Mpx, MP, Gpx with quality scale
-- **Time converter**: ns → millennia with classified time scale
-- **🎞️ Frames per time unit**: frames/ns → frames/year with smoothness meter
-- **Codec info**: MP3, AAC, Opus, FLAC, H.264, H.265, VP9, AV1, ProRes…
-  - Quality and compression efficiency
-  - Compatibility with **Android, iOS, Windows, and Web**
+- **Audio bitrate**, **Decibels** (with spectrum), **Video resolution**, **Time converter**, **🎞️ Frames**, **Codec info**.
 
 ### 🧮 Calculator
-- Classic functions: **add, subtract, multiply, divide, square root, powers, and sign change**
-- **💥 Optional physics explosion** (`Please Don't` toggle)
-- **🕳️ Black hole alternative** with spinning buttons
-- Off by default → normal calculation with `"Error"` on screen
+- Classic functions with optional physics explosion (Please Don't) or black hole.
 
 ### 🧮 Fórmulas
-
-> 🎓 **Tired of turning in answers without showing the procedure?**
-> This option helps you **calculate with the full step-by-step procedure** — ready to copy into your notebook.
-
-Loaded as an **external expansion** (`formulas/formulas.css` and `formulas/formulas.js`).
-
-#### 🧠 Free formula (live evaluation)
-- Write any formula using **single letters as variables** (`a * b + c`)
-- **Auto-detects variables** on every keystroke
-- **Live preview**: substituted expression + result
-- Supported operators: `+ − * / ^ ( ) %` and special symbols `√`, `²`, `³`
-- Constants: `e`, `pi`
-- Result preserved across language changes
-
-#### 📊 6 new Step-by-Step conversions
-1. **Binary → Decimal** — expansion by powers of 2
-2. **Octal → Decimal** — expansion by powers of 8
-3. **Octal → Binary** — bit-by-bit expansion
-4. **Octal → Hexadecimal** — via decimal or binary intermediate
-5. **Hexadecimal → Decimal** — expansion by powers of 16
-6. **Hexadecimal → Binary** — bit-by-bit expansion
-7. **Hexadecimal → Octal** — via decimal or binary intermediate
-*(Along with the previously existing Dec→Bin, Dec→Hex, Dec(fraction)→Hex, Dec→Oct, Bin→Oct, Bin→Hex)*
-
-Each one shows the **complete procedure table** so you can reproduce it by hand.
-
-#### 🔍 Remainder Finder
-- Enter a **dividend** and a **divisor**.
-- Instantly get the **quotient and remainder**.
-- See the **full step-by-step long division procedure** for complicated numbers.
-
-#### 🧠 Boolean Logic Calculator & Diagrammer
-- Similar to logic gates, but with **detailed Boolean algebra rules** (`AND`, `OR`, `NOT`, `XOR`, `NAND`, `NOR`).
-- Evaluate truth tables and boolean expressions.
-- Generate and **download logic diagrams** for your assignments.
-
-#### ⏳ Reveal sequence
-3 loading messages, then full procedure + copy button with toast feedback.
+> Loaded as an external expansion (`formulas/formulas.css` and `formulas/formulas.js`).
+- **Free formula** (live evaluation)
+- **6 new Step-by-Step conversions** (Bin→Dec, Oct→Bin, Hex→Dec, etc.)
+- **Remainder Finder** (long division)
+- **Boolean Logic Calculator & Diagrammer**
+- 3 loading messages, then full procedure + copy button.
 
 ### 📚 Práctica (Practice Tab)
 - **No AI required** — Built specifically to practice exams locally and completely offline.
-- Interactive question-and-answer training tools designed to help students test their knowledge before tests.
 
 ### 🔐 Ciphers
+- **Classical**: Caesar, ROT13, ROT47, Atbash, Vigenère, Affine, Substitution
+- **Encodings**: URL, Unicode, XOR
+- **Modern**: AES-256-CBC, DES, 3DES
+- **Stream**: RC4, Rabbit
+- Real-time debounced rendering.
 
-Full algorithm suite loaded as part of `app/main.js` → `initCiphers`. Pick the algorithm and direction with segmented controls, enter parameters, get real-time output.
+### 📐 Flowcharts & Logic Gates
+- **Flowcharts**: Smooth dragging, Nibbly modals, 60 FPS, export to SVG/PNG.
+- **Logic Gates (v1.7.0)**:
+  - **Waves**: Visualizer with time grid.
+  - **Wave Maker**: Interactive cell grid, presets, JSON/SVG/PNG export.
+  - **Builder**: Real ANSI/IEEE gate shapes (D-shape, shield, triangle).
+  - **Concepts**: Expandable cards explaining time, cycles, and edges.
 
-| Family | Algorithms |
-|---|---|
-| **Classical** | Caesar, ROT13, ROT47, Atbash, Vigenère, Affine, Substitution |
-| **Encodings** | URL, Unicode, XOR (byte XOR → Base64) |
-| **Modern** | AES-256-CBC (SHA-256 key derivation), DES (ECB, PKCS#7), 3DES (EDE3 ECB, PKCS#7) |
-| **Stream** | RC4, Rabbit |
+### 📊 Range & Memory
+- **Range**: Up to 100,000 entries, CSV export, pagination.
+- **Memory**: 4,096 bytes, hex addresses, persistence.
 
-- **Dynamic parameters**: shift, key, `a`/`b`, alphabet — rendered as input fields per algorithm.
-- **Debounced live rendering** with stale-token cancellation.
-- **Full encryption/decryption** with localized errors.
+### 🎨 Drawing & Private Mode
+- **Drawing**: Brush, Pencil, Eraser, Eyedropper, RGBA/HEX copy.
+- **Private Mode**: Disguised scientific calculator, black screen (3 taps to exit), auto-pauses music.
 
-### 📐 Flowcharts
-Loaded as part of `expansions/expansion-pack-2/`:
-- **Node builder**: Start, End, Process, Decision, and I/O nodes.
-- **Modes**: **Move, Connect, Delete, Edit**.
-- **Live canvas**: Smooth dragging, snapping grid, and zoom controls.
-- **Scroll preservation**: the camera keeps your position while you add, connect, delete, move or edit nodes — no jarring recentering, especially useful on Android.
-- **Edit mode**: one tap on any node opens the Nibbly editor dialog (Title + 3 subtitles).
-- **Nibbly modals**: the node editor and the "Clear all" confirmation use the app's own themed dialogs — no `prompt()` or `confirm()` (both heavily restricted on iOS).
-- **High performance**: Runs smoothly at 60 FPS.
-- **Export**: Download your diagrams as **SVG** or **PNG** with automatic text wrapping.
-- **Shape-aware arrows**: cables stick exactly to the border of diamonds, ellipses, and parallelograms.
-- **Auto-expand**: The canvas grows automatically as you add or move nodes.
-
-### 📊 Range — Massive conversions
-
-> Loaded as an external expansion (`expansions/expansion-pack-1/range/`).
-
-- **Paginated tables** up to **100,000 entries** per query.
-- **100 rows per page** with prev/next and **jump to page**.
-- **Presets**: Dec→Bin, Dec→Oct, Dec→BCD, Hex→Dec, Hex 00–FF→Dec, ASCII 32–127.
-- **Copy all** with confirmation for large ranges.
-- **CSV export** in chunks of 5,000 rows to avoid freezing the UI.
-
-### 🧠 Memory simulator
-
-> Loaded as an external expansion (`expansions/expansion-pack-1/memory/`).
-
-- **4,096 bytes** of addressable memory.
-- **`000` to `FFF`** hex addresses.
-- **4 KB** total.
-- **Read, write, fill with value, clear all**.
-- **Grid** of 16 bytes per row, **16 pages** of 256 bytes each.
-- **Persistence** in `localStorage` (`nibbly-memory-v1`).
-
-### 🎨 Drawing
-Simple editor loaded as an **external expansion** (`paint/paint.css` and `paint/paint.js`):
-
-- **🖌️ Brush** — smooth antialiased strokes, thickness 1–40 px
-- **✏️ Pencil** — pixel-perfect (Bresenham)
-- **🧽 Eraser** — leaves the pixel transparent
-- **💧 Eyedropper** — capture any pixel color
-- **🎨 Color picker** with circular preview
-- **📋 Individual copy** of `RGBA` and `HEX` values
-- **Adaptive canvas**: 320×320 on mobile, 500×400 on desktop
-- **Transparency checkerboard** to see opacity
-
-### 🔒 Private Mode
-Module loaded as an **external expansion** (`privacy/privacy.css` and `privacy/privacy.js`). Adds **two discreet FABs** in the topbar (next to the ⚙ settings gear):
-
-- **🧮 Private calculator** — fullscreen dark interface with a complete scientific calculator
-- **👁️ Black screen** — true fullscreen with exit via 3 taps
-
-#### Responsibility warning
-First time shows a modal with academic notice + `Don't show again` checkbox persisted in `nibbly-privacy-v1`.
-
-#### Private calculator
-- **📝 Accumulated expression** visible
-- **🔢 Large display** with current number
-- **🧮 Symmetric layout** with numeric keypad
-- **Full operators**: `+ − × ÷ x^y √ ± ⌫ C = ( )`
-- **Parentheses with `parenStack`**: up to 32 nesting levels
-- **Decimals with `,` or `.`**
-- **Panic button 👁️** hides the calc without destroying it
-- **`?` button** → security tips modal
-- **`✕` button** → closes the calc
-
-#### Black screen
-- `#000` background with `touch-action: none`
-- **True fullscreen** (hides system bars)
-- **3 taps** within ≤ 800 ms to exit
-- **IME rescue** for keyboard after fullscreen
-
-#### Music synchronization
-- Auto pause when opening private mode
-- Auto resume when returning (unless coming from calc → black screen → calc)
-
-### 🎮 Games
-Five minigames, loaded as separate files (`games/games.css`, `games/games.js`, `games-extras/`) to keep `index.html` lightweight:
-
-- **🎲 2048**: 4×4 with slide animation, swipe support, arrow keys
-- **🧱 Tetris**: 10×20 with the 7 tetrominoes, wall-kick rotation, progressive speed
-- **💣 Minesweeper**: 9×9 with 10 mines, first click safe, flags button + long-press
-- **🏓 Pong**: classic Pong with **hidden competitive easter egg** — reach the score **7–0** and something special happens
-- **🫧 Pop It!**: a satisfying bubble-popping minigame
-
-**Settings:**
-- **Games ON/OFF toggle**
-- Friendly error message if `games/*` files are missing
+### 🎮 Games (7 Minigames)
+- **2048, Tetris, Minesweeper, Pong, Pop It!**
+- **Snake (v1.5.1)**: 3 difficulties, "Grace" delay (0.2s) on walls, input queue.
+- **Cube Run (v2.1.5)**: Endless runner, 3 difficulties (1, 2, 3 spikes), **Coin Shop with 6 Skins**, **Audio Ducking** (lowers main app music to play "Cubic Nibbly.ogg"), safe-spawn coin algorithm.
 
 ### 📄 Markdown editor
-Loaded as an **external expansion** (`markdown/markdown.css`, `markdown/markdown.js`):
+- Editor + preview, format bar, GitHub integration, Focus mode, offline-safe.
 
-- **Editor + preview** with split view on desktop and tabs on mobile
-- **Toolbar**: Load, Download, Copy HTML, Fullscreen, GitHub
-- **Format bar**: Undo, Redo, Bold, Strikethrough, Quote, Code, H1/H2/H3
-- **History**: Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z
-- **GitHub integration**: paste URL → downloads the README from `raw.githubusercontent.com` → resolves relative image paths → optional disconnect
-- **Focus mode**: truly fullscreen, hides shell (topbar, nav-bar, FABs), respects safe-area
-- **Sample README** in ES/EN regenerated on language change (only if user hasn't typed)
-- **Offline-safe**: if `marked` / `highlight.js` fail, shows friendly error
-
-### 🖥️ Desktop UI (web / PC only)
-> **⚠️ Important — Do not include in the APK or iOS builds**
->
-> The `desktop-ui/` folder is **exclusively for browser/PC use**.
-
-- **Vertical sidebar** with icons per tab
-- **Responsive card grid** (2–3 columns)
-- **Keyboard shortcuts**: `1`–`9` switch tabs, `Esc` closes Settings
-- **Centered modal** for Settings
-- **Version badge** next to the title
-- **Hover states** on buttons, cards, and tabs
-- **Auto fallback** to mobile layout below 900 px
-
-**Force UI** in Settings → Interface:
-- **Automatic**, **Force Pocket**, **Force Desktop**
+### 🖥️ Desktop UI & Windows Port
+- **Desktop UI (Web)**: Sidebar, card grid, keyboard shortcuts (1-9).
+- **Windows Native**: Built for x86/x64 using **Edge WebView2**. If missing, the installer handles it automatically. No desktop-ui folder required; uses native windowing.
 
 ### ⚙️ Settings
-- 🎨 **Customizable accent color and background**
-- 📋 **Calculation log**: Off / Console / In-app
-- ✨ **Visual effects** ON/OFF (With Sliders)
-- 🔊 **Sounds** ON/OFF (Web Audio API)
-- 🎚️ **Independent volume sliders** for music and sounds
-- 🌐 **Language**: Spanish / English
-- 🔍 **File checker**: detects which expansion files are installed
-
-### 🎨 Animated gradient background
-- **Radial gradient background** that breathes with the music
-- Uses the **accent color**
-- Respects the **Visual effects** toggle
-- No performance cost
-
-### 🎵 Background music
-Optional looping music. Behavior changes depending on the platform:
-
-#### 📱 In the Android APK
-- **✅ Bundled** (`mus/You Are Nibbled.ogg`)
-- **Works offline** from the first launch
-- **Auto pauses** on private mode
-
-#### 🍏 In the iOS Web Clip
-- **✅ Bundled** if hosted on GitHub Pages
-- **Autoplay is restricted** by Safari: you may need to tap the screen to start the music on the loading screen or use the settings toggle.
-
-#### 💻 In the web / PC version
-- **Not included** by default
-- Downloads from **Archive.org** on first enable (<5s)
-- Cached in **Cache Storage** (`nibbly-theme`)
+- Custom accent/background colors, Log mode, Visual effects toggle (respects `no-effects` in games), Sounds/Music volume, Language (ES/EN), File checker, Update bell.
 
 ### 🎨 Vector icons (Optimized)
-- **60+ icons** under `expansions/expansion-pack-1/icons/`
-- **100% Inline SVG** — No PNGs required to render offline vectors.
-- **`NibblyIcons.get(name, opts)`** returns a pure `<svg>` element (not an `<img>`).
-- **Tab icons on Android**: visible on the Android app. The new SVG system inherits `currentColor` natively, preventing Android WebView from applying its forced dark-mode inversion.
-- **CSS tinting** via `.tint-accent`, `.tint-muted`, `.tint-bad`, `.tint-good`
-- **Emoji fallback** on every call site
-- **Inline-flex buttons (v2.0.3)**: icon + label are guaranteed to stay in the same row across browsers and WebViews — no more icons stacked above text.
+- **60+ icons**, 100% Inline SVG, `NibblyIcons.get()`, CSS tinting, Emoji fallback. Inline-flex buttons guaranteed.
 
 ---
 
 ## 🚀 Installation
 
-### 📦 Option 1 — Install the APK (Android)
+### 📦 Option 1 — Windows (Native)
+1. Go to **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)**.
+2. Download `Nibbly-Setup-x64.exe` or `Nibbly-Setup-x86.exe`.
+3. Run the installer. It will check for **Edge WebView2** and install it silently if needed.
+4. Launch Nibbly from the Start Menu.
 
-1. Go to the **[Releases](https://github.com/edwarly999plus/Nibbly/releases/latest)** section
-2. Download the `.apk` file
-3. Enable **"Install apps from unknown sources"**
-4. Install and open
+### 📱 Option 2 — Install the APK (Android)
+1. Download `.apk` from Releases.
+2. Enable "Install from unknown sources".
+3. Install and open. (Music is bundled).
 
-> **Note:** The APK contains the HTML already built **and the background music bundled**.
-
-### 🍏 Option 2 — Install on iOS (Safari)
-
+### 🍏 Option 3 — Install on iOS (Safari)
 1. Download the `.mobileconfig` file from Releases using Safari.
-2. Open the **Files app**. If the file didn't save directly to **iCloud Drive**, move it there.
-3. Tap the `.mobileconfig` file.
-4. Click **"Close" (Cerrar)** when it tells you to go to Settings.
-5. Go to **Settings > General > VPN & Device Management** and tap the profile to install it.
-6. The Nibbly app icon will appear on your home screen.
+2. Open **Files app**, tap the `.mobileconfig`.
+3. Click "Close" when prompted, go to **Settings > General > VPN & Device Management**, and install the profile.
 
-### 🌐 Option 3 — Try online
-
-🔗 **[https://edwarly999plus.github.io/Nibbly/](https://edwarly999plus.github.io/Nibbly/)**
-
-### 🛠️ Option 4 — Build from source
-
-```
-nibbly/
-├── index.html                 ← bootloader
-├── app/
-│   ├── config.js / .css
-│   ├── effects.js / .css
-│   ├── music.js
-│   ├── main.js / .css
-│   └── langs/
-│       ├── strings.js
-│       └── es.js
-├── expansions/expansion-pack-1/
-│   ├── icons/
-│   ├── range/
-│   ├── memory/
-│   ├── paint/
-│   ├── games/
-│   ├── games-extras/
-│   ├── formulas/
-│   ├── privacy/
-│   ├── desktop-ui/
-│   ├── console/
-│   └── markdown/
-├── expansions/expansion-pack-2/
-│   ├── logic-gates/
-│   └── flowcharts/
-├── images/
-├── mus/
-└── img/
-```
-
-#### ⚠️ About `desktop-ui/` in the Android/iOS builds
-**Do not copy the `desktop-ui/` folder to the mobile projects.**
-
-#### 🔒 About `privacy/`
-**Yes, include.**
-
-#### 🧮 About `formulas/` & `expansion-pack-2/`
-**Yes, include.** (`flowcharts/` and `logic-gates/` have no external dependencies; they work fully offline.)
-
-#### 🎵 About `mus/`
-- **Android APK / iOS**: ✅ recommended
-- **Web/PC**: ⚠️ optional (default off)
-
-#### With manual WebView
-Copy everything except `desktop-ui/` and `img/` to `app/src/main/assets/`.
-
-#### With Capacitor
-```bash
-npx cap init Nibbly com.edwarly999plus.nibbly
-npx cap add android
-# Copy everything except desktop-ui/ and img/ to www/
-npx cap sync
-```
-
-With Cordova
-```bash
-cordova create nibbly com.edwarly999plus.nibbly Nibbly
-# Copy everything except desktop-ui/ and img/ to www/
-cordova build android
-```
+### 🌐 Option 4 — Try Online / Build from Source
+- **Try Online**: [https://edwarly999plus.github.io/Nibbly/](https://edwarly999plus.github.io/Nibbly/)
+- **Build**: The `nibbly/` folder structure is the same. For Windows (using WebView2), simply compile the same web assets into a Windows executable using Edge WebView2 wrapper (e.g., WebView2 SDK, Tauri, or a simple C# wrapper). Do NOT copy the `desktop-ui/` folder, as the Windows build uses the default mobile UI in a resizable window, or the desktop UI if desired.
 
 ---
 
 ### 🔒 Privacy
-
 · ❌ Doesn't collect any data
-· ❌ No analytics or telemetry
-· ❌ Doesn't send information to external servers
 · ✅ All settings are saved locally
-· ✅ Conversions, calculations, formulas, drawings and .md edits happen exclusively on the device
 
 ---
 
 ### 🎮 Easter eggs
-
-· Pong 7–0: reach a score of 7–0 in Pong and something special happens.
-· Please Don't (Settings): enables physics explosion / black hole in the calculator.
-
----
-
-### 🛠️ Technology
-
-· HTML5, CSS3, Vanilla JavaScript
-· Web Audio API, Canvas 2D, SVG DOM, BigInt
-· LocalStorage, Cache Storage API
-· Fullscreen API, ResizeObserver, requestAnimationFrame
-· Function constructor (sanitized) for formula evaluation
-· Android System WebView & iOS Safari WebKit
-· Inline-flex icon buttons (no :has() dependency) for old-WebView safety
-
-Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
+· Pong 7–0: reach a score of 7–0 in Pong.
+· Please Don't: enables physics explosion / black hole.
 
 ---
 
 ### 🗺️ Roadmap
-
 · ☑ v1.0.5 — Fórmulas tab
-· ☑ v2.0.0 — The Bigger Update (bootloader, 7 core modules, 11 expansions, ciphers, markdown, range, memory, icons, bilingual support, WebView fixes)
-· ☑ v2.0.1 — Logic Gates (first expansion-pack-2 module)
-· ☑ v2.0.2 — Diagrams, iOS Support & Fixes (Flowcharts tab, Remainder Finder, Boolean Logic, new base conversions, Inline SVG optimization, iOS Web Clip installation)
-· ☑ v2.0.3 — Bug fixes & Flowchart QoL (ES "Proceso", icon alignment, red error background, shape-aware arrows, SVG text wrap, scroll preservation, Edit mode, Nibbly-style modals)
-· ☑ v2.0.4 — Practice Tab (Works 100% locally without AI for exam preparation)
-· ☑ v2.0.5 — Practice Tab icon patches & updated watchdog
+· ☑ v2.0.0 — The Bigger Update
+· ☑ v2.0.1 — Logic Gates
+· ☑ v2.0.2 — Diagrams, iOS Support & Fixes
+· ☑ v2.0.3 — Bug fixes & Flowchart QoL
+· ☑ v2.0.4 — Practice Tab
+· ☑ v2.0.5 — Practice Tab icon patches
+· ☑ v2.0.6 — Logic Gates Waves, Wave Maker, Cube Run, Snake, Windows Port (WebView2)
 · ☐ v2.0.x — More bug fixes
 · ☐ v3.0.x — (Soon...)
 
 ---
 
 ### 🤝 Contributing
-
 1. Fork the project
 2. Create a branch: `git checkout -b fix/bug-name`
 3. Commit: `git commit -m "fix: bug description"`
@@ -538,16 +240,13 @@ Approximate size: ~360 KB of web + ~1–2 MB of the .ogg files
 ---
 
 ### 👤 Author
-
 EdwarlyGamer999+
-
 · 🐙 GitHub: @edwarly999plus
 · 📦 Repository: Nibbly
 
 ---
 
 ### 📄 License
-
 Apache-2.0. See the LICENSE file for details.
 
 ---
